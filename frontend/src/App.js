@@ -1,10 +1,14 @@
 import Navbar from "./components/Navbar";
+import HomePage from "./pages/HomePage";
 
 
 function App() {
   return (
       <>
-        <Navbar/>
+          <Navbar/>
+          <div className={"container m-auto"}>
+              <HomePage/>
+          </div>
       </>
 
   );
