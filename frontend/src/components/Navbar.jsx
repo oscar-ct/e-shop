@@ -2,6 +2,7 @@ import {useEffect, useState} from "react";
 import {motion} from "framer-motion";
 import {FaShoppingCart, FaUser} from "react-icons/fa";
 import {ReactComponent as Logo} from "../icons/e.svg"
+import {Link} from 'react-router-dom'
 
 
 const Navbar = () => {
@@ -63,25 +64,28 @@ const Navbar = () => {
                         {/*</ul>*/}
                         <div className={"flex justify-end"}>
                             <ul className="ml-auto mr-8 hidden items-center gap-6 lg:flex">
-                                <motion.li
-                                    className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer"
-                                    whileHover={{ scale: 1.2 }}
-                                    whileTap={{ scale: 1.0 }}>
-                                    <FaShoppingCart/>
-                                    <span className={"pl-2"}>
-                                        Cart
-                                    </span>
-
-                                </motion.li>
-                                <motion.li
-                                    className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer"
-                                    whileHover={{ scale: 1.2 }}
-                                    whileTap={{ scale: 1.0 }}>
-                                    <FaUser/>
-                                    <span className={"pl-2"}>
-                                        Login
-                                    </span>
-                                </motion.li>
+                                <Link to={"/cart"}>
+                                    <motion.li
+                                        className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer"
+                                        whileHover={{ scale: 1.2 }}
+                                        whileTap={{ scale: 1.0 }}>
+                                            <FaShoppingCart/>
+                                            <span className={"pl-2"}>
+                                            Cart
+                                             </span>
+                                    </motion.li>
+                                </Link>
+                                <Link to={"/login"}>
+                                    <motion.li
+                                        className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer"
+                                        whileHover={{ scale: 1.2 }}
+                                        whileTap={{ scale: 1.0 }}>
+                                            <FaUser/>
+                                            <span className={"pl-2"}>
+                                            Login
+                                        </span>
+                                    </motion.li>
+                                </Link>
                             </ul>
                         </div>
                     </div>
