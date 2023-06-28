@@ -3,9 +3,13 @@ import {motion} from "framer-motion";
 import {FaShoppingCart, FaUser} from "react-icons/fa";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import {Link} from 'react-router-dom'
+import {useSelector} from "react-redux";
 
 
 const Navbar = () => {
+    const {cartItems} = useSelector(function (state) {
+        return state.cart;
+    });
 
     const [openNav, setOpenNav] = useState(false);
     useEffect(() => {
@@ -37,7 +41,7 @@ const Navbar = () => {
             transition: "all 0.5s",
             transform: "translateX(-100%)"
         }
-    }
+    };
 
 
     return (
@@ -73,6 +77,17 @@ const Navbar = () => {
                                             <span className={"pl-2"}>
                                             Cart
                                              </span>
+                                            {
+                                                cartItems.length > 0 && (
+                                                    <div className="ml-1 font-bold badge badge-primary">
+                                                        {
+                                                            cartItems.reduce(function (acc, item) {
+                                                            return acc + item.quantity
+                                                            }, 0)
+                                                        }
+                                                    </div>
+                                                )
+                                            }
                                     </motion.li>
                                 </Link>
                                 <Link to={"/login"}>
