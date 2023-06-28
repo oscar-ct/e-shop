@@ -1,12 +1,14 @@
 import React from 'react';
-import {useParams} from "react-router-dom";
+import {useParams, useNavigate} from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
-// import {useEffect, useState} from "react";
+import {useEffect, useState} from "react";
 // import axios from "axios";
 import {useGetProductDetailsQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
+import {addToCart} from "../slices/cartSlice";
+import {useDispatch} from "react-redux";
 
 const ProductPage = () => {
     // const [product, setProduct] = useState({});
@@ -21,6 +23,16 @@ const ProductPage = () => {
     //     }
     //     fetchProduct();
     // }, [productId]);
+
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const [quantity, setQuantity] = useState(1);
+    const addToCartHandler = () => {
+        dispatch(addToCart({
+            ...product, quantity
+        }));
+        navigate("/cart");
+    }
 
 
     return (
@@ -56,29 +68,44 @@ const ProductPage = () => {
                             <div className={"lg:w-3/12"}>
                                 <div className={"px-6 text-xl lg:text-base"}>
                                     <div className={"rounded-tr-lg rounded-tl-lg border-2 border-gray-300 p-6 w-full flex"}>
-                                <span className={"w-6/12"}>
-                                    Price:
-                                </span>
+                                        <span className={"w-6/12"}>
+                                            Price:
+                                        </span>
                                         <span className={"w-6/12 font-bold"}>
-                                    ${product.price}
-                                </span>
+                                            ${product.price}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className={"px-6 text-xl lg:text-base"}>
                                     <div className={"border-x-2 border-b-2 border-gray-300 p-6 w-full flex"}>
-                                 <span className={"w-6/12"}>
-                                    Status:
-                                </span>
+                                         <span className={"w-6/12"}>
+                                            Status:
+                                        </span>
                                         <span className={"w-6/12 font-bold"}>
-                                    {product.countInStock > 0 ? "In Stock" : "Out Of Stock"}
-                                </span>
+                                            {product.countInStock > 0 ? `In Stock` : "Out Of Stock"}
+                                        </span>
                                     </div>
                                 </div>
                                 <div className={"px-6"}>
                                     <div className={"rounded-br-lg rounded-bl-lg border-x-2 border-b-2 border-gray-300 p-6 w-full flex justify-center"}>
-                                        <button className={`lg:btn-md btn-lg btn ${product.countInStock === 0 ? "btn-disabled" : "btn-light"}`} disabled={product.countInStock === 0}>
-                                            Add To Cart
-                                        </button>
+                                        <div className={"w-full flex justify-between"}>
+                                            {
+                                                product.countInStock > 0 && (
+                                                    <input
+                                                        onChange={(e) => setQuantity(Number(e.target.value))}
+                                                        min={1}
+                                                        defaultValue={1}
+                                                        max={product.countInStock}
+                                                        type="number"
+                                                        className="input input-bordered max-w-xs" />
+                                                )
+                                            }
+
+                                            <button className={`lg:btn-md btn-lg btn ${product.countInStock === 0 ? "btn-disabled" : "btn-light"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
+                                                Add To Cart
+                                            </button>
+                                        </div>
+
                                     </div>
                                 </div>
                             </div>
