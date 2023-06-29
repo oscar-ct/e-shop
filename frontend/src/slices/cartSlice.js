@@ -33,10 +33,16 @@ const cartSlice = createSlice({
          }
          // updating all cart prices incl. tax, shipping, and qty from cartUtils
          return updateCart(state);
-      }
+      },
+      removeFromCart: function (state, action) {
+         state.cartItems = state.cartItems.filter(function (item) {
+            return item._id !== action.payload
+         });
+         return updateCart(state);
+      },
    },
 });
 
-export const { addToCart } = cartSlice.actions;
+export const { addToCart, removeFromCart } = cartSlice.actions;
 
 export default cartSlice.reducer;
