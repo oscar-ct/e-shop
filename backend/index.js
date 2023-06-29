@@ -16,6 +16,12 @@ connectDB();
 // 2). Initialize Express framework
 const app = express();
 
+// **** Built-in express middleware ****
+// Req body parser
+app.use(express.json());
+// Req urlencoded parser
+app.use(express.urlencoded({extended: true}));
+
 
 app.get('/', function (request, response) {
     response.send("API is running!!!");
