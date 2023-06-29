@@ -11,6 +11,7 @@ const CartItem = ( {item} ) => {
 
     const dispatch = useDispatch();
 
+
     const addToCartHandler = async () => {
         setItemUpdated(true);
         dispatch(addToCart({
@@ -19,10 +20,11 @@ const CartItem = ( {item} ) => {
         setTimeout(function () {
             setItemUpdated(false);
         }, 1000)
-    }
+    };
     const removeFromCartHandler = async (id) => {
         dispatch(removeFromCart(id));
-    }
+    };
+
 
     return (
         <>

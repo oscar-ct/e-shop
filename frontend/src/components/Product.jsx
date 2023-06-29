@@ -25,10 +25,9 @@ const Product = ( {product} ) => {
                             <span className={"text-2xl font-bold text-slate-500"}>${product.price}</span>
                         </div>
                     </div>
-
-                    <div className="card-actions">
-                        <button className="btn btn-primary">Buy Now</button>
-                    </div>
+                    {/*<div className="card-actions">*/}
+                    {/*    <button className="btn btn-primary">Buy Now</button>*/}
+                    {/*</div>*/}
                 </div>
             </div>
         </>
