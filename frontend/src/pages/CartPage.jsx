@@ -1,10 +1,12 @@
 import React from 'react';
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import Message from "../components/Message";
 import {useSelector} from "react-redux";
 import CartItem from "../components/CartItem";
 
 const CartPage = () => {
+
+    const navigate = useNavigate();
 
     const {cartItems} = useSelector(function (state) {
         return state.cart;
@@ -14,6 +16,9 @@ const CartPage = () => {
         return acc + product.quantity * product.price;
     }, 0).toFixed(2);
 
+    const checkoutHandler = () => {
+        navigate('/login?redirect=/shipping');
+    };
 
     return (
         <>
@@ -79,7 +84,12 @@ const CartPage = () => {
                                         </span>
                                     </div>
                                     <div className="card-actions justify-end">
-                                        <button className="btn ">Proceed To Checkout</button>
+                                        <button
+                                            onClick={checkoutHandler}
+                                            className="btn"
+                                        >
+                                            Proceed To Checkout
+                                        </button>
                                     </div>
                                 </div>
                             </div>
