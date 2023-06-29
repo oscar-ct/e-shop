@@ -24,10 +24,28 @@ const Message = ({variant, children}) => {
         }
     }
 
+    const alertClass = (variant) => {
+        switch (variant) {
+            case "error" :
+                return "alert alert-error";
+            case "warning" :
+                return "alert alert-warning";
+            case "success" :
+                return "alert alert-success";
+            default :
+                return "alert alert-info"
+        }
+
+    }
+
     return (
-        <div className={`alert alert-${variant}`}>
-            { iconType(variant) }
-            <span>{children}</span>
+        // this is not working properly
+        // <div className={`alert alert-${variant}`}>
+        <div className={alertClass(variant)}>
+            <div className={"flex"}>
+                <span className={"mr-1"}>{ iconType(variant) } </span>
+                <span>{children}</span>
+            </div>
         </div>
     );
 };
