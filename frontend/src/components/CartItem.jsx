@@ -7,13 +7,18 @@ import {useDispatch} from "react-redux";
 const CartItem = ( {item} ) => {
 
     const [quantity, setQuantity] = useState(1);
+    const [itemUpdated, setItemUpdated] = useState(false);
 
     const dispatch = useDispatch();
 
     const addToCartHandler = async () => {
+        setItemUpdated(true);
         dispatch(addToCart({
             ...item, quantity
         }));
+        setTimeout(function () {
+            setItemUpdated(false);
+        }, 1000)
     }
     const removeFromCartHandler = async (id) => {
         dispatch(removeFromCart(id));
@@ -75,15 +80,25 @@ const CartItem = ( {item} ) => {
                                     defaultValue={item.quantity}
                                     max={item.countInStock}
                                     type="number"
-                                    className="ml-1 input input-bordered max-w-xs"
+                                    className="mx-2 input input-bordered max-w-xs"
                                 />
                             </div>
                             <div className={"w-20 flex justify-center items-center"}>
-                                <button
-                                    onClick={addToCartHandler}
-                                    className={"btn btn-xs"}>
-                                    Update
-                                </button>
+                                {
+                                    !itemUpdated ? (
+                                        <button
+                                            onClick={addToCartHandler}
+                                            className={"btn btn-xs"}>
+                                            Update
+                                        </button>
+                                    ) : (
+                                        <button
+                                            className={"btn btn-success btn-xs"}>
+                                            Updated!
+                                        </button>
+                                    )
+                                }
+
                             </div>
                         </div>
                     </div>
