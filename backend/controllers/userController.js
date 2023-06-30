@@ -52,7 +52,43 @@ const updateUserData = asyncHandler(async (req, res) => {
 });
 // POST
 const registerUser = asyncHandler(async (req, res) => {
-    res.send("registerUser")
+    const {name, email, password} = req.body;
+    const userExists = await User.findOne({email: email});
+    if (userExists) {
+        res.status(400);
+        throw new Error("User already exists");
+    } else {
+        const salt = await bcrypt.genSalt(10);
+        const protectedPassword = await bcrypt.hash(password, salt);
+        console.log(protectedPassword);
+        const user = await User.create({
+            name: name,
+            email: email,
+            password: protectedPassword,
+        });
+        if (user) {
+            // Create jwt token
+            const token = jwt.sign({userId: user.id}, process.env.JWT_SECERT, {expiresIn: "30d"});
+            // Set jwt as HTTP-only cookie
+            res.cookie("jwt", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV !== "development", // boolean
+                sameSite: "strict",
+                // milliseconds
+                maxAge: 30*24*60*60*100 // 30d
+            });
+            res.status(201);
+            return res.json({
+                _id: user.id,
+                name: user.name,
+                email: user.email,
+                isAdmin: user.isAdmin,
+            });
+        } else {
+            res.status(400);
+            throw new Error('Invalid user data');
+        }
+    }
 });
 // POST
 const logoutUser = asyncHandler(async (req, res) => {
