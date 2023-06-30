@@ -56,7 +56,12 @@ const registerUser = asyncHandler(async (req, res) => {
 });
 // POST
 const logoutUser = asyncHandler(async (req, res) => {
-    res.send("logoutUser")
+    res.cookie("jwt", "", {
+        httpOnly: true,
+        expires: new Date(0),
+    });
+    res.status(200);
+    res.json({message: "logout success"});
 });
 
 
