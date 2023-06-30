@@ -1,6 +1,11 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
+import jwt from "jsonwebtoken";
+
+const invalidCredentialsError = () => {
+    throw new Error("Invalid email/password")
+};
 
 // GET
 const authUser = asyncHandler(async (req, res) => {
@@ -9,6 +14,19 @@ const authUser = asyncHandler(async (req, res) => {
     if (user) {
         const bcryptMatchPassword = await bcrypt.compare(password, user.password);
         if (bcryptMatchPassword) {
+
+            // Create jwt token
+            const token = jwt.sign({userId: user.id}, process.env.JWT_SECERT, {expiresIn: "30d"});
+
+            // Set jwt as HTTP-only cookie
+            res.cookie("jwt", token, {
+                httpOnly: true,
+                secure: process.env.NODE_ENV !== "development", // boolean
+                sameSite: "strict",
+                // milliseconds
+                maxAge: 30*24*60*60*100 // 30d
+            });
+
            return res.json({
                _id: user.id,
                name: user.name,
@@ -17,11 +35,11 @@ const authUser = asyncHandler(async (req, res) => {
            });
         } else {
             res.status(401);
-            throw new Error("Invalid password");
+            invalidCredentialsError();
         }
     } else {
         res.status(401);
-        throw new Error("Invalid email");
+        invalidCredentialsError();
     }
 });
 // GET
