@@ -1,5 +1,6 @@
 import express from 'express';
 import dotenv from 'dotenv';
+import cookieParser from "cookie-parser";
 dotenv.config();
 import connectDB from './configDatabaseConnection/db.js'
 import productRoutes from "./routes/productRoutes.js";
@@ -22,6 +23,9 @@ app.use(express.json());
 // Req urlencoded parser
 app.use(express.urlencoded({extended: true}));
 
+// 3rd party middleware
+// Cookie parser
+app.use(cookieParser());
 
 app.get('/', function (request, response) {
     response.send("API is running!!!");
@@ -29,6 +33,8 @@ app.get('/', function (request, response) {
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
+
+// Custom middleware
 app.use(notFoundError);
 app.use(errorHandler);
 
