@@ -7,7 +7,7 @@ const invalidCredentialsError = () => {
     throw new Error("Invalid email/password")
 };
 
-// GET
+// POST
 const authUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body;
     const user = await User.findOne({email: email});

@@ -18,7 +18,7 @@ const router = express.Router();
 
 router.post('/',registerUser);
 router.post('/logout', logoutUser);
-router.get('/login', authUser);
+router.post('/login', authUser);
 
 // Using custom middleware PROTECT
 router.get('/profile', protect, getUserData);
