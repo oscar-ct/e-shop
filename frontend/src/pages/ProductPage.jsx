@@ -2,7 +2,7 @@ import React from 'react';
 import {useParams, useNavigate} from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 // import axios from "axios";
 import {useGetProductDetailsQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
@@ -59,53 +59,60 @@ const ProductPage = () => {
                                     <Rating rating={product.rating} text={`${product.numReviews} reviews`}/>
                                 </div>
                                 <div className={"py-4 border-b-2 border-gray-300"}>
-                                    <span>Brand: {product.brand}</span>
+                                    <span className={"font-bold pr-2"}>Brand:</span><span>{product.brand}</span>
                                 </div>
                                 <div className={"pt-4"}>
-                                    <span>{product.description}</span>
+                                    <span className={"font-bold pr-2"}>Description:</span><span>{product.description}</span>
                                 </div>
                             </div>
-                            <div className={"lg:w-3/12"}>
-                                <div className={"px-6 text-xl lg:text-base"}>
-                                    <div className={"rounded-tr-lg rounded-tl-lg border-2 border-gray-300 p-6 w-full flex"}>
-                                        <span className={"w-6/12"}>
+                            <div className={"lg:w-3/12 h-min card bg-base-100 shadow-xl"}>
+                                <div className={"pt-8 text-xl lg:text-base"}>
+                                    <div className={"px-6 w-full flex"}>
+                                        <span className={"text-end pr-3 w-6/12"}>
                                             Price:
                                         </span>
-                                        <span className={"w-6/12 font-bold"}>
+                                        <span className={"w-6/12 pl-3 font-bold"}>
                                             ${product.price}
                                         </span>
                                     </div>
                                 </div>
-                                <div className={"px-6 text-xl lg:text-base"}>
-                                    <div className={"border-x-2 border-b-2 border-gray-300 p-6 w-full flex"}>
-                                         <span className={"w-6/12"}>
+                                <div className={"text-xl lg:text-base"}>
+                                    <div className={"px-6 py-2 w-full flex"}>
+                                         <span className={"w-6/12 pr-3 text-end"}>
                                             Status:
                                         </span>
-                                        <span className={"w-6/12 font-bold"}>
+                                        <span className={"w-6/12 pl-3 font-bold"}>
                                             {product.countInStock > 0 ? `In Stock` : "Out Of Stock"}
                                         </span>
                                     </div>
                                 </div>
-                                <div className={"px-6"}>
-                                    <div className={"rounded-br-lg rounded-bl-lg border-x-2 border-b-2 border-gray-300 p-6 w-full flex justify-center"}>
-                                        <div className={"w-full flex justify-between"}>
-                                            {
-                                                product.countInStock > 0 && (
-                                                    <input
-                                                        onChange={(e) => setQuantity(Number(e.target.value))}
-                                                        min={1}
-                                                        defaultValue={1}
-                                                        max={product.countInStock}
-                                                        type="number"
-                                                        className="input input-bordered max-w-xs" />
-                                                )
-                                            }
+                                <div className={"text-xl lg:text-base"}>
+                                    <div className={"px-6 w-full flex"}>
+                                         <span className={"w-6/12 pr-3 text-end"}>
+                                            Remaining In Stock:
+                                        </span>
+                                        <span className={"w-6/12 pl-3 font-bold"}>
+                                            {product.countInStock}
+                                        </span>
+                                    </div>
+                                </div>
+                                <div className={"p-10 w-full flex justify-center"}>
+                                    <div className={"w-full flex justify-between"}>
+                                        {
+                                            product.countInStock > 0 && (
+                                                <input
+                                                    onChange={(e) => setQuantity(Number(e.target.value))}
+                                                    min={1}
+                                                    defaultValue={1}
+                                                    max={product.countInStock}
+                                                    type="number"
+                                                    className="input input-bordered max-w-xs" />
+                                            )
+                                        }
 
-                                            <button className={`lg:btn-md btn-lg btn ${product.countInStock === 0 ? "btn-disabled" : "btn-light"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
-                                                Add To Cart
-                                            </button>
-                                        </div>
-
+                                        <button className={`lg:btn-md btn-lg btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
+                                            Add To Cart
+                                        </button>
                                     </div>
                                 </div>
                             </div>
