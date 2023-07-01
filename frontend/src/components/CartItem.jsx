@@ -54,10 +54,10 @@ const CartItem = ( {item} ) => {
                         </div>
                         <div className={"py-1"}>
                             <span className={"font-bold"}>
-                                Category:
+                                Remaining In Stock:
                             </span>
                             <span className={"ml-1"}>
-                                {item.category}
+                                {item.countInStock}
                             </span>
                         </div>
                         <div>
