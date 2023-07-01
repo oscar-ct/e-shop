@@ -73,7 +73,7 @@ const LoginPage = () => {
                         <div className="w-full flex justify-center self-center">
                             <div className="bg-base-100 shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
                                 <div className="mb-4">
-                                    <h3 className="font-semibold text-2xl text-gray-800">Sign In
+                                    <h3 className="font-semibold text-2xl text-gray-800">Login
                                     </h3>
                                     <p className="text-gray-500">Please sign in to your account.
                                     </p>
@@ -102,7 +102,7 @@ const LoginPage = () => {
                                             className="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                             autoComplete={"current-password"}
                                             type={ showPassword ? "text" : "password"}
-                                            placeholder={"Enter your Password"}
+                                            placeholder={"Enter your password"}
                                             id={"password"}
                                             value={password}
                                             onChange={onCredentialChange}
@@ -150,8 +150,8 @@ const LoginPage = () => {
                                     <p className={"pt-6"}>
                                         Don't have an account?
                                     </p>
-                                    <Link to={"/register"} className="link text-blue-400 hover:text-blue-500 pt-6 pl-1">
-                                        Sign-up
+                                    <Link to={ redirect ? `/register?redirect=${redirect}` : "/register"} className="link text-blue-400 hover:text-blue-500 pt-6 pl-1">
+                                        Register Now
                                     </Link>
                                 </div>
                             </div>
