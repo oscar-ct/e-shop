@@ -11,13 +11,16 @@ const CartPage = () => {
     const {cartItems} = useSelector(function (state) {
         return state.cart;
     });
+    const {userData} = useSelector(function (state) {
+        return state.auth;
+    });
 
     const totalPrice =  cartItems.reduce(function (acc, product) {
         return acc + product.quantity * product.price;
     }, 0).toFixed(2);
 
     const checkoutHandler = () => {
-        navigate('/login?redirect=/shipping');
+        userData ? navigate("/shipping") : navigate('/login?redirect=/shipping');
     };
 
     return (
