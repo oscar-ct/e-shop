@@ -30,7 +30,7 @@ const HomePage = () => {
                     <Message variant={"error"} children={error?.data?.message || error.error}/>
                 ) : (
                     <>
-                        <h1 className={"text-center py-3 text-3xl lg:pt-1 font-bold"}>Latest Products</h1>
+                        <h1 className={"lg:mt-4 py-3 text-center text-3xl"}>Featured Products</h1>
                         <div className={"m-auto w-full flex flex-wrap justify-center"}>
                             {
                                 products.map(function (product) {
