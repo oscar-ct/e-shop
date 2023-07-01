@@ -2,9 +2,10 @@ import {useEffect, useState, useRef} from "react";
 import {motion} from "framer-motion";
 import {FaShoppingCart, FaUser, FaChevronDown} from "react-icons/fa";
 import {ReactComponent as Logo} from "../icons/e.svg"
-import {Link} from 'react-router-dom'
-import {useSelector} from "react-redux";
-
+import {Link, useNavigate} from 'react-router-dom'
+import {useSelector, useDispatch} from "react-redux";
+import {useLogoutMutation} from "../slices/usersApiSlice";
+import {logout} from "../slices/authSlice";
 
 const Navbar = () => {
     const {cartItems} = useSelector(function (state) {
@@ -14,6 +15,9 @@ const Navbar = () => {
         return state.auth;
     });
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [logoutApiCall] = useLogoutMutation();
     const documentRef = useRef(null);
     const [openNav, setOpenNav] = useState(false);
     const [dropdownActive, setDropdownActive] = useState(false);
@@ -65,6 +69,17 @@ const Navbar = () => {
     }, 0).toFixed(2);
 
 
+    const logoutHandler = async () => {
+        try {
+            await logoutApiCall().unwrap();
+            dispatch(logout());
+            navigate("/login");
+            setDropdownActive(false);
+        } catch (e) {
+            console.log(e)
+        }
+    }
+
     return (
         <>
             <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-5 shadow-md backdrop-blur-sm lg:py-4`}>
@@ -96,7 +111,7 @@ const Navbar = () => {
                                                     <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                                                     {
                                                         cartItems.length !== 0 && (
-                                                            <span className="badge badge-sm indicator-item">{totalCartItems}</span>
+                                                            <span className="badge text-white bg-primary badge-sm indicator-item">{totalCartItems}</span>
                                                         )
                                                     }
 
@@ -153,7 +168,7 @@ const Navbar = () => {
                                                         <div role="none">
                                                             <ul role="menuitem" tabIndex="-1" id="menu-item-0" className="menu bg-neutral w-56 rounded-box text-white font-bold flex flex-col justify-between">
                                                                 <li><a className={""}>Profile</a></li>
-                                                                <li><a className={""}>Logout</a></li>
+                                                                <li><button onClick={logoutHandler}>Logout</button></li>
                                                             </ul>
                                                         </div>
                                                     </div>
