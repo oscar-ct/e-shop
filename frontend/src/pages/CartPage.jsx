@@ -21,7 +21,7 @@ const CartPage = () => {
     };
 
     return (
-        <>
+        <div className={"mt-10"}>
             {
                 cartItems.length === 0 ? (
                     <Message>
@@ -47,7 +47,7 @@ const CartPage = () => {
                             }
                             </div>
                         </div>
-                        <div className={"p-3 lg:w-4/12"}>
+                        <div className={"p-3 lg:pl-10 lg:w-4/12"}>
                             <div className="card bg-neutral text-neutral-content">
                                 {
                                     totalPrice > 100 ? (
@@ -97,7 +97,7 @@ const CartPage = () => {
                     </div>
                 )
             }
-        </>
+        </div>
     );
 };
 
