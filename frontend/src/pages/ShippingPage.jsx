@@ -10,7 +10,6 @@ const ShippingPage = () => {
         return state.cart;
     });
     const {shippingAddress} = cartItems;
-
     const [shippingData, setShippingData] = useState({
         address: shippingAddress?.address || "",
         city: shippingAddress?.city || "",
@@ -25,16 +24,14 @@ const ShippingPage = () => {
             [e.target.id]: e.target.value,
         }));
     };
-
     const navigate = useNavigate();
     const dispatch = useDispatch();
-
 
     const submitShippingData = (e) => {
         e.preventDefault();
         dispatch(saveShippingAddress({address: address, city: city, postalCode: postalCode, country: country}));
         navigate("/payment");
-    }
+    };
 
     return (
         <>
