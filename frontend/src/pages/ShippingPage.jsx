@@ -2,6 +2,7 @@ import React, {useState} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {saveShippingAddress} from "../slices/cartSlice";
+import CheckoutSteps from "../components/CheckoutSteps";
 
 const ShippingPage = () => {
 
@@ -37,10 +38,10 @@ const ShippingPage = () => {
 
     return (
         <>
-
-            <div className={"lg:mt-5 w-full flex justify-center"}>
+            <CheckoutSteps step1 />
+            <div className={"w-full flex justify-center"}>
                 <div className={"card p-10 w-[35em] bg-base-100 shadow-xl"}>
-                    <div className={"w-full pb-5 lg:py-6 flex justify-center"}>
+                    <div className={"w-full pb-5 flex justify-center"}>
                         <h1 className={"text-2xl font-bold"}>Shipping Information</h1>
                     </div>
                     <form onSubmit={submitShippingData} className="space-y-5">
