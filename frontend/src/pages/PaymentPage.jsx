@@ -9,24 +9,29 @@ import {FaCreditCard} from "react-icons/fa";
 
 const PaymentPage = () => {
 
-    const [paymentMethod, setPaymentMethod] = useState("PayPal");
+
     const cartItems = useSelector(function (state) {
         return state.cart;
     });
-    const {shippingAddress} = cartItems;
+    const {shippingAddress, paymentMethod} = cartItems;
+    const [paymentMeth, setPaymentMeth] = useState(paymentMethod ? paymentMethod : null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
+    const shippingAddressIsInvalid = Object.keys(shippingAddress).length === 0;
 
     useEffect(function (){
-        if (!shippingAddress) {
-            navigate("/shipping")
+        if (shippingAddressIsInvalid) {
+            navigate("/shipping");
         }
     }, [navigate, shippingAddress])
 
     const submitPaymentMethod = (e) => {
         e.preventDefault();
-        dispatch(savePaymentMethod(paymentMethod));
-        navigate("/placeorder")
+        if (paymentMeth) {
+            dispatch(savePaymentMethod(paymentMeth));
+            navigate("/checkout")
+        }
+
     }
     return (
         <>
@@ -40,7 +45,7 @@ const PaymentPage = () => {
                         <div className="mt-5">
                             <div
                                 className={"w-full card bg-base-200 cursor-pointer"}
-                                onClick={() => setPaymentMethod("PayPal")}
+                                onClick={() => setPaymentMeth("PayPal")}
                             >
                                 <div className={"w-full flex p-6"}>
                                     <div className={"w-2/12"}>
@@ -53,13 +58,13 @@ const PaymentPage = () => {
                                     </div>
                                     <div className={"w-2/12 flex items-center"}>
                                         <input
-                                            onChange={(e) => setPaymentMethod(e.target.value)}
+                                            onChange={(e) => setPaymentMeth(e.target.value)}
                                             type="radio"
                                             name="paymentMethod"
                                             id={"PayPal"}
                                             value={"PayPal"}
                                             className="radio radio-primary"
-                                            checked={paymentMethod === "PayPal"}
+                                            checked={paymentMeth === "PayPal"}
                                         />
                                     </div>
                                 </div>
@@ -68,7 +73,7 @@ const PaymentPage = () => {
                         <div className="my-5">
                             <div
                                 className={"w-full card bg-base-200 cursor-pointer"}
-                                onClick={() => setPaymentMethod("CreditCard")}
+                                onClick={() => setPaymentMeth("CreditCard")}
                             >
                                 <div className={"w-full flex p-6"}>
                                     <div className={"w-2/12"}>
@@ -81,20 +86,20 @@ const PaymentPage = () => {
                                     </div>
                                     <div className={"w-2/12 flex items-center"}>
                                         <input
-                                            onChange={(e) => setPaymentMethod(e.target.value)}
+                                            onChange={(e) => setPaymentMeth(e.target.value)}
                                             type="radio"
                                             name="paymentMethod"
                                             id={"CreditCard"}
                                             value={"CreditCard"}
                                             className="radio radio-primary"
-                                            checked={paymentMethod === "CreditCard"}
+                                            checked={paymentMeth === "CreditCard"}
                                         />
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className={"pt-5 w-full flex justify-end"}>
-                            <button className="btn btn-primary btn-wide">
+                            <button className="btn btn-primary btn-wide" disabled={paymentMeth === null}>
                                 Continue To Order
                             </button>
                         </div>
