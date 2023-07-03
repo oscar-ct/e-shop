@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {saveShippingAddress} from "../slices/cartSlice";
@@ -6,10 +6,10 @@ import CheckoutSteps from "../components/CheckoutSteps";
 
 const ShippingPage = () => {
 
-    const cartItems = useSelector(function (state) {
+    const cartState = useSelector(function (state) {
         return state.cart;
     });
-    const {shippingAddress} = cartItems;
+    const {shippingAddress, cartItems} = cartState;
     const [shippingData, setShippingData] = useState({
         address: shippingAddress?.address || "",
         city: shippingAddress?.city || "",
@@ -17,6 +17,14 @@ const ShippingPage = () => {
         country: shippingAddress?.country || "",
     });
     const {address, city, postalCode, country} = shippingData;
+    const navigate = useNavigate();
+    const dispatch = useDispatch();
+
+    useEffect(function () {
+        if (cartItems.length === 0) {
+            navigate("/cart")
+        }
+    }, [navigate, cartItems]);
 
     const onChange = (e) => {
         setShippingData(prevState => ({
@@ -24,8 +32,6 @@ const ShippingPage = () => {
             [e.target.id]: e.target.value,
         }));
     };
-    const navigate = useNavigate();
-    const dispatch = useDispatch();
 
     const submitShippingData = (e) => {
         e.preventDefault();
@@ -99,7 +105,7 @@ const ShippingPage = () => {
                             />
                         </div>
                         <div className={"pt-5 w-full flex justify-end"}>
-                            <button className="btn btn-primary btn-wide">
+                            <button disabled={shippingData.address.length === 0 || shippingData.city.length === 0 || shippingData.postalCode.length === 0 || shippingData.country.length === 0} className="btn btn-primary btn-wide">
                                 Continue To Payment
                             </button>
                         </div>
