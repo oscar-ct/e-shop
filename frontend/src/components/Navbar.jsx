@@ -6,6 +6,7 @@ import {Link, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from "react-redux";
 import {useLogoutMutation} from "../slices/usersApiSlice";
 import {logout} from "../slices/authSlice";
+import {clearCartItems} from "../slices/cartSlice";
 
 const Navbar = () => {
     const {cartItems} = useSelector(function (state) {
@@ -72,8 +73,9 @@ const Navbar = () => {
     const logoutHandler = async () => {
         try {
             await logoutApiCall().unwrap();
-            dispatch(logout());
             navigate("/login");
+            dispatch(clearCartItems());
+            dispatch(logout());
             setDropdownActive(false);
         } catch (e) {
             console.log(e)
