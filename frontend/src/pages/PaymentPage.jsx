@@ -100,7 +100,7 @@ const PaymentPage = () => {
                         </div>
                         <div className={"pt-5 w-full flex justify-end"}>
                             <button className="btn btn-primary btn-wide" disabled={paymentMeth === null}>
-                                Continue To Order
+                                Continue To Checkout
                             </button>
                         </div>
                     </form>
