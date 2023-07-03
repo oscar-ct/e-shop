@@ -53,6 +53,7 @@ const PaymentPage = () => {
                                     </div>
                                     <div className={"w-2/12 flex items-center"}>
                                         <input
+                                            onChange={(e) => setPaymentMethod(e.target.value)}
                                             type="radio"
                                             name="paymentMethod"
                                             id={"PayPal"}
@@ -80,6 +81,7 @@ const PaymentPage = () => {
                                     </div>
                                     <div className={"w-2/12 flex items-center"}>
                                         <input
+                                            onChange={(e) => setPaymentMethod(e.target.value)}
                                             type="radio"
                                             name="paymentMethod"
                                             id={"CreditCard"}
