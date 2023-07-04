@@ -6,9 +6,13 @@ const orderSchema = new mongoose.Schema({
         required: true,
         ref: "User",
     },
-    orderProducts: [
+    orderItems: [
         {
             name: {
+                type: String,
+                required: true,
+            },
+            brand: {
                 type: String,
                 required: true,
             },
@@ -67,7 +71,7 @@ const orderSchema = new mongoose.Schema({
             type: String
         }
     },
-    productsPrice: {
+    itemsPrice: {
         type: Number,
         required: true,
         default: 0.0,
@@ -78,6 +82,11 @@ const orderSchema = new mongoose.Schema({
         default: 0.0,
     },
     shippingPrice: {
+        type: Number,
+        required: true,
+        default: 0.0,
+    },
+    totalPrice: {
         type: Number,
         required: true,
         default: 0.0,
