@@ -22,7 +22,7 @@ const ShippingPage = () => {
 
     useEffect(function () {
         if (cartItems.length === 0) {
-            navigate("/cart")
+            navigate("/")
         }
     }, [navigate, cartItems]);
 

@@ -20,7 +20,10 @@ const PaymentPage = () => {
     const shippingAddressIsInvalid = Object.keys(shippingAddress).length === 0;
 
     useEffect(function (){
-        if (shippingAddressIsInvalid) {
+
+        if (cartItems.cartItems.length === 0) {
+            navigate("/")
+        } else if (shippingAddressIsInvalid) {
             navigate("/shipping");
         }
     }, [navigate, shippingAddress])
