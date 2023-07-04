@@ -44,15 +44,18 @@ const getUserOrderById = asyncHandler(async (req, res) => {
     const userId = req.user._id;
     if (userId) {
         const order = await Order.findById(req.params.id);
-        if (userId === order.user._id) {
+        if (order && userId.toString() === order.user.toString()) {
             res.status(200);
             return res.json(order);
-        } else if (userId !== order.user._id) {
+        } else if (order && userId.toString() !== order.user.toString()) {
             res.status(404);
-            throw new Error("You do not have access to this order");
+            throw new Error("You do not have access to this order!");
+        } else if (!order) {
+            res.status(404);
+            throw new Error("This order does not exist.");
         } else {
             res.status(404);
-            throw new Error("Order not found");
+            throw new Error("Something went wrong locating this order, try again later.");
         }
     }
 });
