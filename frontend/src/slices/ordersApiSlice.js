@@ -41,4 +41,4 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
     }
 });
 
-export const { useCreateOrderMutation, useGetProductDetailsQuery } = productsApiSlice;
+export const { useCreateOrderMutation, useGetMyOrdersQuery, useGetMyOrderByIdQuery } = ordersApiSlice;
