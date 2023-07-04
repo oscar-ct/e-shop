@@ -13,11 +13,9 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                         body: {...data},
                     }
                 },
-                // 5 seconds
-                keepUnusedDataFor: 5
             }),
             getMyOrders: build.query({
-                    query: function (id) {
+                    query: function () {
                         return {
                             url: `${ORDERS_URL}/myorders`
                         }
