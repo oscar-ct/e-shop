@@ -52,7 +52,7 @@ const cartSlice = createSlice({
          state.cartItems = []
          state.shippingAddress = {}
          state.paymentMethod = null
-         localStorage.removeItem("cart");
+         return updateCart(state);
       }
    },
 });
