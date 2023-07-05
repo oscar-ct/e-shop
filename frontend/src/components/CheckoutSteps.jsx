@@ -9,7 +9,7 @@ const CheckoutSteps = ({ step1, step2 }) => {
     });
 
     return (
-        <div className={"flex justify-center mt-5"}>
+        <div className={"flex justify-center py-5"}>
             {
                 step1 ? (
                     <div className={"steps"}>
