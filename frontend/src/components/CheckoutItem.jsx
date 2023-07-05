@@ -36,9 +36,9 @@ const CheckoutItem = ( {item} ) => {
                     </Link>
                 </div>
 
-                <div className={"w-8/12 flex flex-col px-5"}>
+                <div className={"w-8/12 flex flex-col px-3 sm:px-5"}>
 
-                    <div className={"text-lg font-bold"}>
+                    <div className={"sm:text-lg font-bold"}>
                         {item.name}
                     </div>
 
@@ -71,17 +71,17 @@ const CheckoutItem = ( {item} ) => {
                         </div>
 
                         <div className={"flex-col flex sm:flex-row"}>
-                            <div className={"mb-1"}>
-                                <span className={"font-bold text-sm"}>
-                                    Qty:
-                                </span>
+                            <div className={"mb-1 px-1"}>
+                                {/*<span className={"font-bold text-sm"}>*/}
+                                {/*    Qty:*/}
+                                {/*</span>*/}
                                 <input
                                     onChange={(e) => setQuantity(Number(e.target.value))}
                                     min={1}
                                     defaultValue={item.quantity}
                                     max={item.countInStock}
                                     type="number"
-                                    className="mx-2 input input-bordered max-w-xs"
+                                    className="input input-bordered"
                                 />
                             </div>
                             <div className={"flex justify-center items-center"}>
