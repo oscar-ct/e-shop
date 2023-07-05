@@ -23,8 +23,12 @@ const CartPage = () => {
         userData ? navigate("/shipping") : navigate('/login?redirect=/shipping');
     };
 
+    const totalNumberOfItems = cartItems.reduce(function (acc, product) {
+        return (acc + product.quantity);
+    }, 0);
+
     return (
-        <div className={"mt-10"}>
+        <div className={"md:pt-10"}>
             {
                 cartItems.length === 0 ? (
                     <Message>
@@ -38,9 +42,43 @@ const CartPage = () => {
 
                 ) : (
                     <div className={"flex-col flex lg:flex-row w-full"}>
-                        <div className={"lg:w-8/12 card bg-base-100 shadow-xl"}>
+                        <div className={"lg:hidden"}>
+                        {
+                            totalPrice > 100 ? (
+                                <div className={"py-3 px-2 sm:px-0"}>
+                                    <Message variant={"success"}>
+                                            <span className={"text-sm"}>
+                                                Your order qualifies for FREE shipping!
+                                            </span>
+                                    </Message>
+                                </div>
+                            ) : (
+                                <div className={"py-3 px-2 sm:px-0"}>
+                                    <Message>
+                                            <span className={"text-sm"}>
+                                                Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
+                                            </span>
+                                    </Message>
+                                </div>
+                            )
+                        }
+                        </div>
+                        <div className={"lg:w-8/12 card mb-3 bg-base-100 shadow-xl"}>
                             <div className={"p-5"}>
-                                <h1 className={"text-3xl"}>Shopping Cart</h1>
+                                <h1 className={"text-2xl font-bold text-center"}>
+                                    Shopping Cart (
+                                    <span className={"text-xl text-gray-500 font-bold"}>
+                                        {totalNumberOfItems}
+                                        {
+                                            totalNumberOfItems === 1 ? (
+                                                " Item"
+                                            ) : (
+                                                " Items"
+                                            )
+                                        }
+                                    </span>
+                                    )
+                                </h1>
                             {
                                 cartItems.map(function (item) {
                                     return (
@@ -50,11 +88,11 @@ const CartPage = () => {
                             }
                             </div>
                         </div>
-                        <div className={"p-3 lg:pl-10 lg:w-4/12"}>
-                            <div className="card bg-neutral text-neutral-content">
+                        <div className={"px-3 lg:pl-10 lg:w-4/12"}>
+                            <div className={"hidden lg:flex"}>
                                 {
                                     totalPrice > 100 ? (
-                                        <div className={"pt-3 px-3"}>
+                                        <div className={"pb-3 w-full"}>
                                             <Message variant={"success"}>
                                                 <span className={"text-sm"}>
                                                     Your order qualifies for FREE shipping!
@@ -62,7 +100,7 @@ const CartPage = () => {
                                             </Message>
                                         </div>
                                     ) : (
-                                        <div className={"pt-3 px-3"}>
+                                        <div className={"pb-3 w-full"}>
                                             <Message>
                                                 <span className={"text-sm"}>
                                                     Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
@@ -71,29 +109,34 @@ const CartPage = () => {
                                         </div>
                                     )
                                 }
-
-                                <div className="p-8">
-                                    <div className={"flex pb-5"}>
-                                        <span className="card-title">
-                                            Subtotal
-                                            ({
-                                                cartItems.reduce(function (acc, product) {
-                                                return acc + product.quantity;
-                                                }, 0)
-                                            } items):
-                                        </span>
-                                        <span className="pl-2 card-title font-bold">
-                                            ${totalPrice}
-                                        </span>
+                            </div>
+                            <div className="card lg:w-full bg-neutral text-neutral-content self-end">
+                                <div className="px-8 pt-8">
+                                    <div className={"flex flex-col"}>
+                                        <h3 className={"text-xl font-bold"}>
+                                            Subtotal ({totalNumberOfItems})
+                                            {
+                                                totalNumberOfItems > 1 ? (" items:") : (" item:")
+                                            }
+                                        </h3>
+                                        <div className={"border-b-2 border-grey-500 my-2"}/>
+                                        <div className={"flex justify-end"}>
+                                            <span className="pl-2 card-title font-bold">
+                                                ${totalPrice}
+                                                <span className={"text-sm font-bold"}>
+                                                    USD
+                                                </span>
+                                            </span>
+                                        </div>
                                     </div>
-                                    <div className="card-actions justify-end">
-                                        <button
-                                            onClick={checkoutHandler}
-                                            className="btn"
-                                        >
-                                            Proceed To Checkout
-                                        </button>
-                                    </div>
+                                </div>
+                                <div className="card-actions justify-end p-3">
+                                    <button
+                                        onClick={checkoutHandler}
+                                        className="btn"
+                                    >
+                                        Proceed To Checkout
+                                    </button>
                                 </div>
                             </div>
                         </div>
