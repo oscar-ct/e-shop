@@ -28,7 +28,7 @@ const CartItem = ( {item} ) => {
 
     return (
         <>
-            <div className={"my-6 border-b-2 border-grey-500"}/>
+            <div className={"my-5 border-b-2 border-grey-500"}/>
             <div className={"flex w-full"}>
 
                 <div className={"w-3/12"}>
@@ -43,36 +43,48 @@ const CartItem = ( {item} ) => {
                         {item.name}
                     </div>
 
-                    <div className={"flex flex-col pt-2 text-sm"}>
-                        <div>
-                            <span className={"font-bold"}>
-                                Brand:
-                            </span>
-                            <span className={"ml-1"}>
-                                {item.brand}
-                            </span>
+                    <div className={"flex"}>
+                        <div className={"flex flex-col w-6/12 pt-2 text-xs sm:text-sm"}>
+                            <div>
+                                <span className={"font-bold"}>
+                                    Brand:
+                                </span>
+                                <span className={"ml-1"}>
+                                    {item.brand}
+                                </span>
+                            </div>
+                            <div className={"py-1"}>
+                                <span className={"font-bold"}>
+                                    Model:
+                                </span>
+                                <span className={"ml-1"}>
+                                    TBD
+                                </span>
+                            </div>
                         </div>
-                        <div className={"py-1"}>
-                            <span className={"font-bold"}>
-                                Remaining In Stock:
-                            </span>
-                            <span className={"ml-1"}>
-                                {item.countInStock}
-                            </span>
-                        </div>
-                        <div>
-                            <span className={"font-bold"}>
-                                Price:
-                            </span>
-                            <span className={"ml-1"}>
-                                ${item.price}
-                            </span>
+                        <div className={"flex flex-col w-6/12 pt-2 text-xs sm:text-sm"}>
+                            <div className={"flex items-start"}>
+                                <span className={"font-bold"}>
+                                    Remaining In Stock:
+                                </span>
+                                <span className={"ml-1"}>
+                                    {item.countInStock}
+                                </span>
+                            </div>
+                            <div>
+                                <span className={"font-bold"}>
+                                    Price:
+                                </span>
+                                <span className={"ml-1"}>
+                                    ${item.price}
+                                </span>
+                            </div>
                         </div>
                     </div>
 
-                    <div className={"h-full flex items-end"}>
+                    <div className={"h-full flex"}>
                         <div className={"flex"}>
-                            <div>
+                            <div className={"flex items-end"}>
                                 <span className={"font-bold"}>
                                     Qty:
                                 </span>
@@ -85,7 +97,7 @@ const CartItem = ( {item} ) => {
                                     className="mx-2 input input-bordered max-w-xs"
                                 />
                             </div>
-                            <div className={"w-20 flex justify-center items-center"}>
+                            <div className={"w-20 flex justify-center items-end"}>
                                 {
                                     !itemUpdated ? (
                                         <button
