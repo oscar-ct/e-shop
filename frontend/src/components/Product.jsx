@@ -5,29 +5,31 @@ import Rating from "./Rating";
 const Product = ( {product} ) => {
     return (
         <>
-            <div className="card w-full lg:w-80 bg-base-100 shadow-xl m-3">
-                <Link to={`/product/${product._id}`}>
-                    <figure className="px-5 pt-5">
-                        <img src={product.image} alt="Shoes" className="rounded-xl" />
-                    </figure>
-                </Link>
-                <div className="card-body p-5 items-center text-center">
-                    <div className={"w-full h-16"}>
-                        <h2 className="card-title">{product.name}</h2>
-                    </div>
+            <div className="w-6/12 sm:w-72 p-2 sm:p-3">
+                <div className={"card bg-base-100 shadow-xl"}>
+                    <Link to={`/product/${product._id}`}>
+                        <figure className="">
+                            <img src={product.image} alt="product" className="rounded-tr-xl rounded-tl-xl" />
+                        </figure>
+                    </Link>
+                    <div className="card-body p-2 sm:p-4 items-center ">
+                        <div className={"w-full"}>
+                            <h2 className="text-sm truncate sm:text-lg font-bold">{product.name}</h2>
+                        </div>
 
-                    {/*<p>{product.description}</p>*/}
-                    <div className={"w-full flex flex-col"}>
-                        <div className={"flex justify-start"}>
-                            <Rating rating={product.rating} text={`${product.numReviews} reviews`}/>
+                        {/*<p>{product.description}</p>*/}
+                        <div className={"w-full flex flex-col"}>
+                            <div className={"hidden sm:flex justify-start"}>
+                                <Rating rating={product.rating} text={`${product.numReviews} reviews`}/>
+                            </div>
+                            <div className={"flex sm:pt-2 justify-end"}>
+                                <span className={"sm:text-xl font-bold text-slate-500"}>${product.price}</span>
+                            </div>
                         </div>
-                        <div className={"flex justify-start"}>
-                            <span className={"text-2xl font-bold text-slate-500"}>${product.price}</span>
-                        </div>
+                        {/*<div className="card-actions">*/}
+                        {/*    <button className="btn btn-primary">Buy Now</button>*/}
+                        {/*</div>*/}
                     </div>
-                    {/*<div className="card-actions">*/}
-                    {/*    <button className="btn btn-primary">Buy Now</button>*/}
-                    {/*</div>*/}
                 </div>
             </div>
         </>
