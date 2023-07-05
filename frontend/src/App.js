@@ -5,8 +5,10 @@ function App() {
   return (
       <>
           <Navbar/>
-          <div className={"container m-auto"}>
-              <Outlet/>
+          <div className={"min-h-[calc(100vh-80px)]"}>
+              <div className={"container md:px-5 xl:px-10 m-auto min-h-[calc(100vh-80px)]"}>
+                  <Outlet/>
+              </div>
           </div>
       </>
 
