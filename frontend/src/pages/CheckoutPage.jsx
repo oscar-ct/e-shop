@@ -1,11 +1,10 @@
 import React from 'react';
 import {useEffect} from "react";
 import {Link, useNavigate} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
 import CheckoutSteps from "../components/CheckoutSteps";
+import {useSelector} from "react-redux";
 import {useCreateOrderMutation} from "../slices/ordersApiSlice";
 import Spinner from "../components/Spinner";
-import {clearCartItems} from "../slices/cartSlice";
 import Message from "../components/Message";
 import CheckoutItem from "../components/CheckoutItem";
 import {ReactComponent as PayPal} from "../icons/paypal.svg";
@@ -78,8 +77,8 @@ const CheckoutPage = () => {
                                     <div className={"flex-col flex lg:flex-row w-full"}>
                                         <div className={"lg:w-7/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
                                             <div className={"pb-3"}>
-                                                <h1 className={"text-3xl text-center"}>Checkout (<span
-                                                    className={"text-2xl text-gray-500 font-bold"}>{totalNumberOfItems}
+                                                <h1 className={"text-2xl font-bold text-center"}>Checkout (<span
+                                                    className={"text-xl text-gray-500 font-bold"}>{totalNumberOfItems}
                                                     {
                                                         totalNumberOfItems === 1 ? (
                                                             " Item"
@@ -159,7 +158,7 @@ const CheckoutPage = () => {
 
 
                                         <div className={"p-3 lg:pl-10 lg:w-5/12"}>
-                                            <div className="card bg-neutral text-neutral-content">
+                                            <div className="card bg-base-100 shadow-xl">
                                                 <div className="pt-8 px-8">
                                                     <div className="card-actions justify-center">
                                                         <button
@@ -214,11 +213,11 @@ const CheckoutPage = () => {
                                                     </div>
                                                 </div>
                                                 <div
-                                                    className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-black text-xl px-8 py-8"}>
-                                                     <span className="text-warning">
+                                                    className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-xl px-8 py-8"}>
+                                                     <span className="text-red-600">
                                                         Order Total:
                                                     </span>
-                                                    `<span className="text-warning">
+                                                    `<span className="text-red-600">
                                                     ${(taxPrice + shippingPrice + itemsPrice).toFixed(2)}
                                                     </span>
                                                 </div>
