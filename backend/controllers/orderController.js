@@ -10,7 +10,11 @@ const createOrder = asyncHandler(async (req, res) => {
         throw new Error("No order items found");
     } else {
         const newOrder = new Order({
-            user: req.user._id,
+            user: {
+                id: req.user._id,
+                name: req.user.name,
+                email: req.user.email
+            },
             orderItems: orderItems.map(function (item){
                 return {
                     ...item,
@@ -43,11 +47,11 @@ const getUserOrders = asyncHandler(async (req, res) => {
 const getUserOrderById = asyncHandler(async (req, res) => {
     const userId = req.user._id;
     if (userId) {
-        const order = await Order.findById(req.params.id);
-        if (order && userId.toString() === order.user.toString()) {
+        const order = await Order.findById(req.params.id)
+        if (order && userId.toString() === order.user.id.toString()) {
             res.status(200);
             return res.json(order);
-        } else if (order && userId.toString() !== order.user.toString()) {
+        } else if (order && userId.toString() !== order.user.id.toString()) {
             res.status(404);
             throw new Error("You do not have access to this order!");
         } else if (!order) {
