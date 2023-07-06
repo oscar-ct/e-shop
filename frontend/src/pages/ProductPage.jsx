@@ -43,81 +43,90 @@ const ProductPage = () => {
                 ) : error ? (
                     <Message variant={"error"} children={error?.data?.message || error.error}/>
                 ) : (
-                    <>
-                        <Link className={"btn btn-light my-5"} to={"/"}>
-                            Go Back
-                        </Link>
-                        <div className={"w-full flex flex-col lg:flex-row flex-wrap pb-5"}>
+                    <div className={"lg:pt-10"}>
+                        {/*<Link className={"btn btn-light my-5"} to={"/"}>*/}
+                        {/*    Go Back*/}
+                        {/*</Link>*/}
+                        <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl p-10 rounded-xl"}>
                             <div className={"flex justify-center lg:w-5/12"}>
-                                <img src={product.image} alt={"product"}/>
+                                <img src={product.image} alt={"product"} className={"rounded-xl"}/>
                             </div>
-                            <div className={"lg:w-4/12 p-7"}>
-                                <div className={"pb-8 border-b-2 border-gray-300"}>
-                                    <span className={"text-3xl"}>{product.name}</span>
+                            <div className={"lg:w-7/12 flex flex-col lg:flex-row lg:pl-7 py-7"}>
+                                <div className={"lg:w-7/12"}>
+                                    <div className={"pb-8 border-b-2 border-gray-300"}>
+                                        <span className={"text-3xl"}>
+                                            {product.name}
+                                        </span>
+                                    </div>
+                                    <div className={"py-4 border-b-2 border-gray-300"}>
+                                        <Rating rating={product.rating} text={`${product.numReviews} reviews`}/>
+                                    </div>
+                                    <div className={"py-4 border-b-2 border-gray-300"}>
+                                        <span className={"font-bold pr-2"}>
+                                            Brand:
+                                        </span>
+                                        <span>
+                                            {product.brand}
+                                        </span>
+                                    </div>
+                                    <div className={"py-4"}>
+                                        <span className={"font-bold pr-2"}>
+                                            Description:
+                                        </span>
+                                        <span>
+                                            {product.description}
+                                        </span>
+                                    </div>
                                 </div>
-                                <div className={"py-4 border-b-2 border-gray-300"}>
-                                    <Rating rating={product.rating} text={`${product.numReviews} reviews`}/>
-                                </div>
-                                <div className={"py-4 border-b-2 border-gray-300"}>
-                                    <span className={"font-bold pr-2"}>Brand:</span><span>{product.brand}</span>
-                                </div>
-                                <div className={"pt-4"}>
-                                    <span className={"font-bold pr-2"}>Description:</span><span>{product.description}</span>
-                                </div>
-                            </div>
-                            <div className={"lg:w-3/12 h-min card bg-base-100 shadow-xl"}>
-                                <div className={"pt-8 text-xl lg:text-base"}>
-                                    <div className={"px-6 w-full flex"}>
-                                        <span className={"text-end pr-3 w-6/12"}>
+                                <div className={"lg:hidden border-b-2 border-gray-300"}/>
+                                <div className={"pt-5 lg:pt-0 lg:pl-7 lg:w-5/12"}>
+                                    <div className={"flex"}>
+                                        <span className={"text-start w-6/12 font-bold"}>
                                             Price:
                                         </span>
-                                        <span className={"w-6/12 pl-3 font-bold"}>
+                                        <span className={"w-6/12"}>
                                             ${product.price}
                                         </span>
                                     </div>
-                                </div>
-                                <div className={"text-xl lg:text-base"}>
-                                    <div className={"px-6 py-2 w-full flex"}>
-                                         <span className={"w-6/12 pr-3 text-end"}>
+                                    <div className={"flex pt-2"}>
+                                         <span className={"w-6/12 text-start font-bold"}>
                                             Status:
                                         </span>
-                                        <span className={"w-6/12 pl-3 font-bold"}>
+                                        <span className={"w-6/12"}>
                                             {product.countInStock > 0 ? `In Stock` : "Out Of Stock"}
                                         </span>
                                     </div>
-                                </div>
-                                <div className={"text-xl lg:text-base"}>
-                                    <div className={"px-6 w-full flex"}>
-                                         <span className={"w-6/12 pr-3 text-end"}>
+                                    <div className={"flex pt-2"}>
+                                         <span className={"w-6/12 text-start font-bold"}>
                                             Remaining In Stock:
                                         </span>
-                                        <span className={"w-6/12 pl-3 font-bold"}>
+                                        <span className={"w-6/12"}>
                                             {product.countInStock}
                                         </span>
                                     </div>
-                                </div>
-                                <div className={"p-10 w-full flex justify-center"}>
-                                    <div className={"w-full flex justify-between"}>
-                                        {
-                                            product.countInStock > 0 && (
-                                                <input
-                                                    onChange={(e) => setQuantity(Number(e.target.value))}
-                                                    min={1}
-                                                    defaultValue={1}
-                                                    max={product.countInStock}
-                                                    type="number"
-                                                    className="input input-bordered max-w-xs" />
-                                            )
-                                        }
+                                    {/*<div className={"flex justify-center"}>*/}
+                                        <div className={"w-full flex justify-between pt-5"}>
+                                            {
+                                                product.countInStock > 0 && (
+                                                    <input
+                                                        onChange={(e) => setQuantity(Number(e.target.value))}
+                                                        min={1}
+                                                        defaultValue={1}
+                                                        max={product.countInStock}
+                                                        type="number"
+                                                        className="input input-bordered max-w-xs" />
+                                                )
+                                            }
 
-                                        <button className={`lg:btn-md btn-lg btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
-                                            Add To Cart
-                                        </button>
-                                    </div>
+                                            <button className={`btn-md btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
+                                                Add To Cart
+                                            </button>
+                                        </div>
+                                    {/*</div>*/}
                                 </div>
                             </div>
                         </div>
-                    </>
+                    </div>
                 )
             }
 
