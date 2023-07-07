@@ -53,6 +53,7 @@ const getUserData = asyncHandler(async (req, res) => {
             name: user.name,
             email: user.email,
             isAdmin: user.isAdmin,
+            shippingAddresses: user.shippingAddresses,
         });
     } else {
         res.status(404);
@@ -133,6 +134,37 @@ const logoutUser = asyncHandler(async (req, res) => {
     res.json({message: "logout success"});
 });
 
+// PUT
+const updateUserAddress = asyncHandler(async (req, res) => {
+    const user = await User.findById(req.user._id);
+    if (user) {
+        const shippingAddress = {
+            address: req.body.address,
+            city: req.body.city,
+            postalCode: req.body.postalCode,
+            country: req.body.country
+        }
+        if (user.shippingAddresses.length === 0) {
+            user.shippingAddresses = [shippingAddress]
+            const updatedUser = await user.save();
+            res.status(201);
+            res.json({
+                shippingAddresses: updatedUser.shippingAddresses
+            });
+        } else {
+            user.shippingAddresses = [...user.shippingAddresses, shippingAddress];
+            const updatedUser = await user.save();
+            res.status(201);
+            res.json({
+                shippingAddresses: updatedUser.shippingAddresses
+            });
+        }
+    } else {
+        res.status(404);
+        throw new Error("This user does not exist.");
+    }
+});
+
 
 
 
@@ -170,6 +202,7 @@ export {
     logoutUser,
     getUserData,
     updateUserData,
+    updateUserAddress,
     getUsers,
     getUserById,
     updateUsers,
