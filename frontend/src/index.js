@@ -7,6 +7,7 @@ import {
     RouterProvider
 } from 'react-router-dom'
 import {Provider} from "react-redux";
+import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 import store from "./store";
 import './index.css';
 import App from './App';
@@ -50,7 +51,10 @@ root.render(
   <React.StrictMode>
       {/*REDUX TOOLKIT PROVIDER*/}
       <Provider store={store}>
-            <RouterProvider router={router} />
+          {/*PAYPAL PROVIDER*/}
+          <PayPalScriptProvider deferLoading={true}>
+              <RouterProvider router={router} />
+          </PayPalScriptProvider>
       </Provider>
   </React.StrictMode>
 );
