@@ -9,6 +9,7 @@ import {
     getUserById,
     updateUsers,
     deleteUsers,
+    updateUserAddress,
 } from "../controllers/userController.js";
 import {protect, admin} from "../middleware/authMiddleware.js";
 
@@ -23,6 +24,7 @@ router.post('/login', authUser);
 // Using custom middleware PROTECT
 router.get('/profile', protect, getUserData);
 router.put('/profile', protect, updateUserData);
+router.put('/profile/address', protect, updateUserAddress);
 
 
 
