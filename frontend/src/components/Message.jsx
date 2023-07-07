@@ -42,7 +42,7 @@ const Message = ({variant, children}) => {
         // this is not working properly
         // <div className={`alert alert-${variant}`}>
         <div className={alertClass(variant)}>
-            <div className={"flex"}>
+            <div className={"flex items-center"}>
                 <span className={"mr-1"}>{ iconType(variant) } </span>
                 <span>{children}</span>
             </div>
