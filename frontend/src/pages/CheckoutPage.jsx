@@ -34,7 +34,7 @@ const CheckoutPage = () => {
         } else if (!paymentMethod && !orderSubmitted) {
             navigate("/payment");
         }
-    }, [navigate, shippingAddress, paymentMethod]);
+    }, [navigate, shippingAddress, paymentMethod, orderSubmitted]);
 
     const totalNumberOfItems = cartItems.reduce(function (acc, product) {
         return (acc + product.quantity);
