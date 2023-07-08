@@ -32,7 +32,7 @@ const CheckoutItem = ( {item} ) => {
 
                 <div className={"w-2/12"}>
                     <Link to={`/product/${item._id}`}>
-                        <img className={"lg:w-32 rounded-sm"} src={item.image} alt={"cartItem"}/>
+                        <img className={"lg:w-32 rounded-xl"} src={item.image} alt={"cartItem"}/>
                     </Link>
                 </div>
 
