@@ -35,7 +35,6 @@ const HomePage = () => {
 
                         {/*    </div>*/}
                         {/*</div>*/}
-
                         <div className={"my-3"}>
                             <h2 className={"text-2xl mt-3"}>Recently Added</h2>
                             <div className={"w-full flex flex-wrap justify-center"}>
