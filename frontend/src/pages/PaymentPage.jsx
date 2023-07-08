@@ -26,7 +26,7 @@ const PaymentPage = () => {
         } else if (shippingAddressIsInvalid) {
             navigate("/shipping");
         }
-    }, [navigate, shippingAddress])
+    }, [navigate, shippingAddress, cartItems.cartItems.length, shippingAddressIsInvalid])
 
     const submitPaymentMethod = (e) => {
         e.preventDefault();
@@ -38,7 +38,7 @@ const PaymentPage = () => {
     }
     return (
         <>
-            <CheckoutSteps step2 />
+            <CheckoutSteps step3 />
             <div className={"w-full flex justify-center"}>
                 <div className={"card p-10 w-[35em] bg-base-100 shadow-xl"}>
                     <div className={"w-full pb-5 flex justify-center"}>
