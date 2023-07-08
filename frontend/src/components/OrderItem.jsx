@@ -8,7 +8,7 @@ const OrderItem = ( {item} ) => {
             <div className={"flex w-full mt-5"}>
 
                 <div className={"w-2/12"}>
-                    <Link to={`/product/${item._id}`}>
+                    <Link to={`/product/${item.product}`}>
                         <img className={"lg:w-32 rounded-xl"} src={item.image} alt={"cartItem"}/>
                     </Link>
                 </div>
@@ -23,14 +23,6 @@ const OrderItem = ( {item} ) => {
                         <div className={"flex flex-col"}>
                             <div>
                                 <span className={"font-bold text-xs"}>
-                                    Brand:
-                                </span>
-                                <span className={"ml-1 text-sm"}>
-                                    {item.brand}
-                                </span>
-                            </div>
-                            <div>
-                                <span className={"font-bold text-xs"}>
                                     Quantity:
                                 </span>
                                 <span className={"ml-1 text-sm"}>
@@ -42,7 +34,7 @@ const OrderItem = ( {item} ) => {
                                     Price:
                                 </span>
                                 <span className={"ml-1 text-sm"}>
-                                    ${item.price}
+                                    ${item.price}/ea.
                                 </span>
                             </div>
                         </div>
