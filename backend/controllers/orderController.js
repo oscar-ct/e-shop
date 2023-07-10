@@ -38,9 +38,14 @@ const createOrder = asyncHandler(async (req, res) => {
 
 
 const getUserOrders = asyncHandler(async (req, res) => {
-    const orders = await Order.find({ user: req.user._id });
-    res.status(200);
-    return res.json(orders);
+    const orders = await Order.find({ "user.id": req.user._id});
+    if (orders) {
+        res.status(201);
+        return res.json(orders);
+    } else {
+        throw new Error("No order was found");
+    }
+
 });
 
 
