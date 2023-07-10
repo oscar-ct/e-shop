@@ -5,6 +5,7 @@ import {
     logoutUser,
     getUserData,
     updateUserData,
+    verifyPassword,
     getUsers,
     getUserById,
     updateUsers,
@@ -24,6 +25,7 @@ router.post('/login', authUser);
 // Using custom middleware PROTECT
 router.get('/profile', protect, getUserData);
 router.put('/profile', protect, updateUserData);
+router.post('/profile', protect, verifyPassword);
 router.put('/profile/address', protect, updateUserAddress);
 
 
