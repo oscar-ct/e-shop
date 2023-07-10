@@ -22,6 +22,15 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                     }
                 },
             }),
+            verifyPassword: build.mutation({ // mutation is required for POST requests
+                query: function (data) {  // passing in data i.e. email, password
+                    return {
+                        url: USERS_URL + "/profile",
+                        method: "POST",
+                        body: data,
+                    }
+                },
+            }),
             logout: build.mutation({
                 query: function () {
                     return {
@@ -46,8 +55,17 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                         }
                     }
             }),
+            updateUserCredentials: build.mutation({
+                query: function (data) {
+                    return {
+                        url: USERS_URL + "/profile",
+                        method: "PUT",
+                        body: data,
+                    }
+                }
+            }),
         };
     }
 });
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useGetUserDataQuery, useUpdateUserAddressMutation} = usersApiSlice;
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useVerifyPasswordMutation, useGetUserDataQuery, useUpdateUserAddressMutation, useUpdateUserCredentialsMutation} = usersApiSlice;
