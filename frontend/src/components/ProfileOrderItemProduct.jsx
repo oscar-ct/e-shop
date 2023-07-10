@@ -1,24 +1,17 @@
 import React from 'react';
-import img from "../icons/bg.png";
-import Message from "./Message";
+
 
 const ProfileOrderItemProduct = ({product, index, orderSize}) => {
-    // console.log(index+1)
-    // console.log(orderSize)
+
     return (
         <>
             <div className={"pt-5 px-5"}>
                 <div className={"flex flex-col lg:flex-row"}>
                     <div className={"w-full lg:w-8/12"}>
-                        {/*<div>*/}
-                        {/*    <span className={"text-2xl font-bold"}>*/}
-                        {/*        On the way*/}
-                        {/*    </span>*/}
-                        {/*</div>*/}
                         <div className={"flex bg-base-100 pb-3"}>
                             <div className="avatar pr-5">
-                                <div className="mask mask-squircle w-24 h-24">
-                                    <img src={img} alt="Avatar Tailwind CSS Component" />
+                                <div className="rounded-xl w-24 h-24">
+                                    <img src={product.image}  alt={"product"}/>
                                 </div>
                             </div>
                             <div className={"flex flex-col"}>
