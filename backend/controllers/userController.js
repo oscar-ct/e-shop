@@ -7,6 +7,7 @@ const invalidCredentialsError = () => {
     throw new Error("Invalid email/password")
 };
 
+
 // POST
 const authUser = asyncHandler(async (req, res) => {
     const {email, password} = req.body;
@@ -60,6 +61,29 @@ const getUserData = asyncHandler(async (req, res) => {
         throw new Error("User not found");
     }
 });
+// POST
+const verifyPassword = asyncHandler(async (req, res) => {
+    const password = req.body.password;
+    const id = req.user._id;
+    const user = await User.findById(id);
+    if (user) {
+        const bcryptMatchPassword = await bcrypt.compare(password, user.password);
+        if (bcryptMatchPassword) {
+            res.status(200);
+            return res.json({
+                passwordVerified: true,
+            });
+        } else {
+            res.status(200);
+            return res.json({
+                passwordVerified: false,
+            });
+        }
+    } else {
+        res.status(404);
+        throw new Error("User not found");
+    }
+});
 // PUT
 const updateUserData = asyncHandler(async (req, res) => {
     const id = req.user._id;
@@ -68,8 +92,9 @@ const updateUserData = asyncHandler(async (req, res) => {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
 
-        if (req.body.password) {
-            user.password = req.body.password;
+        if (req.body.newPassword) {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(req.body.newPassword, salt);
         }
         const updatedUser = await user.save();
         res.status(200);
@@ -78,6 +103,7 @@ const updateUserData = asyncHandler(async (req, res) => {
             name: updatedUser.name,
             email: updatedUser.email,
             isAdmin: updatedUser.isAdmin,
+            shippingAddresses: updatedUser.shippingAddresses,
         });
     } else {
         res.status(404);
@@ -201,6 +227,7 @@ export {
     registerUser,
     logoutUser,
     getUserData,
+    verifyPassword,
     updateUserData,
     updateUserAddress,
     getUsers,
