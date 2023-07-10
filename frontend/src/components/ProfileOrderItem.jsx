@@ -1,5 +1,5 @@
 import React from 'react';
-import ProductOrderItemProduct from "./ProductOrderItemProduct";
+import ProfileOrderItemProduct from "./ProfileOrderItemProduct";
 import {Link} from "react-router-dom";
 import Message from "./Message";
 
@@ -70,7 +70,7 @@ const ProfileOrderItem = ({order}) => {
                         {
                             order.orderItems.map(function (product, index) {
                                 return (
-                                    <>
+                                    <div key={product._id}>
                                         {
                                             order.isPaid && order.isDelivered ? (
                                                 <div className={"pt-5 px-8"}>
@@ -88,8 +88,8 @@ const ProfileOrderItem = ({order}) => {
                                                 ""
                                             )
                                         }
-                                        <ProductOrderItemProduct product={product} key={product._id} index={index} orderSize={order.orderItems.length}/>
-                                    </>
+                                        <ProfileOrderItemProduct product={product} index={index} orderSize={order.orderItems.length}/>
+                                    </div>
 
                                 )
                             })
