@@ -86,61 +86,65 @@ const Navbar = () => {
         <>
             <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-5 shadow-md backdrop-blur-sm lg:py-4`}>
                 <div className="px-5 flex justify-between items-center">
-                    <div className={"hidden lg:flex lg:items-center cursor-pointer"}>
+                    <div className={"hidden lg:flex lg:items-center cursor-pointer bg-neutral rounded-xl py-2 px-3"}>
                         <motion.div
+                            onClick={() => navigate("/")}
                             className={"text-xl flex"}
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 1.0 }}
                         >
-                            <Logo className={"w-5 mr-1"}/>
-                            <span className={"italic font-light"}>-shopper</span>
+                            <Logo className={"w-5 mr-1"} fill={"white"}/>
+                            <button className={"text-white italic"}>-shop</button>
                         </motion.div>
                     </div>
                     <div className={"flex"}>
-                        {/*<ul className="ml-auto mr-8 hidden items-center gap-6 lg:flex">*/}
-                        {/*    <li className="block p-1 font-normal antialiased hover:subpixel-antialiased">*/}
-                        {/*        <button className="a flex items-center">*/}
-                        {/*            Cart*/}
-                        {/*        </button>*/}
-                        {/*    </li>*/}
-                        {/*</ul>*/}
                         <div className={"flex justify-end"}>
                             <div className="ml-auto hidden items-center gap-2 lg:flex">
-                                    <div className="flex-none">
-                                        <div className="dropdown dropdown-end">
-                                            <label tabIndex={0} className="btn btn-ghost">
-                                                <div className="indicator">
-                                                    <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                                    {
-                                                        cartItems.length !== 0 && (
-                                                            <span className="badge text-white bg-primary badge-sm indicator-item">{totalCartItems}</span>
-                                                        )
-                                                    }
+                                <div className="flex-none">
+                                    <div className="dropdown dropdown-end">
+                                        <label tabIndex={0} className="btn btn-ghost">
+                                            <div className="indicator">
+                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                                {
+                                                    cartItems.length !== 0 && (
+                                                        <span className="badge text-white bg-primary badge-sm indicator-item">{totalCartItems}</span>
+                                                    )
+                                                }
 
-                                                </div>
-                                                <span className={"normal-case"}>Cart</span>
-                                            </label>
-                                            <div tabIndex={0} className="mt-2 z-[1] card card-compact dropdown-content w-52 bg-neutral shadow">
-                                                <div className="card-body">
-                                                    {
-                                                        cartItems.length !== 0 ? (
-                                                            <>
-                                                                <span className="font-bold text-white text-lg">{totalCartItems} Items</span>
-                                                                <span className="font-bold text-info">Subtotal: {subtotalPrice}</span>
-                                                            </>
-                                                        ) : (
-                                                                <span className={"font-bold text-white text-lg"}>0 Items</span>
-                                                        )
-                                                    }
+                                            </div>
+                                            <span className={"normal-case"}>Cart</span>
+                                        </label>
+                                        <div tabIndex={0} className="mt-2 z-[1] card card-compact dropdown-content w-52 bg-neutral shadow">
+                                            <div className="card-body">
+                                                {
+                                                    cartItems.length !== 0 ? (
+                                                        <>
+                                                            <span className="font-bold text-white text-lg">
+                                                                ({totalCartItems}) {totalCartItems > 1 ? "items" : "item"}
+                                                            </span>
+                                                            <span className="font-bold text-info">
+                                                                Subtotal:
+                                                                <span className={"pl-2 text-white"}>
+                                                                    ${subtotalPrice}
+                                                                </span>
+                                                            </span>
+                                                            <div className="card-actions">
+                                                                <Link to={"/cart"} className="btn btn-primary btn-block">
+                                                                    View cart
+                                                                </Link>
+                                                            </div>
+                                                        </>
+                                                    ) : (
+                                                            <span className={"font-bold text-white text-center text-sm"}>
+                                                                Your cart is empty...
+                                                            </span>
+                                                    )
+                                                }
 
-                                                    <div className="card-actions">
-                                                        <Link to={"/cart"} className="btn btn-primary btn-block">View cart</Link>
-                                                    </div>
-                                                </div>
                                             </div>
                                         </div>
                                     </div>
-
+                                </div>
 
 
                                 {
@@ -163,18 +167,52 @@ const Navbar = () => {
 
                                             {
                                                 dropdownActive && (
-                                                    <div
-                                                        className="absolute right-0 z-10 mt-2 w-56 origin-top-right"
-                                                        role="menu" aria-orientation="vertical" aria-labelledby="menu-button"
-                                                        tabIndex="-1">
-                                                        <div role="none">
-                                                            <ul role="menuitem" tabIndex="-1" id="menu-item-0" className="menu bg-neutral w-56 rounded-box text-white font-bold flex flex-col justify-between">
-                                                                <li><a className={""}>Profile</a></li>
-                                                                <li><button onClick={logoutHandler}>Logout</button></li>
-                                                            </ul>
+                                                    <div className="absolute right-0 z-10 mt-2 origin-top-right">
+                                                        <div className="menu bg-neutral rounded-box text-white font-bold flex flex-col justify-between w-full">
+                                                            <div className={"flex w-full"}>
+                                                                {
+                                                                    userData.isAdmin && (
+                                                                        <div className={"w-6/12"}>
+                                                                            <div className={"p-1"}>
+                                                                                <Link to={"/admin/orders"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                    Order List
+                                                                                </Link>
+                                                                            </div>
+                                                                            <div className={"p-1"}>
+                                                                                <Link to={"/admin/users"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                    User List
+                                                                                </Link>
+                                                                            </div>
+                                                                            <div className={"p-1"}>
+                                                                                <Link to={"/admin/products"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                    Product List
+                                                                                </Link>
+                                                                            </div>
+                                                                        </div>
+                                                                    )
+                                                                }
+                                                                <div className={`${userData.isAdmin ? "w-6/12" : "w-full"}`}>
+                                                                    <div className={"p-1"}>
+                                                                        <Link to={"/profile/account"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                                                            Account
+                                                                        </Link>
+                                                                    </div>
+                                                                    <div className={"p-1"}>
+                                                                        <Link to={"/profile/orders"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                                                            My Orders
+                                                                        </Link>
+                                                                    </div>
+                                                                    <div className={"p-1"}>
+                                                                        <button className={"btn btn-error normal-case w-full"} onClick={logoutHandler}>
+                                                                            Logout
+                                                                        </button>
+                                                                    </div>
+
+                                                                </div>
+                                                            </div>
+
                                                         </div>
                                                     </div>
-
                                                 )
                                             }
                                         </div>
