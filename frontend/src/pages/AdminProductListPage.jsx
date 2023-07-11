@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import Spinner from "../components/Spinner";
 import {FaTimes, FaEdit} from "react-icons/fa";
 import {Link} from "react-router-dom";
-import {useGetProductsQuery} from "../slices/productsApiSlice";
+import {useGetProductsQuery, useCreateProductMutation} from "../slices/productsApiSlice";
+import {useDispatch} from "react-redux";
+import {setLoading} from "../slices/loadingSlice";
 
 const AdminProductListPage = () => {
 
 
     const { data: products, isLoading, error } = useGetProductsQuery();
+    const [createProduct, {error: errorProduct}] = useCreateProductMutation();
 
     const [localData, setLocalData] = useState(null);
 
@@ -19,6 +22,22 @@ const AdminProductListPage = () => {
         }
     }, [products, localData]);
 
+
+    const dispatch = useDispatch();
+    const createProductHandler = async (e) => {
+        e.preventDefault();
+        dispatch(setLoading(true));
+        const newProduct = await createProduct();
+        console.log([...localData, newProduct.data])
+        setLocalData(prevState => {
+            return [
+                ...prevState,
+                newProduct.data,
+            ]
+        });
+        // refetch(); // this is for re-fetching data upon product creation
+        dispatch(setLoading(false));
+    }
 
     return (
         isLoading ? <Spinner/> : error ? error : (
@@ -54,12 +73,15 @@ const AdminProductListPage = () => {
                                                 <td>{item.model}</td>
                                                 <td>${item.price}</td>
                                                 <td>{item.countInStock !== 0 ? item.countInStock : <FaTimes fill={"red"}/>}</td>
-                                                <td>{item.createdAt.substring(0, 10)}</td>
+                                                {/*<td>{item?.createdAt.substring(0, 10)}</td>*/}
                                                 <td>{item.category}</td>
                                                 <td>
-                                                    <Link className={"btn btn-xs rounded-full normal-case"} to={`/order/${item._id}`}>
+                                                    {/*<Link className={"btn btn-xs rounded-full normal-case"} to={`/order/${item._id}`}>*/}
+                                                    {/*    <FaEdit/>*/}
+                                                    {/*</Link>*/}
+                                                    <button onClick={createProductHandler} className={"btn btn-xs rounded-full normal-case"}>
                                                         <FaEdit/>
-                                                    </Link>
+                                                    </button>
                                                 </td>
                                             </tr>
                                         )
