@@ -31,7 +31,26 @@ const getProductById = asyncHandler(async (req, res) => {
 // }
 });
 
-export {getAllProducts, getProductById};
+
+const createProduct = asyncHandler(async function (req, res) {
+    const newProduct = new Product({
+        user: req.user._id,
+        name: "Sample Name Created On July 11, 2023",
+        image: "/images/sample.jpg",
+        brand: "Sample Brand",
+        category: "Sample Category",
+        model: "Sample Model",
+        description: "Sample description from the backend lol ;)",
+        rating: 0,
+        numReviews: 0,
+        price: 0.99,
+        countInStock: 0,
+        reviews: [],
+    });
+    const createdProduct = await newProduct.save();
+    res.status(201).json(createdProduct);
+});
+export {getAllProducts, getProductById, createProduct};
 
 
 
