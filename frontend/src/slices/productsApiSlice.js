@@ -22,9 +22,20 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                 // 5 seconds
                 keepUnusedDataFor: 5
                 }
-            )
+            ),
+            createProduct: build.mutation({
+                    query: function (id) {
+                        return {
+                            url: `${PRODUCTS_URL}`,
+                            method: "POST"
+                        }
+                    },
+                    // this will allow the created product to show with reloading page
+                    invalidatesTags: ["Product"],
+                }
+            ),
         };
     }
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery } = productsApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation } = productsApiSlice;
