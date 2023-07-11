@@ -105,7 +105,9 @@ const updateOrderDeliveryStatus = asyncHandler(async (req, res) => {
     return res.send("update delivery status");
 });
 const getAllOrders = asyncHandler(async (req, res) => {
-    return res.send("get all orders");
+    const orders = await Order.find({}).sort({createdAt: -1});
+    res.status(201);
+    res.json(orders);
 });
 
 
