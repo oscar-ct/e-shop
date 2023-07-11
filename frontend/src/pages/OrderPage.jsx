@@ -2,7 +2,11 @@ import {useEffect} from 'react';
 import {PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
 import {useParams} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
-import {useGetMyOrderByIdQuery, useGetPayPalClientIdQuery, usePayOrderMutation} from "../slices/ordersApiSlice";
+import {
+    useGetOrderByIdQuery,
+    useGetPayPalClientIdQuery,
+    usePayOrderMutation
+} from "../slices/ordersApiSlice";
 import {setLoading} from "../slices/loadingSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
@@ -20,8 +24,7 @@ const OrderPage = () => {
 
     const {data: paypal, isLoading: loadingPayPal, error: errorPayPal} = useGetPayPalClientIdQuery();
 
-    const {data: order, refetch, isLoading, error} = useGetMyOrderByIdQuery(orderId);
-
+    const {data: order, refetch, isLoading, error} = useGetOrderByIdQuery(orderId);
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
