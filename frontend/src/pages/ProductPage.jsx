@@ -48,7 +48,7 @@ const ProductPage = () => {
                         {/*    Go Back*/}
                         {/*</Link>*/}
                         <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl p-10 rounded-xl"}>
-                            <div className={"flex justify-center lg:w-5/12"}>
+                            <div className={"flex items-center lg:w-5/12"}>
                                 <img src={product.image} alt={"product"} className={"rounded-xl"}/>
                             </div>
                             <div className={"lg:w-7/12 flex flex-col lg:flex-row lg:pl-7 py-7"}>
@@ -69,6 +69,14 @@ const ProductPage = () => {
                                             {product.brand}
                                         </span>
                                     </div>
+                                    <div className={"py-4 border-b-2 border-gray-300"}>
+                                        <span className={"font-bold pr-2"}>
+                                            Model:
+                                        </span>
+                                        <span>
+                                            {product.model}
+                                        </span>
+                                    </div>
                                     <div className={"py-4"}>
                                         <span className={"font-bold pr-2"}>
                                             Description:
@@ -79,7 +87,7 @@ const ProductPage = () => {
                                     </div>
                                 </div>
                                 <div className={"lg:hidden border-b-2 border-gray-300"}/>
-                                <div className={"pt-5 lg:pt-0 lg:pl-7 lg:w-5/12"}>
+                                <div className={"pt-5 lg:pl-7 lg:w-5/12"}>
                                     <div className={"flex"}>
                                         <span className={"text-start w-6/12 font-bold"}>
                                             Price:

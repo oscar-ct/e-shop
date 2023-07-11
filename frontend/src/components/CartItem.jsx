@@ -58,7 +58,7 @@ const CartItem = ( {item} ) => {
                                     Model:
                                 </span>
                                 <span className={"ml-1"}>
-                                    TBD
+                                    {item.model}
                                 </span>
                             </div>
                         </div>
