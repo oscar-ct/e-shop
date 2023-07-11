@@ -3,7 +3,6 @@ import {
     createOrder,
     getUserOrders,
     getOrderById,
-    getUserOrderById,
     updateOrderToPaid,
     updateOrderShipmentStatus,
     updateOrderDeliveryStatus,
@@ -17,16 +16,15 @@ const router = express.Router();
 
 // Using custom middleware PROTECT
 router.get('/myorders', protect, getUserOrders);
-router.get('/myorders/:id', protect, getUserOrderById);
 router.post('/', protect, createOrder);
 router.put('/:id/payment', protect, updateOrderToPaid);
 
 
+router.get('/:id', protect, getOrderById);  // User & Admin Access
 
 // ADMIN ACCESS ONLY
 // Using custom middleware PROTECT and ADMIN
 router.get('/',protect, admin, getAllOrders);
-router.get('/:id', protect, admin, getOrderById);
 router.put('/:id/shipment', protect, admin, updateOrderShipmentStatus);
 router.put('/:id/delivery', protect, admin, updateOrderDeliveryStatus);
 
