@@ -47,7 +47,7 @@ const ProductPage = () => {
                         {/*<Link className={"btn btn-light my-5"} to={"/"}>*/}
                         {/*    Go Back*/}
                         {/*</Link>*/}
-                        <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl p-10 rounded-xl"}>
+                        <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl px-10 py-5 rounded-xl"}>
                             <div className={"flex items-center lg:w-5/12"}>
                                 <img src={product.image} alt={"product"} className={"rounded-xl"}/>
                             </div>
@@ -89,31 +89,31 @@ const ProductPage = () => {
                                 <div className={"lg:hidden border-b-2 border-gray-300"}/>
                                 <div className={"pt-5 lg:pl-7 lg:w-5/12"}>
                                     <div className={"flex"}>
-                                        <span className={"text-start w-6/12 font-bold"}>
-                                            Price:
+                                        <span className={"text-end w-6/12 font-bold"}>
+                                            List Price:
                                         </span>
-                                        <span className={"w-6/12"}>
+                                        <span className={"w-6/12 text-end"}>
                                             ${product.price}
                                         </span>
                                     </div>
-                                    <div className={"flex pt-2"}>
-                                         <span className={"w-6/12 text-start font-bold"}>
+                                    <div className={"flex pt-5"}>
+                                         <span className={"w-6/12 text-end font-bold"}>
                                             Status:
                                         </span>
-                                        <span className={"w-6/12"}>
+                                        <span className={"w-6/12 text-end"}>
                                             {product.countInStock > 0 ? `In Stock` : "Out Of Stock"}
                                         </span>
                                     </div>
-                                    <div className={"flex pt-2"}>
-                                         <span className={"w-6/12 text-start font-bold"}>
+                                    <div className={"flex pt-5"}>
+                                         <span className={"w-6/12 text-end font-bold"}>
                                             Remaining In Stock:
                                         </span>
-                                        <span className={"w-6/12"}>
+                                        <span className={"w-6/12 text-end"}>
                                             {product.countInStock}
                                         </span>
                                     </div>
                                     {/*<div className={"flex justify-center"}>*/}
-                                        <div className={"w-full flex justify-between pt-5"}>
+                                        <div className={"w-full flex justify-between pt-7"}>
                                             {
                                                 product.countInStock > 0 && (
                                                     <input
