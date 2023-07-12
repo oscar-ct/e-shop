@@ -1,7 +1,7 @@
 // *****  Mongoose Product model connected to DB  ******
 import Product from "../models/productModel.js";
 import asyncHandler from "../middleware/asyncHandler.js";
-
+import crypto from "crypto";
 
 const getAllProducts = asyncHandler(async (req, res) => {
 
@@ -50,7 +50,30 @@ const createProduct = asyncHandler(async function (req, res) {
     const createdProduct = await newProduct.save();
     res.status(201).json(createdProduct);
 });
-export {getAllProducts, getProductById, createProduct};
+
+const updateProduct = asyncHandler(async function (res, req) {
+    const {name, price, description, image, brand, category, countInStock} = req.body;
+    const productToEdit = await Product.findById(req.params.id);
+    if (productToEdit) {
+        productToEdit.name = name;
+        productToEdit.price = price;
+        productToEdit.description = description;
+        productToEdit.image = image;
+        productToEdit.brand = brand;
+        productToEdit.category = category;
+        productToEdit.countInStock = countInStock;
+
+        const updatedProduct = await productToEdit.save();
+        res.status(200).json(updatedProduct);
+    } else {
+        res.status(404);
+        throw new Error("No product found");
+    }
+});
+
+
+
+export {getAllProducts, getProductById, createProduct, updateProduct};
 
 
 
