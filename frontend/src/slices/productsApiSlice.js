@@ -11,6 +11,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                     }
                 },
                 // 5 seconds
+                providesTags: ["Product"],
                 keepUnusedDataFor: 5
             }),
             getProductDetails: build.query({
@@ -30,7 +31,19 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                             method: "POST"
                         }
                     },
-                    // this will allow the created product to show with reloading page
+                    // this will allow the created product to show with reloading page, clears cache
+                    invalidatesTags: ["Product"],
+                }
+            ),
+            updateProduct: build.mutation({
+                    query: function (data) {
+                        return {
+                            url: `${PRODUCTS_URL}/${data._id}`,
+                            method: "PUT",
+                            body: data,
+                        }
+                    },
+                // this will allow the created product to show with reloading page, clears cache
                     invalidatesTags: ["Product"],
                 }
             ),
@@ -38,4 +51,4 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     }
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation } = productsApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation } = productsApiSlice;
