@@ -7,6 +7,7 @@ import productRoutes from "./routes/productRoutes.js";
 import userRoutes from "./routes/userRoutes.js";
 import {notFoundError, errorHandler} from "./middleware/errorMiddleware.js";
 import orderRoutes from "./routes/orderRoutes.js";
+import filestackRoutes from "./routes/filestackRoutes.js";
 
 const port = process.env.PORT || 8080;
 
@@ -33,8 +34,11 @@ app.get('/', function (request, response) {
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
+app.use('/api/filestack', filestackRoutes)
 
 app.get('/api/config/paypal', ((req, res) => res.send({clientId: process.env.PAYPAL_CLIENT_ID})));
+
+
 
 // Custom middleware
 app.use(notFoundError);
