@@ -6,21 +6,31 @@ import {
     useGetProductsQuery,
     useUpdateProductImagesMutation,
     useUpdateProductMutation,
-    useDeleteProductMutation
+    useDeleteProductMutation,
+    useDeleteProductImageMutation,
 } from "../slices/productsApiSlice";
 import {useDispatch} from "react-redux";
 import {setLoading} from "../slices/loadingSlice";
-import {useGetFilestackTokenQuery} from "../slices/filestackSlice";
+import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncodeHandleMutation} from "../slices/filestackSlice";
 import * as filestack from "filestack-js";
 
 
 const AdminProductListPage = () => {
 
     const {data: products, isLoading, error} = useGetProductsQuery();
-    const [updateProduct, {error: errorUpdate}] = useUpdateProductMutation();
-    const [updateProductImages, {error: errorUpdateImages}] = useUpdateProductImagesMutation();
+    const [updateProduct,
+        // {error: errorUpdate}
+    ] = useUpdateProductMutation();
+    const [updateProductImages,
+        // {error: errorUpdateImages}
+    ] = useUpdateProductImagesMutation();
     const {data: token} = useGetFilestackTokenQuery();
-    const [deleteProduct, {error: errorDeleteProduct}] = useDeleteProductMutation();
+    const [deleteProduct,
+        // {error: errorDeleteProduct}
+    ] = useDeleteProductMutation();
+    const [deleteProductImage] = useDeleteProductImageMutation();
+    const [deleteImageFromFilestack] = useDeleteImageFromFilestackMutation();
+    const [encodeHandle] = useEncodeHandleMutation();
 
     const [localData, setLocalData] = useState(products ? products : null);
     const [editMode, setEditMode] = useState(false);
@@ -34,6 +44,8 @@ const AdminProductListPage = () => {
     const [category, setCategory] = useState(null);
     const [description, setDescription] = useState(null);
     const [modalMessage, setModalMessage] = useState("");
+
+
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -52,11 +64,10 @@ const AdminProductListPage = () => {
 
     };
     const openPicker = async (e) => {
-        const client = filestack.init(token, filePickerOptions);
+        const client = filestack.init(token.token, filePickerOptions);
         await client.picker(filePickerOptions).open();
     };
     const uploadImageHandler = async (object) => {
-        dispatch(setLoading(true));
         const {handle, url} = object;
         const image = {
             productId,
@@ -75,7 +86,6 @@ const AdminProductListPage = () => {
                 });
             });
         }
-        dispatch(setLoading(false));
     };
 
     const openImagesHandler = (id) => {
@@ -209,6 +219,38 @@ const AdminProductListPage = () => {
         }
         dispatch(setLoading(false));
         completeEditHandler();
+    }
+    const deleteProductImageFromDbAndFilestack = async (id, handle) => {
+        const confirm = window.confirm("Are you want to delete this image?");
+        if (confirm) {
+            try {
+                const data = {
+                    _id: productId,
+                    imageId: id,
+                }
+                const res = await deleteProductImage(data);
+                setLocalData(prevState => {
+                    return prevState.map(function (obj) {
+                        if (obj._id === res.data._id) {
+                            return res.data;
+                        } else {
+                            return obj;
+                        }
+                    });
+                });
+                const policyAndSignature = await encodeHandle(handle);
+                const {policy, signature} = policyAndSignature.data;
+                const filestackData = {
+                    key: token.token,
+                    handle,
+                    policy,
+                    signature,
+                }
+                await deleteImageFromFilestack(filestackData);
+            } catch (e) {
+                console.log(e)
+            }
+        }
     }
 
 
@@ -413,12 +455,12 @@ const AdminProductListPage = () => {
                                         localData.find((x) => x._id === productId).images.length !== 0 ? (
                                             localData.find((x) => x._id === productId).images.map(function (image) {
                                                 return (
-                                                    <div key={image.handle}>
+                                                    <div key={image._id}>
                                                         <div className={"flex flex-col items-center"}>
                                                             <div className={"flex max-w-full"}>
                                                                 <img className={"rounded-xl w-56"} src={image.url} alt={"product"}/>
                                                                 <div className={"flex items-center pl-5"}>
-                                                                    <button type={"button"}  className={"btn-sm rounded-full btn-error text-white"}>
+                                                                    <button type={"button"}  onClick={() => deleteProductImageFromDbAndFilestack(image._id, image.handle)} className={"btn-sm rounded-full btn-error text-white"}>
                                                                         <FaTrash/>
                                                                     </button>
                                                                 </div>
