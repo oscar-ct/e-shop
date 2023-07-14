@@ -24,8 +24,17 @@ export const filestackApiSlice = apiSlice.injectEndpoints({
                     },
                 }
             ),
+            deleteImageFromFilestack: build.mutation({
+                    query: function (data) {
+                        return {
+                            url: `https://www.filestackapi.com/api/file/${data.handle}?key=${data.key}&policy=${data.policy}&signature=${data.signature}`,
+                            method: "DELETE",
+                        }
+                    },
+                }
+            ),
         };
     }
 });
 
-export const { useGetFilestackTokenQuery, useEncodeHandleMutation} = filestackApiSlice;
+export const { useGetFilestackTokenQuery, useEncodeHandleMutation, useDeleteImageFromFilestackMutation} = filestackApiSlice;
