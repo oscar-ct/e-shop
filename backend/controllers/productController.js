@@ -133,8 +133,8 @@ const deleteProduct = asyncHandler(async (req, res) => {
 });
 
 const deleteProductImage = asyncHandler(async (req, res) => {
-    const {id} = req.body;
-    const product = await Product.findByIdAndUpdate(req.params.id, {$pull: {images: {_id: id}}});
+    const {imageId} = req.body;
+    const product = await Product.findOneAndUpdate({_id: req.params.id}, {$pull: {images: {_id: imageId}}}, {returnDocument: "after"});
     if (product)  {
         res.status(200).json(product);
     } else {
