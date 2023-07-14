@@ -32,37 +32,60 @@ const getProductById = asyncHandler(async (req, res) => {
 });
 
 
+// const createProduct = asyncHandler(async function (req, res) {
+//     const newProduct = new Product({
+//         user: req.user._id,
+//         name: "Sample Name Created On July 11, 2023",
+//         image: "/images/sample.jpg",
+//         brand: "Sample Brand",
+//         category: "Sample Category",
+//         model: "Sample Model",
+//         description: "Sample description from the backend lol ;)",
+//         rating: 0,
+//         numReviews: 0,
+//         price: 0.99,
+//         countInStock: 0,
+//         reviews: [],
+//     });
+//     const createdProduct = await newProduct.save();
+//     res.status(201).json(createdProduct);
+// });
+
 const createProduct = asyncHandler(async function (req, res) {
+    const {name, brand, model, description, category, price, countInStock, images} = req.body;
     const newProduct = new Product({
         user: req.user._id,
-        name: "Sample Name Created On July 11, 2023",
+        name: name,
         image: "/images/sample.jpg",
-        brand: "Sample Brand",
-        category: "Sample Category",
-        model: "Sample Model",
-        description: "Sample description from the backend lol ;)",
+        brand: brand,
+        category: category,
+        model: model,
+        description: description,
         rating: 0,
         numReviews: 0,
-        price: 0.99,
-        countInStock: 0,
+        price: price,
+        countInStock: countInStock,
         reviews: [],
+        images: images,
     });
     const createdProduct = await newProduct.save();
     res.status(201).json(createdProduct);
 });
 
-const updateProduct = asyncHandler(async function (res, req) {
-    const {name, price, description, image, brand, category, countInStock} = req.body;
+const updateProduct = asyncHandler(async function (req, res) {
+    const {name, price, model, description, brand, category, countInStock} = req.body;
     const productToEdit = await Product.findById(req.params.id);
     if (productToEdit) {
         productToEdit.name = name;
+        productToEdit.brand = brand;
+        productToEdit.model = model;
         productToEdit.price = price;
         productToEdit.description = description;
-        productToEdit.image = image;
-        productToEdit.brand = brand;
         productToEdit.category = category;
         productToEdit.countInStock = countInStock;
-
+        if (req.body.images) {
+            productToEdit.image = req.body.image;
+        }
         const updatedProduct = await productToEdit.save();
         res.status(200).json(updatedProduct);
     } else {
@@ -71,9 +94,33 @@ const updateProduct = asyncHandler(async function (res, req) {
     }
 });
 
+const updateProductImages = asyncHandler(async (req, res) => {
+    const {handle, url} = req.body;
+    const image = {
+        url: url,
+        handle: handle,
+    }
+    const product = await Product.findById(req.params.id);
+    if (product)  {
+        if (product.images.length === 0) {
+            product.images = [image]
+            const updatedProduct = await product.save();
+            res.status(201);
+            res.json(updatedProduct);
+        } else {
+            product.images = [...product.images, image];
+            const updatedProduct = await product.save();
+            res.status(201);
+            res.json(updatedProduct);
+        }
+    } else {
+        res.status(404);
+        throw new Error("Product not found");
+    }
+});
 
 
-export {getAllProducts, getProductById, createProduct, updateProduct};
+export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages};
 
 
 
