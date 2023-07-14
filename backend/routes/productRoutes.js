@@ -1,5 +1,5 @@
 import express from "express";
-import {getAllProducts, getProductById, createProduct, updateProduct} from "../controllers/productController.js";
+import {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages} from "../controllers/productController.js";
 import {protect, admin} from "../middleware/authMiddleware.js";
 
 // *****  Router connects to index.js, cleans up code  *****
@@ -13,7 +13,7 @@ router.get('/:id', getProductById);
 // ADMIN ACCESS ONLY
 router.post("/", protect, admin, createProduct);
 router.put("/:id", protect, admin, updateProduct);
-
+router.put("/:id/images", protect, admin, updateProductImages);
 
 
 export default router;
