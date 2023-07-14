@@ -74,7 +74,17 @@ const productSchema = new mongoose.Schema({
         type: Number,
         required: true,
         default: 0,
-    }
+    },
+    images: [
+        {
+            url: {
+                type: String
+            },
+            handle: {
+                type: String
+            }
+        }
+    ]
 
 }, {
     timestamps: true
