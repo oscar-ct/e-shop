@@ -207,7 +207,28 @@ const AdminProductListPage = () => {
         if (confirm) {
             dispatch(setLoading(true));
             try {
+                /// deletes product from database
                 await deleteProduct(productId);
+
+                /// deletes product images from the cloud
+                const deletedProduct = localData.filter(function (obj) {
+                    return obj._id === productId;
+                });
+                await Promise.all(deletedProduct[0].images.map(async function (image) {
+                    if (image.handle !== "sampleImage") {
+                        const policyAndSignature = await encodeHandle(image.handle);
+                        const {policy, signature} = policyAndSignature.data;
+                        const filestackData = {
+                            key: token.token,
+                            handle: image.handle,
+                            policy,
+                            signature,
+                        }
+                        await deleteImageFromFilestack(filestackData);
+                    }
+
+                }));
+                /// deletes product from state
                 setLocalData(prevState => {
                     return prevState.filter(function (obj) {
                         return obj._id !== productId
