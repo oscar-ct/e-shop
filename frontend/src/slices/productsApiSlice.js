@@ -25,10 +25,11 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                 }
             ),
             createProduct: build.mutation({
-                    query: function (id) {
+                    query: function (data) {
                         return {
                             url: `${PRODUCTS_URL}`,
-                            method: "POST"
+                            method: "POST",
+                            body: data,
                         }
                     },
                     // this will allow the created product to show with reloading page, clears cache
@@ -38,7 +39,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
             updateProduct: build.mutation({
                     query: function (data) {
                         return {
-                            url: `${PRODUCTS_URL}/${data._id}`,
+                            url: `${PRODUCTS_URL}/${data.productId}`,
                             method: "PUT",
                             body: data,
                         }
@@ -47,8 +48,20 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                     invalidatesTags: ["Product"],
                 }
             ),
+            updateProductImages: build.mutation({
+                    query: function (data) {
+                        return {
+                            url: `${PRODUCTS_URL}/${data.productId}/images`,
+                            method: "PUT",
+                            body: data,
+                        }
+                    },
+                    // this will allow the created product to show with reloading page, clears cache
+                    invalidatesTags: ["Product"],
+                }
+            ),
         };
     }
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation } = productsApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation} = productsApiSlice;
