@@ -132,8 +132,19 @@ const deleteProduct = asyncHandler(async (req, res) => {
     }
 });
 
+const deleteProductImage = asyncHandler(async (req, res) => {
+    const {id} = req.body;
+    const product = await Product.findByIdAndUpdate(req.params.id, {$pull: {images: {_id: id}}});
+    if (product)  {
+        res.status(200).json(product);
+    } else {
+        res.status(404);
+        throw new Error("Product not found");
+    }
+});
 
-export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct};
+
+export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct, deleteProductImage};
 
 
 
