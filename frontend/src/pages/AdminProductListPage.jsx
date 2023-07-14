@@ -5,7 +5,8 @@ import {Link, useNavigate} from "react-router-dom";
 import {
     useGetProductsQuery,
     useUpdateProductImagesMutation,
-    useUpdateProductMutation
+    useUpdateProductMutation,
+    useDeleteProductMutation
 } from "../slices/productsApiSlice";
 import {useDispatch} from "react-redux";
 import {setLoading} from "../slices/loadingSlice";
@@ -19,6 +20,7 @@ const AdminProductListPage = () => {
     const [updateProduct, {error: errorUpdate}] = useUpdateProductMutation();
     const [updateProductImages, {error: errorUpdateImages}] = useUpdateProductImagesMutation();
     const {data: token} = useGetFilestackTokenQuery();
+    const [deleteProduct, {error: errorDeleteProduct}] = useDeleteProductMutation();
 
     const [localData, setLocalData] = useState(products ? products : null);
     const [editMode, setEditMode] = useState(false);
@@ -190,6 +192,24 @@ const AdminProductListPage = () => {
         }
         return message;
     };
+    const submitDeleteProduct = async (id) => {
+        const confirm = window.confirm("Are you sure you want to delete this product?");
+        if (confirm) {
+            dispatch(setLoading(true));
+            try {
+                await deleteProduct(productId);
+                setLocalData(prevState => {
+                    return prevState.filter(function (obj) {
+                        return obj._id !== productId
+                    });
+                });
+            } catch (e) {
+                console.log(e);
+            }
+        }
+        dispatch(setLoading(false));
+        completeEditHandler();
+    }
 
 
     useEffect(function () {
@@ -308,7 +328,7 @@ const AdminProductListPage = () => {
                                                                     <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
                                                                         <FaCheckCircle/>
                                                                     </button>
-                                                                    <button onClick={completeEditHandler} className={"text-red-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                    <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm p-2 rounded-full"}>
                                                                         <FaMinusCircle/>
                                                                     </button>
                                                                 </div>
