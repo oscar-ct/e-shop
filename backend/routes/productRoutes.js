@@ -1,5 +1,12 @@
 import express from "express";
-import {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages} from "../controllers/productController.js";
+import {
+    getAllProducts,
+    getProductById,
+    createProduct,
+    updateProduct,
+    updateProductImages,
+    deleteProduct
+} from "../controllers/productController.js";
 import {protect, admin} from "../middleware/authMiddleware.js";
 
 // *****  Router connects to index.js, cleans up code  *****
@@ -14,6 +21,7 @@ router.get('/:id', getProductById);
 router.post("/", protect, admin, createProduct);
 router.put("/:id", protect, admin, updateProduct);
 router.put("/:id/images", protect, admin, updateProductImages);
+router.delete("/:id", protect, admin, deleteProduct)
 
 
 export default router;
