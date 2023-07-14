@@ -3,17 +3,17 @@ import crypto from "crypto";
 
 
 const encodeFileHandle = asyncHandler(async (req, res) => {
-    const {id} = req.body;
+    const {handle} = req.body;
     let policyObj = {
         expiry: 1704002400,
-        handle: id,
+        handle: handle,
         call: ['remove'],
     }
     let policyString = JSON.stringify(policyObj);
     let policy = Buffer.from(policyString).toString('base64');
     let signature = crypto.createHmac('sha256', process.env.FILESTACK_SECERT).update(policy).digest('hex');
     res.status(201).json({
-        handle: id,
+        handle: handle,
         policy,
         signature,
     });
