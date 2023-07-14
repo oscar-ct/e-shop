@@ -9,7 +9,8 @@ import {
 } from "../slices/productsApiSlice";
 import {useDispatch} from "react-redux";
 import {setLoading} from "../slices/loadingSlice";
-
+import {useGetFilestackTokenQuery} from "../slices/filestackSlice";
+import * as filestack from "filestack-js";
 
 
 const AdminProductListPage = () => {
@@ -17,6 +18,7 @@ const AdminProductListPage = () => {
     const {data: products, isLoading, error} = useGetProductsQuery();
     const [updateProduct, {error: errorUpdate}] = useUpdateProductMutation();
     const [updateProductImages, {error: errorUpdateImages}] = useUpdateProductImagesMutation();
+    const {data: token} = useGetFilestackTokenQuery();
 
     const [localData, setLocalData] = useState(products ? products : null);
     const [editMode, setEditMode] = useState(false);
@@ -34,6 +36,45 @@ const AdminProductListPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
+    const filePickerOptions = {
+        accept: 'image/*',
+        maxSize: 1024 * 1024,
+        maxFiles: 1,
+        onUploadDone: async (res) => {
+            await uploadImageHandler(res.filesUploaded[0]);
+            console.log(res.filesUploaded[0]);
+        },
+        onClose: () => {
+            window.images_modal.showModal();
+        }
+
+    };
+    const openPicker = async (e) => {
+        const client = filestack.init(token, filePickerOptions);
+        await client.picker(filePickerOptions).open();
+    };
+    const uploadImageHandler = async (object) => {
+        dispatch(setLoading(true));
+        const {handle, url} = object;
+        const image = {
+            productId,
+            url,
+            handle,
+        }
+        const res = await updateProductImages(image);
+        if (res) {
+            setLocalData(prevState => {
+                return prevState.map(function (obj) {
+                    if (obj._id === res.data._id) {
+                        return res.data;
+                    } else {
+                        return obj;
+                    }
+                });
+            });
+        }
+        dispatch(setLoading(false));
+    };
 
     const openImagesHandler = (id) => {
         setModalIsOpen(true);
@@ -372,7 +413,7 @@ const AdminProductListPage = () => {
                                     }
                                 </div>
                                 <div className="modal-action">
-                                    {/*<button onClick={openPicker} className={"btn rounded-xl"}>Add Image</button>*/}
+                                    <button onClick={openPicker} className={"btn rounded-xl"}>Add Image</button>
                                     <button className={"btn btn-neutral rounded-xl"} onClick={closeImagesModal}>Close</button>
                                 </div>
                             </form>
