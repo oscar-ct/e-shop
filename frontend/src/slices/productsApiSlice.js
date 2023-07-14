@@ -69,8 +69,18 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                     },
                 }
             ),
+            deleteProductImage: build.mutation({
+                    query: function (data) {
+                        return {
+                            url: `${PRODUCTS_URL}/${data._id}/images`,
+                            method: "DELETE",
+                            body: data,
+                        }
+                    },
+                }
+            ),
         };
     }
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation} = productsApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation, useDeleteProductImageMutation} = productsApiSlice;
