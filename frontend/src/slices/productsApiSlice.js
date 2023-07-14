@@ -60,8 +60,17 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                     invalidatesTags: ["Product"],
                 }
             ),
+            deleteProduct: build.mutation({
+                    query: function (id) {
+                        return {
+                            url: `${PRODUCTS_URL}/${id}`,
+                            method: "DELETE"
+                        }
+                    },
+                }
+            ),
         };
     }
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation} = productsApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation} = productsApiSlice;
