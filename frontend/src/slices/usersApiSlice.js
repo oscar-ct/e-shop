@@ -64,8 +64,41 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                     }
                 }
             }),
+            getUsers: build.query({
+                query: function () {
+                    return {
+                        url: USERS_URL,
+                    }
+                },
+                keepUnusedDataFor: 5
+            }),
+            // getUserById: build.query({
+            //     query: function (id) {
+            //         return {
+            //             url: USERS_URL + "/" + id,
+            //         }
+            //     },
+            //     keepUnusedDataFor: 5
+            // }),
+            deleteUser: build.mutation({
+                query: function (id) {
+                    return {
+                        url: USERS_URL + "/" + id,
+                        method: "DELETE",
+                    }
+                }
+            }),
+            updateUser: build.mutation({
+                query: function (data) {
+                    return {
+                        url: USERS_URL + "/" + data._id,
+                        method: "PUT",
+                        body: data,
+                    }
+                }
+            }),
         };
     }
 });
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useVerifyPasswordMutation, useGetUserDataQuery, useUpdateUserAddressMutation, useUpdateUserCredentialsMutation} = usersApiSlice;
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useVerifyPasswordMutation, useGetUserDataQuery, useUpdateUserAddressMutation, useUpdateUserCredentialsMutation, useGetUsersQuery, useDeleteUserMutation, useUpdateUserMutation} = usersApiSlice;
