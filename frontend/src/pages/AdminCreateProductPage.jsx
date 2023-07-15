@@ -1,13 +1,13 @@
 import React, {useState} from 'react';
 import {
-    useCreateProductMutation, useUpdateProductImagesMutation,
+    useCreateProductMutation, useDeleteProductImageMutation, useUpdateProductImagesMutation,
 } from "../slices/productsApiSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {setLoading} from "../slices/loadingSlice";
 import {FaTrash, FaUpload} from "react-icons/fa";
 import * as filestack from "filestack-js";
-import {useGetFilestackTokenQuery} from "../slices/filestackSlice";
+import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncodeHandleMutation} from "../slices/filestackSlice";
 
 
 const AdminCreateProductPage = () => {
@@ -16,10 +16,14 @@ const AdminCreateProductPage = () => {
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
-    const [imagesUploaded, setImagesUploaded] = useState(false);
+ 
     const [createProduct, {error: errorCreate}] = useCreateProductMutation();
     const [updateProductImages, {error: errorUpdateImages}] = useUpdateProductImagesMutation();
     const {data: token} = useGetFilestackTokenQuery();
+    const [deleteProductImage] = useDeleteProductImageMutation();
+    const [deleteImageFromFilestack, {error: errorDeleteFilestack}] = useDeleteImageFromFilestackMutation();
+    const [encodeHandle, {error: errorEncodeHandle}] = useEncodeHandleMutation();
+    
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
@@ -35,7 +39,34 @@ const AdminCreateProductPage = () => {
     };
     const [newProduct, setNewProduct] = useState(null);
     const [formData, setFormData] = useState(initialState);
+    const [imagesUploaded, setImagesUploaded] = useState(false);
 
+    const deleteProductImageFromDbAndFilestack = async (id, handle) => {
+        const confirm = window.confirm("Are you want to delete this image?");
+        if (confirm) {
+            try {
+                const data = {
+                    _id: newProduct._id,
+                    imageId: id,
+                }
+                const res = await deleteProductImage(data);
+                setNewProduct(res.data);
+                if (handle !== "sampleImage") {
+                    const policyAndSignature = await encodeHandle(handle);
+                    const {policy, signature} = policyAndSignature.data;
+                    const filestackData = {
+                        key: token.token,
+                        handle,
+                        policy,
+                        signature,
+                    }
+                    await deleteImageFromFilestack(filestackData);
+                }
+            } catch (e) {
+                console.log(e)
+            }
+        }
+    }
 
     const onMutate = (e) => {
         setFormData(prevState => {
@@ -67,7 +98,7 @@ const AdminCreateProductPage = () => {
             console.log(e);
         }
         // refetch(); // this is for re-fetching data upon product creation
-        setFormData(initialState);
+        // setFormData(initialState);
         dispatch(setLoading(false));
         // navigate("/admin/products");
     };
@@ -80,15 +111,15 @@ const AdminCreateProductPage = () => {
         onUploadDone: async (res) => {
             await uploadImageHandler(res.filesUploaded[0]);
             setImagesUploaded(true);
-            console.log(res.filesUploaded[0]);
+            // console.log(res.filesUploaded[0]);
         },
-        onClose: () => {
-           console.log("close")
-        }
+        // onClose: () => {
+        //    console.log("close")
+        // }
 
     };
     const openPicker = async () => {
-        const client = filestack.init(token, filePickerOptions);
+        const client = filestack.init(token.token, filePickerOptions);
         await client.picker(filePickerOptions).open();
     };
     const uploadImageHandler = async (object) => {
@@ -128,6 +159,7 @@ const AdminCreateProductPage = () => {
                                         id={"name"}
                                         value={formData.name}
                                         onChange={onMutate}
+                                        disabled={newProduct !== null}
                                         required
                                     />
                                 </div>
@@ -142,6 +174,7 @@ const AdminCreateProductPage = () => {
                                         value={formData.description}
                                         required
                                         rows={5}
+                                        disabled={newProduct !== null}
                                         onChange={onMutate}
                                     />
                                 </div>
@@ -160,6 +193,7 @@ const AdminCreateProductPage = () => {
                                                 id={"brand"}
                                                 value={formData.brand}
                                                 onChange={onMutate}
+                                                disabled={newProduct !== null}
                                                 required
                                             />
                                         </div>
@@ -174,6 +208,7 @@ const AdminCreateProductPage = () => {
                                                 id={"model"}
                                                 value={formData.model}
                                                 onChange={onMutate}
+                                                disabled={newProduct !== null}
                                                 required
                                             />
                                         </div>
@@ -188,6 +223,7 @@ const AdminCreateProductPage = () => {
                                                 id={"category"}
                                                 value={formData.category}
                                                 onChange={onMutate}
+                                                disabled={newProduct !== null}
                                                 required
                                             />
                                         </div>
@@ -205,6 +241,7 @@ const AdminCreateProductPage = () => {
                                                     id={"countInStock"}
                                                     value={formData.countInStock}
                                                     onChange={onMutate}
+                                                    disabled={newProduct !== null}
                                                     required
                                                 />
                                             </div>
@@ -219,6 +256,7 @@ const AdminCreateProductPage = () => {
                                                     id={"price"}
                                                     value={formData.price}
                                                     onChange={onMutate}
+                                                    disabled={newProduct !== null}
                                                     required
                                                 />
                                             </div>
@@ -245,7 +283,7 @@ const AdminCreateProductPage = () => {
                                         <span className={"text-green-600 text-2xl pr-2"}>
                                             Success!
                                         </span>
-                                        Product Id: 5g48d2s4gj3er5h4ds
+                                        Product Id: {newProduct._id}
                                     </h1>
                                 )
                             }
@@ -262,14 +300,14 @@ const AdminCreateProductPage = () => {
 
                     <div className={"flex justify-center flex-wrap"}>
                         {
-                            newProduct ? newProduct.images.map(function (imageObj, index) {
+                            newProduct && newProduct.images.length !== 0 ? newProduct.images.map(function (imageObj, index) {
                                 return (
-                                    <div className={"p-3"}>
+                                    <div key={index} className={"p-3"}>
                                         <div className={"indicator"}>
+                                            <span onClick={() => deleteProductImageFromDbAndFilestack(imageObj._id, imageObj.handle)} className="p-1 text-white indicator-item rounded-full badge badge-error cursor-pointer">
+                                                <FaTrash className={"text-xs"}/>
+                                            </span>
                                             <img src={imageObj.url} alt={"product"} className={"w-40 rounded-xl"}/>
-                                            <button className="btn btn-xs btn-error p-1 text-white indicator-item rounded-xl">
-                                                <FaTrash className={"text-sm"}/>
-                                            </button>
                                         </div>
                                     </div>
                                 )
