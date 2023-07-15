@@ -69,9 +69,9 @@ const CartPage = () => {
                                 )
                             }
                             </div>
-                            <div className={"lg:w-8/12 card mb-3 bg-base-100 shadow-xl"}>
+                            <div className={"lg:w-8/12 card mb-10 bg-base-100 shadow-xl"}>
                                 <div className={"p-5"}>
-                                    <h1 className={"text-2xl font-bold text-center"}>
+                                    <h1 className={"text-2xl text-center font-bold text-neutral pb-3"}>
                                         Shopping Cart (
                                         <span className={"text-xl text-gray-500 font-bold"}>
                                             {totalNumberOfItems}
