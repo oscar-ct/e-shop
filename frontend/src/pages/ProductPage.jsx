@@ -113,19 +113,38 @@ const ProductPage = () => {
                                         </span>
                                     </div>
                                     {/*<div className={"flex justify-center"}>*/}
-                                        <div className={"w-full flex justify-between pt-7"}>
+                                        <div className={"w-full flex flex-col justify-between pt-7"}>
+                                            <div className={"flex pb-5"}>
+                                                <div className={"flex items-center justify-end w-6/12"}><span className={"font-bold"}>Qty:</span></div>
                                             {
                                                 product.countInStock > 0 && (
-                                                    <input
-                                                        onChange={(e) => setQuantity(Number(e.target.value))}
-                                                        min={1}
-                                                        defaultValue={1}
-                                                        max={product.countInStock}
-                                                        type="number"
-                                                        className="input input-bordered max-w-xs" />
+                                                    <div className={"pl-2 w-6/12"}>
+                                                        <select
+                                                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-20 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                            value={quantity}
+                                                            onChange={(e) => setQuantity(Number(e.target.value))}
+                                                        >
+                                                            {
+                                                                [...Array(product.countInStock).keys()].map(function (x) {
+                                                                    return (
+                                                                        <option key={x+1} value={x+1}>
+                                                                            {x+1}
+                                                                        </option>
+                                                                    )
+                                                                })
+                                                            }
+                                                        </select>
+                                                    {/*<input*/}
+                                                    {/*    onChange={(e) => setQuantity(Number(e.target.value))}*/}
+                                                    {/*    min={1}*/}
+                                                    {/*    defaultValue={1}*/}
+                                                    {/*    max={product.countInStock}*/}
+                                                    {/*    type="number"*/}
+                                                    {/*    className="input input-bordered w-full"/>*/}
+                                                    </div>
                                                 )
                                             }
-
+                                            </div>
                                             <button className={`btn-md btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
                                                 Add To Cart
                                             </button>
