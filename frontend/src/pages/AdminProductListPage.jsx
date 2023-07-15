@@ -331,14 +331,14 @@ const AdminProductListPage = () => {
                                                         {/*<td><input type={"text"} value={item.name}/></td>*/}
                                                             <td className={"p-1"}>
                                                                 <input
-                                                                    className="pl-1 py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                                    className="pl-1 font-bold py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     value={name}
                                                                     onChange={(e) => setName(e.target.value)}
                                                                 />
                                                             </td>
                                                             <td className={"p-1"}>
                                                                 <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"text"}
                                                                     value={brand}
                                                                     onChange={(e) => setBrand(e.target.value)}
@@ -346,7 +346,7 @@ const AdminProductListPage = () => {
                                                             </td>
                                                             <td className={"p-1"}>
                                                                 <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"text"}
                                                                     value={model}
                                                                     onChange={(e) => setModel(e.target.value)}
@@ -354,7 +354,7 @@ const AdminProductListPage = () => {
                                                             </td>
                                                             <td className={"p-1"}>
                                                                 <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-20 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-20 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"number"}
                                                                     min={0}
                                                                     value={price}
@@ -363,7 +363,7 @@ const AdminProductListPage = () => {
                                                             </td>
                                                             <td className={"p-1"}>
                                                                 <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-10 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-12 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"number"}
                                                                     min={0}
                                                                     value={inStock}
@@ -372,7 +372,7 @@ const AdminProductListPage = () => {
                                                             </td>
                                                             <td className={"p-1"}>
                                                                 <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-20 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-[90px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"text"}
                                                                     value={category}
                                                                     onChange={(e) => setCategory(e.target.value)}
@@ -380,7 +380,7 @@ const AdminProductListPage = () => {
                                                             </td>
                                                             <td className={"p-1 pt-2"}>
                                                                 <textarea
-                                                                    className="pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
+                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     value={description}
                                                                     onChange={(e) => setDescription(e.target.value)}
                                                                 />
@@ -441,14 +441,15 @@ const AdminProductListPage = () => {
                 </div>
                 <dialog id="confirm_modal" className="modal modal-bottom sm:modal-middle">
                     <form method="dialog" className="modal-box">
-                        <h3 className="p-4 font-bold text-lg">Please confirm the changes you wish to make.</h3>
+                        <h3 className="p-4 font-bold text-lg">Please confirm these are the changes you wish to make.</h3>
                         <div className="px-4">
                             {
                                 modalMessage !== "" && (
                                     modalMessage.split("&").map(function(sentence, index){
-                                        let c = sentence.indexOf(":");
+                                    //     let c = sentence.indexOf(":");
+                                    // .substring(c+1, sentence.length)
                                         return (
-                                            <p className={"py-2"} key={index}>{sentence.substring(c+1, sentence.length)}</p>
+                                            <p className={"py-2"} key={index}>{sentence}</p>
                                         )
                                     })
                                 )
