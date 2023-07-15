@@ -93,7 +93,8 @@ const AdminProductListPage = () => {
         setProductId(id);
         window.images_modal.showModal();
     };
-    const closeImagesModal = () => {
+    const closeImagesModal = (e) => {
+        e.preventDefault();
         setModalIsOpen(false);
         setProductId(null);
         window.images_modal.close();
@@ -214,20 +215,24 @@ const AdminProductListPage = () => {
                 const deletedProduct = localData.filter(function (obj) {
                     return obj._id === productId;
                 });
-                await Promise.all(deletedProduct[0].images.map(async function (image) {
-                    if (image.handle !== "sampleImage") {
-                        const policyAndSignature = await encodeHandle(image.handle);
-                        const {policy, signature} = policyAndSignature.data;
-                        const filestackData = {
-                            key: token.token,
-                            handle: image.handle,
-                            policy,
-                            signature,
+                if (deletedProduct[0].images.length !== 0) {
+                    await Promise.all(deletedProduct[0].images.map(async function (image) {
+                        if (image.handle !== "sampleImage") {
+                            // console.log("attempting to delete images from filestack");
+                            const policyAndSignature = await encodeHandle(image.handle);
+                            const {policy, signature} = policyAndSignature.data;
+                            const filestackData = {
+                                key: token.token,
+                                handle: image.handle,
+                                policy,
+                                signature,
+                            }
+                            await deleteImageFromFilestack(filestackData);
                         }
-                        await deleteImageFromFilestack(filestackData);
-                    }
 
-                }));
+                    }));
+                }
+
                 /// deletes product from state
                 setLocalData(prevState => {
                     return prevState.filter(function (obj) {
@@ -259,15 +264,17 @@ const AdminProductListPage = () => {
                         }
                     });
                 });
-                const policyAndSignature = await encodeHandle(handle);
-                const {policy, signature} = policyAndSignature.data;
-                const filestackData = {
-                    key: token.token,
-                    handle,
-                    policy,
-                    signature,
+                if (handle !== "sampleImage") {
+                    const policyAndSignature = await encodeHandle(handle);
+                    const {policy, signature} = policyAndSignature.data;
+                    const filestackData = {
+                        key: token.token,
+                        handle,
+                        policy,
+                        signature,
+                    }
+                    await deleteImageFromFilestack(filestackData);
                 }
-                await deleteImageFromFilestack(filestackData);
             } catch (e) {
                 console.log(e)
             }
@@ -482,7 +489,10 @@ const AdminProductListPage = () => {
                                                             <div className={"flex max-w-full"}>
                                                                 <img className={"rounded-xl w-56"} src={image.url} alt={"product"}/>
                                                                 <div className={"flex items-center pl-5"}>
-                                                                    <button type={"button"}  onClick={() => deleteProductImageFromDbAndFilestack(image._id, image.handle)} className={"btn-sm rounded-full btn-error text-white"}>
+                                                                    <button
+                                                                        type={"button"}
+                                                                        onClick={() => deleteProductImageFromDbAndFilestack(image._id, image.handle)}
+                                                                        className={"btn-xs rounded-full btn-error text-white"}>
                                                                         <FaTrash/>
                                                                     </button>
                                                                 </div>
