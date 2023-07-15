@@ -13,6 +13,7 @@ import {useDispatch} from "react-redux";
 import {setLoading} from "../slices/loadingSlice";
 import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncodeHandleMutation} from "../slices/filestackSlice";
 import * as filestack from "filestack-js";
+import AdminTabs from "../components/AdminTabs";
 
 
 const AdminProductListPage = () => {
@@ -293,7 +294,8 @@ const AdminProductListPage = () => {
     return (
         isLoading || !localData ? <Spinner/> : error ? error : (
             <div className={"pt-10"}>
-                <div className={"card bg-base-100 shadow-xl"}>
+                <AdminTabs/>
+                <div className={"mt-5 border-2 border-neutral/90 card bg-base-100 shadow-xl"}>
                     <div className={"w-full px-5 flex justify-center pt-5"}>
                         <div className={" text-2xl text-center font-bold"}>
                             Product List
@@ -333,67 +335,67 @@ const AdminProductListPage = () => {
                                                 {
                                                     editMode && item._id === productId ? (
                                                         <>
-                                                            <th>{index+1}</th>
-                                                            <td>{item._id.substring(item._id.length - 6, item._id.length)}</td>
+                                                            <th className={"bg-blue-200"}>{index+1}</th>
+                                                            <td className={"bg-blue-200"}>{item._id.substring(item._id.length - 6, item._id.length)}</td>
                                                         {/*<td><input type={"text"} value={item.name}/></td>*/}
-                                                            <td className={"p-1"}>
+                                                            <td className={"p-1 bg-blue-200"}>
                                                                 <input
-                                                                    className="pl-1 font-bold py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    className="pl-1 py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     value={name}
                                                                     onChange={(e) => setName(e.target.value)}
                                                                 />
                                                             </td>
-                                                            <td className={"p-1"}>
+                                                            <td className={"p-1 bg-blue-200"}>
                                                                 <input
-                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    className="pl-1 shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"text"}
                                                                     value={brand}
                                                                     onChange={(e) => setBrand(e.target.value)}
                                                                 />
                                                             </td>
-                                                            <td className={"p-1"}>
+                                                            <td className={"p-1 bg-blue-200"}>
                                                                 <input
-                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    className="pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"text"}
                                                                     value={model}
                                                                     onChange={(e) => setModel(e.target.value)}
                                                                 />
                                                             </td>
-                                                            <td className={"p-1"}>
+                                                            <td className={"p-1 bg-blue-200"}>
                                                                 <input
-                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-20 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    className="pl-1 shadow appearance-none border rounded w-20 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"number"}
                                                                     min={0}
                                                                     value={price}
                                                                     onChange={(e) => setPrice(e.target.value)}
                                                                 />
                                                             </td>
-                                                            <td className={"p-1"}>
+                                                            <td className={"p-1 bg-blue-200"}>
                                                                 <input
-                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-12 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    className="pl-1 shadow appearance-none border rounded w-12 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"number"}
                                                                     min={0}
                                                                     value={inStock}
                                                                     onChange={(e) => setInStock(e.target.value)}
                                                                 />
                                                             </td>
-                                                            <td className={"p-1"}>
+                                                            <td className={"p-1 bg-blue-200"}>
                                                                 <input
-                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-[90px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    className="pl-1 shadow appearance-none border rounded w-[90px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"text"}
                                                                     value={category}
                                                                     onChange={(e) => setCategory(e.target.value)}
                                                                 />
                                                             </td>
-                                                            <td className={"p-1 pt-2"}>
+                                                            <td className={"p-1 pt-2 bg-blue-200"}>
                                                                 <textarea
-                                                                    className="pl-1 font-bold shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    className="pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     value={description}
                                                                     onChange={(e) => setDescription(e.target.value)}
                                                                 />
                                                             </td>
-                                                            <td className={"p-1 w-24"}>{item?.createdAt.substring(0, 10)}</td>
-                                                            <td className={"p-1"}>
+                                                            <td className={"p-1 w-24 bg-blue-200"}>{item?.createdAt.substring(0, 10)}</td>
+                                                            <td className={"p-1 bg-blue-200"}>
                                                                 <div className={"flex"}>
                                                                     <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
                                                                         <FaCheckCircle/>
