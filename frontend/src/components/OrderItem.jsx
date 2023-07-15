@@ -15,14 +15,14 @@ const OrderItem = ( {item} ) => {
 
                 <div className={"w-8/12 flex flex-col px-3 sm:px-5"}>
 
-                    <div className={"sm:text-lg font-bold"}>
+                    <div className={"sm:text-lg font-bold text-neutral"}>
                         {item.name}
                     </div>
 
                     <div className={"flex w-full justify-between items-end"}>
                         <div className={"flex flex-col"}>
                             <div>
-                                <span className={"font-bold text-xs"}>
+                                <span className={"text-gray-500 font-bold text-xs"}>
                                     Quantity:
                                 </span>
                                 <span className={"ml-1 text-sm"}>
@@ -30,7 +30,7 @@ const OrderItem = ( {item} ) => {
                                 </span>
                             </div>
                             <div>
-                                <span className={"font-bold text-xs"}>
+                                <span className={"text-gray-500 font-bold text-xs"}>
                                     Price:
                                 </span>
                                 <span className={"ml-1 text-sm"}>
@@ -43,7 +43,7 @@ const OrderItem = ( {item} ) => {
                 </div>
 
                 <div className={"w-2/12 flex flex-col items-end justify-between"}>
-                    <span className={"text-lg font-bold"}>
+                    <span className={"text-lg"}>
                         ${(item.price * item.quantity).toFixed(2)}
                     </span>
                 </div>
