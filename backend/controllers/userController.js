@@ -204,19 +204,57 @@ const updateUserAddress = asyncHandler(async (req, res) => {
 // ***********************
 // GET
 const getUsers = asyncHandler(async (req, res) => {
-    res.send("getUsers")
+    const users = await User.find({}).select("-password");
+    res.status(201);
+    res.json(users);
 });
 // GET
 const getUserById = asyncHandler(async (req, res) => {
-    res.send("getUserById")
+    const id = req.params.id;
+    const user = await User.findById(id).select("-password");
+    if (user) {
+        res.status(201);
+        res.json(user);
+    } else {
+        res.status(404);
+        throw new Error("User not found");
+    }
 });
 // PUT
 const updateUsers = asyncHandler(async (req, res) => {
-    res.send("updateUsers")
+    const id = req.params.id;
+    const user = await User.findById(id);
+    if (user) {
+        user.name = req.body.name || user.name;
+        user.email = req.body.email || user.email;
+        if (req.body.isAdmin) {
+            user.isAdmin = Boolean(req.body.isAdmin);
+        }
+        await user.save();
+        const updatedUser =  await User.findById(id).select("-password");
+        res.status(200).json(updatedUser);
+    } else {
+        res.status(404);
+        throw new Error("User not found");
+    }
 });
 // DELETE
 const deleteUsers = asyncHandler(async (req, res) => {
-    res.send("deleteUsers")
+    const id = req.params.id;
+    const user = await User.findById(id);
+    if (user) {
+        if (user.isAdmin) {
+            res.status(400);
+            throw new Error("This user cannot be deleted");
+        } else {
+            await User.deleteOne({_id: user._id});
+            res.status(201);
+            res.json({message: "User deleted"});
+        }
+    } else {
+        res.status(404);
+        throw new Error("User not found");
+    }
 });
 // ************************
 
