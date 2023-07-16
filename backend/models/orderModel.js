@@ -116,7 +116,16 @@ const orderSchema = new mongoose.Schema({
     },
     deliveredAt: {
         type: Date,
-    }
+    },
+    isShipped: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    trackingNumber: {
+        type: String,
+    },
+
 },
 {
     timestamps: true,
