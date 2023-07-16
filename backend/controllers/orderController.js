@@ -100,14 +100,20 @@ const getOrderById = asyncHandler(async (req, res) => {
 
 
 // ADMIN ACCESS ONLY
-const updateOrderShipmentStatus = asyncHandler(async (req, res) => {
-    return res.send("update shipment status");
-});
-const updateOrderDeliveryStatus = asyncHandler(async (req, res) => {
+
+const updateOrderStatus = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
+    const {trackingNumber, isShipped, isDelivered} = req.body;
     if (order) {
-        order.isDelivered = true;
-        order.deliveredAt = Date.now();
+        order.trackingNumber = trackingNumber || order.trackingNumber;
+        order.isShipped = Boolean(isShipped);
+        const delivered = Boolean(isDelivered);
+        if (delivered) {
+            order.isDelivered = true;
+            order.deliveredAt = Date.now();
+        } else {
+            order.isDelivered = false;
+        }
         const updatedOrder = await order.save();
         return res.status(201).json(updatedOrder);
     } else {
@@ -129,8 +135,7 @@ export {
     getUserOrders,
     getOrderById,
     updateOrderToPaid,
-    updateOrderShipmentStatus,
-    updateOrderDeliveryStatus,
+    updateOrderStatus,
     getAllOrders
 };
 
