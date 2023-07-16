@@ -124,6 +124,8 @@ const orderSchema = new mongoose.Schema({
     },
     trackingNumber: {
         type: String,
+        required: true,
+        default: "",
     },
 
 },
