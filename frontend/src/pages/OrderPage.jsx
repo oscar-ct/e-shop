@@ -20,7 +20,9 @@ const OrderPage = () => {
 
     const dispatch = useDispatch();
     const { id: orderId } = useParams();
-    const [payOrder, {isLoading: loadingPay}] = usePayOrderMutation();
+    const [payOrder,
+        // {isLoading: loadingPay}
+    ] = usePayOrderMutation();
     const {data: paypal, isLoading: loadingPayPal, error: errorPayPal} = useGetPayPalClientIdQuery();
     const {data: order, refetch, isLoading, error} = useGetOrderByIdQuery(orderId);
 
@@ -101,8 +103,12 @@ const OrderPage = () => {
                     <>
                         <div className={"p-5 lg:pt-10 lg:pb-5"}>
                             {
-                                order.isPaid ? (
+                                order.isPaid && !order.isShipped ? (
                                     <h1 className={"text-4xl font-bold text-neutral-700"}>Payment successful! Order is now being processed.</h1>
+                                ) : order.isPaid && order.isShipped && !order.isDelivered? (
+                                    <h1 className={"text-4xl font-bold text-neutral-700"}>Your order is on the way.</h1>
+                                ) : order.isPaid && order.isShipped && order.isDelivered ? (
+                                    <h1 className={"text-4xl font-bold text-neutral-700"}>Your order has been delivered, thank you!</h1>
                                 ) : (
                                     <h1 className={"text-4xl font-bold text-neutral-700"}>Thanks for the order! Please pay order below to begin shipment process.</h1>
                                 )
@@ -118,7 +124,7 @@ const OrderPage = () => {
                                 </div>
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-lg font-bold"}>
+                                        <h3 className={"text-xl font-bold text-neutral-600"}>
                                             Shipping Address
                                         </h3>
                                     </div>
@@ -142,24 +148,50 @@ const OrderPage = () => {
 
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-md text-neutral-500 font-bold"}>
+                                        <h3 className={"text-neutral-600"}>
                                             Shipment Status
                                         </h3>
                                     </div>
                                     <div className={"w-7/12"}>
                                         <div className={"flex flex-col text-sm"}>
                                             {
-                                                order.isPaid && !order.isDelivered ? (
-                                                    <Message variant={"info"}>
-                                                        Order is being processed
+                                                order.isPaid && !order.isShipped ? (
+                                                    <Message>
+                                                        <div className={"flex"}>
+                                                           <span className={"text-start"}>
+                                                                Order is being processed
+                                                            </span>
+                                                        </div>
                                                     </Message>
-                                                ) : order.isPaid && order.isDelivered ? (
+                                                ) : order.isPaid && order.isShipped && order.isDelivered ? (
                                                     <Message variant={"success"}>
-                                                        Delivered on {order.deliveredAt}
+                                                        <div className={"flex flex-col"}>
+                                                            <span className={"text-start truncate"}>
+                                                                Delivered on {order.deliveredAt.substring(0, 10)}
+                                                            </span>
+                                                            <span className={"text-start break-all"}>
+                                                                {`Tracking # ${order.trackingNumber}`}
+                                                            </span>
+                                                        </div>
+                                                    </Message>
+                                                ) : order.isPaid && order.isShipped ? (
+                                                    <Message variant={"info"}>
+                                                        <div className={"flex flex-col"}>
+                                                            <span className={"text-start"}>
+                                                                Shipped!
+                                                            </span>
+                                                            <span className={"text-start break-all"}>
+                                                                {`Tracking # ${order.trackingNumber}`}
+                                                            </span>
+                                                        </div>
                                                     </Message>
                                                 ) : (
                                                     <Message variant={"warning"}>
-                                                        Order is awaiting payment, please pay now.
+                                                        <div className={"flex"}>
+                                                            <span className={"text-start"}>
+                                                            Order is awaiting payment, please pay now.
+                                                            </span>
+                                                        </div>
                                                     </Message>
                                                 )
                                             }
@@ -170,7 +202,7 @@ const OrderPage = () => {
 
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-lg font-bold"}>
+                                        <h3 className={"text-xl font-bold text-neutral-600"}>
                                             Payment Method
                                         </h3>
                                     </div>
@@ -195,7 +227,7 @@ const OrderPage = () => {
 
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-md text-neutral-500 font-bold"}>
+                                        <h3 className={"text-md text-neutral-600"}>
                                             Payment Status
                                         </h3>
                                     </div>
@@ -204,11 +236,19 @@ const OrderPage = () => {
                                             {
                                                 order.isPaid ? (
                                                     <Message variant={"success"}>
-                                                        Paid on {order.paidAt}
+                                                        <div className={"flex"}>
+                                                            <span className={"text-start"}>
+                                                                Paid on {order.paidAt}
+                                                            </span>
+                                                        </div>
                                                     </Message>
                                                 ) : (
                                                     <Message variant={"error"}>
-                                                        Not Paid
+                                                        <div className={"flex"}>
+                                                            <span className={"text-start"}>
+                                                                Not Paid
+                                                            </span>
+                                                        </div>
                                                     </Message>
                                                 )
                                             }
@@ -219,7 +259,7 @@ const OrderPage = () => {
 
 
                                 <div className={"py-3"}>
-                                    <h3 className={"text-xl font-bold"}>
+                                    <h3 className={"text-xl font-bold text-neutral-600"}>
                                         Order Items
                                     </h3>
                                     <div>
