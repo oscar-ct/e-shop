@@ -10,7 +10,7 @@ const AdminTabs = () => {
             <div className="tabs tabs-boxed bg-neutral">
                 <Link
                     to={"/admin/orders"}
-                    className={`tab text-neutral-content ${location.pathname === "/admin/orders" ? "tab-active" : "text-neutral-content"}`}>
+                    className={`tab ${location.pathname === "/admin/orders" ? "bg-info text-neutral" : "text-neutral-content"}`}>
                     Orders
                 </Link>
                 <Link
