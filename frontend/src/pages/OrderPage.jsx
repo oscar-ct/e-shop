@@ -1,33 +1,28 @@
 import {useEffect} from 'react';
 import {PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
 import {useParams} from "react-router-dom";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {
     useGetOrderByIdQuery,
     useGetPayPalClientIdQuery,
     usePayOrderMutation,
-    useDeliverOrderMutation,
 } from "../slices/ordersApiSlice";
 import {setLoading} from "../slices/loadingSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {ReactComponent as PayPal} from "../icons/paypal.svg";
-import {FaCheck, FaCreditCard} from "react-icons/fa";
+import {FaCreditCard} from "react-icons/fa";
 import OrderItem from "../components/OrderItem";
 
 
 const OrderPage = () => {
 
-    const {userData} = useSelector(function (state) {
-        return state.auth;
-    });
 
     const dispatch = useDispatch();
     const { id: orderId } = useParams();
     const [payOrder, {isLoading: loadingPay}] = usePayOrderMutation();
     const {data: paypal, isLoading: loadingPayPal, error: errorPayPal} = useGetPayPalClientIdQuery();
     const {data: order, refetch, isLoading, error} = useGetOrderByIdQuery(orderId);
-    const [deliverOrder] = useDeliverOrderMutation();
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -93,21 +88,6 @@ const OrderPage = () => {
         });
     }
 
-    const deliverOrderHandler = async () => {
-        const confirmDeliver = window.confirm(`Are you sure you want to mark order ${order._id} as delivered?`);
-        if (confirmDeliver) {
-            dispatch(setLoading(true));
-            try {
-                await deliverOrder(orderId);
-                refetch();
-                dispatch(setLoading(false));
-            } catch (e) {
-                console.log(e)
-                dispatch(setLoading(false));
-            }
-        }
-    }
-
     return (
         <>
             {
@@ -165,17 +145,6 @@ const OrderPage = () => {
                                         <h3 className={"text-md text-neutral-500 font-bold"}>
                                             Shipment Status
                                         </h3>
-                                        {
-                                            userData?.isAdmin && order.isPaid && !order.isDelivered && (
-                                                <div className={"flex pt-1"}>
-                                                    <button onClick={deliverOrderHandler} className={"text-sm link link-primary"}>
-                                                    Mark as delivered
-                                                    </button>
-                                                    <FaCheck className={"pl-1 text-primary"}/>
-                                                </div>
-                                            )
-                                        }
-
                                     </div>
                                     <div className={"w-7/12"}>
                                         <div className={"flex flex-col text-sm"}>
