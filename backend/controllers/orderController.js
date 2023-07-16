@@ -105,7 +105,7 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     const {trackingNumber, isShipped, isDelivered} = req.body;
     if (order) {
-        order.trackingNumber = trackingNumber || order.trackingNumber;
+        order.trackingNumber = trackingNumber;
         order.isShipped = Boolean(isShipped);
         const delivered = Boolean(isDelivered);
         if (delivered) {
