@@ -4,8 +4,7 @@ import {
     getUserOrders,
     getOrderById,
     updateOrderToPaid,
-    updateOrderShipmentStatus,
-    updateOrderDeliveryStatus,
+    updateOrderStatus,
     getAllOrders
 } from "../controllers/orderController.js";
 import {protect, admin} from "../middleware/authMiddleware.js";
@@ -25,8 +24,7 @@ router.get('/:id', protect, getOrderById);  // User & Admin Access
 // ADMIN ACCESS ONLY
 // Using custom middleware PROTECT and ADMIN
 router.get('/',protect, admin, getAllOrders);
-router.put('/:id/shipment', protect, admin, updateOrderShipmentStatus);
-router.put('/:id/delivery', protect, admin, updateOrderDeliveryStatus);
+router.put('/:id/update', protect, admin, updateOrderStatus);
 
 
 export default router;
