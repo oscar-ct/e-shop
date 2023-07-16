@@ -2,18 +2,17 @@ import React from 'react';
 import {useDeleteUserMutation, useGetUsersQuery, useUpdateUserMutation} from "../slices/usersApiSlice";
 import {useState} from "react";
 import Spinner from "../components/Spinner";
-import {FaCheck, FaCheckCircle, FaEdit, FaImages, FaMinusCircle, FaPlus, FaTimes, FaTrash} from "react-icons/fa";
+import {FaCheck, FaCheckCircle, FaEdit, FaMinusCircle, FaTimes} from "react-icons/fa";
 import {useEffect} from "react";
 import {setLoading} from "../slices/loadingSlice";
 import {useDispatch} from "react-redux";
-import {useLocation} from "react-router-dom";
 import AdminTabs from "../components/AdminTabs";
 
 
 const AdminUserListPage = () => {
 
 
-    const {data: users, isLoading, error} = useGetUsersQuery();
+    const {data: users, isLoading, refetch, error} = useGetUsersQuery();
     const [deleteUser] = useDeleteUserMutation();
     const [updateUser] = useUpdateUserMutation();
 
@@ -59,21 +58,20 @@ const AdminUserListPage = () => {
             _id: userId,
             name,
             email,
-            isAdmin,
+            isAdmin : isAdmin === "true",
         }
         try {
-            const res = await updateUser(updatedProduct);
-            if (res) {
-                setLocalData(prevState => {
-                    return prevState.map(function (obj) {
-                        if (obj._id === res.data._id) {
-                            return res.data;
-                        } else {
-                            return obj;
-                        }
-                    });
+            const res = await updateUser(updatedProduct).unwrap();
+            refetch();
+            setLocalData(prevState => {
+                return prevState.map(function (obj) {
+                    if (obj._id === res._id) {
+                        return res;
+                    } else {
+                        return obj;
+                    }
                 });
-            }
+            });
         } catch (e) {
             console.log(e);
         }
@@ -87,7 +85,7 @@ const AdminUserListPage = () => {
         setUserId(id);
         setName(obj.name);
         setEmail(obj.email);
-        setIsAdmin(obj.isAdmin);
+        setIsAdmin(obj.isAdmin.toString());
     };
 
     const completeEditHandler = () => {
@@ -111,7 +109,7 @@ const AdminUserListPage = () => {
         const a = {
             name: updatedObj.name,
             email: updatedObj.email,
-            isAdmin: updatedObj.isAdmin,
+            isAdmin: updatedObj.isAdmin.toString(),
         }
         return Object.entries(b).filter(([key, val]) => a[key] !== val && key in a).reduce((a, [key, v]) => ({
             ...a,
@@ -145,8 +143,8 @@ const AdminUserListPage = () => {
     return (
         isLoading || !localData ? <Spinner/> : error ? error : (
             <div className={"pt-10"}>
-              <AdminTabs/>
-                <div className={"mt-5 card border-2 border-neutral/90 bg-base-100 shadow-xl"}>
+                <AdminTabs/>
+                <div className={"mt-5 card bg-base-100 shadow-xl"}>
                     <div className={"w-full px-5 flex justify-center pt-5"}>
                         <div className={" text-2xl text-center font-bold"}>
                             User List
@@ -154,7 +152,7 @@ const AdminUserListPage = () => {
 
                     </div>
                     <div className="overflow-x-auto p-5">
-                        <table className="table table-zebra w-fit xl:w-full table-sm">
+                        <table className="table w-fit lg:w-full table-zebra table-sm">
                             <thead>
                             <tr>
                                 <th/>
@@ -178,7 +176,6 @@ const AdminUserListPage = () => {
                                                         <>
                                                             <th className={"bg-blue-200"}>{index+1}</th>
                                                             <td className={"bg-blue-200"}>{user._id.substring(user._id.length - 6, user._id.length)}</td>
-                                                            {/*<td><input type={"text"} value={item.name}/></td>*/}
                                                             <td className={"p-1 bg-blue-200"}>
                                                                 <input
                                                                     className="pl-1 py-2 shadow appearance-none border rounded w-24 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
@@ -195,12 +192,18 @@ const AdminUserListPage = () => {
                                                                 />
                                                             </td>
                                                             <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    type={"text"}
+                                                                <select
+                                                                    className="pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     value={isAdmin}
                                                                     onChange={(e) => setIsAdmin(e.target.value)}
-                                                                />
+                                                                >
+                                                                    <option value={"true"}>
+                                                                        true
+                                                                    </option>
+                                                                    <option value={"false"}>
+                                                                        false
+                                                                    </option>
+                                                                </select>
                                                             </td>
                                                             <td className={"p-1 bg-blue-200"}>{user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
                                                                 return (
@@ -210,7 +213,7 @@ const AdminUserListPage = () => {
                                                                 "No saved address"
                                                             )}</td>
                                                             <td className={"p-1 w-24 bg-blue-200"}>{user?.createdAt.substring(0, 10)}</td>
-                                                            <td className={"p-1 bg-blue-200"}>
+                                                            <td className={"w-16 p-1 bg-blue-200"}>
                                                                 <div className={"flex"}>
                                                                     <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
                                                                         <FaCheckCircle/>
@@ -228,7 +231,7 @@ const AdminUserListPage = () => {
                                                             <td className={"p-1"}>{user.name}</td>
                                                             <td className={"p-1"}>{user.email}</td>
                                                             <td className={"p-1"}>{user.isAdmin ? <FaCheck fill={"green"}/> : <FaTimes fill={"red"}/>}</td>
-                                                            <td className={"p-1"}>{user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
+                                                            <td className={"p-1"}>{user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj) {
                                                                 return (
                                                                     `${obj.address}, ${obj.city}, ${obj.postalCode} ${user.shippingAddresses.length > 1 ? "," : ""}`
                                                                 )
@@ -266,8 +269,6 @@ const AdminUserListPage = () => {
                             {
                                 modalMessage !== "" && (
                                     modalMessage.split("&").map(function(sentence, index){
-                                        //     let c = sentence.indexOf(":");
-                                        // .substring(c+1, sentence.length)
                                         return (
                                             <p className={"py-2"} key={index}>{sentence}</p>
                                         )
