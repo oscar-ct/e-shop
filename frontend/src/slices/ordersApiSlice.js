@@ -63,6 +63,7 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                     keepUnusedDataFor: 5
                 }
             ),
+            providesTags: ["Order"],
             updateOrder: build.mutation({
                     query: function (data) {
                         return {
@@ -71,6 +72,7 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                             body: data,
                         }
                     },
+                invalidatesTags: ["Order"]
                 }
             ),
         };
