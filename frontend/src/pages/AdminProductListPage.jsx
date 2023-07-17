@@ -64,7 +64,7 @@ const AdminProductListPage = () => {
         }
 
     };
-    const openPicker = async (e) => {
+    const openPicker = async () => {
         const client = filestack.init(token.token, filePickerOptions);
         await client.picker(filePickerOptions).open();
     };
@@ -75,12 +75,12 @@ const AdminProductListPage = () => {
             url,
             handle,
         }
-        const res = await updateProductImages(image);
+        const res = await updateProductImages(image).unwrap();
         if (res) {
             setLocalData(prevState => {
                 return prevState.map(function (obj) {
-                    if (obj._id === res.data._id) {
-                        return res.data;
+                    if (obj._id === res._id) {
+                        return res;
                     } else {
                         return obj;
                     }
@@ -100,7 +100,10 @@ const AdminProductListPage = () => {
         setProductId(null);
         window.images_modal.close();
     };
-
+    const closeEditModal = (e) => {
+        e.preventDefault();
+        window.confirm_modal.close();
+    }
     const submitUpdateHandler = async (e) => {
         e.preventDefault();
         window.confirm_modal.close();
@@ -176,7 +179,7 @@ const AdminProductListPage = () => {
             brand,
             model,
             price,
-            countInStock: inStock,
+            countInStock: inStock.toString(),
             category,
             description,
         }
@@ -185,7 +188,7 @@ const AdminProductListPage = () => {
             brand: updatedObj.brand,
             model: updatedObj.model,
             price: updatedObj.price,
-            countInStock: updatedObj.countInStock,
+            countInStock: updatedObj.countInStock.toString(),
             category: updatedObj.category,
             description: updatedObj.description,
         }
@@ -295,7 +298,7 @@ const AdminProductListPage = () => {
         isLoading || !localData ? <Spinner/> : error ? error : (
             <div className={"pt-10"}>
                 <AdminTabs/>
-                <div className={"mt-5 border-2 border-neutral/90 card bg-base-100 shadow-xl"}>
+                <div className={"mt-5 card bg-base-100 shadow-xl"}>
                     <div className={"w-full px-5 flex justify-center pt-5"}>
                         <div className={" text-2xl text-center font-bold"}>
                             Product List
@@ -337,7 +340,6 @@ const AdminProductListPage = () => {
                                                         <>
                                                             <th className={"bg-blue-200"}>{index+1}</th>
                                                             <td className={"bg-blue-200"}>{item._id.substring(item._id.length - 6, item._id.length)}</td>
-                                                        {/*<td><input type={"text"} value={item.name}/></td>*/}
                                                             <td className={"p-1 bg-blue-200"}>
                                                                 <input
                                                                     className="pl-1 py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
@@ -465,7 +467,7 @@ const AdminProductListPage = () => {
                             }
                         </div>
                         <div className="modal-action">
-                            <button className={"btn btn-error"}>Cancel</button>
+                            <button onClick={closeEditModal} className={"btn btn-error"}>Cancel</button>
                             <button
                                 className="btn btn-primary"
                                 onClick={submitUpdateHandler}
