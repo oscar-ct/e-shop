@@ -18,7 +18,7 @@ const router = express.Router();
 router.get('/',getAllProducts);
 router.get('/:id', getProductById);
 
-router.put("/:id/reviews", protect, createProductReview);
+router.post("/:id/reviews", protect, createProductReview);
 
 
 // ADMIN ACCESS ONLY
