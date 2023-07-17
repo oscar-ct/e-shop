@@ -144,7 +144,7 @@ const deleteProductImage = asyncHandler(async (req, res) => {
 });
 
 const createProductReview = asyncHandler(async (req, res) => {
-    const {rating, comment} = req.body;
+    const {rating, comment, title} = req.body;
     const product = await Product.findById(req.params.id);
     if (product)  {
         const alreadyReviewed = product.reviews.find(function(review) {
@@ -156,6 +156,7 @@ const createProductReview = asyncHandler(async (req, res) => {
         }
         const review = {
             name: req.user.name,
+            title,
             rating: Number(rating),
             comment,
             user: req.user._id,
