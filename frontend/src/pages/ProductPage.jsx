@@ -89,7 +89,7 @@ const ProductPage = () => {
                         {/*<Link className={"btn btn-light my-5"} to={"/"}>*/}
                         {/*    Go Back*/}
                         {/*</Link>*/}
-                        <div className={"flex flex-col bg-base-100 shadow-xl px-5 xl:px-10 py-5 rounded-xl mb-10"}>
+                        <div className={"flex flex-col bg-base-100 shadow-xl px-5 xl:px-10 pt-5 pb-10 rounded-xl mb-10"}>
                             <div className={"w-full flex flex-col lg:flex-row flex-wrap "}>
                                 <div className={"flex items-center lg:w-5/12"}>
                                     <img src={product.image} alt={"product"} className={"rounded-xl"}/>
@@ -104,8 +104,9 @@ const ProductPage = () => {
                                         </div>
                                         <div className={"py-4 border-b-[1px] text-2xl border-gray-300 flex font-bold items-start"}>
                                             <span className={"text-xs pt-1"}>$</span>
-                                            <span>{product.price.toString().substring(0, 2)}</span>
-                                            <span className={"text-xs pt-1"}>{product.price.toString().substring(3, 5)}</span>
+
+                                            <span>{product.price.toString().substring(0,  product.price.toString().indexOf("."))}</span>
+                                            <span className={"text-xs pt-1"}>{product.price.toString().substring( product.price.toString().indexOf(".")+1, product.price.toString().length)}</span>
                                         </div>
                                         <div className={"text-sm py-4 border-b-[1px] border-gray-300"}>
                                             <span className={"font-bold pr-2"}>
@@ -185,7 +186,7 @@ const ProductPage = () => {
                                 </div>
                             </div>
                             <div>
-                                <div className={"pt-5 pb-5 2xl:pt-10 px-3"}>
+                                <div className={"pt-5 pb-5 xl:pt-10 px-3"}>
                                     <h2 className={"text-2xl font-bold"}>Reviews</h2>
                                 </div>
                                 <div className={"flex flex-col lg:flex-row"}>
@@ -193,7 +194,14 @@ const ProductPage = () => {
                                         <div className={"overflow-x-auto border-[1px] border-neutral-300 rounded-xl pb-10"}>
                                             <div className={"px-4 lg:px-10 pt-5"}>
                                                 <div className={"pt-2 pb-6 flex justify-between items-center border-b-[1px] border-neutral-300"}>
-                                                    <span className={"text-xl"}>Recent Reviews</span>
+                                                    {
+                                                        product.reviews.length !== 0 ? (
+                                                            <span className={"text-xl"}>Recent Reviews</span>
+                                                        ) : (
+                                                            <h2 className={"text-xl"}>Be the first to write a review!</h2>
+                                                        )
+                                                    }
+
                                                     {
                                                         userData ? (
                                                             <button onClick={() =>  window.review_modal.showModal()} className={"text-xs link link-primary"}>
@@ -209,7 +217,7 @@ const ProductPage = () => {
 
 
                                                 {
-                                                    product.reviews.length !== 0 ? (
+                                                    product.reviews.length !== 0 && (
                                                         product.reviews.map(function (review, index) {
                                                             return (
                                                                 <div key={index} className={"py-3"}>
@@ -240,8 +248,6 @@ const ProductPage = () => {
                                                             )
                                                         })
 
-                                                    ) : (
-                                                        <h2 className={"text-xl pt-5 font-bold"}>Be the first to write a review</h2>
                                                     )
                                                 }
 
