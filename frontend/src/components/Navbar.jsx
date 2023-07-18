@@ -7,6 +7,7 @@ import {useSelector, useDispatch} from "react-redux";
 import {useLogoutMutation} from "../slices/usersApiSlice";
 import {logout} from "../slices/authSlice";
 import {clearCartItems} from "../slices/cartSlice";
+import SearchBox from "./SearchBox";
 
 const Navbar = () => {
     const {cartItems} = useSelector(function (state) {
@@ -100,6 +101,7 @@ const Navbar = () => {
                     <div className={"flex"}>
                         <div className={"flex justify-end"}>
                             <div className="ml-auto hidden items-center gap-2 lg:flex">
+                                <SearchBox/>
                                 <div className="flex-none">
                                     <div className="dropdown dropdown-end">
                                         <label tabIndex={0} className="btn btn-ghost">
