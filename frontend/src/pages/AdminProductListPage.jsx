@@ -14,11 +14,14 @@ import {setLoading} from "../slices/loadingSlice";
 import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncodeHandleMutation} from "../slices/filestackSlice";
 import * as filestack from "filestack-js";
 import AdminTabs from "../components/AdminTabs";
+import {useParams} from "react-router-dom";
+import Paginate from "../components/Paginate";
 
 
 const AdminProductListPage = () => {
-
-    const {data: products, isLoading, error} = useGetProductsQuery();
+    const {pageNumber} = useParams();
+    const {data, isLoading, error} = useGetProductsQuery({pageNumber});
+    console.log(data)
     const [updateProduct,
         // {error: errorUpdate}
     ] = useUpdateProductMutation();
@@ -33,7 +36,7 @@ const AdminProductListPage = () => {
     const [deleteImageFromFilestack] = useDeleteImageFromFilestackMutation();
     const [encodeHandle] = useEncodeHandleMutation();
 
-    const [localData, setLocalData] = useState(products ? products : null);
+    const [localData, setLocalData] = useState(data?.products ? data.products : null);
     const [editMode, setEditMode] = useState(false);
     const [modalIsOpen, setModalIsOpen] = useState(false)
     const [productId, setProductId] = useState(null);
@@ -107,7 +110,6 @@ const AdminProductListPage = () => {
     const submitUpdateHandler = async (e) => {
         e.preventDefault();
         window.confirm_modal.close();
-        dispatch(setLoading(true));
         const updatedProduct = {
             productId,
             name,
@@ -135,7 +137,6 @@ const AdminProductListPage = () => {
             console.log(e);
         }
         completeEditHandler();
-        dispatch(setLoading(false));
     };
     const completeEditHandler = () => {
         setEditMode(false);
@@ -287,12 +288,12 @@ const AdminProductListPage = () => {
 
 
     useEffect(function () {
-        if (products) {
-            if (!localData) {
-                setLocalData(products);
-            }
-        }
-    }, [products, localData]);
+        // if (data) {
+        //     if (!localData) {
+                setLocalData(data?.products);
+        //     }
+        // }
+    }, [data?.products, localData]);
 
     return (
         isLoading || !localData ? <Spinner/> : error ? error : (
@@ -448,6 +449,11 @@ const AdminProductListPage = () => {
                             <tfoot>
                             </tfoot>
                         </table>
+                    </div>
+                    <div className={"pt-4 pb-8 flex justify-center"}>
+                        <div className={"join"}>
+                            <Paginate pages={data.pages} page={data.page} isAdmin={true}/>
+                        </div>
                     </div>
                 </div>
                 <dialog id="confirm_modal" className="modal modal-bottom sm:modal-middle">
