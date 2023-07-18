@@ -6,9 +6,13 @@ import crypto from "crypto";
 const getAllProducts = asyncHandler(async (req, res) => {
 
 // .find({}) - empty object will find all products
-    const productsFromDB = await Product.find({})
+    const pageSize = 5;
+    const page = Number(req.query.pageNumber) || 1;
+    const count = await Product.countDocuments();
 
-    return res.json(productsFromDB);
+    const products = await Product.find({}).limit(pageSize).skip(pageSize * (page-1));
+    res.status(201);
+    return res.json({products, page, pages: Math.ceil(count / pageSize)});
 });
 
 
