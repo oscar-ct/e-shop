@@ -4,10 +4,13 @@ import Product from "../components/Product";
 import {useGetProductsQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
+import {useParams} from "react-router-dom";
+import Paginate from "../components/Paginate";
 
 const HomePage = () => {
 
-    const { data: products, isLoading, error } = useGetProductsQuery();
+    const {pageNumber} = useParams();
+    const { data, isLoading, error } = useGetProductsQuery({pageNumber});
 
     // const [products, setProducts] = useState([]);
     // useEffect(function () {
@@ -39,12 +42,18 @@ const HomePage = () => {
                             <h2 className={"text-2xl mt-3"}>Recently Added</h2>
                             <div className={"w-full flex flex-wrap justify-center"}>
                                 {
-                                    products.map(function (product) {
+                                    data.products.map(function (product) {
                                         return <Product key={product._id} product={product}/>
                                     })
                                 }
                             </div>
                         </div>
+                        <div className={"pt-10 flex justify-center"}>
+                            <div className={"join"}>
+                                <Paginate pages={data.pages} page={data.page}/>
+                            </div>
+                        </div>
+
                     </>
                 )
             }
