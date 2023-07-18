@@ -18,6 +18,7 @@ import LoginPage from "./pages/LoginPage";
 import RegisterPage from "./pages/RegisterPage";
 import ShippingPage from "./pages/ShippingPage";
 import PrivateRoute from "./components/PrivateRoute";
+
 import PaymentPage from "./pages/PaymentPage";
 import CheckoutPage from "./pages/CheckoutPage";
 import OrderPage from "./pages/OrderPage";
@@ -36,6 +37,8 @@ const router = createBrowserRouter(
             {/*Public Routes*/}
             <Route index={true} path={"/"} element={<HomePage/>}/>
             <Route path={"/page/:pageNumber"} element={<HomePage/>}/>
+            <Route path={"/search/:searchTerm"} element={<HomePage/>}/>
+            <Route path={"/search/:searchTerm/page/:pageNumber"} element={<HomePage/>}/>
             <Route path={"/product/:id"} element={<ProductPage/>}/>
             <Route path={"/cart"} element={<CartPage/>}/>
             <Route path={"/login"} element={<LoginPage/>}/>
