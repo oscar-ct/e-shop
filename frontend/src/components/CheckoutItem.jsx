@@ -3,6 +3,7 @@ import {Link} from "react-router-dom";
 import {FaTrash} from "react-icons/fa";
 import {addToCart, removeFromCart} from "../slices/cartSlice";
 import {useDispatch} from "react-redux";
+import {formatPrice} from "../utils/formatPriceUtilis";
 
 const CheckoutItem = ( {item} ) => {
 
@@ -65,7 +66,7 @@ const CheckoutItem = ( {item} ) => {
                                     Price:
                                 </span>
                                 <span className={"ml-1 text-sm"}>
-                                    ${item.price}
+                                    ${item.price}/ea.
                                 </span>
                             </div>
                         </div>
@@ -73,6 +74,9 @@ const CheckoutItem = ( {item} ) => {
                         <div className={"w-3/12 flex justify-end items-end"}>
 
                             <div className={"flex justify-end items-end"}>
+                                <label className="block mr-2 text-sm font-medium text-gray-900 dark:text-white pb-3">
+                                    Qty:
+                                </label>
                                 <select
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-20 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     value={item.quantity}
@@ -125,9 +129,12 @@ const CheckoutItem = ( {item} ) => {
                 </div>
 
                 <div className={"w-2/12 flex flex-col items-end justify-between"}>
-                    <span className={"text-lg neutral"}>
-                        ${(item.price * item.quantity).toFixed(2)}
-                    </span>
+                    {
+                        formatPrice(item.price * item.quantity, "text-xl")
+                    }
+                    {/*<span className={"text-lg neutral"}>*/}
+                    {/*    ${(item.price * item.quantity).toFixed(2)}*/}
+                    {/*</span>*/}
                     <div>
                         <button
                             onClick={() => removeFromCartHandler(item._id)}
