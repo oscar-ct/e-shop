@@ -181,7 +181,13 @@ const createProductReview = asyncHandler(async (req, res) => {
     }
 });
 
-export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct, deleteProductImage, createProductReview};
+const getProductsByRating = asyncHandler(async (req, res) => {
+    const products = await Product.find({}).sort({rating: -1}).limit(5);
+    res.status(201);
+    return res.json(products);
+});
+
+export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct, deleteProductImage, createProductReview, getProductsByRating};
 
 
 
