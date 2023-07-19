@@ -16,14 +16,16 @@ const authSlice = createSlice({
             state.userData = null;
             localStorage.removeItem("userData");
         },
-        updateShippingData: function (state, action) {
-            state.userData.shippingAddresses = action.payload;
-            localStorage.setItem("userData", JSON.stringify(state));
-        }
+        // updateShippingData: function (state, action) {
+        //     state.userData.shippingAddresses = action.payload;
+        //     localStorage.setItem("userData", JSON.stringify(action.payload));
+        // }
     },
 
 });
 
-export const {setCredentials, updateShippingData, logout} = authSlice.actions;
+export const {setCredentials,
+    // updateShippingData,
+    logout} = authSlice.actions;
 
 export default authSlice.reducer;
