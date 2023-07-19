@@ -60,7 +60,7 @@ const CartPage = () => {
                                     </div>
                                 ) : (
                                     <div className={"py-3 px-2 sm:px-0"}>
-                                        <Message>
+                                        <Message variant={"info"}>
                                                 <span className={"text-sm"}>
                                                     Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
                                                 </span>
@@ -70,9 +70,9 @@ const CartPage = () => {
                             }
                             </div>
                             <div className={"lg:w-8/12 card mb-10 bg-base-100 shadow-xl"}>
-                                <div className={"p-5"}>
-                                    <h1 className={"text-2xl text-center font-bold text-neutral pb-3"}>
-                                        Shopping Cart (
+                                <div className={"px-5 pb-10 pt-7"}>
+                                    <h1 className={"text-2xl text-center text-neutral pb-2"}>
+                                         Cart (
                                         <span className={"text-xl text-gray-500 font-bold"}>
                                             {totalNumberOfItems}
                                             {
@@ -107,7 +107,7 @@ const CartPage = () => {
                                             </div>
                                         ) : (
                                             <div className={"pb-3 w-full"}>
-                                                <Message>
+                                                <Message variant={"info"}>
                                                     <span className={"text-sm"}>
                                                         Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
                                                     </span>
@@ -117,9 +117,9 @@ const CartPage = () => {
                                     }
                                 </div>
                                 <div className="card lg:w-full shadow-xl bg-base-100 self-end">
-                                    <div className="px-8 pt-5">
+                                    <div className="px-8 py-5">
                                         <div className={"flex flex-col"}>
-                                            <h3 className={"text-xl font-bold"}>
+                                            <h3 className={"text-xl"}>
                                                 Subtotal ({totalNumberOfItems})
                                                 {
                                                     totalNumberOfItems > 1 ? (" items:") : (" item:")

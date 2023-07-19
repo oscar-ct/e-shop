@@ -42,7 +42,7 @@ const PaymentPage = () => {
             <div className={"w-full flex justify-center"}>
                 <div className={"card p-10 w-[35em] bg-base-100 shadow-xl"}>
                     <div className={"w-full pb-5 flex justify-center"}>
-                        <h1 className={"text-2xl font-bold"}>Payment Methods</h1>
+                        <h1 className={"text-2xl text-neutral"}>Payment Methods</h1>
                     </div>
                     <form onSubmit={submitPaymentMethod}>
                         <div className="mt-5">
