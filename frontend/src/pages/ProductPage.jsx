@@ -9,6 +9,7 @@ import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {addToCart} from "../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
+import {formatPrice} from "../utils/formatPriceUtilis"
 
 const ProductPage = () => {
     // const [product, setProduct] = useState({});
@@ -103,10 +104,9 @@ const ProductPage = () => {
                                             <span className={"text-sm link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews > 1 ? "reviews" : "review"}`}/></span>
                                         </div>
                                         <div className={"py-4 border-b-[1px] text-2xl border-gray-300 flex font-bold items-start"}>
-                                            <span className={"text-xs pt-1"}>$</span>
-
-                                            <span>{product.price.toString().substring(0,  product.price.toString().indexOf("."))}</span>
-                                            <span className={"text-xs pt-1"}>{product.price.toString().substring( product.price.toString().indexOf(".")+1, product.price.toString().length)}</span>
+                                            {
+                                                formatPrice(product.price)
+                                            }
                                         </div>
                                         <div className={"text-sm py-4 border-b-[1px] border-gray-300"}>
                                             <span className={"font-bold pr-2"}>
@@ -186,29 +186,29 @@ const ProductPage = () => {
                                 </div>
                             </div>
                             <div>
-                                <div className={"pt-5 pb-5 xl:pt-10 px-3"}>
-                                    <h2 className={"text-2xl font-bold"}>Reviews</h2>
-                                </div>
-                                <div className={"flex flex-col lg:flex-row"}>
+                                {/*<div className={"pt-5 pb-5 xl:pt-10 px-3"}>*/}
+                                {/*    <h2 className={"text-2xl font-bold"}>Reviews</h2>*/}
+                                {/*</div>*/}
+                                <div className={"pt-10 xl:pt-15 flex flex-col lg:flex-row"}>
                                     <div className={"w-full lg:pr-1 lg:w-6/12"}>
                                         <div className={"overflow-x-auto border-[1px] border-neutral-300 rounded-xl pb-10"}>
-                                            <div className={"px-4 lg:px-10 pt-5"}>
+                                            <div className={"px-4 lg:px-10 pt-5 text-base-content relative col-start-1 row-start-1 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [&::selection]:bg-blue-700/20 [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]"}>
                                                 <div className={"pt-2 pb-6 flex justify-between items-center border-b-[1px] border-neutral-300"}>
                                                     {
                                                         product.reviews.length !== 0 ? (
-                                                            <span className={"text-xl"}>Recent Reviews</span>
+                                                            <span className={"text-xl font-bold"}>Recent Reviews</span>
                                                         ) : (
-                                                            <h2 className={"text-xl"}>Be the first to write a review!</h2>
+                                                            <h2 className={"text-xl font-bold"}>Be the first to write a review!</h2>
                                                         )
                                                     }
 
                                                     {
                                                         userData ? (
-                                                            <button onClick={() =>  window.review_modal.showModal()} className={"text-xs link link-primary"}>
+                                                            <button onClick={() =>  window.review_modal.showModal()} className={"p-3 rounded-lg bg-neutral/10 text-sm uppercase font-bold hover:bg-neutral/20"}>
                                                                 Write a review
                                                             </button>
                                                         ) : (
-                                                            <Link to={"/login"} className={"text-xs link link-primary"}>
+                                                            <Link to={"/login"} className={"p-3 rounded-lg bg-neutral/10 text-sm uppercase font-bold hover:bg-neutral/20"}>
                                                                 Write a review
                                                             </Link>
                                                         )
