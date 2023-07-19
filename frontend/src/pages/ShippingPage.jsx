@@ -4,7 +4,7 @@ import {useNavigate} from "react-router-dom";
 import {saveShippingAddress} from "../slices/cartSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
 import {useUpdateUserAddressMutation} from "../slices/usersApiSlice";
-import {updateShippingData} from "../slices/authSlice";
+import {setCredentials} from "../slices/authSlice";
 
 const ShippingPage = () => {
 
@@ -55,7 +55,7 @@ const ShippingPage = () => {
         }));
     };
 
-    const radioSelectAddress = userData.shippingAddresses.filter(function (x) {
+    const radioSelectAddress = userData.shippingAddresses?.filter(function (x) {
         return x._id === radioId;
     });
 
@@ -64,13 +64,15 @@ const ShippingPage = () => {
         if (useNewAddress) {
             if (savePaymentData) {
                 try {
-                    const payload = await updateUserAddress(shippingData);
-                    const mongodbShippingDataWithObjectId = payload.data.shippingAddresses.filter(function (x) {
+                    const updatedUser = await updateUserAddress(shippingData).unwrap();
+                    const mongodbShippingDataWithObjectId = updatedUser.shippingAddresses.filter(function (x) {
                         return x.address === address && x.city === city && x.postalCode === postalCode && x.country === country;
                     });
+                    console.log(mongodbShippingDataWithObjectId)
                     dispatch(saveShippingAddress(mongodbShippingDataWithObjectId[0]));
                     navigate("/payment");
-                    dispatch(updateShippingData(payload.data.shippingAddresses))
+                    dispatch(setCredentials(updatedUser));
+                    // dispatch(updateShippingData(updatedUser.shippingAddresses)); // this does not work
                 } catch (e) {
                     console.log(e);
                 }
@@ -91,7 +93,7 @@ const ShippingPage = () => {
             <div className={"w-full flex justify-center"}>
                 <div className={"card p-10 w-[35em] bg-base-100 shadow-xl"}>
                     <div className={"w-full pb-5 flex justify-center"}>
-                        <h1 className={"text-2xl font-bold"}>Shipping Address</h1>
+                        <h1 className={"text-2xl text-neutral"}>Shipping Address</h1>
                     </div>
 
                     {
