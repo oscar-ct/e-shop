@@ -124,8 +124,8 @@ const OrderPage = () => {
                                 </div>
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-xl font-bold text-neutral-600"}>
-                                            Shipping Address
+                                        <h3 className={"text-lg text-neutral"}>
+                                            Shipping Address:
                                         </h3>
                                     </div>
                                     <div className={"w-7/12"}>
@@ -148,8 +148,8 @@ const OrderPage = () => {
 
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-neutral-600"}>
-                                            Shipment Status
+                                        <h3 className={"text-lg text-neutral"}>
+                                            Shipment Status:
                                         </h3>
                                     </div>
                                     <div className={"w-7/12"}>
@@ -202,8 +202,8 @@ const OrderPage = () => {
 
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-xl font-bold text-neutral-600"}>
-                                            Payment Method
+                                        <h3 className={"text-lg text-neutral"}>
+                                            Payment Method:
                                         </h3>
                                     </div>
                                     <div className={"w-7/12"}>
@@ -227,8 +227,8 @@ const OrderPage = () => {
 
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-md text-neutral-600"}>
-                                            Payment Status
+                                        <h3 className={"text-lg text-neutral"}>
+                                            Payment Status:
                                         </h3>
                                     </div>
                                     <div className={"w-7/12"}>
@@ -259,8 +259,8 @@ const OrderPage = () => {
 
 
                                 <div className={"py-3"}>
-                                    <h3 className={"text-xl font-bold text-neutral-600"}>
-                                        Order Items
+                                    <h3 className={"text-lg text-neutral"}>
+                                        Order Items:
                                     </h3>
                                     <div>
                                         {

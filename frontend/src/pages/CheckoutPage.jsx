@@ -80,8 +80,8 @@ const CheckoutPage = () => {
                     ) : (
                         <div className={"flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
-                                <div className={"pb-5"}>
-                                    <h1 className={"text-2xl font-bold text-center"}>Checkout (<span
+                                <div className={"pb-7"}>
+                                    <h1 className={"text-2xl text-center"}>Checkout (<span
                                         className={"text-xl text-gray-500 font-bold"}>{totalNumberOfItems}
                                         {
                                             totalNumberOfItems === 1 ? (
@@ -95,8 +95,8 @@ const CheckoutPage = () => {
                                 </div>
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-xl font-bold"}>
-                                            Shipping Address
+                                        <h3 className={"text-lg"}>
+                                            Shipping Address:
                                         </h3>
                                     </div>
                                     <div className={"w-7/12"}>
@@ -118,10 +118,10 @@ const CheckoutPage = () => {
                                 </div>
 
 
-                                <div className={"flex border-b-2 border-grey-500 py-3"}>
+                                <div className={"flex border-b-2 border-grey-500 py-5"}>
                                     <div className={"w-5/12"}>
-                                        <h3 className={"text-xl font-bold"}>
-                                            Payment Method
+                                        <h3 className={"text-lg"}>
+                                            Payment Method:
                                         </h3>
                                     </div>
                                     <div className={"w-7/12"}>
@@ -145,8 +145,8 @@ const CheckoutPage = () => {
 
 
                                 <div className={"py-3"}>
-                                    <h3 className={"text-xl font-bold"}>
-                                        Review Items
+                                    <h3 className={"text-lg"}>
+                                        Review Items:
                                     </h3>
                                     <div>
                                         {
