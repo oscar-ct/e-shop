@@ -1,4 +1,6 @@
 import {Link} from "react-router-dom";
+import {formatPrice} from "../utils/formatPriceUtilis";
+
 
 const OrderItem = ( {item} ) => {
 
@@ -23,7 +25,7 @@ const OrderItem = ( {item} ) => {
                         <div className={"flex flex-col"}>
                             <div>
                                 <span className={"text-gray-500 font-bold text-xs"}>
-                                    Quantity:
+                                    Qty:
                                 </span>
                                 <span className={"ml-1 text-sm"}>
                                     {item.quantity}
@@ -43,9 +45,12 @@ const OrderItem = ( {item} ) => {
                 </div>
 
                 <div className={"w-2/12 flex flex-col items-end justify-between"}>
-                    <span className={"text-lg"}>
-                        ${(item.price * item.quantity).toFixed(2)}
-                    </span>
+                    {
+                        formatPrice(item.price * item.quantity, "text-xl")
+                    }
+                    {/*<span className={"text-lg"}>*/}
+                    {/*    ${(item.price * item.quantity).toFixed(2)}*/}
+                    {/*</span>*/}
                 </div>
 
             </div>
