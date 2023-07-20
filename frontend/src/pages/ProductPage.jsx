@@ -93,12 +93,12 @@ const ProductPage = () => {
                         <div className={"flex flex-col bg-base-100 shadow-xl px-5 xl:px-10 pt-5 pb-10 rounded-xl mb-10"}>
                             <div className={"w-full flex flex-col lg:flex-row flex-wrap "}>
                                 <div className={"flex items-center lg:w-5/12"}>
-                                    <img src={product.image} alt={"product"} className={"rounded-xl"}/>
+                                    <img src={product.images[0].url} alt={"product"} className={"rounded-xl"}/>
                                 </div>
                                 <div className={"lg:w-7/12 flex flex-col lg:flex-row lg:pl-7 py-7"}>
                                     <div className={"lg:w-7/12"}>
                                         <div className={"pb-3 border-b-[1px] border-gray-300"}>
-                                            <span className={"text-xl"}>
+                                            <span className={"text-2xl lg:text-xl"}>
                                                 {product.name}
                                             </span>
                                             <span className={"text-sm link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews > 1 ? "reviews" : "review"}`}/></span>
@@ -108,7 +108,7 @@ const ProductPage = () => {
                                                 formatPrice(product.price)
                                             }
                                         </div>
-                                        <div className={"text-sm py-4 border-b-[1px] border-gray-300"}>
+                                        <div className={"text-lg lg:text-sm py-4 border-b-[1px] border-gray-300"}>
                                             <span className={"font-bold pr-2"}>
                                                 Brand:
                                             </span>
@@ -116,7 +116,7 @@ const ProductPage = () => {
                                                 {product.brand}
                                             </span>
                                         </div>
-                                        <div className={"text-sm py-4 border-b-[1px] border-gray-300"}>
+                                        <div className={"text-lg lg:text-sm py-4 border-b-[1px] border-gray-300"}>
                                             <span className={"font-bold pr-2"}>
                                                 Model:
                                             </span>
@@ -124,7 +124,7 @@ const ProductPage = () => {
                                                 {product.model}
                                             </span>
                                         </div>
-                                        <div className={"text-sm py-4"}>
+                                        <div className={"text-lg lg:text-sm py-4"}>
                                             <span className={"font-bold pr-2"}>
                                                 Description:
                                             </span>
@@ -134,7 +134,7 @@ const ProductPage = () => {
                                         </div>
                                     </div>
                                     <div className={"lg:hidden border-b-[1px] border-gray-300"}/>
-                                    <div className={"pt-5 lg:pl-7 lg:w-5/12 text-sm"}>
+                                    <div className={"pt-5 lg:pl-7 lg:w-5/12 text-lg lg:text-sm"}>
                                         <div className={"flex"}>
                                             <span className={"text-end w-8/12 font-bold"}>
                                                 List Price:
@@ -204,11 +204,11 @@ const ProductPage = () => {
 
                                                     {
                                                         userData ? (
-                                                            <button onClick={() =>  window.review_modal.showModal()} className={"p-3 rounded-lg bg-neutral/10 text-sm uppercase font-bold hover:bg-neutral/20"}>
+                                                            <button onClick={() =>  window.review_modal.showModal()} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase font-bold hover:bg-neutral/20"}>
                                                                 Write a review
                                                             </button>
                                                         ) : (
-                                                            <Link to={"/login"} className={"p-3 rounded-lg bg-neutral/10 text-sm uppercase font-bold hover:bg-neutral/20"}>
+                                                            <Link to={"/login"} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase font-bold hover:bg-neutral/20"}>
                                                                 Write a review
                                                             </Link>
                                                         )
