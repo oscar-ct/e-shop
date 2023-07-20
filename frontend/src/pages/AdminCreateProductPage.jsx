@@ -8,6 +8,7 @@ import {setLoading} from "../slices/loadingSlice";
 import {FaTrash, FaUpload} from "react-icons/fa";
 import * as filestack from "filestack-js";
 import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncodeHandleMutation} from "../slices/filestackSlice";
+import background from "../icons/bg.png"
 
 
 const AdminCreateProductPage = () => {
@@ -140,22 +141,22 @@ const AdminCreateProductPage = () => {
     return (
         <>
             <div className={"pt-10 2xl:px-20"}>
-                <div className={"bg-base-100 shadow-xl px-12 py-6 mx-auto rounded-2xl w-full"}>
-                    <h2 className={"text-2xl text-center font-bold pb-5"}>New Product Listing</h2>
-                    <h2 className={"text-xl font-bold"}>Step 1 <span className={"text-red-500 text-lg"}>(required)</span></h2>
-                    <p className="text-sm text-gray-500">Please fill in all text fields.
-                    </p>
+                <div className={"bg-base-100 shadow-xl px-12 py-7 mx-auto rounded-2xl w-full"}>
+                    <h2 className={"text-2xl text-center pb-5"}>Create Product Listing</h2>
+                    <h2 className={"text-xl font-bold"}>Step 1.<span className="pl-3 text-sm text-gray-500 font-normal">Please fill in all text fields
+                    </span></h2>
+
                     <form onSubmit={createProductHandler} className={"w-full py-2"}>
                         <div className={"flex flex-col lg:flex-row"}>
                             <div className={"w-full flex flex-col lg:w-6/12 sm:px-10 lg:pr-10 lg:pl-5"}>
                                 <div className={"space-y-2 pb-2"}>
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Name
+                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Title
                                     </label>
                                     <input
                                         className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"off"}
                                         type={"text"}
-                                        placeholder={"Product Name"}
+                                        placeholder={"e.g. Brand, model name, color, and size"}
                                         id={"name"}
                                         value={formData.name}
                                         onChange={onMutate}
@@ -169,7 +170,7 @@ const AdminCreateProductPage = () => {
                                     <textarea
                                         className="w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"off"}
-                                        placeholder={"Product Description"}
+                                        placeholder={"Tell customers more about your details about the product"}
                                         id={"description"}
                                         value={formData.description}
                                         required
@@ -189,7 +190,7 @@ const AdminCreateProductPage = () => {
                                                 className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                                 autoComplete={"off"}
                                                 type={"text"}
-                                                placeholder={"Product Brand"}
+                                                placeholder={"e.g. Sony"}
                                                 id={"brand"}
                                                 value={formData.brand}
                                                 onChange={onMutate}
@@ -198,13 +199,13 @@ const AdminCreateProductPage = () => {
                                             />
                                         </div>
                                         <div className={"space-y-2 pb-2"}>
-                                            <label className="text-sm font-medium text-gray-700 tracking-wide">Model
+                                            <label className="text-sm font-medium text-gray-700 tracking-wide">Model Number
                                             </label>
                                             <input
                                                 className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                                 autoComplete={"off"}
                                                 type={"text"}
-                                                placeholder={"Product Model"}
+                                                placeholder={"e.g. KDL-32BX330"}
                                                 id={"model"}
                                                 value={formData.model}
                                                 onChange={onMutate}
@@ -219,7 +220,7 @@ const AdminCreateProductPage = () => {
                                                 className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                                 autoComplete={"off"}
                                                 type={"text"}
-                                                placeholder={"Product Category"}
+                                                placeholder={"e.g. Electronics"}
                                                 id={"category"}
                                                 value={formData.category}
                                                 onChange={onMutate}
@@ -246,7 +247,7 @@ const AdminCreateProductPage = () => {
                                                 />
                                             </div>
                                             <div className={"w-full pl-5 lg:pl-0 space-y-2 pb-2"}>
-                                                <label className="text-sm font-medium text-gray-700 tracking-wide">Price
+                                                <label className="text-sm font-medium text-gray-700 tracking-wide">List Price
                                                 </label>
                                                 <input
                                                     className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
@@ -294,9 +295,7 @@ const AdminCreateProductPage = () => {
                         </div>
                     </form>
 
-                    <h2 className={"pt-10 lg:pt-0 text-xl font-bold"}>Step 2 <span className={"text-lg text-gray-500"}>(recommended)</span></h2>
-                    <p className="text-sm text-gray-500">Add images to your product.
-                    </p>
+                    <h2 className={"pt-10 lg:pt-0 text-xl font-bold"}>Step 2.<span className={"pl-2 text-lg text-gray-500 text-sm font-normal"}>Add images to your product</span></h2>
 
                     <div className={"flex justify-center flex-wrap"}>
                         {
@@ -312,7 +311,7 @@ const AdminCreateProductPage = () => {
                                     </div>
                                 )
                             }) : (
-                                <h1 className={"py-10 font-bold text-lg text-gray-500"}>By default a sample image will be uploaded when creating a new product listing</h1>
+                                <h1 className={"py-10 font-bold text-lg text-gray-500"}>By default a sample image will be uploaded when creating a new product listing, you can delete this later.</h1>
                             )
                         }
                     </div>
