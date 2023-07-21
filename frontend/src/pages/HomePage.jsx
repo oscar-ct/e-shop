@@ -62,21 +62,21 @@ const HomePage = () => {
                                             slidesPerView={1}
                                         >
                                             <SwiperSlide>
-                                                <div className={"h-[30em] rounded-br-xl rounded-bl-xl"} style={{background: "url(https://plus.unsplash.com/premium_photo-1681488484866-af8f282d59ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1557&q=80)", backgroundPosition: "bottom", backgroundSize: "cover"}}>
-                                                    <div className={"absolute w-full text-center top-[45%]"}>
+                                                <div className={"h-[25em] rounded-br-xl rounded-bl-xl"} style={{background: "url(https://plus.unsplash.com/premium_photo-1681488484866-af8f282d59ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1557&q=80)", backgroundPosition: "bottom", backgroundSize: "cover"}}>
+                                                    <div className={"absolute w-full text-center top-[50%]"}>
                                                         <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl"}><span className={"font-bold text-base-300"}>Welcome</span> to e-shop!</span>
                                                     </div>
                                                 </div>
                                             </SwiperSlide>
                                             <SwiperSlide>
-                                                <div className={"h-[30em] rounded-br-xl rounded-bl-xl"} style={{background: "url( https://images.unsplash.com/photo-1641350625112-3b1d73c71418?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1548&q=80)", backgroundPosition: "center", backgroundSize: "cover"}}>
+                                                <div className={"h-[25em] rounded-br-xl rounded-bl-xl"} style={{background: "url( https://images.unsplash.com/photo-1641350625112-3b1d73c71418?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1548&q=80)", backgroundPosition: "center", backgroundSize: "cover"}}>
                                                     <div className={"absolute w-full text-center top-[40%]"}>
                                                         <span style={{fontFamily: 'Ubuntu'}} className={"text-5xl text-white font-bold"}>Shop safe and secure with PayPal</span>
                                                     </div>
                                                 </div>
                                             </SwiperSlide>
                                             <SwiperSlide>
-                                                <div className={"h-[30em] rounded-br-xl rounded-bl-xl"} style={{background: "url(https://images.unsplash.com/photo-1524678714210-9917a6c619c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80)", backgroundPosition: "top", backgroundSize: "cover"}}>
+                                                <div className={"h-[25em] rounded-br-xl rounded-bl-xl"} style={{background: "url(https://images.unsplash.com/photo-1524678714210-9917a6c619c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80)", backgroundPosition: "center", backgroundSize: "cover"}}>
                                                     <div className={"absolute w-full text-center top-[40%]"}>
                                                         <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl"}>Fast 3-day shipping! </span>
                                                     </div>
@@ -105,7 +105,7 @@ const HomePage = () => {
                                                     return <SwiperSlide key={index}>
                                                         <Link to={`/product/${data._id}`} className={"relative"}>
                                                             <img
-                                                                className={"rounded-xl"}
+                                                                className={"object-cover w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                                 src={data.images[0].url} alt={"products"}/>
                                                             <div className={"opacity-70 p-2 rounded-tl-lg bg-white absolute bottom-0 right-0"}>
                                                                 <h5 className={"sm:text-xs"}>{data.name} - ${data.price}</h5>
