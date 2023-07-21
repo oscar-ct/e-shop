@@ -20,7 +20,7 @@ const AdminTabs = () => {
                 </Link>
                 <Link
                     to={"/admin/products"}
-                    className={`tab ${location.pathname === "/admin/products" ? "bg-info text-neutral" : "text-neutral-content"}`}>
+                    className={`tab ${location.pathname.includes("/admin/products") ? "bg-info text-neutral" : "text-neutral-content"}`}>
                     Products
                 </Link>
             </div>
