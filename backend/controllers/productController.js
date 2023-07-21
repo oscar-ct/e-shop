@@ -1,7 +1,7 @@
 // *****  Mongoose Product model connected to DB  ******
 import Product from "../models/productModel.js";
 import asyncHandler from "../middleware/asyncHandler.js";
-import crypto from "crypto";
+
 
 const getAllProducts = asyncHandler(async (req, res) => {
 
@@ -12,7 +12,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
     const searchTerm = req.query.searchTerm ? { name: {$regex: req.query.searchTerm, $options: "i"} } : {};
 
     const count = await Product.countDocuments({...searchTerm});
-    const products = await Product.find({...searchTerm}).limit(pageSize).skip(pageSize * (page-1));
+    const products = await Product.find({...searchTerm}).sort({createdAt: -1}).limit(pageSize).skip(pageSize * (page-1));
     res.status(201);
     return res.json({products, page, pages: Math.ceil(count / pageSize)});
 });
