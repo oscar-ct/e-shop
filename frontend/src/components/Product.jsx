@@ -9,7 +9,7 @@ const Product = ( {product} ) => {
                 <div className={"card bg-base-100 shadow-xl"}>
                     <Link to={`/product/${product._id}`}>
                         <figure className="p-2">
-                            <img src={product.image} alt="product" className="rounded-tr-xl rounded-tl-xl" />
+                            <img src={product.images[0].url} alt="product" className="w-[248px] h-[197px] object-cover rounded-tr-xl rounded-tl-xl" />
                         </figure>
                     </Link>
                     <div className="card-body p-2 sm:p-4 items-center ">
