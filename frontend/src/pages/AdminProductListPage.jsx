@@ -20,8 +20,7 @@ import Paginate from "../components/Paginate";
 
 const AdminProductListPage = () => {
     const {pageNumber} = useParams();
-    const {data, isLoading, error} = useGetProductsQuery({pageNumber});
-    console.log(data)
+    const {data, isLoading, refetch, error} = useGetProductsQuery({pageNumber});
     const [updateProduct,
         // {error: errorUpdate}
     ] = useUpdateProductMutation();
@@ -78,18 +77,19 @@ const AdminProductListPage = () => {
             url,
             handle,
         }
-        const res = await updateProductImages(image).unwrap();
-        if (res) {
-            setLocalData(prevState => {
-                return prevState.map(function (obj) {
-                    if (obj._id === res._id) {
-                        return res;
-                    } else {
-                        return obj;
-                    }
-                });
-            });
-        }
+        await updateProductImages(image).unwrap();
+        refetch();
+        // if (res) {
+        //     setLocalData(prevState => {
+        //         return prevState.map(function (obj) {
+        //             if (obj._id === res._id) {
+        //                 return res;
+        //             } else {
+        //                 return obj;
+        //             }
+        //         });
+        //     });
+        // }
     };
 
     const openImagesHandler = (id) => {
@@ -120,22 +120,25 @@ const AdminProductListPage = () => {
             category,
             description,
         }
+        dispatch(setLoading(true));
         try {
-            const res = await updateProduct(updatedProduct);
-            if (res) {
-                setLocalData(prevState => {
-                    return prevState.map(function (obj) {
-                        if (obj._id === res.data._id) {
-                            return res.data;
-                        } else {
-                            return obj;
-                        }
-                    });
-                });
-            }
+            await updateProduct(updatedProduct);
+            refetch();
+            // if (res) {
+            //     setLocalData(prevState => {
+            //         return prevState.map(function (obj) {
+            //             if (obj._id === res.data._id) {
+            //                 return res.data;
+            //             } else {
+            //                 return obj;
+            //             }
+            //         });
+            //     });
+            // }
         } catch (e) {
             console.log(e);
         }
+        dispatch(setLoading(false));
         completeEditHandler();
     };
     const completeEditHandler = () => {
@@ -208,7 +211,7 @@ const AdminProductListPage = () => {
         }
         return message;
     };
-    const submitDeleteProduct = async (id) => {
+    const submitDeleteProduct = async () => {
         const confirm = window.confirm("Are you sure you want to delete this product?");
         if (confirm) {
             dispatch(setLoading(true));
@@ -239,11 +242,12 @@ const AdminProductListPage = () => {
                 }
 
                 /// deletes product from state
-                setLocalData(prevState => {
-                    return prevState.filter(function (obj) {
-                        return obj._id !== productId
-                    });
-                });
+                refetch();
+                // setLocalData(prevState => {
+                //     return prevState.filter(function (obj) {
+                //         return obj._id !== productId
+                //     });
+                // });
             } catch (e) {
                 console.log(e);
             }
@@ -254,21 +258,23 @@ const AdminProductListPage = () => {
     const deleteProductImageFromDbAndFilestack = async (id, handle) => {
         const confirm = window.confirm("Are you want to delete this image?");
         if (confirm) {
+            const data = {
+                imageId: id,
+                productId: productId
+            }
             try {
-                const data = {
-                    _id: productId,
-                    imageId: id,
-                }
-                const res = await deleteProductImage(data);
-                setLocalData(prevState => {
-                    return prevState.map(function (obj) {
-                        if (obj._id === res.data._id) {
-                            return res.data;
-                        } else {
-                            return obj;
-                        }
-                    });
-                });
+                await deleteProductImage(data).unwrap();
+                refetch();
+                // setLocalData(prevState => {
+                //     return prevState.map(function (obj) {
+                //         console.log(obj)
+                //         if (obj._id === res._id) {
+                //             return res;
+                //         } else {
+                //             return obj;
+                //         }
+                //     });
+                // });
                 if (handle !== "sampleImage") {
                     const policyAndSignature = await encodeHandle(handle);
                     const {policy, signature} = policyAndSignature.data;
@@ -300,12 +306,12 @@ const AdminProductListPage = () => {
             <div className={"pt-10"}>
                 <AdminTabs/>
                 <div className={"mt-5 card bg-base-100 shadow-xl"}>
-                    <div className={"w-full px-5 flex justify-center pt-5"}>
-                        <div className={" text-2xl text-center font-bold"}>
+                    <div className={"w-full px-5 flex justify-center py-5"}>
+                        <div className={" text-2xl text-center"}>
                             Product List
                             <button
                                 onClick={() => navigate("/admin/products/create")}
-                                className={"absolute right-6 self-end btn btn-sm"}
+                                className={"absolute right-6 self-end btn btn-primary btn-xs lg:btn-sm"}
                             >
                                 <FaPlus/>
                                 New Product
@@ -314,7 +320,7 @@ const AdminProductListPage = () => {
 
                     </div>
                     <div className="overflow-x-auto p-5">
-                        <table className="table table-zebra w-fit xl:w-full table-sm">
+                        <table className="table table-zebra w-fit xl:w-full table-xs">
                             <thead>
                             <tr>
                                 <th/>
@@ -412,12 +418,11 @@ const AdminProductListPage = () => {
                                                     ) : (
                                                         <>
                                                         <th>{index+1}</th>
-                                                        <td>
-                                                            <Link className={"link link-primary"} to={`/product/${item._id}`}>
-                                                                {item._id.substring(item._id.length - 6, item._id.length)}
-                                                            </Link>
+                                                        <td>{item._id.substring(item._id.length - 6, item._id.length)}
                                                         </td>
-                                                        <td className={"p-1"}>{item.name}</td>
+                                                        <td className={"p-1"}><Link className={"link link-primary"} to={`/product/${item._id}`}>
+                                                            {item.name}
+                                                        </Link></td>
                                                         <td className={"p-1"}>{item.brand}</td>
                                                         <td className={"p-1"}>{item.model}</td>
                                                         <td className={"p-1"}>${item.price}</td>
@@ -488,24 +493,26 @@ const AdminProductListPage = () => {
                     {
                         modalIsOpen && (
                             <form method="dialog" className="modal-box">
-                                <div className="px-4 pt-2">
+                                <div className="px-2 pt-2">
                                     <h2 className={"pb-5 text-center text-xl"}>{localData.find((x) => x._id === productId).name}</h2>
                                     {
                                         localData.find((x) => x._id === productId).images.length !== 0 ? (
                                             localData.find((x) => x._id === productId).images.map(function (image) {
                                                 return (
                                                     <div key={image._id}>
-                                                        <div className={"flex flex-col items-center"}>
-                                                            <div className={"flex max-w-full"}>
-                                                                <img className={"rounded-xl w-56"} src={image.url} alt={"product"}/>
-                                                                <div className={"flex items-center pl-5"}>
-                                                                    <button
-                                                                        type={"button"}
-                                                                        onClick={() => deleteProductImageFromDbAndFilestack(image._id, image.handle)}
-                                                                        className={"btn-xs rounded-full btn-error text-white"}>
-                                                                        <FaTrash/>
-                                                                    </button>
-                                                                </div>
+                                                        <div className={"flex"}>
+                                                            <div className={"w-11/12 py-2"}>
+                                                                <img className={"rounded-xl w-full"} src={image.url} alt={"product"}/>
+                                                            </div>
+                                                            <div className={"w-1/12 flex justify-end items-center"}>
+                                                                <button
+                                                                    onClick={async (e) => {
+                                                                        e.preventDefault();
+                                                                        await deleteProductImageFromDbAndFilestack(image._id, image.handle)
+                                                                    }}
+                                                                    className={"text-red-500 rounded-full text-xl"}>
+                                                                    <FaMinusCircle/>
+                                                                </button>
                                                             </div>
                                                         </div>
                                                     </div>
