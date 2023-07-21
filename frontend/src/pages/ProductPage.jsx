@@ -92,8 +92,8 @@ const ProductPage = () => {
                         {/*</Link>*/}
                         <div className={"flex flex-col bg-base-100 shadow-xl px-5 xl:px-10 pt-5 pb-10 rounded-xl mb-10"}>
                             <div className={"w-full flex flex-col lg:flex-row flex-wrap "}>
-                                <div className={"flex items-center lg:w-5/12"}>
-                                    <img src={product.images[0].url} alt={"product"} className={"rounded-xl"}/>
+                                <div className={"flex justify-center lg:justify-start items-center lg:w-5/12"}>
+                                    <img src={product.images[0].url} alt={"product"} className={"rounded-xl object-fit max-h-[28rem]"}/>
                                 </div>
                                 <div className={"lg:w-7/12 flex flex-col lg:flex-row lg:pl-7 py-7"}>
                                     <div className={"lg:w-7/12"}>
@@ -101,7 +101,7 @@ const ProductPage = () => {
                                             <span className={"text-2xl lg:text-xl"}>
                                                 {product.name}
                                             </span>
-                                            <span className={"text-sm link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews > 1 ? "reviews" : "review"}`}/></span>
+                                            <span className={"text-sm link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/></span>
                                         </div>
                                         <div className={"py-4 border-b-[1px] text-2xl border-gray-300 flex font-bold items-start"}>
                                             {
@@ -136,29 +136,39 @@ const ProductPage = () => {
                                     <div className={"lg:hidden border-b-[1px] border-gray-300"}/>
                                     <div className={"pt-5 lg:pl-7 lg:w-5/12 text-lg lg:text-sm"}>
                                         <div className={"flex"}>
-                                            <span className={"text-end w-8/12 font-bold"}>
+                                            <span className={"pt-1 text-end w-7/12"}>
                                                 List Price:
                                             </span>
-                                            <span className={"w-4/12 text-end"}>
-                                                ${product.price}
+                                            <span className={"w-5/12 flex justify-end items-start"}>
+                                                {formatPrice(product.price, "text-lg")}
                                             </span>
                                         </div>
                                         <div className={"flex pt-5"}>
-                                             <span className={"w-8/12 text-end font-bold"}>
-                                                Remaining In Stock:
+                                             <span className={"w-7/12 text-end"}>
+                                                In Stock:
                                             </span>
-                                            <span className={"w-4/12 text-end"}>
-                                                {product.countInStock}
+                                            <span className={"w-5/12 text-end text-md"}>
+                                                {product.countInStock} left!
+                                            </span>
+                                        </div>
+                                        <div className={"flex pt-5"}>
+                                             <span className={"w-7/12 text-end"}>
+                                                Sold By:
+                                            </span>
+                                            <span className={"w-5/12 text-end"}>
+                                                Admin
                                             </span>
                                         </div>
                                         {/*<div className={"flex justify-center"}>*/}
                                             <div className={"w-full flex flex-col justify-between pt-5"}>
                                                 <div className={"flex pb-5"}>
-                                                    <div className={"flex items-center justify-end w-7/12"}><span className={"font-bold"}>Qty:</span></div>
+                                                    <div className={"flex items-center justify-end w-7/12"}/>
                                                 {
                                                     product.countInStock > 0 && (
-                                                        <div className={"pl-2 w-5/12"}>
+                                                        <div className={"pl-2 flex justify-end items-center w-5/12"}>
+                                                            <span className={"pr-1"}>Qty.</span>
                                                             <select
+                                                                placeholder={"Qty 1"}
                                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-20 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                                                 value={quantity}
                                                                 onChange={(e) => setQuantity(Number(e.target.value))}
