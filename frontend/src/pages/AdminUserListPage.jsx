@@ -5,8 +5,9 @@ import Spinner from "../components/Spinner";
 import {FaCheck, FaCheckCircle, FaEdit, FaMinusCircle, FaTimes} from "react-icons/fa";
 import {useEffect} from "react";
 import {setLoading} from "../slices/loadingSlice";
-import {useDispatch} from "react-redux";
+import {useDispatch, useSelector} from "react-redux";
 import AdminTabs from "../components/AdminTabs";
+import {setCredentials} from "../slices/authSlice";
 
 
 const AdminUserListPage = () => {
@@ -15,6 +16,10 @@ const AdminUserListPage = () => {
     const {data: users, isLoading, refetch, error} = useGetUsersQuery();
     const [deleteUser] = useDeleteUserMutation();
     const [updateUser] = useUpdateUserMutation();
+
+    const {userData} = useSelector(function (state) {
+        return state.auth;
+    });
 
     const [localData, setLocalData] = useState(users ? users : null);
     const [editMode, setEditMode] = useState(false);
@@ -60,9 +65,21 @@ const AdminUserListPage = () => {
             email,
             isAdmin : isAdmin === "true",
         }
+
+
         try {
             const res = await updateUser(updatedProduct).unwrap();
             refetch();
+            if (res._id === userData._id) {
+                const data = {
+                    email: res.email,
+                    isAdmin: res.isAdmin,
+                    name: res.name,
+                    shippingAddresses: res.shippingAddresses,
+                    _id: res._id,
+                }
+                dispatch(setCredentials(data));
+            }
             setLocalData(prevState => {
                 return prevState.map(function (obj) {
                     if (obj._id === res._id) {
@@ -146,12 +163,12 @@ const AdminUserListPage = () => {
                 <AdminTabs/>
                 <div className={"mt-5 card bg-base-100 shadow-xl"}>
                     <div className={"w-full px-5 flex justify-center pt-5"}>
-                        <div className={" text-2xl text-center font-bold"}>
-                            User List
+                        <div className={" text-2xl text-center"}>
+                            Users
                         </div>
 
                     </div>
-                    <div className="overflow-x-auto p-5">
+                    <div className="overflow-x-auto p-6">
                         <table className="table w-fit lg:w-full table-zebra table-sm">
                             <thead>
                             <tr>
@@ -160,7 +177,7 @@ const AdminUserListPage = () => {
                                 <th className={"p-1"}>Name</th>
                                 <th className={"p-1"}>Email</th>
                                 <th className={"p-1"}>Admin</th>
-                                <th className={"p-1"}>Address</th>
+                                <th className={"p-1 text-center"}>Address</th>
                                 <th className={"p-1"}>Joined</th>
                             </tr>
                             </thead>
@@ -207,7 +224,7 @@ const AdminUserListPage = () => {
                                                             </td>
                                                             <td className={"p-1 bg-blue-200"}>{user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
                                                                 return (
-                                                                    `${obj.address}, ${obj.city}, ${obj.postalCode} ${user.shippingAddresses.length > 1 ? "," : ""}`
+                                                                    `${obj.address}, ${obj.city}, ${obj.postalCode} ${user.shippingAddresses.length > 1 ? "• " : ""}`
                                                                 )
                                                             }) : (
                                                                 "No saved address"
@@ -215,12 +232,16 @@ const AdminUserListPage = () => {
                                                             <td className={"p-1 w-24 bg-blue-200"}>{user?.createdAt.substring(0, 10)}</td>
                                                             <td className={"w-16 p-1 bg-blue-200"}>
                                                                 <div className={"flex"}>
-                                                                    <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
-                                                                        <FaCheckCircle/>
-                                                                    </button>
-                                                                    <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm p-2 rounded-full"}>
-                                                                        <FaMinusCircle/>
-                                                                    </button>
+                                                                    <div className="tooltip tooltip-bottom" data-tip="save changes">
+                                                                        <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                            <FaCheckCircle/>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div className="tooltip tooltip-bottom" data-tip="delete user">
+                                                                        <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                            <FaMinusCircle/>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </td>
                                                         </>
@@ -228,12 +249,12 @@ const AdminUserListPage = () => {
                                                         <>
                                                             <th>{index+1}</th>
                                                             <td>{user._id.substring(user._id.length - 6, user._id.length)}</td>
-                                                            <td className={"p-1"}>{user.name}</td>
+                                                            <td className={"p-1 w-24"}>{user.name}</td>
                                                             <td className={"p-1"}>{user.email}</td>
                                                             <td className={"p-1"}>{user.isAdmin ? <FaCheck fill={"green"}/> : <FaTimes fill={"red"}/>}</td>
                                                             <td className={"p-1"}>{user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj) {
                                                                 return (
-                                                                    `${obj.address}, ${obj.city}, ${obj.postalCode} ${user.shippingAddresses.length > 1 ? "," : ""}`
+                                                                    `${obj.address}, ${obj.city}, ${obj.postalCode} ${user.shippingAddresses.length > 1 ? "• " : ""}`
                                                                 )
                                                             }) : (
                                                                 "No saved address"
