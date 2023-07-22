@@ -22,7 +22,7 @@ const CartItem = ( {item} ) => {
             <div className={"flex w-full"}>
                 <div className={"w-3/12"}>
                     <Link to={`/product/${item._id}`}>
-                        <img className={"lg:w-56 rounded-xl"} src={item.images[0].url} alt={"cartItem"}/>
+                        <img className={"lg:w-56 rounded-xl"} src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"} alt={"cartItem"}/>
                     </Link>
                 </div>
 
