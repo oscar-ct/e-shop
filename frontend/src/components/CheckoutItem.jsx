@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React from 'react';
 import {Link} from "react-router-dom";
 import {FaTrash} from "react-icons/fa";
 import {addToCart, removeFromCart} from "../slices/cartSlice";
@@ -7,25 +7,15 @@ import {formatPrice} from "../utils/formatPriceUtilis";
 
 const CheckoutItem = ( {item} ) => {
 
-    const [quantity, setQuantity] = useState(1);
-    const [itemUpdated, setItemUpdated] = useState(false);
-
     const dispatch = useDispatch();
-
-
     const addToCartHandler = async (item, quantity) => {
-        setItemUpdated(true);
         dispatch(addToCart({
             ...item, quantity
         }));
-        setTimeout(function () {
-            setItemUpdated(false);
-        }, 1000)
     };
     const removeFromCartHandler = async (id) => {
         dispatch(removeFromCart(id));
     };
-
 
     return (
         <>
@@ -33,15 +23,15 @@ const CheckoutItem = ( {item} ) => {
 
                 <div className={"w-2/12"}>
                     <Link to={`/product/${item._id}`}>
-                        <img className={"lg:w-32 rounded-xl"} src={item.image} alt={"cartItem"}/>
+                        <img className={"lg:w-32 rounded-xl"} src={item.images[0].url} alt={"cartItem"}/>
                     </Link>
                 </div>
 
                 <div className={"w-8/12 flex flex-col px-3 sm:px-5"}>
 
-                    <div className={"sm:text-lg font-bold text-neutral"}>
+                    <Link to={`/product/${item._id}`} className={"sm:text-lg font-bold text-neutral hover:link hover:link-primary"}>
                         {item.name}
-                    </div>
+                    </Link>
 
                     <div className={"flex w-full"}>
                         <div className={"flex flex-col w-9/12"}>
@@ -66,7 +56,7 @@ const CheckoutItem = ( {item} ) => {
                                     Price:
                                 </span>
                                 <span className={"ml-1 text-sm"}>
-                                    ${item.price}/ea.
+                                    ${item.price}/ea
                                 </span>
                             </div>
                         </div>
@@ -94,47 +84,14 @@ const CheckoutItem = ( {item} ) => {
                                 </select>
 
                             </div>
-                            {/*<div className={"mb-1 px-1"}>*/}
-                            {/*    /!*<span className={"font-bold text-sm"}>*!/*/}
-                            {/*    /!*    Qty:*!/*/}
-                            {/*    /!*</span>*!/*/}
-                            {/*    <input*/}
-                            {/*        onChange={(e) => setQuantity(Number(e.target.value))}*/}
-                            {/*        min={1}*/}
-                            {/*        defaultValue={item.quantity}*/}
-                            {/*        max={item.countInStock}*/}
-                            {/*        type="number"*/}
-                            {/*        className="input input-bordered"*/}
-                            {/*    />*/}
-                            {/*</div>*/}
-                            {/*<div className={"flex justify-center items-center"}>*/}
-                            {/*    {*/}
-                            {/*        !itemUpdated ? (*/}
-                            {/*            <button*/}
-                            {/*                onClick={addToCartHandler}*/}
-                            {/*                className={"btn btn-xs"}>*/}
-                            {/*                Update*/}
-                            {/*            </button>*/}
-                            {/*        ) : (*/}
-                            {/*            <button*/}
-                            {/*                className={"btn btn-success btn-xs"}>*/}
-                            {/*                Updated!*/}
-                            {/*            </button>*/}
-                            {/*        )*/}
-                            {/*    }*/}
-
-                            {/*</div>*/}
                         </div>
                     </div>
                 </div>
 
                 <div className={"w-2/12 flex flex-col items-end justify-between"}>
-                    {
-                        formatPrice(item.price * item.quantity, "text-xl")
-                    }
-                    {/*<span className={"text-lg neutral"}>*/}
-                    {/*    ${(item.price * item.quantity).toFixed(2)}*/}
-                    {/*</span>*/}
+                {
+                    formatPrice(item.price * item.quantity, "text-xl")
+                }
                     <div>
                         <button
                             onClick={() => removeFromCartHandler(item._id)}
@@ -144,9 +101,8 @@ const CheckoutItem = ( {item} ) => {
                         </button>
                     </div>
                 </div>
-
             </div>
-            <div className={"mt-5 border-b-2 border-grey-500"}/>
+            <div className={"mt-5 border-b-[1px] border-gray-300"}/>
         </>
 
     );
