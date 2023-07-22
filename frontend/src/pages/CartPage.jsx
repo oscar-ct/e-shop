@@ -69,10 +69,12 @@ const CartPage = () => {
                                 )
                             }
                             </div>
-                            <div className={"lg:w-8/12 card mb-10 bg-base-100 shadow-xl"}>
-                                <div className={"px-5 pb-10 pt-7"}>
-                                    <h1 className={"text-2xl text-center text-neutral pb-2"}>
-                                         Cart (
+                            <div className={"lg:w-8/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
+                                <div className={"pb-10"}>
+                                    <h1
+                                        style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
+                                        className={"py-2  text-gray-700 rounded-xl text-2xl text-center"}>
+                                         Shopping Cart (
                                         <span className={"text-xl text-gray-500 font-bold"}>
                                             {totalNumberOfItems}
                                             {
@@ -85,6 +87,7 @@ const CartPage = () => {
                                         </span>
                                         )
                                     </h1>
+                                </div>
                                 {
                                     cartItems.map(function (item) {
                                         return (
@@ -92,7 +95,7 @@ const CartPage = () => {
                                         )
                                     })
                                 }
-                                </div>
+
                             </div>
                             <div className={"px-3 lg:pl-10 lg:w-4/12"}>
                                 <div className={"hidden lg:flex"}>
@@ -125,7 +128,7 @@ const CartPage = () => {
                                                     totalNumberOfItems > 1 ? (" items:") : (" item:")
                                                 }
                                             </h3>
-                                            <div className={"border-b-2 border-grey-500 my-2"}/>
+                                            <div className={"border-b-[1px] border-gray-300 my-2"}/>
                                             <div className={"flex justify-end"}>
                                                 <span className="pl-2 card-title font-bold">
                                                     ${totalPrice}
