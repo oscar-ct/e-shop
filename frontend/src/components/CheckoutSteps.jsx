@@ -12,7 +12,7 @@ const CheckoutSteps = ({ step1, step2, step3 }) => {
         <div className={"flex justify-center py-5 lg:py-10"}>
             {
                 step1 ? (
-                    <div className={"steps w-full text-sm"}>
+                    <div className={"steps w-full"}>
                         <Link to={"/cart"} className="step step-primary">Cart</Link>
                         {
                             cartItems.length !== 0 ? (
