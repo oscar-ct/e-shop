@@ -319,8 +319,8 @@ const AdminProductListPage = () => {
                         </div>
 
                     </div>
-                    <div className="overflow-x-auto p-5">
-                        <table className="table table-zebra w-fit xl:w-full table-xs">
+                    <div className="overflow-x-auto p-6">
+                        <table className="table table-zebra w-fit xl:w-full table-sm">
                             <thead>
                             <tr>
                                 <th/>
@@ -405,13 +405,18 @@ const AdminProductListPage = () => {
                                                             </td>
                                                             <td className={"p-1 w-24 bg-blue-200"}>{item?.createdAt.substring(0, 10)}</td>
                                                             <td className={"p-1 bg-blue-200"}>
+
                                                                 <div className={"flex"}>
-                                                                    <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
-                                                                        <FaCheckCircle/>
-                                                                    </button>
-                                                                    <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm p-2 rounded-full"}>
-                                                                        <FaMinusCircle/>
-                                                                    </button>
+                                                                    <div className="tooltip tooltip-bottom" data-tip="save changes">
+                                                                        <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                            <FaCheckCircle/>
+                                                                        </button>
+                                                                    </div>
+                                                                    <div className="tooltip tooltip-bottom" data-tip="delete item">
+                                                                        <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                            <FaMinusCircle/>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </td>
                                                         </>

@@ -143,7 +143,7 @@ const AdminCreateProductPage = () => {
         <>
             <div className={"pt-10 2xl:px-20"}>
                 <div className={"bg-base-100 shadow-xl px-12 py-7 mx-auto rounded-2xl w-full"}>
-                    <h2 className={"text-2xl text-center pb-5"}>Create Product Listing</h2>
+                    <h2 className={"mb-2 text-2xl text-center py-2 rounded-xl"} style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}>Add New Product</h2>
                     <h2 className={"text-xl font-bold flex items-center"}>Step 1.<span className="pl-3 text-sm text-gray-500 font-normal">Please fill in all text fields
                     </span></h2>
 
@@ -311,7 +311,7 @@ const AdminCreateProductPage = () => {
                                     </div>
                                 )
                             }) : (
-                                <h1 className={"py-10 font-bold text-lg text-gray-500"}>By default a sample image will be uploaded when creating a new product listing, you can delete this later.</h1>
+                                <h1 className={"py-10 font-bold text-lg text-gray-500"}>By default a sample image will be uploaded when you add a new product, you can delete this later.</h1>
                             )
                         }
                     </div>

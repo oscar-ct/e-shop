@@ -127,8 +127,8 @@ console.log()
                 <AdminTabs/>
                 <div className={"mt-5 card bg-base-100 shadow-xl"}>
                     <div className={"w-full px-5 flex justify-center pt-5"}>
-                        <div className={" text-2xl text-center font-bold"}>
-                            Order List
+                        <div className={" text-2xl text-center"}>
+                            Orders List
                         </div>
 
                     </div>
@@ -202,9 +202,11 @@ console.log()
                                                             </td>
                                                             <td className={"p-1 bg-blue-200"}>
                                                                 <div className={"flex"}>
-                                                                    <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
-                                                                        <FaCheckCircle/>
-                                                                    </button>
+                                                                    <div className="tooltip tooltip-bottom" data-tip="save changes">
+                                                                        <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                            <FaCheckCircle/>
+                                                                        </button>
+                                                                    </div>
                                                                 </div>
                                                             </td>
                                                         </>
