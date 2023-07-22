@@ -123,12 +123,12 @@ const OrderPage = () => {
                                     </h1>
                                 </div>
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
-                                    <div className={"w-5/12"}>
+                                    <div className={"w-5/12 lg:w-4/12"}>
                                         <h3 className={"text-lg text-neutral"}>
-                                            Shipping Address:
+                                            Ship To:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12"}>
+                                    <div className={"w-7/12 lg:w-8/12"}>
                                         <div className={"flex flex-col text-sm"}>
                                         <span>
                                             {order.user.name}
@@ -147,12 +147,12 @@ const OrderPage = () => {
                                 </div>
 
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
-                                    <div className={"w-5/12"}>
+                                    <div className={"w-5/12 lg:w-4/12"}>
                                         <h3 className={"text-lg text-neutral"}>
                                             Shipment Status:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12"}>
+                                    <div className={"w-7/12 lg:w-8/12"}>
                                         <div className={"flex flex-col text-sm"}>
                                             {
                                                 order.isPaid && !order.isShipped ? (
@@ -201,19 +201,19 @@ const OrderPage = () => {
                                 </div>
 
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
-                                    <div className={"w-5/12"}>
+                                    <div className={"w-5/12 lg:w-4/12"}>
                                         <h3 className={"text-lg text-neutral"}>
                                             Payment Method:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12"}>
+                                    <div className={"w-7/12 lg:w-8/12"}>
                                         <div className={"flex items-center text-sm"}>
                                             <div>
                                                 {
                                                     order.paymentMethod === "PayPal" ? (
-                                                        <PayPal className={"w-8"}/>
+                                                        <PayPal className={"w-6"}/>
                                                     ) : (
-                                                        <FaCreditCard className={"text-3xl"}/>
+                                                        <FaCreditCard className={"text-2xl"}/>
                                                     )
                                                 }
 
@@ -226,12 +226,12 @@ const OrderPage = () => {
                                 </div>
 
                                 <div className={"flex border-b-2 border-grey-500 py-3"}>
-                                    <div className={"w-5/12"}>
+                                    <div className={"w-5/12 lg:w-4/12"}>
                                         <h3 className={"text-lg text-neutral"}>
                                             Payment Status:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12"}>
+                                    <div className={"w-7/12 lg:w-8/12"}>
                                         <div className={"flex items-center text-sm"}>
                                             {
                                                 order.isPaid ? (

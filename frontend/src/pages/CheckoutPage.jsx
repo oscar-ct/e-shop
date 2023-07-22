@@ -80,9 +80,13 @@ const CheckoutPage = () => {
                     ) : (
                         <div className={"flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
-                                <div className={"pb-7"}>
-                                    <h1 className={"text-2xl text-center"}>Checkout (<span
-                                        className={"text-xl text-gray-500 font-bold"}>{totalNumberOfItems}
+                                <div className={"pb-5"}>
+                                    <h1
+                                        style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
+                                        className={"py-2 text-gray-700 rounded-xl text-2xl text-center"}>
+                                        Checkout (
+                                        <span className={"text-xl text-gray-500 font-bold"}>
+                                            {totalNumberOfItems}
                                         {
                                             totalNumberOfItems === 1 ? (
                                                 " Item"
@@ -90,16 +94,16 @@ const CheckoutPage = () => {
                                                 " Items"
                                             )
                                         }
-                                    </span>)
+                                        </span>)
                                     </h1>
                                 </div>
-                                <div className={"flex border-b-2 border-grey-500 py-3"}>
-                                    <div className={"w-5/12"}>
+                                <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                    <div className={"w-5/12 lg:w-4/12"}>
                                         <h3 className={"text-lg"}>
-                                            Shipping Address:
+                                            Ship To:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12"}>
+                                    <div className={"w-7/12 lg:w-8/12"}>
                                         <div className={"flex flex-col text-sm"}>
                                         <span>
                                             {userData.name}
@@ -118,20 +122,20 @@ const CheckoutPage = () => {
                                 </div>
 
 
-                                <div className={"flex border-b-2 border-grey-500 py-5"}>
-                                    <div className={"w-5/12"}>
+                                <div className={"flex border-b-[1px] border-gray-300 py-5"}>
+                                    <div className={"w-5/12 lg:w-4/12"}>
                                         <h3 className={"text-lg"}>
                                             Payment Method:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12"}>
+                                    <div className={"w-7/12 lg:w-8/12"}>
                                         <div className={"flex items-center text-sm"}>
                                             <div>
                                                 {
                                                     paymentMethod === "PayPal" ? (
-                                                        <PayPal className={"w-8"}/>
+                                                        <PayPal className={"w-6"}/>
                                                     ) : (
-                                                        <FaCreditCard className={"text-3xl"}/>
+                                                        <FaCreditCard className={"text-2xl"}/>
                                                     )
                                                 }
 
@@ -144,7 +148,7 @@ const CheckoutPage = () => {
                                 </div>
 
 
-                                <div className={"py-3"}>
+                                <div className={"py-5"}>
                                     <h3 className={"text-lg"}>
                                         Review Items:
                                     </h3>
@@ -172,7 +176,7 @@ const CheckoutPage = () => {
                                                 Place your order
                                             </button>
                                         </div>
-                                        <div className={"border-b-2 border-grey-500 mt-5 mb-3"}/>
+                                        <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
                                         <div className={"flex flex-col"}>
                                             <h3 className={"pb-5 text-xl font-bold"}>
                                                 Order Summary
