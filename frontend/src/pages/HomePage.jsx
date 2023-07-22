@@ -62,9 +62,10 @@ const HomePage = () => {
                                             slidesPerView={1}
                                         >
                                             <SwiperSlide>
-                                                <div className={"h-[25em] rounded-br-xl rounded-bl-xl"} style={{background: "url(https://plus.unsplash.com/premium_photo-1681488484866-af8f282d59ce?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1557&q=80)", backgroundPosition: "bottom", backgroundSize: "cover"}}>
-                                                    <div className={"absolute w-full text-center top-[50%]"}>
+                                                <div className={"h-[25em] rounded-br-xl rounded-bl-xl"} style={{background: "url(https://images.unsplash.com/photo-1486520299386-6d106b22014b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80)", backgroundPosition: "center", backgroundSize: "cover"}}>
+                                                    <div className={"absolute w-full text-center top-[40%]"}>
                                                         <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl"}><span className={"font-bold text-base-300"}>Welcome</span> to e-shop!</span>
+                                                        <div className={"text-white"}>A site created and developed by Oscar Castro</div>
                                                     </div>
                                                 </div>
                                             </SwiperSlide>
