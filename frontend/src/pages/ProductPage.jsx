@@ -93,7 +93,7 @@ const ProductPage = () => {
                         <div className={"flex flex-col bg-base-100 shadow-xl px-5 xl:px-10 pt-5 pb-10 rounded-xl mb-10"}>
                             <div className={"w-full flex flex-col lg:flex-row flex-wrap "}>
                                 <div className={"flex justify-center lg:justify-start items-center lg:w-5/12"}>
-                                    <img src={product.images[0].url} alt={"product"} className={"rounded-xl object-fit max-h-[28rem]"}/>
+                                    <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl object-fit max-h-[28rem]"}/>
                                 </div>
                                 <div className={"lg:w-7/12 flex flex-col lg:flex-row lg:pl-7 py-7"}>
                                     <div className={"lg:w-7/12"}>

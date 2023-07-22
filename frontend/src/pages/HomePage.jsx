@@ -106,7 +106,7 @@ const HomePage = () => {
                                                         <Link to={`/product/${data._id}`} className={"relative"}>
                                                             <img
                                                                 className={"object-cover w-full xl:w-[385px] h-[307px] rounded-xl"}
-                                                                src={data.images[0].url} alt={"products"}/>
+                                                                src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                             <div className={"opacity-70 p-2 rounded-tl-lg bg-white absolute bottom-0 right-0"}>
                                                                 <h5 className={"sm:text-xs"}>{data.name} - ${data.price}</h5>
                                                             </div>
