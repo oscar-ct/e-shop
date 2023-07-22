@@ -8,7 +8,8 @@ import {setLoading} from "../slices/loadingSlice";
 import {FaTrash, FaUpload} from "react-icons/fa";
 import * as filestack from "filestack-js";
 import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncodeHandleMutation} from "../slices/filestackSlice";
-import background from "../icons/bg.png"
+import Message from "../components/Message";
+
 
 
 const AdminCreateProductPage = () => {
@@ -47,8 +48,8 @@ const AdminCreateProductPage = () => {
         if (confirm) {
             try {
                 const data = {
-                    _id: newProduct._id,
                     imageId: id,
+                    productId: newProduct._id
                 }
                 const res = await deleteProductImage(data);
                 setNewProduct(res.data);
@@ -89,7 +90,7 @@ const AdminCreateProductPage = () => {
             countInStock: formData.countInStock,
             price: formData.price,
             category: formData.category,
-            images: [{url: "/images/sample.jpg", handle: "sampleImage"}],
+            // images: [{url: "/images/sample.jpg", handle: "sampleImage"}],
         }
         try {
             const res = await createProduct(product);
@@ -143,10 +144,10 @@ const AdminCreateProductPage = () => {
             <div className={"pt-10 2xl:px-20"}>
                 <div className={"bg-base-100 shadow-xl px-12 py-7 mx-auto rounded-2xl w-full"}>
                     <h2 className={"text-2xl text-center pb-5"}>Create Product Listing</h2>
-                    <h2 className={"text-xl font-bold"}>Step 1.<span className="pl-3 text-sm text-gray-500 font-normal">Please fill in all text fields
+                    <h2 className={"text-xl font-bold flex items-center"}>Step 1.<span className="pl-3 text-sm text-gray-500 font-normal">Please fill in all text fields
                     </span></h2>
 
-                    <form onSubmit={createProductHandler} className={"w-full py-2"}>
+                    <form onSubmit={createProductHandler} className={"w-full pb-5 pt-3 border-neutral-400 border-dotted border-b-2"}>
                         <div className={"flex flex-col lg:flex-row"}>
                             <div className={"w-full flex flex-col lg:w-6/12 sm:px-10 lg:pr-10 lg:pl-5"}>
                                 <div className={"space-y-2 pb-2"}>
@@ -277,25 +278,24 @@ const AdminCreateProductPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={"px-5 sm:px-0 pt-5 w-full flex flex-col lg:flex-row lg:justify-end"}>
+                        <div className={`px-5 sm:px-0 pt-5 w-full flex flex-col lg:flex-row ${newProduct ? "lg:justify-between" : "lg:justify-end"} items-center`}>
                             {
                                 newProduct && (
-                                    <h1 className={"w-full text-sm lg:text-lg text-start font-bold lg:pb-0 pb-5"}>
-                                        <span className={"text-green-600 text-2xl pr-2"}>
-                                            Success!
-                                        </span>
-                                        Product Id: {newProduct._id}
-                                    </h1>
+                                    <div className={"w-full lg:w-96 pb-5 lg:pb-0"}>
+                                        <Message variant={"success"}>
+                                            Listing created successfully!
+                                        </Message>
+                                    </div>
                                 )
                             }
-                            <button type={"submit"} className={"btn btn-primary w-full lg:btn-wide"}>
+                            <button type={"submit"} className={"self-end btn btn-primary w-full lg:btn-wide"}>
                                 Create Listing
                             </button>
 
                         </div>
                     </form>
 
-                    <h2 className={"pt-10 lg:pt-0 text-xl font-bold"}>Step 2.<span className={"pl-2 text-lg text-gray-500 text-sm font-normal"}>Add images to your product</span></h2>
+                    <h2 className={"pt-10 lg:pt-5 text-xl font-bold"}>Step 2.<span className={"pl-2 text-lg text-gray-500 text-sm font-normal"}>Add images to your product</span></h2>
 
                     <div className={"flex justify-center flex-wrap"}>
                         {
