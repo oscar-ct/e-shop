@@ -18,8 +18,8 @@ const createOrder = asyncHandler(async (req, res) => {
             orderItems: orderItems.map(function (item){
                 return {
                     ...item,
-                    product: item._id,
-                    _id: undefined,
+                    productId: item._id,
+                    _id: null,
                 }
             }),
             shippingAddress: shippingAddress,
