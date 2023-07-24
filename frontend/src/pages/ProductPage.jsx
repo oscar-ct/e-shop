@@ -1,5 +1,5 @@
-import React from 'react';
-import {useParams, useNavigate} from "react-router-dom";
+import React, {useEffect} from 'react';
+import {useParams, useNavigate, useLocation} from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
 import {useState} from "react";
@@ -10,20 +10,21 @@ import Message from "../components/Message";
 import {addToCart} from "../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {formatPrice} from "../utils/formatPriceUtilis"
+import ReviewModal from "../components/ReviewModal";
 
 const ProductPage = () => {
     // const [product, setProduct] = useState({});
 
     const { id: productId } = useParams();
     const { data: product, refetch, isLoading, error } = useGetProductDetailsQuery(productId);
-    const [createReview] = useCreateReviewMutation();
+    const [createReview, {error: reviewError}] = useCreateReviewMutation();
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
     const [rating, setRating] = useState("0");
     const [title, setTitle] = useState("");
     const [reviewBody, setReviewBody] = useState("");
-    const [errorReviewMessage, setErrorReviewMessage] = useState("")
+    const [errorReviewMessage, setErrorReviewMessage] = useState("");
 
     // useEffect(function () {
     //     const fetchProduct = async () => {
@@ -33,7 +34,7 @@ const ProductPage = () => {
     //     }
     //     fetchProduct();
     // }, [productId]);
-
+    const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(1);
@@ -43,8 +44,18 @@ const ProductPage = () => {
         }));
         navigate("/cart");
     }
+    useEffect(function () {
+        if (location.search === "?review=true" && !window.review_modal.open) {
+            window.review_modal.showModal();
+        }
+    }, [location.search]);
+
     const closeEditModal = (e) => {
         e.preventDefault();
+        setErrorReviewMessage("");
+        setReviewBody("");
+        setRating("0");
+        setTitle("");
         window.review_modal.close();
     }
     const submitReview = async (e) => {
@@ -69,12 +80,9 @@ const ProductPage = () => {
         } catch (e) {
             // toast error message for later
             console.log(e)
+            return setErrorReviewMessage(e.data.message)
         }
-        setErrorReviewMessage("");
-        setReviewBody("");
-        setRating("0");
-        setTitle("");
-        window.review_modal.close();
+        closeEditModal();
     }
 
 
@@ -206,7 +214,7 @@ const ProductPage = () => {
                                                 <div className={"pt-2 pb-6 flex justify-between items-center border-b-[1px] border-neutral-300"}>
                                                     {
                                                         product.reviews.length !== 0 ? (
-                                                            <span className={"text-xl font-bold"}>Recent Reviews</span>
+                                                            <span className={"text-xl font-bold"}>Customer Reviews</span>
                                                         ) : (
                                                             <h2 className={"text-xl font-bold"}>Be the first to write a review!</h2>
                                                         )
@@ -278,12 +286,12 @@ const ProductPage = () => {
                     <div className={"flex justify-between items-center"}>
                         <h3 className="p-4 font-bold text-xl">Create review</h3>
                         <div className="rating rating-lg">
-                            <input type="radio" value={"0"} name="rating" className="rating-hidden" onChange={(e) => setRating(e.target.value)} checked={rating === "0"}/>
-                            <input type="radio" onChange={(e) => setRating(e.target.value)} value={"1"} name="rating" className="mask mask-star-2 bg-orange-300" />
-                            <input type="radio" onChange={(e) => setRating(e.target.value)} value={"2"} name="rating" className="mask mask-star-2 bg-orange-300"/>
-                            <input type="radio" onChange={(e) => setRating(e.target.value)} value={"3"} name="rating" className="mask mask-star-2 bg-orange-300" />
-                            <input type="radio" onChange={(e) => setRating(e.target.value)} value={"4"} name="rating" className="mask mask-star-2 bg-orange-300" />
-                            <input type="radio" onChange={(e) => setRating(e.target.value)} value={"5"} name="rating" className="mask mask-star-2 bg-orange-300" />
+                            <input type="radio" value={"0"} name="rating" className="rating-hidden" onClick={(e) => setRating(e.target.value)} checked={rating === "0"}/>
+                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"1"} name="rating" className="mask mask-star-2 bg-orange-300" />
+                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"2"} name="rating" className="mask mask-star-2 bg-orange-300"/>
+                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"3"} name="rating" className="mask mask-star-2 bg-orange-300" />
+                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"4"} name="rating" className="mask mask-star-2 bg-orange-300" />
+                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"5"} name="rating" className="mask mask-star-2 bg-orange-300" />
                         </div>
                     </div>
 
@@ -325,6 +333,7 @@ const ProductPage = () => {
                     </div>
                 </form>
             </dialog>
+            {/*<ReviewModal productId={productId} refetch={refetch} onPage={true}/>*/}
         </>
     );
 };
