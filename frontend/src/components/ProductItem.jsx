@@ -1,8 +1,7 @@
-import React from 'react';
 import {Link} from 'react-router-dom'
 import Rating from "./Rating";
 
-const Product = ( {product} ) => {
+const ProductItem = ( {product} ) => {
     return (
         <>
             <div className="w-6/12 sm:w-72 p-2 sm:p-3">
@@ -36,4 +35,4 @@ const Product = ( {product} ) => {
     );
 };
 
-export default Product;
+export default ProductItem;
