@@ -60,10 +60,10 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                         }
                     },
                     // 5 seconds
-                    keepUnusedDataFor: 5
+                    keepUnusedDataFor: 5,
+                    providesTags: ["Order"],
                 }
             ),
-            providesTags: ["Order"],
             updateOrder: build.mutation({
                     query: function (data) {
                         return {
@@ -72,11 +72,30 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                             body: data,
                         }
                     },
-                invalidatesTags: ["Order"]
+                    invalidatesTags: ["Order"]
+                }
+            ),
+            cancelOrder: build.mutation({
+                    query: function (id) {
+                        return {
+                            url: `${ORDERS_URL}/${id}/cancelorder`,
+                            method: "PUT",
+                        }
+                    },
+                }
+            ),
+            cancelOrderItem: build.mutation({
+                    query: function (data) {
+                        return {
+                            url: `${ORDERS_URL}/${data.orderId}/cancelitem`,
+                            method: "PUT",
+                            body: data,
+                        }
+                    },
                 }
             ),
         };
     }
 });
 
-export const { useCreateOrderMutation, useGetMyOrdersQuery, useGetOrderByIdQuery, usePayOrderMutation, useGetPayPalClientIdQuery, useGetOrdersQuery, useUpdateOrderMutation } = ordersApiSlice;
+export const { useCreateOrderMutation, useGetMyOrdersQuery, useGetOrderByIdQuery, usePayOrderMutation, useGetPayPalClientIdQuery, useGetOrdersQuery, useUpdateOrderMutation, useCancelOrderMutation, useCancelOrderItemMutation } = ordersApiSlice;
