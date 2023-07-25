@@ -72,6 +72,45 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 });
 
 
+const cancelOrder = asyncHandler(async (req, res) => {
+    const order = await Order.findById(req.params.id);
+    if (order) {
+        if (!order.isShipped) {
+            order.isCanceled = true;
+            order.canceledAt = Date.now();
+            const updatedOrder = await order.save();
+            res.status(200);
+            res.json(updatedOrder);
+        } else {
+            res.status(400);
+            throw new Error("This order cannot be canceled.");
+        }
+    } else {
+        res.status(404);
+        throw new Error("Something went wrong locating this order, try again later.");
+    }
+});
+
+
+const cancelOrderItem = asyncHandler(async (req, res) => {
+    const {productId} = req.body;
+    const order = await Order.findById(req.params.id);
+    if (order) {
+        const {isShipped, isCanceled} = order;
+        if (!isShipped && !isCanceled) {
+            order.canceledItems.push(productId);
+            const updatedOrder = await order.save();
+            res.status(200);
+            res.json(updatedOrder);
+        } else {
+            res.status(400);
+            throw new Error("This item cannot be canceled.");
+        }
+    } else {
+        res.status(404);
+        throw new Error("Something went wrong locating this order, try again later.");
+    }
+});
 
 
 
@@ -136,7 +175,9 @@ export {
     getOrderById,
     updateOrderToPaid,
     updateOrderStatus,
-    getAllOrders
+    getAllOrders,
+    cancelOrder,
+    cancelOrderItem,
 };
 
 
