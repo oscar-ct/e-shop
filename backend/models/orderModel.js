@@ -107,6 +107,15 @@ const orderSchema = new mongoose.Schema({
         required: true,
         default: 0.0,
     },
+    isCanceled: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    canceledAt: {
+        type: Date,
+    },
+    canceledItems: [String],
     isPaid: {
         type: Boolean,
         required: true,
