@@ -5,7 +5,9 @@ import {
     getOrderById,
     updateOrderToPaid,
     updateOrderStatus,
-    getAllOrders
+    getAllOrders,
+    cancelOrder,
+    cancelOrderItem
 } from "../controllers/orderController.js";
 import {protect, admin} from "../middleware/authMiddleware.js";
 
@@ -17,6 +19,8 @@ const router = express.Router();
 router.get('/myorders', protect, getUserOrders);
 router.post('/', protect, createOrder);
 router.put('/:id/payment', protect, updateOrderToPaid);
+router.put('/:id/cancelitem', protect, cancelOrderItem);
+router.put('/:id/cancelorder', protect, cancelOrder);
 
 
 router.get('/:id', protect, getOrderById);  // User & Admin Access
