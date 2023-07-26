@@ -1,7 +1,21 @@
 import React from 'react';
+import {addToCart} from "../slices/cartSlice";
+import {useDispatch} from "react-redux";
+import axios from "axios";
+import {Link} from "react-router-dom";
+import {toast} from "react-toastify";
 
 
 const ProfileOrderItemProduct = ({product, index, orderSize}) => {
+    const dispatch = useDispatch();
+    const quantity = 1;
+    const addToCartHandler = async () => {
+        toast.success("Added To Cart", {style: {borderRadius: "15px", width: "200px", textAlign: "center", marginLeft: "55px"}, })
+        const { data } = await axios.get(`/api/products/${product.productId}`);
+        dispatch(addToCart({
+            ...data, quantity
+        }));
+    }
 
     return (
         <>
@@ -10,14 +24,14 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
                     <div className={"w-full"}>
                         <div className={"flex bg-base-100 pb-3"}>
                             <div className="avatar pr-5">
-                                <div className="rounded-xl w-24 h-24">
+                                <Link to={`/product/${product.productId}`} className="rounded-xl w-24 h-24">
                                     <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"}  alt={"product"}/>
-                                </div>
+                                </Link>
                             </div>
                             <div className={"flex flex-col"}>
-                                <span className={"font-bold"}>
+                                <Link to={`/product/${product.productId}`} className={"hover:link hover:link-primary font-bold"}>
                                     {product.name}
-                                </span>
+                                </Link>
                                 <div className={"flex"}>
                                     <span className={"text-xs"}>
                                         ${product.price}/ea
@@ -26,8 +40,8 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
                                         Qty: {product.quantity}
                                     </span>
                                 </div>
-                                <div className={"pt-3"}>
-                                    <button className={"btn btn-warning w-36"}>
+                                <div className={"pt-5"}>
+                                    <button onClick={() => addToCartHandler()} className={"btn btn-sm btn-warning w-36"}>
                                         Buy it again
                                     </button>
                                 </div>
