@@ -7,10 +7,11 @@ import ProfileAccountPassword from "../components/ProfileAccountPassword";
 
 
 
+
 const ProfilePage = () => {
 
     const {id: params} = useParams();
-    const {data: orders, isLoading} = useGetMyOrdersQuery();
+    const {data: orders, isLoading, refetch} = useGetMyOrdersQuery();
 
     return (
 
@@ -37,7 +38,7 @@ const ProfilePage = () => {
                                 {
                                     params === "orders" ? (
                                         orders.map(function (order, index) {
-                                            return <ProfileOrderItem key={index} order={order}/>
+                                            return <ProfileOrderItem refetch={refetch} key={index} order={order}/>
                                         })
                                     ) : (
                                         <div className="mt-5 w-full h-full flex flex-col lg:flex-row justify-between items-start">
