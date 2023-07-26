@@ -1,7 +1,8 @@
 import {Outlet} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import {useSelector} from "react-redux";
-
+import { ToastContainer } from "react-toastify";
+import "react-toastify/dist/ReactToastify.css"
 
 function App() {
 
@@ -10,6 +11,17 @@ function App() {
     });
   return (
       <>
+          <ToastContainer
+              position="top-center"
+              autoClose={1000}
+              hideProgressBar={true}
+              newestOnTop={false}
+              closeOnClick
+              rtl={true}
+              pauseOnFocusLoss
+              draggable
+              pauseOnHover
+              theme="light"/>
           {
               loading.loading && (
                   <div className={"absolute z-10 w-full h-screen flex justify-center"}>
