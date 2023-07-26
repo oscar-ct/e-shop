@@ -19,7 +19,7 @@ const Message = ({variant, children}) => {
             )
         } else if (variant === "error") {
             return (
-                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
+                <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-6 w-6"  fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 14l2-2m0 0l2-2m-2 2l-2-2m2 2l2 2m7-2a9 9 0 11-18 0 9 9 0 0118 0z" /></svg>
             )
         } else {
             return (
@@ -30,15 +30,15 @@ const Message = ({variant, children}) => {
     const alertClass = (variant) => {
         switch (variant) {
             case "error" :
-                return "alert alert-error";
+                return "alert flex alert-error";
             case "warning" :
-                return "alert alert-warning";
+                return "alert flex alert-warning";
             case "success" :
-                return "alert alert-success";
+                return "alert flex alert-success";
             case "info" :
-                return "alert alert-info";
+                return "alert flex alert-info";
             default :
-                return "alert"
+                return "alert flex"
         }
 
     }
@@ -46,10 +46,10 @@ const Message = ({variant, children}) => {
     return (
         // this is not working properly
         // <div className={`alert alert-${variant}`}>
-        <div className={alertClass(variant)}>
+        <div className={`${alertClass(variant)}`}>
             <div className={"flex items-center justify-start"}>
-                <span className={"mr-1"}>{ iconType(variant) } </span>
-                <span>{children}</span>
+                <div className={"mr-1"}>{ iconType(variant) }</div>
+                <span className={"text-start"}>{children}</span>
             </div>
         </div>
     );
