@@ -1,5 +1,5 @@
 // import React, {useEffect, useState} from 'react';
-import Product from "../components/Product";
+import ProductItem from "../components/ProductItem";
 // import axios from "axios";
 import {useGetProductsQuery, useGetProductsByRatingQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
@@ -13,6 +13,8 @@ import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import {useEffect, useState} from "react";
+import {HOME_IMAGE_1, HOME_IMAGE_3, HOME_IMAGE_2} from "../variables";
+import Rating from "../components/Rating";
 
 
 
@@ -62,24 +64,43 @@ const HomePage = () => {
                                             slidesPerView={1}
                                         >
                                             <SwiperSlide>
-                                                <div className={"h-[25em] rounded-br-xl rounded-bl-xl"} style={{background: "url(https://images.unsplash.com/photo-1486520299386-6d106b22014b?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80)", backgroundPosition: "center", backgroundSize: "cover"}}>
+                                                <div
+                                                    className={"h-[25em] rounded-br-xl rounded-bl-xl"}
+                                                     style={{background: `url(${HOME_IMAGE_1})`, backgroundPosition: "top", backgroundSize: "cover"}}
+                                                >
                                                     <div className={"absolute w-full text-center top-[40%]"}>
-                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl"}><span className={"font-bold text-base-300"}>Welcome</span> to e-shop!</span>
-                                                        <div className={"text-white"}>A site created and developed by Oscar Castro</div>
+                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl"}>
+                                                            <span className={"font-bold text-base-100"}>
+                                                                Welcome
+                                                            </span> to e-shop!
+                                                        </span>
+                                                        <div className={"text-white font-bold"}>
+                                                            A site created and developed by Oscar Castro
+                                                        </div>
                                                     </div>
                                                 </div>
                                             </SwiperSlide>
                                             <SwiperSlide>
-                                                <div className={"h-[25em] rounded-br-xl rounded-bl-xl"} style={{background: "url( https://images.unsplash.com/photo-1641350625112-3b1d73c71418?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1548&q=80)", backgroundPosition: "center", backgroundSize: "cover"}}>
+                                                <div
+                                                    className={"h-[25em] rounded-br-xl rounded-bl-xl"}
+                                                     style={{background: `url(${HOME_IMAGE_2})`, backgroundPosition: "center", backgroundSize: "cover"}}
+                                                >
                                                     <div className={"absolute w-full text-center top-[40%]"}>
-                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-5xl text-white font-bold"}>Shop safe and secure with PayPal</span>
+                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-5xl text-white font-bold"}>
+                                                            Shop safe and secure with PayPal
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </SwiperSlide>
                                             <SwiperSlide>
-                                                <div className={"h-[25em] rounded-br-xl rounded-bl-xl"} style={{background: "url(https://images.unsplash.com/photo-1524678714210-9917a6c619c2?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1469&q=80)", backgroundPosition: "center", backgroundSize: "cover"}}>
+                                                <div
+                                                    className={"h-[25em] rounded-br-xl rounded-bl-xl"}
+                                                    style={{background: `url(${HOME_IMAGE_3})`, backgroundPosition: "center", backgroundSize: "cover"}}
+                                                >
                                                     <div className={"absolute w-full text-center top-[40%]"}>
-                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl"}>Fast 3-day shipping! </span>
+                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl text-white font-bold"}>
+                                                            Fast 3-day shipping!
+                                                        </span>
                                                     </div>
                                                 </div>
                                             </SwiperSlide>
@@ -111,6 +132,9 @@ const HomePage = () => {
                                                             <div className={"opacity-70 p-2 rounded-tl-lg bg-white absolute bottom-0 right-0"}>
                                                                 <h5 className={"sm:text-xs"}>{data.name} - ${data.price}</h5>
                                                             </div>
+                                                            <div className={"opacity-70 p-2 rounded-bl-lg bg-white absolute top-0 right-0"}>
+                                                                <Rating rating={data.rating}/>
+                                                            </div>
                                                         </Link>
                                                     </SwiperSlide>
                                                 })}
@@ -134,7 +158,7 @@ const HomePage = () => {
                             <div className={"w-full flex flex-wrap justify-center"}>
                                 {
                                     data.products.map(function (product) {
-                                        return <Product key={product._id} product={product}/>
+                                        return <ProductItem key={product._id} product={product}/>
                                     })
                                 }
                             </div>
@@ -144,7 +168,6 @@ const HomePage = () => {
                                 </div>
                             </div>
                         </div>
-
 
                     </>
                 )
