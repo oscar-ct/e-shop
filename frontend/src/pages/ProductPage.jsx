@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
 import {useState} from "react";
 // import axios from "axios";
-import {useGetProductDetailsQuery, useCreateReviewMutation} from "../slices/productsApiSlice";
+import {useGetProductDetailsQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {addToCart} from "../slices/cartSlice";
@@ -14,17 +14,12 @@ import ReviewModal from "../components/ReviewModal";
 
 const ProductPage = () => {
     // const [product, setProduct] = useState({});
-
     const { id: productId } = useParams();
     const { data: product, refetch, isLoading, error } = useGetProductDetailsQuery(productId);
-    const [createReview, {error: reviewError}] = useCreateReviewMutation();
+
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
-    const [rating, setRating] = useState("0");
-    const [title, setTitle] = useState("");
-    const [reviewBody, setReviewBody] = useState("");
-    const [errorReviewMessage, setErrorReviewMessage] = useState("");
 
     // useEffect(function () {
     //     const fetchProduct = async () => {
@@ -34,10 +29,12 @@ const ProductPage = () => {
     //     }
     //     fetchProduct();
     // }, [productId]);
+
     const location = useLocation();
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(1);
+
     const addToCartHandler = () => {
         dispatch(addToCart({
             ...product, quantity
@@ -49,41 +46,6 @@ const ProductPage = () => {
             window.review_modal.showModal();
         }
     }, [location.search]);
-
-    const closeEditModal = (e) => {
-        e.preventDefault();
-        setErrorReviewMessage("");
-        setReviewBody("");
-        setRating("0");
-        setTitle("");
-        window.review_modal.close();
-    }
-    const submitReview = async (e) => {
-        e.preventDefault();
-        if (rating === "0") {
-            setErrorReviewMessage("Please select a rating");
-            return
-        }
-        if (!reviewBody || !title) {
-            setErrorReviewMessage("Please fill out all text fields");
-            return
-        }
-        const data = {
-            productId,
-            rating,
-            title,
-            comment: reviewBody,
-        }
-        try {
-            await createReview(data).unwrap();
-            refetch();
-        } catch (e) {
-            // toast error message for later
-            console.log(e)
-            return setErrorReviewMessage(e.data.message)
-        }
-        closeEditModal();
-    }
 
 
     return (
@@ -208,10 +170,10 @@ const ProductPage = () => {
                                 {/*    <h2 className={"text-2xl font-bold"}>Reviews</h2>*/}
                                 {/*</div>*/}
                                 <div className={"pt-10 xl:pt-15 flex flex-col lg:flex-row"}>
-                                    <div className={"w-full lg:pr-1 lg:w-6/12"}>
-                                        <div className={"overflow-x-auto border-[1px] border-neutral-300 rounded-xl pb-10"}>
-                                            <div className={"px-4 lg:px-10 pt-5 text-base-content relative col-start-1 row-start-1 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [&::selection]:bg-blue-700/20 [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]"}>
-                                                <div className={"pt-2 pb-6 flex justify-between items-center border-b-[1px] border-neutral-300"}>
+                                    <div className={"w-full lg:w-7/12"}>
+                                        <div className={"overflow-x-auto border-[1px] border-neutral-300 rounded-xl"}>
+                                            <div className={"p-5 lg:p-8 text-base-content relative col-start-1 row-start-1 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [&::selection]:bg-blue-700/20 [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]"}>
+                                                <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px]" : "pb-0"} flex justify-between items-center  border-neutral-300`}>
                                                     {
                                                         product.reviews.length !== 0 ? (
                                                             <span className={"text-xl font-bold"}>Customer Reviews</span>
@@ -238,7 +200,7 @@ const ProductPage = () => {
                                                     product.reviews.length !== 0 && (
                                                         product.reviews.map(function (review, index) {
                                                             return (
-                                                                <div key={index} className={"py-3"}>
+                                                                <div key={index} className={"pt-3"}>
                                                                     <div className={"flex flex-col"}>
                                                                         <div className={"flex justify-between"}>
                                                                     <span className={"pb-2 text-xs font-bold text-neutral-500"}>
@@ -269,9 +231,6 @@ const ProductPage = () => {
                                                     )
                                                 }
 
-
-
-
                                             </div>
                                         </div>
                                     </div>
@@ -281,59 +240,7 @@ const ProductPage = () => {
                     </div>
                 )
             }
-            <dialog id="review_modal" className="modal modal-bottom sm:modal-middle">
-                <form method="dialog" className="modal-box">
-                    <div className={"flex justify-between items-center"}>
-                        <h3 className="p-4 font-bold text-xl">Create review</h3>
-                        <div className="rating rating-lg">
-                            <input type="radio" value={"0"} name="rating" className="rating-hidden" onClick={(e) => setRating(e.target.value)} checked={rating === "0"}/>
-                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"1"} name="rating" className="mask mask-star-2 bg-orange-300" />
-                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"2"} name="rating" className="mask mask-star-2 bg-orange-300"/>
-                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"3"} name="rating" className="mask mask-star-2 bg-orange-300" />
-                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"4"} name="rating" className="mask mask-star-2 bg-orange-300" />
-                            <input type="radio" onClick={(e) => setRating(e.target.value)} value={"5"} name="rating" className="mask mask-star-2 bg-orange-300" />
-                        </div>
-                    </div>
-
-                    <div className="px-4">
-                        <div className="form-control w-full">
-                            <label className="label">
-                                <span className="label-text">Add a headline</span>
-                            </label>
-                            <input type="text" placeholder="What's most important to know?" className="input input-bordered w-full" value={title} onChange={(e) => {
-                                setTitle(e.target.value);
-                            }}/>
-                        </div>
-                        <div className="form-control w-full">
-                            <label className="label">
-                                <span className="label-text">Add a review</span>
-                            </label>
-                            <textarea value={reviewBody} placeholder="What did you like or dislike? What did you use this product for?" className="h-20 pt-2 input input-bordered w-full" onChange={(e) => {
-                                setReviewBody(e.target.value);
-                            }}/>
-                        </div>
-                        {
-                            errorReviewMessage && (
-                                <h2 className={"pt-2 text-center text-red-600 font-bold"}>
-                                    {errorReviewMessage}
-                                </h2>
-                            )
-
-                        }
-
-                    </div>
-                    <div className="modal-action">
-                        <button onClick={closeEditModal} className={"btn btn-error"}>Cancel</button>
-                        <button
-                            onClick={submitReview}
-                            className="btn btn-primary"
-                        >
-                            Submit
-                        </button>
-                    </div>
-                </form>
-            </dialog>
-            {/*<ReviewModal productId={productId} refetch={refetch} onPage={true}/>*/}
+            <ReviewModal productId={productId} refetch={refetch} onPage={true}/>
         </>
     );
 };
