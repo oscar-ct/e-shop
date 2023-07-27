@@ -132,7 +132,7 @@ const ProfileOrderItem = ({refetch, order}) => {
                         {
                             order.isPaid && order.isShipped && order.isDelivered && !order.isCanceled ? (
                                 <div className={"py-5 px-5"}>
-                                    <span className={"text-2xl text-green-600 font-bold"}>
+                                    <span className={"text-2xl text-green-500 font-bold"}>
                                         Delivered
                                     </span>
                                 </div>
@@ -168,9 +168,9 @@ const ProfileOrderItem = ({refetch, order}) => {
                             <div className={"w-full"}>
                                 <div className={"py-2 w-full"}>
                                     <div className={`w-full ${order.trackingNumber && "tooltip tooltip-top"}`} data-tip={copyMessage}>
-                                        <button onClick={copyToClipboard} disabled={!order.isShipped} className={"btn normal-case text-xs btn-sm w-full"}>
+                                        <button onClick={copyToClipboard} disabled={!order.isShipped} className={"btn h-fit normal-case text-xs btn-sm w-full"}>
+                                            <FaRegCopy className={"hidden sm:block"}/>
                                             Tracking Number
-                                            <FaRegCopy/>
                                         </button>
                                     </div>
                                 </div>
