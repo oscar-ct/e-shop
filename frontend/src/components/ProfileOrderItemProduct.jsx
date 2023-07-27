@@ -3,14 +3,14 @@ import {addToCart} from "../slices/cartSlice";
 import {useDispatch} from "react-redux";
 import axios from "axios";
 import {Link} from "react-router-dom";
-import {toast} from "react-toastify";
+import {toast} from "react-hot-toast"
 
 
 const ProfileOrderItemProduct = ({product, index, orderSize}) => {
     const dispatch = useDispatch();
     const quantity = 1;
     const addToCartHandler = async () => {
-        toast.success("Added To Cart", {style: {borderRadius: "15px", width: "200px", textAlign: "center", marginLeft: "55px"}, })
+        toast.success("Added To Cart")
         const { data } = await axios.get(`/api/products/${product.productId}`);
         dispatch(addToCart({
             ...data, quantity
