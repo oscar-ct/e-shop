@@ -19,10 +19,10 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
 
     return (
         <>
-            <div className={"py-5 px-5"}>
+            <div className={"py-3 pl-5"}>
                 <div className={"flex flex-col lg:flex-row"}>
                     <div className={"w-full"}>
-                        <div className={"flex bg-base-100 pb-3"}>
+                        <div className={"flex bg-base-100 pb-2"}>
                             <div className="avatar pr-5">
                                 <Link to={`/product/${product.productId}`} className="rounded-xl w-24 h-24">
                                     <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"}  alt={"product"}/>
@@ -32,7 +32,7 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
                                 <Link to={`/product/${product.productId}`} className={"hover:link hover:link-primary font-bold"}>
                                     {product.name}
                                 </Link>
-                                <div className={"flex"}>
+                                <div className={"flex pt-2"}>
                                     <span className={"text-xs"}>
                                         ${product.price}/ea
                                     </span>
@@ -40,7 +40,7 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
                                         Qty: {product.quantity}
                                     </span>
                                 </div>
-                                <div className={"pt-5"}>
+                                <div className={"pt-4"}>
                                     <button onClick={() => addToCartHandler()} className={"btn btn-sm btn-warning w-36"}>
                                         Buy it again
                                     </button>
