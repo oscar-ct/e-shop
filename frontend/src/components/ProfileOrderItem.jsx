@@ -127,8 +127,8 @@ const ProfileOrderItem = ({refetch, order}) => {
         {
             order.orderItems.map(function (product, index) {
                 return (
-                    <div className={"flex"} key={product.productId}>
-                        <div className={"w-8/12 flex flex-col"}>
+                    <div className={"flex flex-col lg:flex-row"} key={product.productId}>
+                        <div className={"w-full lg:w-8/12 flex flex-col"}>
                         {
                             order.isPaid && order.isShipped && order.isDelivered && !order.isCanceled ? (
                                 <div className={"py-5 px-5"}>
@@ -136,7 +136,7 @@ const ProfileOrderItem = ({refetch, order}) => {
                                         Delivered
                                     </span>
                                 </div>
-                            ) : (order.isPaid || !order.isPaid) && !order.isShipped && (order.canceledItems.some(e => e.productId === product.productId) || order.isCanceled) ? (
+                            ) : (order.isPaid || !order.isPaid) && (order.canceledItems.some(e => e.productId === product.productId) || order.isCanceled) ? (
                                 <div className={"py-5 px-5"}>
                                     <span className={"text-red-500 text-2xl font-bold"}>
                                         Canceled
@@ -164,12 +164,16 @@ const ProfileOrderItem = ({refetch, order}) => {
                         }
                             <ProfileOrderItemProduct product={product} index={index} orderSize={order.orderItems.length}/>
                         </div>
-                        <div className={`mx-4 w-4/12 flex items-start py-5 ${index+1 !== order.orderItems.length && "border-b-[1px] border-gray-300"}`}>
-                            <div className={"w-full"}>
-                                <div className={"py-2 w-full"}>
+
+                        <div className={`px-4 w-full lg:w-4/12 flex items-start py-5 ${index+1 !== order.orderItems.length && "border-b-[1px] border-gray-300"}`}>
+
+                            <div className={"w-full flex flex-col md:flex-row lg:flex-col"}>
+
+
+                                <div className={"py-2 px-1 w-full"}>
                                     <div className={`w-full ${order.trackingNumber && "tooltip tooltip-top"}`} data-tip={copyMessage}>
-                                        <button onClick={copyToClipboard} disabled={!order.isShipped} className={"btn h-fit normal-case text-xs btn-sm w-full"}>
-                                            <FaRegCopy className={"hidden sm:block"}/>
+                                        <button onClick={copyToClipboard} disabled={(!order.isShipped || order.canceledItems.some(e => e.productId === product.productId))} className={"btn h-fit normal-case text-xs btn-sm w-full"}>
+                                            <FaRegCopy/>
                                             Tracking Number
                                         </button>
                                     </div>
@@ -182,7 +186,7 @@ const ProfileOrderItem = ({refetch, order}) => {
                                 {/*    </button>*/}
                                 {/*</div>*/}
 
-                                <div className={"py-2 w-full "}>
+                                <div className={"py-2 px-1 w-full"}>
                                     <button onClick={() => navigate(`/product/${product.productId}?review=true`)} disabled={!order.isDelivered} className={"btn normal-case text-xs btn-sm w-full"}>
                                         Write a product review
                                     </button>
@@ -190,7 +194,7 @@ const ProfileOrderItem = ({refetch, order}) => {
 
                                 {
                                     !order.isShipped && !order.isDelivered && !order.isCanceled && !order.canceledItems.some(e => e.productId === product.productId) && (
-                                        <div className={"py-2 w-full"}>
+                                        <div className={"py-2 px-1 w-full"}>
                                             <button onClick={() => cancelOrderItemHandler(product.productId)} className={"btn normal-case text-xs btn-sm w-full"}>
                                                 Cancel Item
                                             </button>
@@ -199,14 +203,14 @@ const ProfileOrderItem = ({refetch, order}) => {
                                 }
 
                             </div>
+
                         </div>
+
                     </div>
 
                 )
             })
         }
-
-
 
             </div>
         </div>

@@ -24,8 +24,8 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
                     <div className={"w-full"}>
                         <div className={"flex bg-base-100 pb-2"}>
                             <div className="avatar pr-5">
-                                <Link to={`/product/${product.productId}`} className="rounded-xl w-24 h-24">
-                                    <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"}  alt={"product"}/>
+                                <Link to={`/product/${product.productId}`} className="w-24 h-24">
+                                    <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"}  alt={"product"} className="rounded-xl"/>
                                 </Link>
                             </div>
                             <div className={"flex flex-col"}>
@@ -52,7 +52,7 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
             </div>
             {
                 index+1 !== orderSize && (
-                    <div className={"border-b-[1px] border-gray-300 mx-5"}/>
+                    <div className={"lg:border-b-[1px] lg:border-gray-300 px-5"}/>
                 )
             }
         </>
