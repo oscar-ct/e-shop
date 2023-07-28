@@ -107,7 +107,7 @@ const ProfileOrderItem = ({refetch, order}) => {
                     </div>
                 </div>
         {
-            !order.isPaid && (!order.isCanceled || order.orderItems.length === order.canceledItems.length) && (
+            !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
                 <div className={"pt-3 px-10"}>
                     <div className={"w-full"}>
                         <Message variant={"error"}>
