@@ -115,7 +115,17 @@ const orderSchema = new mongoose.Schema({
     canceledAt: {
         type: Date,
     },
-    canceledItems: [String],
+    // canceledItems: [String],
+    canceledItems: [
+        {
+            productId: {
+                type: String
+            },
+            canceledAt: {
+                type: Date
+            }
+        }
+    ],
     isPaid: {
         type: Boolean,
         required: true,
