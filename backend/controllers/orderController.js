@@ -97,8 +97,12 @@ const cancelOrderItem = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
         const {isShipped, isCanceled} = order;
+        const data = {
+            productId,
+            canceledAt: Date.now(),
+        }
         if (!isShipped && !isCanceled) {
-            order.canceledItems.push(productId);
+            order.canceledItems.push(data);
             const updatedOrder = await order.save();
             res.status(200);
             res.json(updatedOrder);
