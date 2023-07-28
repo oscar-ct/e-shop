@@ -26,7 +26,9 @@ const OrderPage = () => {
     ] = usePayOrderMutation();
     const {data: paypal, isLoading: loadingPayPal, error: errorPayPal} = useGetPayPalClientIdQuery();
     const {data: order, refetch, isLoading, error} = useGetOrderByIdQuery(orderId);
-    const [cancelOrder, {error: errorCancelOrder}] = useCancelOrderMutation();
+    const [cancelOrder,
+        // {error: errorCancelOrder}
+    ] = useCancelOrderMutation();
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -103,10 +105,11 @@ const OrderPage = () => {
     const booleanOrderHasCanceledItems = () => {
         let bool = false;
         order?.orderItems.forEach(function (item) {
-            if (order.canceledItems.includes(item.productId)) {
+            if (order.canceledItems.some(e => e.productId === item.productId)) {
                 bool = true;
             }
         });
+
         return bool;
     }
 
@@ -138,6 +141,10 @@ const OrderPage = () => {
                                 ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && order.isPaid && !order.isShipped && !order.isDelivered ? (
                                     <h1 className={"text-4xl font-bold"}>
                                         Your order has been canceled and your refund process has begun.
+                                    </h1>
+                                ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && !order.isShipped && !order.isDelivered ? (
+                                    <h1 className={"text-4xl font-bold"}>
+                                        Your order has been canceled.
                                     </h1>
                                 ) : (
                                     <h1 className={"text-4xl font-bold text-neutral-700"}>
@@ -289,7 +296,7 @@ const OrderPage = () => {
 
 
                                 {
-                                    (order.isCanceled || (order.orderItems.length === order.canceledItems?.length || booleanOrderHasCanceledItems())) && (
+                                    (order.isCanceled || (order.orderItems.length === order.canceledItems?.length || booleanOrderHasCanceledItems())) && order.isPaid && (
                                         <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                             <div className={"w-5/12 lg:w-4/12"}>
                                                 <h3 className={"font-semibold"}>
@@ -337,14 +344,21 @@ const OrderPage = () => {
                                                 className={"btn text-xs btn-error btn-sm w-full"}>
                                             Cancel Order
                                         </button>
-                                        <h5 className={"text-center pt-5"}>
+                                        {
+                                            order.isPaid && (
+                                                <h5 className={"text-center pt-5"}>
+                                                    Refunds can take up 5-7 business to process.
+                                                </h5>
+                                            )
+                                        }
+
+                                    </div>
+                                ) : (order.isCanceled || order.canceledItems?.length > 0) && order.isPaid ? (
+                                        <h5 className={"text-center pb-5"}>
                                             Refunds can take up 5-7 business to process.
                                         </h5>
-                                    </div>
-                                ) : (order.isCanceled || order.canceledItems?.length > 0) ? (
-                                    <h5 className={"text-center pb-5"}>
-                                        Refunds can take up 5-7 business to process.
-                                    </h5>
+                                ) : (order.isCanceled || order.canceledItems?.length > 0) && !order.isPaid ? (
+                                        ""
                                 ) : (
                                     <h5 className={"text-center pb-5"}>
                                         This order cannot be canceled.

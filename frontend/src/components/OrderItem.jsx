@@ -6,13 +6,13 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
 
     // const strikethrough = () => canceledItems.includes(item.productId) && "line-through opacity-70";
     const strikethrough = function () {
-        if (canceledItems.includes(item.productId) || isCanceled) {
-            return "line-through opacity-70";
+        if (canceledItems.some(e => e.productId === item.productId) || isCanceled) {
+            return "line-through";
         }
     };
     return (
         <>
-            <div className={`flex w-full mt-5 ${(canceledItems.includes(item.productId) || isCanceled) && "opacity-70"}`}>
+            <div className={`flex w-full mt-5 ${(canceledItems.some(e => e.productId === item.productId) || isCanceled) && "opacity-70"}`}>
 
                 <div className={"w-2/12"}>
                     <Link to={`/product/${item.productId}`}>
@@ -56,7 +56,7 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
                     }
                     </div>
                     {
-                        (canceledItems.includes(item.productId) || isCanceled) && (
+                        (canceledItems.some(e => e.productId === item.productId) || isCanceled) && (
                             <div>
                                 <h3 className={"text-red-500 text-lg font-bold"}>
                                   Canceled
