@@ -136,13 +136,13 @@ const ProfileOrderItem = ({refetch, order}) => {
                                         Delivered
                                     </span>
                                 </div>
-                            ) : (order.isPaid || !order.isPaid) && !order.isShipped && (order.canceledItems.includes(product.productId) || order.isCanceled) ? (
+                            ) : (order.isPaid || !order.isPaid) && !order.isShipped && (order.canceledItems.some(e => e.productId === product.productId) || order.isCanceled) ? (
                                 <div className={"py-5 px-5"}>
                                     <span className={"text-red-500 text-2xl font-bold"}>
                                         Canceled
                                     </span>
                                 </div>
-                            ) : order.isPaid && !order.isShipped && !order.canceledItems.includes(product.productId) && !order.isCanceled ? (
+                            ) : order.isPaid && !order.isShipped && !order.canceledItems.some(e => e.productId === product.productId) && !order.isCanceled ? (
                                 <div className={"py-5 px-5"}>
                                     <span className={"text-2xl font-bold"}>
                                     Processing
@@ -189,7 +189,7 @@ const ProfileOrderItem = ({refetch, order}) => {
                                 </div>
 
                                 {
-                                    !order.isShipped && !order.isDelivered && !order.isCanceled && !order.canceledItems?.includes(product.productId) && (
+                                    !order.isShipped && !order.isDelivered && !order.isCanceled && !order.canceledItems.some(e => e.productId === product.productId) && (
                                         <div className={"py-2 w-full"}>
                                             <button onClick={() => cancelOrderItemHandler(product.productId)} className={"btn normal-case text-xs btn-sm w-full"}>
                                                 Cancel Item
