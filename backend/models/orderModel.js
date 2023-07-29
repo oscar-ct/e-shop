@@ -151,6 +151,14 @@ const orderSchema = new mongoose.Schema({
         type: String,
         default: "",
     },
+    isReimbursed: {
+        type: Boolean,
+        required: true,
+        default: false,
+    },
+    reimbursedAt: {
+        type: Date,
+    },
 
 },
 {
