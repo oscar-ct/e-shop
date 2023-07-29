@@ -156,10 +156,10 @@ const AdminOrderListPage = () => {
 
     const trackingNumberHandler = (orderId, trackingNumber, isShipped) => {
         if (trackingNumber) {
-            setOrderId(orderId);
             setTrackingNumber(trackingNumber);
-            setIsShipped(isShipped);
         }
+        setOrderId(orderId);
+        setIsShipped(isShipped);
         setTrackingNumberModalIsOpen(true);
         window.tracking_modal.showModal();
     }
@@ -451,6 +451,7 @@ const AdminOrderListPage = () => {
                                 <div className="modal-action">
                                     <button onClick={closeTrackingNumberModal} className={"btn btn-neutral rounded-xl"}>Close</button>
                                     <button
+                                        disabled={!isShipped}
                                         onClick={submitTrackingNumber}
                                         className="btn btn-info rounded-xl"
                                     >
