@@ -168,16 +168,16 @@ const AdminUserListPage = () => {
                         </div>
 
                     </div>
-                    <div className="overflow-x-auto p-6">
-                        <table className="table w-fit lg:w-full table-zebra table-sm">
+                    <div className="overflow-x-auto px-5 py-10">
+                        <table className="table w-full table-zebra table-sm">
                             <thead>
                             <tr>
                                 <th/>
-                                <th>ID</th>
+                                {/*<th>ID</th>*/}
                                 <th className={"p-1"}>Name</th>
                                 <th className={"p-1"}>Email</th>
                                 <th className={"p-1"}>Admin</th>
-                                <th className={"p-1 text-center"}>Address</th>
+                                <th className={"p-1"}>Address</th>
                                 <th className={"p-1"}>Joined</th>
                             </tr>
                             </thead>
@@ -192,17 +192,17 @@ const AdminUserListPage = () => {
                                                     editMode && user._id === userId ? (
                                                         <>
                                                             <th className={"bg-blue-200"}>{index+1}</th>
-                                                            <td className={"bg-blue-200"}>{user._id.substring(user._id.length - 6, user._id.length)}</td>
+                                                            {/*<td className={"bg-blue-200"}>{user._id.substring(user._id.length - 6, user._id.length)}</td>*/}
                                                             <td className={"p-1 bg-blue-200"}>
                                                                 <input
-                                                                    className="pl-1 py-2 shadow appearance-none border rounded w-24 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    className="pl-1 py-2 shadow w-full appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     value={name}
                                                                     onChange={(e) => setName(e.target.value)}
                                                                 />
                                                             </td>
                                                             <td className={"p-1 bg-blue-200"}>
                                                                 <input
-                                                                    className="pl-1 shadow appearance-none border w-full rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    className="pl-1 w-full shadow appearance-none border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     type={"text"}
                                                                     value={email}
                                                                     onChange={(e) => setEmail(e.target.value)}
@@ -222,23 +222,34 @@ const AdminUserListPage = () => {
                                                                     </option>
                                                                 </select>
                                                             </td>
-                                                            <td className={"p-1 bg-blue-200"}>{user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
-                                                                return (
-                                                                    `${obj.address}, ${obj.city}, ${obj.postalCode} ${user.shippingAddresses.length > 1 ? "• " : ""}`
-                                                                )
-                                                            }) : (
-                                                                "No saved address"
-                                                            )}</td>
-                                                            <td className={"p-1 w-24 bg-blue-200"}>{user?.createdAt.substring(0, 10)}</td>
-                                                            <td className={"w-16 p-1 bg-blue-200"}>
-                                                                <div className={"flex"}>
+                                                            <td className={"p-1 bg-blue-200"}>
+                                                                <details className={"flex flex-wrap"}>
+                                                                    <summary className={"hover:link-primary truncate cursor-pointer "}>
+                                                                        Address List
+                                                                    </summary>
+                                                                    {user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
+                                                                        return (
+                                                                            <span className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pt-2 pl-2 text-xs`}>
+                                                                            {obj.address}, {obj.city}, {obj.postalCode}
+                                                                        </span>
+                                                                        )
+                                                                    }) : (
+                                                                        <span className={"pl-2 text-xs"}>
+                                                                            No saved address
+                                                                        </span>
+                                                                    )}
+                                                                </details>
+                                                            </td>
+                                                            <td className={"p-1 truncate bg-blue-200"}>{user?.createdAt.substring(0, 10)}</td>
+                                                            <td className={"p-1 bg-blue-200"}>
+                                                                <div className={"flex items-center justify-around"}>
                                                                     <div className="tooltip tooltip-bottom" data-tip="save changes">
-                                                                        <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
-                                                                            <FaCheckCircle/>
+                                                                        <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm rounded-full"}>
+                                                                            <FaCheckCircle className={"text-sm"}/>
                                                                         </button>
                                                                     </div>
                                                                     <div className="tooltip tooltip-bottom" data-tip="delete user">
-                                                                        <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                        <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm rounded-full"}>
                                                                             <FaMinusCircle/>
                                                                         </button>
                                                                     </div>
@@ -248,23 +259,35 @@ const AdminUserListPage = () => {
                                                     ) : (
                                                         <>
                                                             <th>{index+1}</th>
-                                                            <td>{user._id.substring(user._id.length - 6, user._id.length)}</td>
-                                                            <td className={"p-1 w-24"}>{user.name}</td>
+                                                            {/*<td>{user._id.substring(user._id.length - 6, user._id.length)}</td>*/}
+                                                            <td className={"p-1 truncate"}>{user.name}</td>
                                                             <td className={"p-1"}>{user.email}</td>
-                                                            <td className={"p-1"}>{user.isAdmin ? <FaCheck fill={"green"}/> : <FaTimes fill={"red"}/>}</td>
-                                                            <td className={"p-1"}>{user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj) {
-                                                                return (
-                                                                    `${obj.address}, ${obj.city}, ${obj.postalCode} ${user.shippingAddresses.length > 1 ? "• " : ""}`
-                                                                )
-                                                            }) : (
-                                                                "No saved address"
-                                                            )}</td>
-                                                            <td className={"w-24 p-1"}>{user?.createdAt.substring(0, 10)}</td>
+                                                            <td className={"p-1"}>{user.isAdmin ? <FaCheck className={"text-green-500"}/> : <FaTimes fill={"red"}/>}</td>
+                                                            <td className={"p-1 "}>
+                                                                <details className={"flex flex-wrap"}>
+                                                                    <summary className={"hover:link-primary truncate cursor-pointer "}>
+                                                                        Address List
+                                                                        </summary>
+                                                                    {user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
+                                                                    return (
+                                                                        <span className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pl-2 pt-2 text-xs`}>
+                                                                            {obj.address}, {obj.city}, {obj.postalCode}
+                                                                        </span>
+                                                                        )
+                                                                    }) : (
+                                                                        <span className={"pl-2 text-xs"}>
+                                                                            No saved address
+                                                                        </span>
+                                                                    )}
+                                                                </details>
+                                                            </td>
+                                                            <td className={"p-1 truncate"}>{user?.createdAt.substring(0, 10)}</td>
                                                             <td className={"p-1"}>
-                                                                <div className={"flex"}>
-                                                                    <button onClick={() => editUserHandler(user._id)} className={"btn-glass p-2 btn-sm rounded-full hover:text-primary"}>
+                                                                <div className={"flex justify-around"}>
+                                                                    <button onClick={() => editUserHandler(user._id)} className={"btn-glass btn-sm rounded-full hover:text-primary"}>
                                                                         <FaEdit/>
                                                                     </button>
+                                                                    <span className={"px-4"}/>
                                                                 </div>
                                                             </td>
                                                         </>
