@@ -207,11 +207,11 @@ const AdminOrderListPage = () => {
                     <div className={"mt-5 card bg-base-100 shadow-xl"}>
                         <div className={"w-full px-5 flex justify-center pt-5"}>
                             <div className={" text-2xl text-center"}>
-                                Orders List
+                                Orders
                             </div>
 
                         </div>
-                        <div className="overflow-x-auto p-5">
+                        <div className="overflow-x-auto px-5 py-10">
                             <table className="table table-zebra w-fit lg:w-full table-xs">
                                 <thead>
                                 <tr>
@@ -304,9 +304,9 @@ const AdminOrderListPage = () => {
                                                                     </select>
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
-                                                                    <div className={"flex"}>
+                                                                    <div className={"flex items-center"}>
                                                                         <div className="tooltip tooltip-bottom" data-tip="save changes">
-                                                                            <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                            <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm rounded-full"}>
                                                                                 <FaCheckCircle/>
                                                                             </button>
                                                                         </div>
@@ -343,11 +343,11 @@ const AdminOrderListPage = () => {
                                                                 <td className={"p-1"}>{order.isDelivered ? order.deliveredAt.substring(0,10) : <FaTimes fill={"red"}/>}
                                                                 </td>
                                                                 <td className={"p-1 w-20"}>
-                                                                    <div className={"flex"}>
-                                                                        <button onClick={() => editOrderHandler(order._id)} className={"btn-glass p-2 btn-sm rounded-full hover:text-primary"}>
+                                                                    <div className={"flex items-center"}>
+                                                                        <button onClick={() => editOrderHandler(order._id)} className={"btn-glass btn-sm rounded-full hover:text-primary"}>
                                                                             <FaEdit/>
                                                                         </button>
-                                                                        <button onClick={() => trackingNumberHandler(order._id, order.trackingNumber, order.isShipped)} className={`btn-glass p-2 btn-sm rounded-full hover:text-primary ${editMode && "hidden"}`}>
+                                                                        <button onClick={() => trackingNumberHandler(order._id, order.trackingNumber, order.isShipped)} className={` btn-glass btn-sm rounded-full hover:text-primary ${editMode && "hidden"}`}>
                                                                             <FaTruck/>
                                                                         </button>
                                                                     </div>
