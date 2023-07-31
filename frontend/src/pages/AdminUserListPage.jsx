@@ -229,7 +229,7 @@ const AdminUserListPage = () => {
                                                                     </summary>
                                                                     {user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
                                                                         return (
-                                                                            <span className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pt-2 pl-2 text-xs`}>
+                                                                            <span key={index} className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pt-2 pl-2 text-xs`}>
                                                                             {obj.address}, {obj.city}, {obj.postalCode}
                                                                         </span>
                                                                         )
@@ -270,7 +270,7 @@ const AdminUserListPage = () => {
                                                                         </summary>
                                                                     {user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
                                                                     return (
-                                                                        <span className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pl-2 pt-2 text-xs`}>
+                                                                        <span key={index} className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pl-2 pt-2 text-xs`}>
                                                                             {obj.address}, {obj.city}, {obj.postalCode}
                                                                         </span>
                                                                         )
