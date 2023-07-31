@@ -307,8 +307,8 @@ const AdminProductListPage = () => {
                 <AdminTabs/>
                 <div className={"mt-5 card bg-base-100 shadow-xl"}>
                     <div className={"w-full px-5 flex justify-center py-5"}>
-                        <div className={" text-2xl text-center"}>
-                            Product List
+                        <div className={"text-2xl"}>
+                            Products
                             <button
                                 onClick={() => navigate("/admin/products/create")}
                                 className={"absolute right-6 self-end btn btn-primary btn-xs lg:btn-sm"}
@@ -319,8 +319,8 @@ const AdminProductListPage = () => {
                         </div>
 
                     </div>
-                    <div className="overflow-x-auto p-6">
-                        <table className="table table-zebra w-fit xl:w-full table-sm">
+                    <div className="overflow-x-auto p-5">
+                        <table className="table table-zebra w-full table-xs">
                             <thead>
                             <tr>
                                 <th/>
@@ -406,14 +406,14 @@ const AdminProductListPage = () => {
                                                             <td className={"p-1 w-24 bg-blue-200"}>{item?.createdAt.substring(0, 10)}</td>
                                                             <td className={"p-1 bg-blue-200"}>
 
-                                                                <div className={"flex"}>
+                                                                <div className={"flex items-center"}>
                                                                     <div className="tooltip tooltip-bottom" data-tip="save changes">
-                                                                        <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                        <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm rounded-full"}>
                                                                             <FaCheckCircle/>
                                                                         </button>
                                                                     </div>
                                                                     <div className="tooltip tooltip-bottom" data-tip="delete item">
-                                                                        <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm p-2 rounded-full"}>
+                                                                        <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm rounded-full"}>
                                                                             <FaMinusCircle/>
                                                                         </button>
                                                                     </div>
@@ -436,11 +436,11 @@ const AdminProductListPage = () => {
                                                         <td className={"p-1"}>{item.description.substring(0, 32)}...</td>
                                                         <td className={"w-24 p-1"}>{item?.createdAt.substring(0, 10)}</td>
                                                         <td className={"p-1"}>
-                                                            <div className={"flex"}>
-                                                                <button onClick={() => editProductHandler(item._id)} className={"btn-glass p-2 btn-sm rounded-full hover:text-primary"}>
+                                                            <div className={"flex items-center"}>
+                                                                <button onClick={() => editProductHandler(item._id)} className={"btn-glass btn-sm rounded-full hover:text-primary"}>
                                                                 <FaEdit/>
                                                                 </button>
-                                                                <button onClick={() => openImagesHandler(item._id)} className={"btn-glass p-2 btn-sm rounded-full hover:text-primary"}>
+                                                                <button onClick={() => openImagesHandler(item._id)} className={"btn-glass btn-sm rounded-full hover:text-primary"}>
                                                                     <FaImages/>
                                                                 </button>
                                                             </div>
@@ -529,8 +529,8 @@ const AdminProductListPage = () => {
                                     }
                                 </div>
                                 <div className="modal-action">
-                                    <button onClick={openPicker} className={"btn rounded-xl"}>Add Image</button>
                                     <button className={"btn btn-neutral rounded-xl"} onClick={closeImagesModal}>Close</button>
+                                    <button onClick={openPicker} className={"btn rounded-xl"}>Add Image</button>
                                 </div>
                             </form>
                         )
