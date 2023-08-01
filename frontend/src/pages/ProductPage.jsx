@@ -25,7 +25,6 @@ const ProductPage = () => {
         return state.auth;
     });
 
-    const imagesLength = product?.images.length;
     const [imageIndex, setImageIndex] = useState(0);
     const [fullScreen, setFullScreen] =  useState(false);
     // useEffect(function () {
@@ -63,8 +62,8 @@ const ProductPage = () => {
                 ) : error ? (
                     <Message variant={"error"} children={error?.data?.message || error.error}/>
                 ) : fullScreen ? (
-                    <div className={"z-10 bg-black absolute top-0 right-0 left-0 bottom-0"}>
-                        <div className={"relative w-full h-full flex justify-center items-center"}>
+                    <div className={"z-10 h-max bg-black absolute top-0 right-0 left-0 bottom-0"}>
+                        <div className={"relative"}>
                             <button onClick={() => setFullScreen(false)} className={"z-10 hover:text-blue-500 btn-glass btn-lg text-2xl text-base-100 absolute top-5 right-5"}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-7" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
@@ -82,9 +81,9 @@ const ProductPage = () => {
                                 {product.images.map(function (data, index) {
                                     return (
                                         <SwiperSlide key={index}>
-                                            <div className={"w-full h-full flex justify-center items-center"}>
-                                                <div className={"swiper-zoom-container min-h-screen"}>
-                                                <img src={data.length !== 0 ? data.url : "/images/sample.jpg"} alt={"products"}/>
+                                            <div className={"h-screen flex justify-center items-center"}>
+                                                <div className={"swiper-zoom-container"}>
+                                                    <img src={data.length !== 0 ? data.url : "/images/sample.jpg"} alt={"item"}/>
                                                 </div>
                                             </div>
                                         </SwiperSlide>
@@ -98,13 +97,13 @@ const ProductPage = () => {
                         {/*<Link className={"btn btn-light my-5"} to={"/"}>*/}
                         {/*    Go Back*/}
                         {/*</Link>*/}
-                        <div className={"flex flex-col bg-base-100 shadow-xl px-5 xl:px-10 pt-5 pb-10 rounded-xl mb-10"}>
+                        <div className={"flex flex-col bg-base-100 shadow-xl px-5 xl:px-10 pt-10 pb-10 rounded-xl mb-10"}>
                             <div className={"w-full flex flex-col lg:flex-row flex-wrap "}>
-                                <div className={"flex flex-col justify-center lg:justify-start items-center lg:w-5/12"}>
-                                    <div onClick={() => setFullScreen(true)}>
-                                        <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"cursor-pointer rounded-xl object-cover max-h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
+                                <div className={"flex flex-col lg:w-5/12"}>
+                                    <div className={"w-full flex justify-center bg-zinc-100/60 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
+                                        <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"cursor-pointer rounded-sm lg:object-cover object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
                                     </div>
-                                    <div className={"w-full flex pt-5"}>
+                                    <div className={"w-full flex pt-7"}>
                                         {
                                             product.images.map(function (image, index) {
                                                 return (
@@ -122,7 +121,8 @@ const ProductPage = () => {
                                             <span className={"text-2xl lg:text-xl"}>
                                                 {product.name}
                                             </span>
-                                            <span className={"text-sm link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/></span>
+                                            <a href={`/product/${productId}/#reviews`} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
+                                            </a>
                                         </div>
                                         <div className={"py-4 border-b-[1px] text-2xl border-gray-300 flex font-bold items-start"}>
                                             {
@@ -155,17 +155,17 @@ const ProductPage = () => {
                                         </div>
                                     </div>
                                     <div className={"lg:hidden border-b-[1px] border-gray-300"}/>
-                                    <div className={"pt-5 lg:pl-7 lg:w-5/12 text-lg lg:text-sm"}>
+                                    <div className={"pt-5 lg:pt-0 lg:pl-7 lg:w-5/12 text-lg lg:text-sm"}>
                                         <div className={"flex"}>
-                                            <span className={"pt-1 text-end w-7/12"}>
+                                            <span className={"pt-1 font-semibold text-start w-7/12"}>
                                                 List Price:
                                             </span>
                                             <span className={"w-5/12 flex justify-end items-start"}>
-                                                {formatPrice(product.price, "text-lg")}
+                                                {formatPrice(product.price, "text-xl lg:text-lg")}
                                             </span>
                                         </div>
                                         <div className={"flex pt-5"}>
-                                             <span className={"w-7/12 text-end"}>
+                                             <span className={"w-7/12 font-semibold text-start"}>
                                                 In Stock:
                                             </span>
                                             <span className={"w-5/12 text-end text-md"}>
@@ -173,7 +173,7 @@ const ProductPage = () => {
                                             </span>
                                         </div>
                                         <div className={"flex pt-5"}>
-                                             <span className={"w-7/12 text-end"}>
+                                             <span className={"w-7/12 font-semibold text-start"}>
                                                 Sold By:
                                             </span>
                                             <span className={"w-5/12 text-end"}>
@@ -220,16 +220,16 @@ const ProductPage = () => {
                                 {/*<div className={"pt-5 pb-5 xl:pt-10 px-3"}>*/}
                                 {/*    <h2 className={"text-2xl font-bold"}>Reviews</h2>*/}
                                 {/*</div>*/}
-                                <div className={"pt-10 xl:pt-15 flex flex-col lg:flex-row"}>
+                                <div id="reviews" className={"pt-10 xl:pt-15 flex flex-col lg:flex-row lg:justify-start"}>
                                     <div className={"w-full lg:w-7/12"}>
                                         <div className={"overflow-x-auto border-[1px] border-neutral-300 rounded-xl"}>
                                             <div className={"p-5 lg:p-8 text-base-content relative col-start-1 row-start-1 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [&::selection]:bg-blue-700/20 [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]"}>
                                                 <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px]" : "pb-0"} flex justify-between items-center  border-neutral-300`}>
                                                     {
                                                         product.reviews.length !== 0 ? (
-                                                            <span className={"text-xl font-bold"}>Customer Reviews</span>
+                                                            <span className={"text-xl"}>Customer Reviews ({product.numReviews})</span>
                                                         ) : (
-                                                            <h2 className={"text-xl font-bold"}>Be the first to write a review!</h2>
+                                                            <h2 className={"text-xl"}>Be the first to write a review!</h2>
                                                         )
                                                     }
 
