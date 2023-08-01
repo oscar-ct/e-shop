@@ -11,6 +11,10 @@ import {addToCart} from "../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {formatPrice} from "../utils/formatPriceUtilis"
 import ReviewModal from "../components/ReviewModal";
+import {Zoom, Navigation, Pagination} from "swiper/modules";
+import {Swiper, SwiperSlide} from "swiper/react";
+import 'swiper/css/zoom';
+import {FaTimes,} from "react-icons/fa";
 
 const ProductPage = () => {
     // const [product, setProduct] = useState({});
@@ -21,6 +25,9 @@ const ProductPage = () => {
         return state.auth;
     });
 
+    const imagesLength = product?.images.length;
+    const [imageIndex, setImageIndex] = useState(0);
+    const [fullScreen, setFullScreen] =  useState(false);
     // useEffect(function () {
     //     const fetchProduct = async () => {
     //         const { data } = await axios.get(`/api/products/${productId}`);
@@ -55,15 +62,59 @@ const ProductPage = () => {
                     <Spinner/>
                 ) : error ? (
                     <Message variant={"error"} children={error?.data?.message || error.error}/>
-                ) : (
+                ) : fullScreen ? (
+                    <div className={"z-10 bg-black absolute top-0 right-0 left-0 bottom-0"}>
+                        <div className={"relative w-full h-full flex justify-center items-center"}>
+                            <button onClick={() => setFullScreen(false)} className={"z-10 hover:text-blue-500 btn-glass btn-lg text-2xl text-base-100 absolute top-5 right-5"}>
+                                <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-7" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                                </svg>
+                            </button>
+                            <Swiper
+                                zoom={true}
+                                initialSlide={imageIndex}
+                                spaceBetween={0}
+                                centeredSlides={true}
+                                modules={[Zoom, Navigation, Pagination]}
+                                slidesPerView={1}
+                                pagination={{clickable: true}}
+                                navigation>
+                                {product.images.map(function (data, index) {
+                                    return (
+                                        <SwiperSlide key={index}>
+                                            <div className={"w-full h-full flex justify-center items-center"}>
+                                                <div className={"swiper-zoom-container min-h-screen"}>
+                                                <img src={data.length !== 0 ? data.url : "/images/sample.jpg"} alt={"products"}/>
+                                                </div>
+                                            </div>
+                                        </SwiperSlide>
+                                    )
+                                })}
+                            </Swiper>
+                        </div>
+                    </div>
+                    ) : (
                     <div className={"lg:pt-10"}>
                         {/*<Link className={"btn btn-light my-5"} to={"/"}>*/}
                         {/*    Go Back*/}
                         {/*</Link>*/}
                         <div className={"flex flex-col bg-base-100 shadow-xl px-5 xl:px-10 pt-5 pb-10 rounded-xl mb-10"}>
                             <div className={"w-full flex flex-col lg:flex-row flex-wrap "}>
-                                <div className={"flex justify-center lg:justify-start items-center lg:w-5/12"}>
-                                    <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl object-fit max-h-[28rem]"}/>
+                                <div className={"flex flex-col justify-center lg:justify-start items-center lg:w-5/12"}>
+                                    <div onClick={() => setFullScreen(true)}>
+                                        <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"cursor-pointer rounded-xl object-cover max-h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
+                                    </div>
+                                    <div className={"w-full flex pt-5"}>
+                                        {
+                                            product.images.map(function (image, index) {
+                                                return (
+                                                    <div onMouseEnter={() => setImageIndex(index)} key={index} onClick={() => setFullScreen(true)} className={"px-1 cursor-pointer"}>
+                                                        <img src={image.url} className={`rounded-sm object-cover h-16 transform transition duration-300 ${imageIndex === index ? "outline outline-offset-1 outline-blue-500 outline-1 opacity-100" : "opacity-50"}`} alt={"products"}/>
+                                                    </div>
+                                                )
+                                            })
+                                        }
+                                    </div>
                                 </div>
                                 <div className={"lg:w-7/12 flex flex-col lg:flex-row lg:pl-7 py-7"}>
                                     <div className={"lg:w-7/12"}>
