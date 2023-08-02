@@ -7,6 +7,7 @@ import AdminTabs from "../components/AdminTabs";
 import {setLoading} from "../slices/loadingSlice";
 import {useDispatch} from "react-redux";
 import {toast} from "react-hot-toast";
+import ConfirmModal from "../components/ConfirmModal";
 
 const AdminOrderListPage = () => {
 
@@ -27,7 +28,7 @@ const AdminOrderListPage = () => {
     const [modalMessage, setModalMessage] = useState("");
     const [trackingNumberModalIsOpen, setTrackingNumberModalIsOpen] = useState(false);
 
-    const confirmUpdateHandler = () => {
+    const confirmUpdateModal = () => {
         let updated = confirmChanges();
         if (updated) {
             setModalMessage(convertToString(updated));
@@ -306,7 +307,7 @@ const AdminOrderListPage = () => {
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <div className={"flex items-center"}>
                                                                         <div className="tooltip tooltip-bottom" data-tip="save changes">
-                                                                            <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm rounded-full"}>
+                                                                            <button onClick={confirmUpdateModal} className={"text-green-500 btn-glass btn-sm rounded-full"}>
                                                                                 <FaCheckCircle/>
                                                                             </button>
                                                                         </div>
@@ -370,46 +371,34 @@ const AdminOrderListPage = () => {
                     </div>
                 </div>
 
-                <dialog id="confirm_modal" className="modal modal-bottom sm:modal-middle">
-                    <form method="dialog" className="modal-box">
-                        <h3 className="p-4 font-bold text-lg">Please confirm these are the changes you wish to make.</h3>
-                        <div className="px-4">
-                            {
-                                modalMessage !== "" && (
-                                    modalMessage.split("&").map(function(sentence, index){
-                                        return (
-                                            <p className={"py-2"} key={index}>{sentence}</p>
-                                        )
-                                    })
-                                )
-                            }
-                        </div>
-                        <div className="modal-action">
-                            <button onClick={closeEditModal} className={"btn btn-neutral rounded-xl"}>Close</button>
-                            <button
-                                className="btn btn-info rounded-xl"
-                                onClick={submitUpdateHandler}
-                            >
-                                Confirm
-                            </button>
-                        </div>
-                    </form>
-                </dialog>
+                {/*MODALS BELOW*/}
+
+                <ConfirmModal title={"Confirm Changes"} initiateFunction={submitUpdateHandler}>
+                    <h3 className="font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
+                        {
+                            modalMessage !== "" && (
+                                modalMessage.split("&").map(function(sentence, index){
+                                    return (
+                                        <p className={"pt-3"} key={index}>{sentence}</p>
+                                    )
+                                })
+                            )
+                        }
+                </ConfirmModal>
 
                 <dialog id="tracking_modal" className="modal modal-bottom sm:modal-middle">
                     {
                         trackingNumberModalIsOpen && (
                             <form method="dialog" className="modal-box">
-                                <div className={"flex justify-between items-center"}>
-                                    <h3 className="p-4 font-bold text-xl">Tracking Number</h3>
-                                </div>
-                                <div className="px-4">
+                                <div className="p-3">
                                     {
                                         trackingNumber ? (
                                             <div className="form-control w-full">
-                                                <label className="label">
-                                                    <span className="label-text">Edit tracking number</span>
-                                                </label>
+                                                <div className={"flex justify-between items-center"}>
+                                                    <h3 className="pb-3 font-bold text-xl">
+                                                        Edit Tracking Number
+                                                    </h3>
+                                                </div>
                                                 <input
                                                     type="text"
                                                     className="input input-bordered w-full"
@@ -419,10 +408,12 @@ const AdminOrderListPage = () => {
                                             </div>
                                         ) : !isShipped ? (
                                             <div className="form-control w-full">
-                                                <h5 className={"text-lg text-red-500"}>This order has not been marked as shipped, please mark as shipped to continue.</h5>
-                                                <label className="label">
-                                                    <span className="label-text">Add a tracking number</span>
-                                                </label>
+                                                <h3 className="pb-3 font-bold text-xl">
+                                                    Tracking Number
+                                                </h3>
+                                                <h5 className={"pb-3 text-lg text-red-500"}>
+                                                    This order has not been marked as shipped, please mark as shipped to continue.
+                                                </h5>
                                                 <input
                                                     disabled={true}
                                                     type="text"
@@ -434,9 +425,11 @@ const AdminOrderListPage = () => {
                                             </div>
                                         ) : (
                                             <div className="form-control w-full">
-                                                <label className="label">
-                                                    <span className="label-text">Add a tracking number</span>
-                                                </label>
+                                                <div className={"flex justify-between items-center"}>
+                                                    <h3 className="pb-3 font-bold text-xl">
+                                                        Add Tracking Number
+                                                    </h3>
+                                                </div>
                                                 <input
                                                     type="text"
                                                     placeholder="Enter tacking number"
@@ -449,11 +442,16 @@ const AdminOrderListPage = () => {
                                     }
                                 </div>
                                 <div className="modal-action">
-                                    <button onClick={closeTrackingNumberModal} className={"btn btn-neutral rounded-xl"}>Close</button>
+                                    <button
+                                        onClick={closeTrackingNumberModal}
+                                        className={"btn btn-neutral rounded-xl"}
+                                    >
+                                        Close
+                                    </button>
                                     <button
                                         disabled={!isShipped}
                                         onClick={submitTrackingNumber}
-                                        className="btn btn-info rounded-xl"
+                                        className="btn rounded-xl"
                                     >
                                         Submit
                                     </button>
