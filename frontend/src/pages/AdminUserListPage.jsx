@@ -8,6 +8,7 @@ import {setLoading} from "../slices/loadingSlice";
 import {useDispatch, useSelector} from "react-redux";
 import AdminTabs from "../components/AdminTabs";
 import {setCredentials} from "../slices/authSlice";
+import AlertModal from "../components/AlertModal";
 
 
 const AdminUserListPage = () => {
@@ -29,8 +30,9 @@ const AdminUserListPage = () => {
     const [isAdmin, setIsAdmin] = useState(null);
     const [modalMessage, setModalMessage] = useState("");
 
-    const dispatch = useDispatch()
-    const confirmUpdateHandler = () => {
+    const dispatch = useDispatch();
+
+    const confirmUpdateModal = () => {
         let updated = confirmChanges();
         if (updated) {
             setModalMessage(convertToString(updated));
@@ -40,17 +42,14 @@ const AdminUserListPage = () => {
         }
     };
 
-    const submitDeleteProduct = async () => {
-        const confirm = window.confirm("Are you sure you want to delete this user? This cannot be undone");
-        if (confirm) {
-            dispatch(setLoading(true));
-            await deleteUser(userId);
-            setLocalData(prevState => {
-                return prevState.filter(function (user) {
-                    return user._id !== userId;
-                });
+    const submitDeleteUser = async () => {
+        dispatch(setLoading(true));
+        await deleteUser(userId);
+        setLocalData(prevState => {
+            return prevState.filter(function (user) {
+                return user._id !== userId;
             });
-        }
+        });
         completeEditHandler();
         dispatch(setLoading(false));
     }
@@ -157,6 +156,10 @@ const AdminUserListPage = () => {
         }
     }, [users, localData]);
 
+    const openConfirmDeleteUserModal = () => {
+        window.alert_modal.showModal();
+    };
+
     return (
         isLoading || !localData ? <Spinner/> : error ? error : (
             <div className={"pt-10"}>
@@ -241,16 +244,16 @@ const AdminUserListPage = () => {
                                                                 </details>
                                                             </td>
                                                             <td className={"p-1 truncate bg-blue-200"}>{user?.createdAt.substring(0, 10)}</td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <div className={"flex items-center justify-around"}>
+                                                            <td className={"p-1 bg-blue-200 w-20"}>
+                                                                <div className={"flex items-center"}>
                                                                     <div className="tooltip tooltip-bottom" data-tip="save changes">
-                                                                        <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-sm rounded-full"}>
+                                                                        <button onClick={confirmUpdateModal} className={"text-green-500 btn-glass btn-xs rounded-full"}>
                                                                             <FaCheckCircle className={"text-sm"}/>
                                                                         </button>
                                                                     </div>
                                                                     <div className="tooltip tooltip-bottom" data-tip="delete user">
-                                                                        <button onClick={submitDeleteProduct} className={"text-red-500 btn-glass btn-sm rounded-full"}>
-                                                                            <FaMinusCircle/>
+                                                                        <button onClick={openConfirmDeleteUserModal} className={"text-red-500 btn-glass btn-xs rounded-full"}>
+                                                                            <FaMinusCircle className={"text-sm"}/>
                                                                         </button>
                                                                     </div>
                                                                 </div>
@@ -282,10 +285,10 @@ const AdminUserListPage = () => {
                                                                 </details>
                                                             </td>
                                                             <td className={"p-1 truncate"}>{user?.createdAt.substring(0, 10)}</td>
-                                                            <td className={"p-1"}>
-                                                                <div className={"flex justify-around"}>
-                                                                    <button onClick={() => editUserHandler(user._id)} className={"btn-glass btn-sm rounded-full hover:text-primary"}>
-                                                                        <FaEdit/>
+                                                            <td className={"p-1 w-20"}>
+                                                                <div className={"flex "}>
+                                                                    <button onClick={() => editUserHandler(user._id)} className={"btn-glass btn-xs rounded-full hover:text-primary"}>
+                                                                        <FaEdit className={"text-sm"}/>
                                                                     </button>
                                                                     <span className={"px-4"}/>
                                                                 </div>
@@ -306,10 +309,16 @@ const AdminUserListPage = () => {
                         </table>
                     </div>
                 </div>
+
+                {/*MODALS BELOW*/}
+
                 <dialog id="confirm_modal" className="modal modal-bottom sm:modal-middle">
                     <form method="dialog" className="modal-box">
-                        <h3 className="p-4 font-bold text-lg">Please confirm these are the changes you wish to make.</h3>
-                        <div className="px-4">
+                        <div className={"flex justify-start items-center"}>
+                            <h3 className="p-3 font-bold text-xl">Confirm Changes</h3>
+                        </div>
+                        <h3 className="p-3 font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
+                        <div className="px-3">
                             {
                                 modalMessage !== "" && (
                                     modalMessage.split("&").map(function(sentence, index){
@@ -321,9 +330,9 @@ const AdminUserListPage = () => {
                             }
                         </div>
                         <div className="modal-action">
-                            <button onClick={closeEditModal} className={"btn btn-error"}>Cancel</button>
+                            <button onClick={closeEditModal} className={"btn btn-neutral rounded-xl"}>Cancel</button>
                             <button
-                                className="btn btn-primary"
+                                className="btn rounded-xl"
                                 onClick={submitUpdateHandler}
                             >
                                 Confirm
@@ -331,6 +340,21 @@ const AdminUserListPage = () => {
                         </div>
                     </form>
                 </dialog>
+
+
+                <AlertModal title={"Delete User"} initiateFunction={() => submitDeleteUser()}>
+                    <div className={"flex flex-col"}>
+                        <p>
+                            Are you sure you want to delete this user?
+                            <span className={"pl-2 text-red-600 font-semibold"}>
+                                This cannot be undone.
+                            </span>
+                        </p>
+                        <p className={"pt-3 text-center font-bold text-lg"}>
+                            {`${name}, ${email}`}
+                        </p>
+                    </div>
+                </AlertModal>
 
             </div>
         )
