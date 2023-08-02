@@ -1,6 +1,6 @@
 import {useEffect, useState, useRef} from "react";
 import {motion} from "framer-motion";
-import {FaShoppingCart, FaUser, FaChevronDown} from "react-icons/fa";
+import {FaHome, FaUser, FaChevronDown} from "react-icons/fa";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import {Link, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from "react-redux";
@@ -8,6 +8,8 @@ import {useLogoutMutation} from "../slices/usersApiSlice";
 import {logout} from "../slices/authSlice";
 import {clearCartItems} from "../slices/cartSlice";
 import SearchBox from "./SearchBox";
+import CartItem from "./CartItem";
+import CartIcon from "./CartIcon";
 
 const Navbar = () => {
     const {cartItems} = useSelector(function (state) {
@@ -16,31 +18,37 @@ const Navbar = () => {
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const [logoutApiCall] = useLogoutMutation();
-    const documentRef = useRef(null);
+    const documentRef1 = useRef();
+    const documentRef2 = useRef();
+    const documentRef3 = useRef();
     const [openNav, setOpenNav] = useState(false);
     const [dropdownActive, setDropdownActive] = useState(false);
 
-
     useEffect(function () {
         const closeOpenDropdown = (e) => {
-            if (documentRef.current && dropdownActive && !documentRef.current.contains(e.target)) {
+            if (!documentRef1?.current?.contains(e.target)) {
                 setDropdownActive(false);
             }
         }
-        dropdownActive && document.addEventListener('click', closeOpenDropdown);
+        dropdownActive && document.addEventListener('mousedown', closeOpenDropdown);
     }, [dropdownActive]);
-
     useEffect(() => {
         if (openNav) {
             window.addEventListener("scroll", () => setOpenNav(false));
             window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));
         }
     }, [openNav]);
-
+    useEffect(() => {
+        const handleClickOutside = (event) => {
+            if (!documentRef2?.current?.contains(event.target) && !documentRef3?.current?.contains(event.target)) {
+                setOpenNav(false);
+            }
+        };
+        openNav && document.addEventListener("mousedown", handleClickOutside);
+    }, [openNav]);
 
     const styles = {
         active: {
@@ -62,15 +70,12 @@ const Navbar = () => {
     const rotateChevron = (action) => {
        return action ? "open" : "closed";
     }
-
     const totalCartItems = cartItems?.reduce(function (acc, item) {
             return acc + item.quantity
         }, 0);
     const subtotalPrice =  cartItems?.reduce(function (acc, product) {
         return acc + product.quantity * product.price;
     }, 0).toFixed(2);
-
-
     const logoutHandler = async () => {
         try {
             await logoutApiCall().unwrap();
@@ -83,9 +88,11 @@ const Navbar = () => {
         }
     }
 
+
+
     return (
         <>
-            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-5 shadow-md backdrop-blur-sm lg:py-4`}>
+            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-sm lg:py-4`}>
                 <div className="px-5 flex justify-between items-center">
                     <div className={"hidden lg:flex lg:items-center cursor-pointer bg-neutral rounded-xl py-2 px-3"}>
                         <motion.div
@@ -98,61 +105,16 @@ const Navbar = () => {
                             <button className={"text-white italic"}>-shop</button>
                         </motion.div>
                     </div>
-                    <div className={"flex"}>
+                    <div className={"justify-end flex"}>
                         <div className={"flex justify-end"}>
                             <div className="ml-auto hidden items-center gap-2 lg:flex">
                                 <SearchBox/>
                                 <div className="flex-none">
-                                    <div className="dropdown dropdown-end">
-                                        <label tabIndex={0} className="btn btn-ghost">
-                                            <div className="indicator">
-                                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                                {
-                                                    cartItems.length !== 0 && (
-                                                        <span className="badge text-white bg-primary badge-sm indicator-item">{totalCartItems}</span>
-                                                    )
-                                                }
-
-                                            </div>
-                                            <span className={"normal-case"}>Cart</span>
-                                        </label>
-                                        <div tabIndex={0} className="mt-2 z-[1] card card-compact dropdown-content w-52 bg-neutral shadow">
-                                            <div className="card-body">
-                                                {
-                                                    cartItems.length !== 0 ? (
-                                                        <>
-                                                            <span className="font-bold text-white text-lg">
-                                                                ({totalCartItems}) {totalCartItems > 1 ? "items" : "item"}
-                                                            </span>
-                                                            <span className="font-bold text-info">
-                                                                Subtotal:
-                                                                <span className={"pl-2 text-white"}>
-                                                                    ${subtotalPrice}
-                                                                </span>
-                                                            </span>
-                                                            <div className="card-actions">
-                                                                <Link to={"/cart"} className="btn btn-primary btn-block">
-                                                                    View cart
-                                                                </Link>
-                                                            </div>
-                                                        </>
-                                                    ) : (
-                                                            <span className={"font-bold text-white text-center text-sm"}>
-                                                                Your cart is empty...
-                                                            </span>
-                                                    )
-                                                }
-
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <CartIcon cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice} />
                                 </div>
-
-
                                 {
                                     userData ? (
-
-                                        <div ref={documentRef} className="relative inline-block text-left">
+                                        <div ref={documentRef1} className="relative inline-block text-left">
                                             <div>
                                                 <div
                                                     onClick={() => setDropdownActive(prevState => !prevState)}
@@ -164,6 +126,7 @@ const Navbar = () => {
                                                         <div className={`${rotateChevron(dropdownActive)}`}>
                                                             <FaChevronDown/>
                                                         </div>
+
                                                 </div>
                                             </div>
 
@@ -218,9 +181,6 @@ const Navbar = () => {
                                                 )
                                             }
                                         </div>
-
-
-
                                     ) : (
                                         <Link to={"/login"}>
                                             <div
@@ -234,14 +194,13 @@ const Navbar = () => {
                                         </Link>
                                     )
                                 }
-
                             </div>
                         </div>
                     </div>
 
 
 {/*/////// mobile nav ///////*/}
-                    <button className="middle none relative mr-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center uppercase transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden" onClick={() => setOpenNav(!openNav)}>
+                    <button ref={documentRef2} className="middle none relative mr-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center uppercase transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden" onClick={() => setOpenNav(!openNav)}>
 
                         {openNav ? (
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-7" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -253,25 +212,98 @@ const Navbar = () => {
                             </svg>
                         )}
                     </button>
+                    <div className={"lg:hidden gap-2 flex items-center"}>
+                        <div className={"py-1"}>
+                            <SearchBox/>
+                        </div>
+                        <div className={"hidden sm:block"}>
+                            <CartIcon cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice} />
+                        </div>
+                    </div>
                 </div>
 
 
 
-                <div className={`fixed top-[4rem] left-0 w-9/12 md:w-6/12 bg-gray-200 py-6 rounded-r-xl lg:hidden`} style={openNav ? styles.active : styles.hidden2}>
+                <div ref={documentRef3} className={`fixed top-[5rem] left-0 w-9/12 md:w-6/12 bg-neutral/90 py-6 rounded-r-xl lg:hidden h-[calc(100vh-80px)]`} style={openNav ? styles.active : styles.hidden2}>
                     <div className={"flex flex-col justify-center h-full w-full"}>
-                        <ul className="flex flex-col font-bold text-xl">
-                            <li className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                <FaShoppingCart/>
-                                <span className={"pl-2"}>
-                                    Cart
-                                </span>
+                        <ul className="flex flex-col text-white font-bold text-xl">
+                            <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                <Link to={"/"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                    <FaHome className={"text-lg"}/>
+                                </Link>
                             </li>
-                            <li className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                <FaUser/>
-                                <span className={"pl-2"}>
-                                    Login
-                                </span>
+                            <li onClick={() => setOpenNav(!openNav)} className="sm:hidden flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                <Link to={"/cart"} className="btn btn-neutral normal-case w-full whitespace-nowrap">
+                                    <div className="indicator">
+                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
+                                        {
+                                            cartItems.length !== 0 && (
+                                                <span className="badge text-white bg-primary badge-sm indicator-item">{totalCartItems}</span>
+                                            )
+                                        }
+
+                                    </div>
+                                    <span className={"normal-case"}>Cart</span>
+                                </Link>
                             </li>
+                            {
+                                userData && (
+                                    <>
+                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                            <Link to={"/profile/account"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                                Account
+                                            </Link>
+                                        </li>
+                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                            <Link to={"/profile/orders"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                            My Orders
+                                            </Link>
+                                        </li>
+                                    </>
+                                )
+                            }
+
+                            {
+                                userData?.isAdmin && (
+                                    <>
+                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                            <Link to={"/admin/orders"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                Order List
+                                            </Link>
+                                        </li>
+                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                            <Link to={"/admin/users"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                User List
+                                            </Link>
+                                        </li>
+                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                            <Link to={"/admin/products"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                Product List
+                                            </Link>
+                                        </li>
+                                    </>
+                                )
+                            }
+
+                            {
+                                userData ? (
+                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                        <button className={"btn btn-error normal-case w-full"} onClick={logoutHandler}>
+                                            Logout
+                                        </button>
+                                    </li>
+                                ) : (
+                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                        <Link to={"/login"} className="w-full flex items-center cursor-pointer btn btn-primary normal-case">
+                                            <FaUser/>
+                                            <span>
+                                                Login
+                                            </span>
+                                        </Link>
+                                    </li>
+                                )
+                            }
+
                         </ul>
                     </div>
                 </div>
