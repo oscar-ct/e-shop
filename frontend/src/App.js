@@ -1,7 +1,7 @@
 import {Outlet} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import {useSelector} from "react-redux";
-import toast, { Toaster } from 'react-hot-toast';
+import { Toaster } from 'react-hot-toast';
 
 function App() {
 

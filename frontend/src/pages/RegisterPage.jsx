@@ -21,7 +21,9 @@ const RegisterPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { email, password, name, confirmPassword } = formData;
-    const [register, { isLoading }] = useRegisterMutation();
+    const [register
+        // { isLoading }
+    ] = useRegisterMutation();
 
     const { search } = useLocation();
     const searchParams = new URLSearchParams(search);

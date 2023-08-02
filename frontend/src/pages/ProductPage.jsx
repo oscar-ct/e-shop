@@ -14,7 +14,6 @@ import ReviewModal from "../components/ReviewModal";
 import {Zoom, Navigation, Pagination} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css/zoom';
-import {FaTimes,} from "react-icons/fa";
 
 const ProductPage = () => {
     // const [product, setProduct] = useState({});

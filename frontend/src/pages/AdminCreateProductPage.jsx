@@ -14,17 +14,23 @@ import Message from "../components/Message";
 
 const AdminCreateProductPage = () => {
 
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
 
- 
-    const [createProduct, {error: errorCreate}] = useCreateProductMutation();
-    const [updateProductImages, {error: errorUpdateImages}] = useUpdateProductImagesMutation();
+    const [createProduct,
+        // {error: errorCreate}
+    ] = useCreateProductMutation();
+    const [updateProductImages,
+        // {error: errorUpdateImages}
+    ] = useUpdateProductImagesMutation();
     const {data: token} = useGetFilestackTokenQuery();
     const [deleteProductImage] = useDeleteProductImageMutation();
-    const [deleteImageFromFilestack, {error: errorDeleteFilestack}] = useDeleteImageFromFilestackMutation();
-    const [encodeHandle, {error: errorEncodeHandle}] = useEncodeHandleMutation();
+    const [deleteImageFromFilestack,
+        // {error: errorDeleteFilestack}
+    ] = useDeleteImageFromFilestackMutation();
+    const [encodeHandle,
+        // {error: errorEncodeHandle}
+    ] = useEncodeHandleMutation();
     
     const {userData} = useSelector(function (state) {
         return state.auth;

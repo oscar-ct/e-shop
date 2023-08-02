@@ -8,7 +8,6 @@ import {useLogoutMutation} from "../slices/usersApiSlice";
 import {logout} from "../slices/authSlice";
 import {clearCartItems} from "../slices/cartSlice";
 import SearchBox from "./SearchBox";
-import CartItem from "./CartItem";
 import CartIcon from "./CartIcon";
 
 const Navbar = () => {

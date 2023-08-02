@@ -16,7 +16,6 @@ import * as filestack from "filestack-js";
 import AdminTabs from "../components/AdminTabs";
 import {useParams} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import alertModal from "../components/AlertModal";
 import AlertModal from "../components/AlertModal";
 import ConfirmModal from "../components/ConfirmModal";
 
