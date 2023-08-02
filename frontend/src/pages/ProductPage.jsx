@@ -165,12 +165,23 @@ const ProductPage = () => {
                                             </span>
                                         </div>
                                         <div className={"flex pt-5"}>
-                                             <span className={"w-7/12 font-semibold text-start"}>
-                                                In Stock:
-                                            </span>
-                                            <span className={"w-5/12 text-end text-md"}>
-                                                {product.countInStock} left!
-                                            </span>
+                                            {
+                                                product.countInStock > 0 ? (
+                                                    <>
+                                                        <span className={"w-7/12 font-semibold text-start"}>
+                                                            In Stock:
+                                                        </span>
+                                                        <span className={"w-5/12 text-end text-md"}>
+                                                            {product.countInStock} left!
+                                                        </span>
+                                                    </>
+                                                ) : (
+                                                    <span className={"text-red-600 w-full font-bold flex justify-end"}>
+                                                            Out of stock
+                                                    </span>
+                                                )
+                                            }
+
                                         </div>
                                         <div className={"flex pt-5"}>
                                              <span className={"w-7/12 font-semibold text-start"}>
