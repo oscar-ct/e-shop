@@ -9,6 +9,7 @@ import {useDispatch, useSelector} from "react-redux";
 import AdminTabs from "../components/AdminTabs";
 import {setCredentials} from "../slices/authSlice";
 import AlertModal from "../components/AlertModal";
+import ConfirmModal from "../components/ConfirmModal";
 
 
 const AdminUserListPage = () => {
@@ -141,11 +142,6 @@ const AdminUserListPage = () => {
             }
         }
         return message;
-    };
-
-    const closeEditModal = (e) => {
-        e.preventDefault();
-        window.confirm_modal.close();
     };
 
     useEffect(function () {
@@ -312,35 +308,18 @@ const AdminUserListPage = () => {
 
                 {/*MODALS BELOW*/}
 
-                <dialog id="confirm_modal" className="modal modal-bottom sm:modal-middle">
-                    <form method="dialog" className="modal-box">
-                        <div className={"flex justify-start items-center"}>
-                            <h3 className="p-3 font-bold text-xl">Confirm Changes</h3>
-                        </div>
-                        <h3 className="p-3 font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
-                        <div className="px-3">
-                            {
-                                modalMessage !== "" && (
-                                    modalMessage.split("&").map(function(sentence, index){
-                                        return (
-                                            <p className={"py-2"} key={index}>{sentence}</p>
-                                        )
-                                    })
+                <ConfirmModal title={"Confirm Changes"} initiateFunction={submitUpdateHandler}>
+                    <h3 className="font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
+                    {
+                        modalMessage !== "" && (
+                            modalMessage.split("&").map(function(sentence, index){
+                                return (
+                                    <p className={"pt-3"} key={index}>{sentence}</p>
                                 )
-                            }
-                        </div>
-                        <div className="modal-action">
-                            <button onClick={closeEditModal} className={"btn btn-neutral rounded-xl"}>Cancel</button>
-                            <button
-                                className="btn rounded-xl"
-                                onClick={submitUpdateHandler}
-                            >
-                                Confirm
-                            </button>
-                        </div>
-                    </form>
-                </dialog>
-
+                            })
+                        )
+                    }
+                </ConfirmModal>
 
                 <AlertModal title={"Delete User"} initiateFunction={() => submitDeleteUser()}>
                     <div className={"flex flex-col"}>
