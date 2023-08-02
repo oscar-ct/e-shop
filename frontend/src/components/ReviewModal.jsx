@@ -95,10 +95,10 @@ const ReviewModal = ({productId, refetch, onPage}) => {
 
                 </div>
                 <div className="modal-action">
-                    <button onClick={closeReviewModal} className={"btn btn-error"}>Cancel</button>
+                    <button onClick={closeReviewModal} className={"btn btn-neutral"}>Cancel</button>
                     <button
                         onClick={submitReview}
-                        className="btn btn-primary"
+                        className="btn rounded-cl"
                     >
                         Submit
                     </button>
