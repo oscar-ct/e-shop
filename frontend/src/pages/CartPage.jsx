@@ -119,7 +119,7 @@ const CartPage = () => {
                                         )
                                     }
                                 </div>
-                                <div className="card lg:w-full shadow-xl bg-base-100 self-end">
+                                <div className="mt-10 lg:mt-0 card lg:w-full shadow-xl bg-base-100 self-end">
                                     <div className="px-8 py-5">
                                         <div className={"flex flex-col"}>
                                             <h3 className={"text-xl"}>
