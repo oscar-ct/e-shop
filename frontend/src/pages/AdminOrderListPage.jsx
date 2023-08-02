@@ -54,10 +54,6 @@ const AdminOrderListPage = () => {
         setIsReimbursed(null);
         setModalMessage("");
     }
-    const closeEditModal = (e) => {
-        e.preventDefault();
-        window.confirm_modal.close();
-    }
     const submitUpdateHandler = async (e) => {
         e.preventDefault();
         window.confirm_modal.close();
