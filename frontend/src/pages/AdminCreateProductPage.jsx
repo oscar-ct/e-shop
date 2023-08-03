@@ -154,7 +154,7 @@ const AdminCreateProductPage = () => {
                     <h2 className={"mb-2 text-2xl text-center py-2 rounded-xl"} style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}>
                         New Product Listing
                     </h2>
-                    <h2 className={"text-xl font-bold flex items-center"}>
+                    <h2 className={"pt-5 lg:pt-0 text-xl font-bold flex items-center"}>
                         Step 1.
                         {
                             newProduct === null ? (
@@ -353,7 +353,7 @@ const AdminCreateProductPage = () => {
                     </div>
 
                     <div className={"px-5 sm:px-0 py-5 w-full flex flex-col lg:flex-row lg:justify-between"}>
-                        <p className={"text-xs"}>
+                        <p className={"text-xs py-1 text-center"}>
                             * Please note the first uploaded image will be the cover
                         </p>
                         <button disabled={newProduct === null || newProduct.images.length >= 7} onClick={openPicker} className={"btn w-full lg:btn-wide"}>
