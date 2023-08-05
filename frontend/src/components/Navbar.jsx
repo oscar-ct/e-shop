@@ -32,21 +32,39 @@ const Navbar = () => {
                 setDropdownActive(false);
             }
         }
-        dropdownActive && document.addEventListener('mousedown', closeOpenDropdown);
+        if (dropdownActive) {
+            window.addEventListener('mousedown', closeOpenDropdown);
+        }
+        return () => window.removeEventListener("mousedown", closeOpenDropdown);
     }, [dropdownActive]);
     useEffect(() => {
-        if (openNav) {
-            window.addEventListener("scroll", () => setOpenNav(false));
-            window.addEventListener("resize", () => window.innerWidth >= 960 && setOpenNav(false));
+        const closeMobileNavOnScroll = () => {
+            setOpenNav(false);
         }
+        if (openNav) {
+            window.addEventListener("scroll", closeMobileNavOnScroll);
+        }
+        return () => window.removeEventListener("scroll", closeMobileNavOnScroll);
     }, [openNav]);
+    useEffect(() => {
+        const closeMobileNavOnResize = () => {
+            window.innerWidth >= 960 && setOpenNav(false);
+        }
+        if (openNav) {
+            window.addEventListener("resize", closeMobileNavOnResize);
+        }
+        return () => window.removeEventListener("resize", closeMobileNavOnResize);
+    }, [openNav])
     useEffect(() => {
         const handleClickOutside = (event) => {
             if (!documentRef2?.current?.contains(event.target) && !documentRef3?.current?.contains(event.target)) {
                 setOpenNav(false);
             }
         };
-        openNav && document.addEventListener("mousedown", handleClickOutside);
+        if (openNav) {
+            window.addEventListener("mousedown", handleClickOutside);
+        }
+        return () => window.removeEventListener("mousedown", handleClickOutside);
     }, [openNav]);
 
     const styles = {
