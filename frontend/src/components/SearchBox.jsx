@@ -1,21 +1,29 @@
 import React, {useState} from 'react';
 import {useNavigate, useParams} from "react-router-dom";
 
+
 const SearchBox = () => {
 
     const navigate = useNavigate();
     const {searchTerm} = useParams();
-
+    const [shake, setShake] = useState(false);
     const [keyword, setKeyword] = useState(searchTerm || "");
-    const submitSearch = async () => {
+    const submitSearch = () => {
         if (keyword.trim()) {
             navigate(`/search/${keyword}`);
         } else {
-            window.alert("No results found");
+            if (!shake) {
+                setShake(true);
+                setTimeout(function () {
+                    setShake(false);
+                }, 500);
+            }
+
         }
+
     }
     return (
-        <div className="relative mx-auto text-gray-600">
+        <div className="relative mx-auto text-gray-600" style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}}>
             <input
                 autoComplete={"off"} className="border-2 border-gray-300 bg-white h-10 px-5 pr-16 rounded-lg text-sm focus:outline-none"
                 type="search" name="search" placeholder="Search Products" value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyPress={(e) => {
