@@ -38,8 +38,20 @@ const HomePage = () => {
     // }, []);
 
     useEffect(() => {
-        window.addEventListener("resize", () => window.innerWidth <= 640 ? setSlides(1) : window.innerWidth > 640 && window.innerWidth <= 1280 ? setSlides(2) : setSlides(3));
+        const adjustSlides = () => {
+            if (window.innerWidth <= 640) {
+                setSlides(1);
+            } else if (window.innerWidth > 640 && window.innerWidth <= 1280) {
+                setSlides(2);
+            } else {
+                setSlides(3)
+            }
+        }
+        window.addEventListener("resize", adjustSlides);
+        // window.addEventListener("resize", () => window.innerWidth <= 640 ? setSlides(1) : window.innerWidth > 640 && window.innerWidth <= 1280 ? setSlides(2) : setSlides(3));
+        return () => window.removeEventListener("resize", adjustSlides);
     }, [slides]);
+
 
 
     return (
@@ -106,7 +118,6 @@ const HomePage = () => {
                                             </SwiperSlide>
                                         </Swiper>
                                     </div>
-
                                     <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-5 text-center lg:text-start"}>
                                         Top Rated Products
                                     </h2>
@@ -142,19 +153,13 @@ const HomePage = () => {
                                         </div>
                                     </div>
                                 </>
-
                             )
                         }
 
                         <div className={"pt-3 pb-10"}>
-                            {
-                                searchTerm ? (
-                                    <h2 className={"text-2xl px-2 py-7"}>Search results...</h2>
-                                ) : (
-                                    <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-3 text-center lg:text-start"}>Recently Added</h2>
-                                )
-                            }
-
+                            <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-3 text-center lg:text-start"}>
+                                Recently Added
+                            </h2>
                             <div className={"w-full flex flex-wrap justify-center"}>
                                 {
                                     data.products.map(function (product) {
@@ -168,8 +173,6 @@ const HomePage = () => {
                                 </div>
                             </div>
                         </div>
-
-
                     </>
                 )
             }
