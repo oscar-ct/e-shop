@@ -7,6 +7,7 @@ import {useLoginMutation} from "../slices/usersApiSlice";
 import {setCredentials} from "../slices/authSlice";
 import {setLoading} from "../slices/loadingSlice";
 import axios from "axios";
+import {toast} from "react-hot-toast";
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -14,8 +15,8 @@ const LoginPage = () => {
         email: "",
         password: "",
     });
-    const [invalidLogin, setInvalidLogin] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    // const [invalidLogin, setInvalidLogin] = useState(false);
+    // const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { email, password } = formData;
@@ -55,12 +56,12 @@ const LoginPage = () => {
                 const { data } = await axios.get(`/api/users/profile`);
                 dispatch(setCredentials({...data}));
                 navigate(redirect);
-                dispatch(setLoading(false));
+
             }
         } catch (e) {
-            dispatch(setLoading(false));
-            setInvalidLogin(true);
-            setErrorMessage(e.error || e.data?.message);
+            // setInvalidLogin(true);
+            // setErrorMessage(e.error || e.data?.message);
+            toast.error(e.error || e.data?.message);
             setFormData(prevState => {
                 return {
                     ...prevState,
@@ -69,14 +70,15 @@ const LoginPage = () => {
             })
             // console.log(e.error || e.data?.message);
         }
+        dispatch(setLoading(false));
     }
 
 
     return (
         <>
             <div className="h-max relative">
-                <div className="mt-5 h-full flex flex-row justify-center">
-                    <div className="w-full flex justify-center self-center">
+                <div className="h-full flex flex-row justify-center">
+                    <div className="my-10 w-full flex justify-center self-center">
                         <div className="bg-base-100 shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
                             <div className="mb-4">
                                 <h3 className="font-semibold text-2xl text-gray-800">Login
@@ -138,16 +140,16 @@ const LoginPage = () => {
                                         </div>
                                     </div>
                                 </div>
-                                {
-                                    invalidLogin && (
-                                        <div className={"flex justify-center"}>
-                                           <span className={"text-red-500 font-bold"}>{errorMessage}</span>
-                                        </div>
-                                    )
-                                }
+                                {/*{*/}
+                                {/*    invalidLogin && (*/}
+                                {/*        <div className={"flex justify-center"}>*/}
+                                {/*           <span className={"text-red-500 font-bold"}>{errorMessage}</span>*/}
+                                {/*        </div>*/}
+                                {/*    )*/}
+                                {/*}*/}
 
                                 <div className={"flex justify-center"}>
-                                    <button type="submit" className="btn btn-wide">
+                                    <button type="submit" className="rounded-xl btn btn-wide">
                                         Sign in
                                     </button>
                                 </div>
