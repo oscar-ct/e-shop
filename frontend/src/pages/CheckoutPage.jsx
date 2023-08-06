@@ -78,12 +78,12 @@ const CheckoutPage = () => {
                         </Message>
 
                     ) : (
-                        <div className={"flex-col flex lg:flex-row w-full"}>
+                        <div className={"mb-10 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
                                 <div className={"pb-5"}>
                                     <h1
-                                        style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"py-2 text-gray-700 rounded-xl text-2xl text-center"}>
+                                        // style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
+                                        className={"border-b-[1px] border-gray-300 py-2 text-gray-700 rounded-xl text-2xl text-center"}>
                                         Checkout (
                                         <span className={"text-xl text-gray-500 font-bold"}>
                                             {totalNumberOfItems}
