@@ -7,7 +7,6 @@ import ProfileAccountPassword from "../components/ProfileAccountPassword";
 
 
 
-
 const ProfilePage = () => {
 
     const {id: params} = useParams();
@@ -20,8 +19,8 @@ const ProfilePage = () => {
                 <Spinner/>
                 : (
                     <div className={"flex justify-center"}>
-                        <div className={"grow max-w-[72rem] flex flex-col pt-10"}>
-                                <div className={"p-5 flex justify-center"}>
+                        <div className={"grow max-w-[72rem] my-10 flex flex-col"}>
+                                <div className={"pb-5 flex justify-center"}>
                                     <div className="tabs tabs-boxed">
                                         <Link
                                             to={"/profile/account"}
