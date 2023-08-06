@@ -69,11 +69,11 @@ const CartPage = () => {
                                 )
                             }
                             </div>
-                            <div className={"lg:w-8/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
+                            <div className={"lg:mb-10 lg:w-8/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
                                 <div className={"pb-10"}>
                                     <h1
-                                        style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"py-2  text-gray-700 rounded-xl text-2xl text-center"}>
+                                        // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
+                                        className={"border-b-[1px] border-gray-300 py-2 text-gray-700 rounded-xl text-2xl text-center"}>
                                          Shopping Cart (
                                         <span className={"text-xl text-gray-500 font-bold"}>
                                             {totalNumberOfItems}
@@ -119,7 +119,7 @@ const CartPage = () => {
                                         )
                                     }
                                 </div>
-                                <div className="mt-10 lg:mt-0 card lg:w-full shadow-xl bg-base-100 self-end">
+                                <div className="mt-5 mb-10 lg:my-0 card lg:w-full shadow-xl bg-base-100 self-end">
                                     <div className="px-8 py-5">
                                         <div className={"flex flex-col"}>
                                             <h3 className={"text-xl"}>
@@ -142,7 +142,7 @@ const CartPage = () => {
                                     <div className="card-actions justify-end p-3">
                                         <button
                                             onClick={checkoutHandler}
-                                            className="btn btn-primary"
+                                            className="btn btn-primary rounded-xl"
                                         >
                                             Proceed To Checkout
                                         </button>

@@ -165,7 +165,7 @@ const CheckoutPage = () => {
                             </div>
 
 
-                            <div className={"p-3 lg:pl-10 lg:w-5/12"}>
+                            <div className={"p-3 pt-5 lg:pl-10 lg:w-5/12"}>
                                 <div className="card bg-base-100 shadow-xl">
                                     <div className="pt-8 px-8">
                                         <div className="card-actions justify-center">
