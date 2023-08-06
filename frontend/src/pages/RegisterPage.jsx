@@ -7,6 +7,7 @@ import {setCredentials} from "../slices/authSlice";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {setLoading} from "../slices/loadingSlice";
 import axios from "axios";
+import {toast} from "react-hot-toast";
 
 const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -16,8 +17,8 @@ const RegisterPage = () => {
         password: "",
         confirmPassword: "",
     });
-    const [invalidRegister, setInvalidRegister] = useState(false);
-    const [errorMessage, setErrorMessage] = useState("");
+    // const [invalidRegister, setInvalidRegister] = useState(false);
+    // const [errorMessage, setErrorMessage] = useState("");
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { email, password, name, confirmPassword } = formData;
@@ -50,8 +51,9 @@ const RegisterPage = () => {
         e.preventDefault();
         dispatch(setLoading(true));
         if (password !== confirmPassword) {
-            setInvalidRegister(true);
-            setErrorMessage("Passwords do not match!");
+            // setInvalidRegister(true);
+            toast.error("Passwords do not match")
+            // setErrorMessage("Passwords do not match");
         } else {
             try {
                 const payload = await register({ name: name, email: email, password: password }).unwrap();
@@ -59,12 +61,11 @@ const RegisterPage = () => {
                     const { data } = await axios.get(`/api/users/profile`);
                     dispatch(setCredentials({...data}));
                     navigate(redirect);
-                    dispatch(setLoading(false));
                 }
             } catch (e) {
-                dispatch(setLoading(false));
-                setInvalidRegister(true);
-                setErrorMessage(e.error || e.data?.message);
+                // setInvalidRegister(true);
+                toast.error(e.error || e.data?.message)
+                // setErrorMessage(e.error || e.data?.message);
                 setFormData(prevState => {
                     return {
                         ...prevState,
@@ -74,19 +75,20 @@ const RegisterPage = () => {
                 });
             }
         }
+        dispatch(setLoading(false));
     }
 
 
     return (
         <>
             <div className="h-max relative">
-                <div className="mt-5 h-full flex flex-row justify-center">
-                    <div className="w-full flex justify-center self-center">
+                <div className="h-full flex flex-row justify-center">
+                    <div className="my-10 w-full flex justify-center self-center">
                         <div className="bg-base-100 shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
                             <div className="mb-4">
-                                <h3 className="font-semibold text-2xl text-gray-800">Register
+                                <h3 className="font-semibold text-2xl text-gray-800">Register an account
                                 </h3>
-                                <p className="text-xs text-gray-500">Please fill out all text fields to register an account.
+                                <p className="text-xs text-gray-500">Please fill out all text fields.
                                 </p>
                             </div>
                             <form onSubmit={submitRegister} className="space-y-3">
@@ -166,16 +168,16 @@ const RegisterPage = () => {
                                     </div>
                                 </div>
 
-                                {
-                                    invalidRegister && (
-                                        <div className={"flex justify-center"}>
-                                            <span className={"text-red-500 font-bold"}>{errorMessage}</span>
-                                        </div>
-                                    )
-                                }
+                                {/*{*/}
+                                {/*    invalidRegister && (*/}
+                                {/*        <div className={"flex justify-center"}>*/}
+                                {/*            <span className={"text-red-500 font-bold"}>{errorMessage}</span>*/}
+                                {/*        </div>*/}
+                                {/*    )*/}
+                                {/*}*/}
 
                                 <div className={"flex justify-center"}>
-                                    <button type="submit" className="btn btn-wide">
+                                    <button type="submit" className="btn rounded-xl btn-wide">
                                        Register
                                     </button>
                                 </div>
