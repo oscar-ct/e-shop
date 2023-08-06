@@ -40,7 +40,7 @@ const PaymentPage = () => {
         <>
             <CheckoutSteps step3 />
             <div className={"w-full flex justify-center"}>
-                <div className={"card p-10 w-[35em] bg-base-100 shadow-xl"}>
+                <div className={"mb-10 card p-10 w-[35em] bg-base-100 shadow-xl"}>
                     <div className={"w-full pb-5 flex justify-center"}>
                         <h1 className={"text-2xl text-neutral"}>Payment Methods</h1>
                     </div>
@@ -102,7 +102,7 @@ const PaymentPage = () => {
                             </div>
                         </div>
                         <div className={"pt-5 w-full flex justify-end"}>
-                            <button className="btn btn-primary btn-wide" disabled={paymentMeth === null}>
+                            <button className="btn btn-primary btn-wide rounded-xl " disabled={paymentMeth === null}>
                                 Continue To Checkout
                             </button>
                         </div>
