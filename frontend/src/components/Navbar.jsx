@@ -1,6 +1,6 @@
 import {useEffect, useState, useRef} from "react";
 import {motion} from "framer-motion";
-import {FaHome, FaUser, FaChevronDown} from "react-icons/fa";
+import {FaUser, FaChevronDown} from "react-icons/fa";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import {Link, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from "react-redux";
@@ -109,17 +109,21 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-sm lg:py-4`}>
+            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md bg-neutral/70 text-white backdrop-blur-sm lg:py-4`}>
                 <div className="px-5 flex justify-between items-center">
-                    <div className={"hidden lg:flex lg:items-center cursor-pointer bg-neutral rounded-xl py-2 px-3"}>
+                    <div className={"hidden lg:flex lg:items-center cursor-pointer rounded-xl py-2 px-3"}>
                         <motion.div
                             onClick={() => navigate("/")}
-                            className={"text-xl flex"}
+                            className={"text-xl flex items-center"}
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 1.0 }}
                         >
-                            <Logo className={"w-5 mr-1"} fill={"white"}/>
-                            <button className={"text-white italic"}>-shop</button>
+                            <Logo className={"w-6 mr-1"} fill={"white"}/>
+                            {/*<button*/}
+                            {/*    style={{fontFamily: 'Moirai One, cursive', fontSize: "40px"}}*/}
+                            {/*>*/}
+                            {/*    shop*/}
+                            {/*</button>*/}
                         </motion.div>
                     </div>
                     <div className={"justify-end flex"}>
@@ -150,7 +154,7 @@ const Navbar = () => {
                                             {
                                                 dropdownActive && (
                                                     <div className="absolute right-0 z-10 mt-2 origin-top-right">
-                                                        <div className="menu bg-neutral rounded-box text-white font-bold flex flex-col justify-between w-full">
+                                                        <div className="menu bg-neutral/70 rounded-box text-white font-bold flex flex-col justify-between w-full">
                                                             <div className={"flex w-full"}>
                                                                 {
                                                                     userData.isAdmin && (
@@ -240,17 +244,16 @@ const Navbar = () => {
                 </div>
 
 
-
-                <div ref={documentRef3} className={`fixed top-[5rem] left-0 w-9/12 md:w-6/12 bg-neutral/90 py-6 rounded-r-xl lg:hidden h-[calc(100vh-80px)]`} style={openNav ? styles.active : styles.hidden2}>
+                <div ref={documentRef3} className={`fixed top-[5rem] left-0 w-7/12 md:w-6/12 bg-neutral/70 py-6  lg:hidden h-[calc(100vh-80px)]`} style={openNav ? styles.active : styles.hidden2}>
                     <div className={"flex flex-col justify-center h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
                             <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                <Link to={"/"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
-                                    <FaHome className={"text-lg"}/>
+                                <Link to={"/"} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                    <Logo className={"w-5"} fill={"white"}/>
                                 </Link>
                             </li>
                             <li onClick={() => setOpenNav(!openNav)} className="sm:hidden flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                <Link to={"/cart"} className="btn btn-neutral normal-case w-full whitespace-nowrap">
+                                <Link to={"/cart"} className="rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap">
                                     <div className="indicator">
                                         <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                                         {
@@ -260,19 +263,19 @@ const Navbar = () => {
                                         }
 
                                     </div>
-                                    <span className={"normal-case"}>Cart</span>
+                                    <span className={"normal-case"}/>
                                 </Link>
                             </li>
                             {
                                 userData && (
                                     <>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/profile/account"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                            <Link to={"/profile/account"} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
                                                 Account
                                             </Link>
                                         </li>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/profile/orders"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                            <Link to={"/profile/orders"} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
                                             My Orders
                                             </Link>
                                         </li>
@@ -284,17 +287,17 @@ const Navbar = () => {
                                 userData?.isAdmin && (
                                     <>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/admin/orders"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                            <Link to={"/admin/orders"} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
                                                 Order List
                                             </Link>
                                         </li>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/admin/users"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                            <Link to={"/admin/users"} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
                                                 User List
                                             </Link>
                                         </li>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/admin/products"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                            <Link to={"/admin/products"} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
                                                 Product List
                                             </Link>
                                         </li>
@@ -305,13 +308,13 @@ const Navbar = () => {
                             {
                                 userData ? (
                                     <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                        <button className={"btn btn-error normal-case w-full"} onClick={logoutHandler}>
+                                        <button className={"rounded-xl btn btn-error normal-case w-full"} onClick={logoutHandler}>
                                             Logout
                                         </button>
                                     </li>
                                 ) : (
                                     <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                        <Link to={"/login"} className="w-full flex items-center cursor-pointer btn btn-primary normal-case">
+                                        <Link to={"/login"} className="w-full flex items-center cursor-pointer btn btn-primary normal-case rounded-xl">
                                             <FaUser/>
                                             <span>
                                                 Login
