@@ -352,10 +352,10 @@ const AdminProductListPage = () => {
                                                         <>
                                                             <th className={"bg-blue-200"}>{index+1}</th>
                                                             {/*<td className={"bg-blue-200"}>{item._id.substring(item._id.length - 6, item._id.length)}</td>*/}
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    // className="pl-1 shadow appearance-none border rounded w-max text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    className="pl-1 py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                            <td className={"p-1 pt-2 bg-blue-200"}>
+                                                                <textarea
+                                                                    className="pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    // className="pl-1 py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                     value={name}
                                                                     onChange={(e) => setName(e.target.value)}
                                                                 />
@@ -439,7 +439,7 @@ const AdminProductListPage = () => {
                                                         {/*<td>{item._id.substring(item._id.length - 6, item._id.length)}*/}
                                                         {/*</td>*/}
                                                         <td className={"p-1 w-64"}><Link className={"link link-primary"} to={`/product/${item._id}`}>
-                                                            {item.name}
+                                                            {item.name.substring(0, 42)}
                                                         </Link></td>
                                                         <td className={"p-1"}>{item.brand}</td>
                                                         <td className={"p-1"}>{item.model}</td>
