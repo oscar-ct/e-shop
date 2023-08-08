@@ -7,6 +7,7 @@ import ProfileAccountPassword from "../components/ProfileAccountPassword";
 
 
 
+
 const ProfilePage = () => {
 
     const {id: params} = useParams();
