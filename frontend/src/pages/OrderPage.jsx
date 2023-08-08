@@ -3,6 +3,7 @@ import {PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {
+    useCancelOrderItemMutation,
     useCancelOrderMutation,
     useGetOrderByIdQuery,
     useGetPayPalClientIdQuery,
@@ -12,8 +13,9 @@ import {setLoading} from "../slices/loadingSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {ReactComponent as PayPal} from "../icons/paypal.svg";
-import {FaCreditCard} from "react-icons/fa";
+// import {FaCreditCard} from "react-icons/fa";
 import OrderItem from "../components/OrderItem";
+
 
 
 const OrderPage = () => {
@@ -29,6 +31,7 @@ const OrderPage = () => {
     const [cancelOrder,
         // {error: errorCancelOrder}
     ] = useCancelOrderMutation();
+    const [cancelOrderItem] = useCancelOrderItemMutation();
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -97,6 +100,14 @@ const OrderPage = () => {
     const cancelOrderHandler = async () => {
         const confirm = window.confirm("Are you sure you want to cancel this entire order? This cannot be undone");
         if (confirm) {
+            await Promise.all(order.orderItems.map(async function (item) {
+                const canceledItem = {
+                    orderId: order._id,
+                    productId: item.productId,
+                }
+                await cancelOrderItem(canceledItem);
+            }))
+
             await cancelOrder(order._id);
             refetch();
         }
@@ -148,7 +159,7 @@ const OrderPage = () => {
                                     </h1>
                                 ) : (
                                     <h1 className={"text-4xl font-bold text-neutral-700"}>
-                                        Thanks for the order! Please pay order below to begin shipment process.
+                                        Please pay order below to begin shipment process.
                                     </h1>
                                 )
                             }
@@ -188,7 +199,7 @@ const OrderPage = () => {
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                     <div className={"w-5/12 lg:w-4/12"}>
                                         <h3 className={"font-semibold"}>
-                                            Shipment Status:
+                                            Order Status:
                                         </h3>
                                     </div>
                                     <div className={"w-7/12 lg:w-8/12"}>
@@ -206,19 +217,13 @@ const OrderPage = () => {
                                                             <span className={"text-start truncate"}>
                                                                 Delivered on {order.deliveredAt.substring(0, 10)}
                                                             </span>
-                                                            <span className={"text-start"}>
-                                                                {`Tracking # ${order.trackingNumber}`}
-                                                            </span>
                                                         </div>
                                                     </Message>
                                                 ) : order.isPaid && order.isShipped && !order.isCanceled && order.orderItems.length !== order.canceledItems?.length ? (
                                                     <Message variant={"info"}>
                                                         <div className={"flex flex-col"}>
                                                             <span className={"text-start"}>
-                                                                Order Shipped!
-                                                            </span>
-                                                            <span className={"text-start break-all"}>
-                                                                {`Tracking # ${order.trackingNumber}`}
+                                                                Shipped with USPS
                                                             </span>
                                                         </div>
                                                     </Message>
@@ -241,30 +246,49 @@ const OrderPage = () => {
                                     </div>
                                 </div>
 
-                                <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-5/12 lg:w-4/12"}>
-                                        <h3 className={"font-semibold"}>
-                                            Payment Method:
-                                        </h3>
-                                    </div>
-                                    <div className={"w-7/12 lg:w-8/12"}>
-                                        <div className={"flex items-center text-sm"}>
-                                            <div>
-                                                {
-                                                    order.paymentMethod === "PayPal" ? (
-                                                        <PayPal className={"w-6"}/>
-                                                    ) : (
-                                                        <FaCreditCard className={"text-2xl"}/>
-                                                    )
-                                                }
-
+                                {
+                                    order.isShipped && (
+                                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                            <div className={"w-5/12 lg:w-4/12"}>
+                                                <h3 className={"font-semibold"}>
+                                                    Tracking Number:
+                                                </h3>
                                             </div>
-                                            <span className={"pl-2"}>
-                                            {order.paymentMethod}
-                                        </span>
+                                            <div className={"w-7/12 lg:w-8/12"}>
+                                                <div className={"flex items-center text-sm"}>
+                                                    <span>
+                                                        {order.trackingNumber}
+                                                    </span>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                </div>
+                                    )
+                                }
+
+                                {/*<div className={"flex border-b-[1px] border-gray-300 py-3"}>*/}
+                                {/*    <div className={"w-5/12 lg:w-4/12"}>*/}
+                                {/*        <h3 className={"font-semibold"}>*/}
+                                {/*            Payment Method:*/}
+                                {/*        </h3>*/}
+                                {/*    </div>*/}
+                                {/*    <div className={"w-7/12 lg:w-8/12"}>*/}
+                                {/*        <div className={"flex items-center text-sm"}>*/}
+                                {/*            <div>*/}
+                                {/*                {*/}
+                                {/*                    order.paymentMethod === "PayPal" ? (*/}
+                                {/*                        <PayPal className={"w-6"}/>*/}
+                                {/*                    ) : (*/}
+                                {/*                        <FaCreditCard className={"text-2xl"}/>*/}
+                                {/*                    )*/}
+                                {/*                }*/}
+
+                                {/*            </div>*/}
+                                {/*            <span className={"pl-2"}>*/}
+                                {/*            {order.paymentMethod === "PayPal" ? "PayPal" : "Credit Card"}*/}
+                                {/*        </span>*/}
+                                {/*        </div>*/}
+                                {/*    </div>*/}
+                                {/*</div>*/}
 
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                     <div className={"w-5/12 lg:w-4/12"}>
@@ -277,9 +301,14 @@ const OrderPage = () => {
                                             {
                                                 order.isPaid ? (
                                                     <Message variant={"success"}>
-                                                        <span className={"text-start"}>
-                                                            Paid on {order.paidAt}
-                                                        </span>
+                                                        <div className={"flex items-center"}>
+                                                            <span className={"text-start pr-1"}>
+                                                                Paid on {order.paidAt.substring(0, 10)} with {order.paymentMethod}
+                                                            </span>
+                                                            <span>
+                                                                <PayPal fill={"#383070"} className={"w-4"}/>
+                                                            </span>
+                                                        </div>
                                                     </Message>
                                                 ) : (
                                                     <Message variant={"error"}>
@@ -344,13 +373,13 @@ const OrderPage = () => {
                                                 className={"btn text-xs btn-error btn-sm w-full"}>
                                             Cancel Order
                                         </button>
-                                        {
-                                            order.isPaid && (
-                                                <h5 className={"text-center pt-5"}>
-                                                    Refunds can take up 5-7 business to process.
-                                                </h5>
-                                            )
-                                        }
+                                        {/*{*/}
+                                        {/*    order.isPaid && (*/}
+                                        {/*        <h5 className={"text-center pt-5"}>*/}
+                                        {/*            Refunds can take up 5-7 business to process.*/}
+                                        {/*        </h5>*/}
+                                        {/*    )*/}
+                                        {/*}*/}
 
                                     </div>
                                 ) : (order.isCanceled || order.canceledItems?.length > 0) && order.isPaid ? (
@@ -422,7 +451,7 @@ const OrderPage = () => {
                                             </span>
                                         </div>
                                         {
-                                           !order.isPaid && (!order.isCanceled || order.orderItems.length === order.canceledItems.length) && (
+                                           !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
                                                 <div className={"flex font-bold rounded-bl-xl rounded-br-xl text-xl px-12 py-5"}>
                                                     {
                                                         !isPending && (

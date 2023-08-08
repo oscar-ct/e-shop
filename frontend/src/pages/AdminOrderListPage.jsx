@@ -48,6 +48,7 @@ const AdminOrderListPage = () => {
     }
     const completeEditHandler = () => {
         setEditMode(false);
+        setTrackingNumber("");
         setOrderId(null);
         setIsShipped(null);
         setIsDelivered(null);
@@ -60,10 +61,10 @@ const AdminOrderListPage = () => {
         dispatch(setLoading(true));
         const updatedOrder = {
             orderId,
-            isShipped: isShipped === "true",
+            isShipped: isShipped,
             trackingNumber,
-            isDelivered: isDelivered === "true",
-            isReimbursed: isReimbursed === "true",
+            isDelivered: isDelivered,
+            isReimbursed: isReimbursed,
         }
         try {
             const res = await updateOrder(updatedOrder).unwrap();
@@ -156,6 +157,7 @@ const AdminOrderListPage = () => {
             setTrackingNumber(trackingNumber);
         }
         setOrderId(orderId);
+        console.log(isShipped)
         setIsShipped(isShipped);
         setTrackingNumberModalIsOpen(true);
         window.tracking_modal.showModal();
@@ -388,21 +390,22 @@ const AdminOrderListPage = () => {
                             <form method="dialog" className="modal-box">
                                 <div className="p-3">
                                     {
-                                        trackingNumber ? (
+                                        isShipped ? (
                                             <div className="form-control w-full">
                                                 <div className={"flex justify-between items-center"}>
                                                     <h3 className="pb-3 font-bold text-xl">
-                                                        Edit Tracking Number
+                                                        Tracking Number
                                                     </h3>
                                                 </div>
                                                 <input
                                                     type="text"
+                                                    placeholder={"Enter a tracking number"}
                                                     className="input input-bordered w-full"
                                                     value={trackingNumber}
                                                     onChange={(e) => setTrackingNumber((e.target.value))}
                                                 />
                                             </div>
-                                        ) : !isShipped ? (
+                                        ) : (
                                             <div className="form-control w-full">
                                                 <h3 className="pb-3 font-bold text-xl">
                                                     Tracking Number
@@ -412,21 +415,6 @@ const AdminOrderListPage = () => {
                                                 </h5>
                                                 <input
                                                     disabled={true}
-                                                    type="text"
-                                                    placeholder="Enter tacking number"
-                                                    className="input input-bordered w-full"
-                                                    value={trackingNumber}
-                                                    onChange={(e) => setTrackingNumber((e.target.value))}
-                                                />
-                                            </div>
-                                        ) : (
-                                            <div className="form-control w-full">
-                                                <div className={"flex justify-between items-center"}>
-                                                    <h3 className="pb-3 font-bold text-xl">
-                                                        Add Tracking Number
-                                                    </h3>
-                                                </div>
-                                                <input
                                                     type="text"
                                                     placeholder="Enter tacking number"
                                                     className="input input-bordered w-full"
