@@ -57,7 +57,7 @@ const getProductById = asyncHandler(async (req, res) => {
 // });
 
 const createProduct = asyncHandler(async function (req, res) {
-    const {name, brand, model, description, category, price, countInStock, images} = req.body;
+    const {name, brand, model, description, category, price, countInStock, images, color} = req.body;
     const newProduct = new Product({
         user: req.user._id,
         name: name,
@@ -67,6 +67,7 @@ const createProduct = asyncHandler(async function (req, res) {
         model: model,
         description: description,
         rating: 0,
+        color: color,
         numReviews: 0,
         price: price,
         countInStock: countInStock,
@@ -78,9 +79,10 @@ const createProduct = asyncHandler(async function (req, res) {
 });
 
 const updateProduct = asyncHandler(async function (req, res) {
-    const {name, price, model, description, brand, category, countInStock} = req.body;
+    const {name, price, model, color, description, brand, category, countInStock} = req.body;
     const productToEdit = await Product.findById(req.params.id);
     if (productToEdit) {
+        productToEdit.color = color;
         productToEdit.name = name;
         productToEdit.brand = brand;
         productToEdit.model = model;
