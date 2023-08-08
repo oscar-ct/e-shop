@@ -147,22 +147,29 @@ const getOrderById = asyncHandler(async (req, res) => {
 const updateOrderStatus = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     // const {trackingNumber, isShipped, isDelivered, isReimbursed} = req.body;
+
     if (order) {
         order.trackingNumber = req.body.trackingNumber || order.trackingNumber;
         // const delivered = Boolean(req.body.isDelivered);
         // const reimbursed = Boolean(req.body.isReimbursed);
-        order.isShipped = Boolean(req.body.isShipped);
-        if (Boolean(req.body.isDelivered)) {
-            order.isDelivered = true;
-            order.deliveredAt = Date.now();
-        } else {
-            order.isDelivered = false;
+        if (req.body.isShipped) {
+            order.isShipped = req.body.isShipped === "true";
         }
-        if (Boolean(req.body.isReimbursed)) {
-            order.isReimbursed = true;
-            order.refundedAt = Date.now();
-        } else {
-            order.isReimbursed = false;
+        if (req.body.isDelivered) {
+            if (req.body.isDelivered === "true") {
+                order.isDelivered = true;
+                order.deliveredAt = Date.now();
+            } else {
+                order.isDelivered = false;
+            }
+        }
+        if (req.body.isReimbursed) {
+            if (req.body.isReimbursed  === "true") {
+                order.isReimbursed = true;
+                order.reimburedAt = Date.now();
+            } else {
+                order.isReimbursed = false;
+            }
         }
         const updatedOrder = await order.save();
         return res.status(201).json(updatedOrder);
