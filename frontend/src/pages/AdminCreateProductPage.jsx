@@ -10,6 +10,7 @@ import * as filestack from "filestack-js";
 import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncodeHandleMutation} from "../slices/filestackSlice";
 import {toast} from "react-hot-toast";
 import {ReactComponent as Images} from "../icons/images.svg";
+import BackButton from "../components/BackButton";
 
 
 
@@ -45,6 +46,7 @@ const AdminCreateProductPage = () => {
         countInStock: 0,
         price: 0,
         category: "",
+        color: "",
     };
     const [newProduct, setNewProduct] = useState(null);
     const [formData, setFormData] = useState(initialState);
@@ -97,6 +99,7 @@ const AdminCreateProductPage = () => {
             countInStock: formData.countInStock,
             price: formData.price,
             category: formData.category,
+            color: formData.color,
             // images: [{url: "/images/sample.jpg", handle: "sampleImage"}],
         }
         try {
@@ -149,9 +152,10 @@ const AdminCreateProductPage = () => {
 
     return (
         <>
-            <div className={"pt-10 2xl:px-20"}>
+           <BackButton/>
+            <div className={"2xl:px-20"}>
                 <div className={"bg-base-100 shadow-xl px-12 py-7 mx-auto rounded-2xl w-full"}>
-                    <h2 className={"mb-2 text-2xl text-center py-2 rounded-xl"} style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}>
+                    <h2 className={"mb-2 text-2xl text-center py-2 rounded-xl border-b-[1px] border-gray-300"}>
                         New Product Listing
                     </h2>
                     <h2 className={"pt-5 lg:pt-0 text-xl font-bold flex items-center"}>
@@ -290,24 +294,41 @@ const AdminCreateProductPage = () => {
                                                 />
                                             </div>
                                         </div>
-                                        <div className={"space-y-2 pb-2 w-6/12 lg:w-full pr-5 lg:pr-0"}>
-                                            <label className="text-sm font-medium text-gray-700 tracking-wide">Posted By
+
+
+                                        <div className={"space-y-2 pb-2"}>
+                                            <label className="text-sm font-medium text-gray-700 tracking-wide">Color
                                             </label>
                                             <input
-                                                className={`input input-bordered w-full ${newProduct && "border-none bg-base-100 font-semibold"}`}
+                                                className={`w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                                 autoComplete={"off"}
                                                 type={"text"}
-                                                disabled={true}
-                                                value={userData.name}
+                                                placeholder={"e.g. Silver"}
+                                                id={"color"}
+                                                value={formData.color}
+                                                onChange={onMutate}
+                                                disabled={newProduct !== null}
+                                                required
                                             />
                                         </div>
+                                        {/*<div className={"space-y-2 pb-2 w-6/12 lg:w-full pr-5 lg:pr-0"}>*/}
+                                        {/*    <label className="text-sm font-medium text-gray-700 tracking-wide">Posted By*/}
+                                        {/*    </label>*/}
+                                        {/*    <input*/}
+                                        {/*        className={`input input-bordered w-full ${newProduct && "border-none bg-base-100 font-semibold"}`}*/}
+                                        {/*        autoComplete={"off"}*/}
+                                        {/*        type={"text"}*/}
+                                        {/*        disabled={true}*/}
+                                        {/*        value={userData.name}*/}
+                                        {/*    />*/}
+                                        {/*</div>*/}
                                     </div>
                                 </div>
                             </div>
                         </div>
                         <div className={`px-5 sm:px-0 pt-5 w-full flex flex-col lg:flex-row lg:justify-end items-center`}>
 
-                            <button disabled={newProduct !== null} type={"submit"} className={"self-end btn btn-primary w-full lg:btn-wide"}>
+                            <button disabled={newProduct !== null} type={"submit"} className={"rounded-xl shadow-blue self-end btn btn-primary w-full lg:btn-wide"}>
                                CREATE
                             </button>
 
@@ -356,7 +377,7 @@ const AdminCreateProductPage = () => {
                         <p className={"text-xs py-1 text-center"}>
                             * Please note the first uploaded image will be the cover
                         </p>
-                        <button disabled={newProduct === null || newProduct.images.length >= 7} onClick={openPicker} className={"btn w-full lg:btn-wide"}>
+                        <button disabled={newProduct === null || newProduct.images.length >= 7} onClick={openPicker} className={"rounded-xl btn w-full lg:btn-wide"}>
                             <FaUpload/>
                             Upload Image
                         </button>

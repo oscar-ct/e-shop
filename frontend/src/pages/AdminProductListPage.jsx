@@ -44,6 +44,7 @@ const AdminProductListPage = () => {
     const [name, setName] = useState(null);
     const [model, setModel] = useState(null);
     const [brand, setBrand] = useState(null);
+    const [color, setColor] = useState(null);
     const [price, setPrice] = useState(null);
     const [inStock, setInStock] = useState(null);
     const [category, setCategory] = useState(null);
@@ -117,6 +118,7 @@ const AdminProductListPage = () => {
             countInStock: inStock,
             category,
             description,
+            color,
         }
         dispatch(setLoading(true));
         try {
@@ -149,6 +151,7 @@ const AdminProductListPage = () => {
         setInStock(null);
         setCategory(null);
         setDescription(null);
+        setColor(null);
         setModalMessage("");
     };
     const editProductHandler = (id) => {
@@ -162,6 +165,7 @@ const AdminProductListPage = () => {
         setInStock(obj.countInStock);
         setCategory(obj.category);
         setDescription(obj.description);
+        setColor(obj.color);
     };
     const confirmUpdateHandler = () => {
         let updated = confirmChanges();
@@ -184,6 +188,7 @@ const AdminProductListPage = () => {
             countInStock: inStock.toString(),
             category,
             description,
+            color,
         }
         const a = {
             name: updatedObj.name,
@@ -193,6 +198,7 @@ const AdminProductListPage = () => {
             countInStock: updatedObj.countInStock.toString(),
             category: updatedObj.category,
             description: updatedObj.description,
+            color: updatedObj.color,
         }
         return Object.entries(b).filter(([key, val]) => a[key] !== val && key in a).reduce((a, [key, v]) => ({
             ...a,
@@ -326,6 +332,7 @@ const AdminProductListPage = () => {
                                 <th className={"p-1"}>Name</th>
                                 <th className={"p-1"}>Brand</th>
                                 <th className={"p-1"}>Model</th>
+                                <th className={"p-1"}>Color</th>
                                 <th className={"p-1"}>Price</th>
                                 <th className={"p-1"}>Stock</th>
                                 <th className={"p-1"}>Category</th>
@@ -367,6 +374,14 @@ const AdminProductListPage = () => {
                                                                     type={"text"}
                                                                     value={model}
                                                                     onChange={(e) => setModel(e.target.value)}
+                                                                />
+                                                            </td>
+                                                            <td className={"p-1 bg-blue-200"}>
+                                                                <input
+                                                                    className="pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                    type={"text"}
+                                                                    value={color}
+                                                                    onChange={(e) => setColor(e.target.value)}
                                                                 />
                                                             </td>
                                                             <td className={"p-1 bg-blue-200"}>
@@ -428,6 +443,7 @@ const AdminProductListPage = () => {
                                                         </Link></td>
                                                         <td className={"p-1"}>{item.brand}</td>
                                                         <td className={"p-1"}>{item.model}</td>
+                                                        <td className={"p-1"}>{item.color}</td>
                                                         <td className={"p-1"}>${item.price}</td>
                                                         <td className={"p-1"}>{item.countInStock !== 0 ? item.countInStock : <FaTimes fill={"red"}/>}</td>
                                                         <td className={"p-1"}>{item.category}</td>
