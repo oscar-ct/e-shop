@@ -157,7 +157,6 @@ const AdminOrderListPage = () => {
             setTrackingNumber(trackingNumber);
         }
         setOrderId(orderId);
-        console.log(isShipped)
         setIsShipped(isShipped);
         setTrackingNumberModalIsOpen(true);
         window.tracking_modal.showModal();
