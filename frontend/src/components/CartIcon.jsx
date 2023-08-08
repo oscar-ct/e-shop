@@ -17,20 +17,20 @@ const CartIcon = ({cartItems, totalCartItems, subtotalPrice}) => {
                     </div>
                     <span className={"normal-case"}>Cart</span>
                 </label>
-                <div tabIndex={0} className="mt-2 z-[1] card card-compact dropdown-content w-52 bg-neutral shadow">
+                <div tabIndex={0} className="mt-2 z-[1] card card-compact dropdown-content w-52 bg-neutral/70 shadow">
                     <div className="card-body">
                         {
                             cartItems.length !== 0 ? (
                                 <>
-                                                            <span className="font-bold text-white text-lg">
-                                                                ({totalCartItems}) {totalCartItems > 1 ? "items" : "item"}
-                                                            </span>
+                                    <span className="font-bold text-white text-lg">
+                                        ({totalCartItems}) {totalCartItems > 1 ? "items" : "item"}
+                                    </span>
                                     <span className="font-bold text-info">
-                                                                Subtotal:
-                                                                <span className={"pl-2 text-white"}>
-                                                                    ${subtotalPrice}
-                                                                </span>
-                                                            </span>
+                                        Subtotal:
+                                        <span className={"pl-2 text-white"}>
+                                            ${subtotalPrice}
+                                        </span>
+                                    </span>
                                     <div className="card-actions">
                                         <Link to={"/cart"} className="btn btn-primary btn-block">
                                             View cart
@@ -39,8 +39,8 @@ const CartIcon = ({cartItems, totalCartItems, subtotalPrice}) => {
                                 </>
                             ) : (
                                 <span className={"font-bold text-white text-center text-sm"}>
-                                                                Your cart is empty...
-                                                            </span>
+                                    Your cart is empty...
+                                </span>
                             )
                         }
 
