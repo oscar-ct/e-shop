@@ -66,7 +66,7 @@ const HomePage = () => {
                         {
                             !searchTerm && (
                                 <>
-                                    <div>
+                                    <div className={"bg-base-100 shadow-xl rounded-xl"}>
                                         <Swiper
                                             autoplay={{
                                                 delay: 7500,
@@ -121,7 +121,7 @@ const HomePage = () => {
                                     <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-5 text-center lg:text-start"}>
                                         Top Rated Products
                                     </h2>
-                                    <div className={"m-auto w-full rounded-xl bg-base-100 shadow-xl max-w-7xl"}>
+                                    <div className={"m-auto w-full rounded-xl max-w-7xl"}>
                                         <div className={"p-3"}>
                                             <Swiper
                                                 spaceBetween={10}
@@ -138,10 +138,10 @@ const HomePage = () => {
                                                     return <SwiperSlide key={index}>
                                                         <Link to={`/product/${data._id}`} className={"relative"}>
                                                             <img
-                                                                className={"object-cover w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                                className={"bg-zinc-100/70 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl "}
                                                                 src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                             <div className={"opacity-90 p-2 rounded-tl-lg bg-white absolute bottom-0 right-0"}>
-                                                                <h5 className={"sm:text-xs"}>{data.name} - ${data.price}</h5>
+                                                                <h5 className={"sm:text-xs"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
                                                             </div>
                                                             <div className={"opacity-90 p-2 rounded-bl-lg bg-white absolute top-0 right-0"}>
                                                                 <Rating rating={data.rating}/>

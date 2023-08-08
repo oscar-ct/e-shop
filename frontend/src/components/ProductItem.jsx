@@ -8,7 +8,7 @@ const ProductItem = ( {product} ) => {
                 <div className={"card bg-base-100 shadow-xl"}>
                     <Link to={`/product/${product._id}`}>
                         <figure className="p-2">
-                            <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"} alt="product" className="w-[248px] h-[197px] object-cover rounded-tr-xl rounded-tl-xl" />
+                            <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"} alt="product" className="bg-zinc-100/70 w-[248px] h-[197px] object-scale-down rounded-tr-xl rounded-tl-xl" />
                         </figure>
                     </Link>
                     <div className="card-body p-2 sm:p-4 items-center ">
