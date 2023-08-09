@@ -2,21 +2,21 @@ import {setLoading} from "../slices/loadingSlice";
 import {setCredentials} from "../slices/authSlice";
 import {useUpdateUserCredentialsMutation, useVerifyPasswordMutation} from "../slices/usersApiSlice";
 import {useDispatch, useSelector} from "react-redux";
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {toast} from "react-hot-toast";
 
 
 const ProfileAccountDetails = () => {
 
-    const [name, setName] = useState("");
-    const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    // const [errorMessage, setErrorMessage] = useState(null);
-    // const [successMessage, setSuccessMessage] = useState(null);
-
     const {userData} = useSelector(function(state) {
         return state.auth;
     });
+
+    const [name, setName] = useState(userData?.name);
+    const [email, setEmail] = useState(userData?.email);
+    const [password, setPassword] = useState("");
+    // const [errorMessage, setErrorMessage] = useState(null);
+    // const [successMessage, setSuccessMessage] = useState(null);
 
     const [updateUserCredentials] = useUpdateUserCredentialsMutation();
     const [verifyPassword] = useVerifyPasswordMutation();
@@ -41,7 +41,7 @@ const ProfileAccountDetails = () => {
                     });
                     if (user) {
                         dispatch(setCredentials(user.data));
-                        toast.success("Account details updated");
+                        toast.success("Account updated");
                         // setSuccessMessage("Account details updated!");
                         dispatch(setLoading(false));
                     } else {
@@ -67,15 +67,6 @@ const ProfileAccountDetails = () => {
         }
         clearPasswordFields();
     }
-
-
-    useEffect(function() {
-        if (userData) {
-            setName(userData.name);
-            setEmail(userData.email);
-        }
-    }, [userData, userData.name, userData.email]);
-
 
 
     return (
