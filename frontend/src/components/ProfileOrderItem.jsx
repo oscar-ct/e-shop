@@ -4,7 +4,6 @@ import {Link, useNavigate} from "react-router-dom";
 import Message from "./Message";
 import {useCancelOrderItemMutation, useCancelOrderMutation} from "../slices/ordersApiSlice";
 import {FaRegCopy} from "react-icons/fa";
-import AlertModal from "./AlertModal";
 
 
 const ProfileOrderItem = ({refetch, order}) => {
