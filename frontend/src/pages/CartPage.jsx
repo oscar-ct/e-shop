@@ -73,7 +73,7 @@ const CartPage = () => {
                                 <div className={"pb-10"}>
                                     <h1
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"border-b-[1px] border-gray-300 py-2 text-gray-700 rounded-xl text-2xl text-center"}>
+                                        className={"border-b-[1px] border-gray-300 py-2 text-gray-700 rounded-xl text-2xl text-center font-semibold"}>
                                          Shopping Cart (
                                         <span className={"text-xl text-gray-500 font-bold"}>
                                             {totalNumberOfItems}
@@ -122,7 +122,7 @@ const CartPage = () => {
                                 <div className="mt-5 mb-10 lg:my-0 card lg:w-full shadow-xl bg-base-100 self-end">
                                     <div className="px-8 py-5">
                                         <div className={"flex flex-col"}>
-                                            <h3 className={"text-xl"}>
+                                            <h3 className={"text-lg"}>
                                                 Subtotal ({totalNumberOfItems})
                                                 {
                                                     totalNumberOfItems > 1 ? (" items:") : (" item:")
@@ -130,19 +130,19 @@ const CartPage = () => {
                                             </h3>
                                             <div className={"border-b-[1px] border-gray-300 my-2"}/>
                                             <div className={"flex justify-end"}>
-                                                <span className="pl-2 card-title font-bold">
+                                                <span className="text-xl font-semibold">
                                                     ${totalPrice}
-                                                    <span className={"text-sm font-bold"}>
+                                                    <span className={"pl-1 text-xs font-semibold"}>
                                                         USD
                                                     </span>
                                                 </span>
                                             </div>
                                         </div>
                                     </div>
-                                    <div className="card-actions justify-end p-3">
+                                    <div className="card-actions justify-end px-5 pb-5">
                                         <button
                                             onClick={checkoutHandler}
-                                            className="btn btn-primary rounded-xl"
+                                            className="shadow-blue btn btn-primary rounded-xl"
                                         >
                                             Proceed To Checkout
                                         </button>
