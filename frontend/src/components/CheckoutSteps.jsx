@@ -8,78 +8,83 @@ const CheckoutSteps = ({ step1, step2, step3 }) => {
        return state.cart;
     });
 
+    const step1name = "Cart"
+    const step2name = "Shipping"
+    const step3name = "Payment"
+    const step4name = "Submit Order"
+
     return (
         <div className={"flex justify-center py-5 lg:py-10"}>
             {
                 step1 ? (
                     <div className={"steps w-full"}>
-                        <Link to={"/cart"} className="step step-primary">Cart</Link>
+                        <Link to={"/cart"} className="step step-primary">{step1name}</Link>
                         {
                             cartItems.length !== 0 ? (
-                                <Link to={"/shipping"} className="step">Shipping</Link>
+                                <Link to={"/shipping"} className="step">{step2name}</Link>
                             ) : (
-                                <button className="step">Shipping</button>
+                                <button className="step">{step2name}</button>
                             )
                         }
                         {
                             Object.keys(shippingAddress).length !== 0 ? (
-                                <Link to={"/payment"} className="step">Payment</Link>
+                                <Link to={"/payment"} className="step">{step3name}</Link>
                             ) : (
-                                <button className="step">Payment</button>
+                                <button className="step">{step3name}</button>
                             )
                         }
                         {
                             paymentMethod ? (
-                                <Link to={"/checkout"} className="step">Checkout</Link>
+                                <Link to={"/submitorder"} className="step">{step4name}</Link>
                             ) : (
-                                <button className="step">Checkout</button>
+                                <button className="step">{step4name}</button>
                             )
                         }
                     </div>
                 ) : step2 ? (
                     <div className={"steps w-full"}>
-                        <Link to={"/cart"} className="step step-primary">Cart</Link>
+                        <Link to={"/cart"} className="step step-primary">{step1name}</Link>
                         {
                             cartItems.length !== 0 ? (
-                                <Link to={"/shipping"} className="step step-primary">Shipping</Link>
+                                <Link to={"/shipping"} className="step step-primary">{step2name}</Link>
                             ) : (
-                                <button className="step step-primary">Shipping</button>
+                                <button className="step step-primary">{step2name}</button>
                             )
                         }
                         {
                             Object.keys(shippingAddress).length !== 0 ? (
-                                <Link to={"/payment"} className="step">Payment</Link>
+                                <Link to={"/payment"} className="step">{step3name}</Link>
                             ) : (
-                                <button className="step mx-2">Payment</button>
+                                <button className="step mx-2">{step3name}</button>
                             )
                         }
                         {
                             paymentMethod ? (
-                                <Link to={"/checkout"} className="step">Checkout</Link>
+                                <Link to={"/submitorder"} className="step">{step4name}</Link>
                             ) : (
-                                <button className="step">Checkout</button>
+                                <button className="step">{step4name}</button>
                             )
                         }
                     </div>
                 ) : step3 ?  (
                     <div className={"steps w-full"}>
-                        <Link to={"/cart"} className="step step-primary">Cart</Link>
-                        <Link to={"/shipping"} className="step step-primary">Shipping</Link>
-                        <Link to={"/payment"} className="step step-primary">Payment</Link>
+                        <Link to={"/cart"} className="step step-primary">{step1name}</Link>
+                        <Link to={"/shipping"} className="step step-primary">{step2name}</Link>
+                        <Link to={"/payment"} className="step step-primary">{step3name}</Link>
                         {
                             paymentMethod ? (
-                                <Link to={"/checkout"} className="step">Checkout</Link>
+                                <Link to={"/submitorder"} className="step">{step4name}</Link>
                             ) : (
-                                <button className="step">Checkout</button>
+                                <button className="step">{step4name}</button>
                             )
                         }
                     </div>
                 ) : (
                     <div className={"steps w-full"}>
-                        <Link to={"/cart"} className="step step-primary">Cart</Link>
-                        <Link to={"/shipping"} className="step step-primary">Shipping</Link>
-                        <Link to={"/payment"} className="step step-primary">Payment</Link>
-                        <Link to={"/checkout"} className="step step-primary">Checkout</Link>
+                        <Link to={"/cart"} className="step step-primary">{step1name}</Link>
+                        <Link to={"/shipping"} className="step step-primary">{step2name}</Link>
+                        <Link to={"/payment"} className="step step-primary">{step3name}</Link>
+                        <Link to={"/submitorder"} className="step step-primary">{step4name}</Link>
                     </div>
                 )
             }
