@@ -22,7 +22,7 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
 
                 <div className={"w-8/12 flex flex-col px-3 sm:px-5"}>
 
-                    <Link to={`/product/${item.productId}`} className={`sm:text-lg font-bold text-neutral hover:link hover:link-primary ${strikethrough()}`}>
+                    <Link to={`/product/${item.productId}`} className={`sm:text-lg font-bold text-neutral hover:link-primary ${strikethrough()}`}>
                         {item.name}
                     </Link>
 
@@ -45,8 +45,10 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
                                 </span>
                             </div>
                         </div>
-
                     </div>
+
+
+
                 </div>
 
                 <div className={"w-2/12 flex flex-col items-end justify-between"}>
@@ -55,18 +57,25 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
                         formatPrice(item.price * item.quantity, "text-xl")
                     }
                     </div>
-                    {
-                        (canceledItems.some(e => e.productId === item.productId) || isCanceled) && (
-                            <div>
-                                <h3 className={"text-red-500 text-lg font-bold"}>
-                                  Canceled
-                                </h3>
-                            </div>
-                        )
-                    }
                 </div>
 
             </div>
+
+            {
+                (canceledItems.some(e => e.productId === item.productId) || isCanceled) && (
+                    <h3 className={"text-end text-xs font-semibold text-red-500"}>
+                        <span>Canceled on </span>
+                        {
+                            canceledItems.map(function (x) {
+                                if (x.productId === item.productId) {
+                                    return x.canceledAt;
+                                }
+                            })
+                        }
+                    </h3>
+                )
+            }
+
             <div className={"mt-5 border-b-[1px] border-gray-300"}/>
         </>
 
