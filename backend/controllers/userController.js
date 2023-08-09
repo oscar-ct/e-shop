@@ -234,7 +234,10 @@ const updateUsers = asyncHandler(async (req, res) => {
     if (user) {
         user.name = req.body.name || user.name;
         user.email = req.body.email || user.email;
-        user.isAdmin = Boolean(req.body.isAdmin);
+        // user.isAdmin = Boolean(req.body.isAdmin);
+        if (req.body.isAdmin) {
+            user.isAdmin = req.body.isAdmin === "true";
+        }
         await user.save();
         const updatedUser =  await User.findById(id).select("-password");
         res.status(200).json(updatedUser);
