@@ -1,8 +1,9 @@
 import React from 'react';
-import {useEffect, useState} from "react";
+import {useState} from "react";
 import {useUpdateUserCredentialsMutation, useVerifyPasswordMutation} from "../slices/usersApiSlice";
 import {useDispatch} from "react-redux";
 import {setLoading} from "../slices/loadingSlice";
+import {toast} from "react-hot-toast";
 
 
 const ProfileAccountPassword = () => {
@@ -10,8 +11,8 @@ const ProfileAccountPassword = () => {
     const [currentPassword, setCurrentPassword] = useState("");
     const [newPassword, setNewPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
-    const [errorMessage2, setErrorMessage2] = useState(null);
-    const [successMessage2, setSuccessMessage2] = useState(null);
+    // const [errorMessage2, setErrorMessage2] = useState(null);
+    // const [successMessage2, setSuccessMessage2] = useState(null);
 
     const [updateUserCredentials] = useUpdateUserCredentialsMutation();
     const [verifyPassword] = useVerifyPasswordMutation();
@@ -24,20 +25,21 @@ const ProfileAccountPassword = () => {
         setConfirmPassword("");
     }
 
-    useEffect(function() {
-        if (errorMessage2 || successMessage2) {
-            setTimeout(function () {
-                setErrorMessage2(null);
-                setSuccessMessage2(null);
-            }, 3000)
-        }
-
-    }, [errorMessage2, successMessage2]);
+    // useEffect(function() {
+    //     if (errorMessage2 || successMessage2) {
+    //         setTimeout(function () {
+    //             setErrorMessage2(null);
+    //             setSuccessMessage2(null);
+    //         }, 3000)
+    //     }
+    //
+    // }, [errorMessage2, successMessage2]);
 
     const submitPasswordHandler = async (e) => {
         e.preventDefault();
         if (newPassword !== confirmPassword) {
-            setErrorMessage2("New passwords do not match!");
+            toast.error("New passwords do not match")
+            // setErrorMessage2("New passwords do not match!");
         } else {
             dispatch(setLoading(true));
             try {
@@ -50,23 +52,28 @@ const ProfileAccountPassword = () => {
                             newPassword: newPassword
                         });
                         if (user) {
-                            setSuccessMessage2("Password updated!");
+                            toast.success("Password updated!");
+                            // setSuccessMessage2("Password updated!");
                             dispatch(setLoading(false));
                         } else {
-                            setErrorMessage2("Something went wrong, try again later");
+                            toast.error("Something went wrong, try again later");
+                            // setErrorMessage2("Something went wrong, try again later");
                             dispatch(setLoading(false));
                         }
 
                     } catch (e) {
-                        setErrorMessage2(e);
+                        toast.error(e);
+                        // setErrorMessage2(e);
                         dispatch(setLoading(false));
                     }
                 } else {
-                    setErrorMessage2("Invalid password")
+                    toast.error("Invalid password");
+                    // setErrorMessage2("Invalid password");
                     dispatch(setLoading(false));
                 }
             } catch (e) {
-                setErrorMessage2(e);
+                toast.error(e);
+                // setErrorMessage2(e);
                 dispatch(setLoading(false))
             }
         }
@@ -75,11 +82,11 @@ const ProfileAccountPassword = () => {
 
 
     return (
-        <div className="mt-10 lg:mt-0 bg-base-100 shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
+        <div className="mt-10 lg:mt-0 bg-base-100 shadow-xl p-12 mx-auto rounded-xl sm:w-96 w-full">
             <div className="mb-4">
                 <h3 className="font-semibold text-2xl text-gray-800">Change Password
                 </h3>
-                <p className="text-gray-500 font-bold text-xs">New password must be at least 6 characters
+                <p className="text-gray-500 font-semibold text-xs">New password must be at least 6 characters
                 </p>
             </div>
             <form onSubmit={submitPasswordHandler} className="space-y-5">
@@ -128,25 +135,25 @@ const ProfileAccountPassword = () => {
                         required
                     />
                 </div>
-                <div className={"flex justify-center items-center h-5 text-lg"}>
-                    {
-                        errorMessage2 && (
-                            <span className={"text-red-500 font-bold"}>
-                                {errorMessage2}
-                            </span>
-                        )
-                    }
-                    {
-                        successMessage2 && (
-                            <span className={"text-green-500 font-bold"}>
-                                {successMessage2}
-                            </span>
-
-                        )
-                    }
-                </div>
-                <div className={"flex justify-center"}>
-                    <button disabled={newPassword.length < 6 || confirmPassword.length < 6} type="submit" className="btn btn-wide btn-primary">
+                {/*<div className={"flex justify-center items-center h-5 text-lg"}>*/}
+                {/*    {*/}
+                {/*        errorMessage2 && (*/}
+                {/*            <span className={"text-red-500 font-bold"}>*/}
+                {/*                {errorMessage2}*/}
+                {/*            </span>*/}
+                {/*        )*/}
+                {/*    }*/}
+                {/*    {*/}
+                {/*        successMessage2 && (*/}
+                {/*            <span className={"text-green-500 font-bold"}>*/}
+                {/*                {successMessage2}*/}
+                {/*            </span>*/}
+                {/*    */}
+                {/*        )*/}
+                {/*    }*/}
+                {/*</div>*/}
+                <div className={"pt-8 flex justify-center"}>
+                    <button disabled={newPassword.length < 6 || confirmPassword.length < 6} type="submit" className={`${(newPassword.length >= 6 && confirmPassword.length >= 6) && "shadow-blue"} btn-primary btn btn-wide`}>
                         Update
                     </button>
                 </div>
