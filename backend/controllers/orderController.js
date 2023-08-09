@@ -38,7 +38,7 @@ const createOrder = asyncHandler(async (req, res) => {
 
 
 const getUserOrders = asyncHandler(async (req, res) => {
-    const orders = await Order.find({ "user.id": req.user._id});
+    const orders = await Order.find({ "user.id": req.user._id}).sort({createdAt: -1});
     if (orders) {
         res.status(201);
         return res.json(orders);
