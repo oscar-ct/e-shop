@@ -22,8 +22,8 @@ const CheckoutItem = ( {item} ) => {
             <div className={"flex w-full mt-5"}>
 
                 <div className={"w-2/12"}>
-                    <Link className={"rounded-sm w-full h-full flex justify-center items-center"} to={`/product/${item._id}`}>
-                        <img className={"max-h-[160px] object-cover rounded-sm"} src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"} alt={"cartItem"}/>
+                    <Link className={"bg-zinc-100/70 rounded-md w-full h-full flex justify-center items-center"} to={`/product/${item._id}`}>
+                        <img className={"max-h-[160px] object-cover rounded-md"} src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"} alt={"cartItem"}/>
                     </Link>
                 </div>
 
