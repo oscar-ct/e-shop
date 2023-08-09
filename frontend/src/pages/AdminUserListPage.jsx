@@ -63,7 +63,7 @@ const AdminUserListPage = () => {
             _id: userId,
             name,
             email,
-            isAdmin : isAdmin === "true",
+            isAdmin,
         }
 
 
