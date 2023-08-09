@@ -12,7 +12,7 @@ import {
 import {setLoading} from "../slices/loadingSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
-import {ReactComponent as PayPal} from "../icons/paypal.svg";
+import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
 // import {FaCreditCard} from "react-icons/fa";
 import OrderItem from "../components/OrderItem";
 
@@ -165,7 +165,7 @@ const OrderPage = () => {
                             }
 
                         </div>
-                        <div className={"lg:pt-5 flex-col flex lg:flex-row w-full"}>
+                        <div className={"mb-10 lg:pt-5 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
                                 <div className={"pb-7"}>
                                     <h1 className={"text-2xl font-semibold text-center"}>
@@ -302,11 +302,10 @@ const OrderPage = () => {
                                                 order.isPaid ? (
                                                     <Message variant={"success"}>
                                                         <div className={"flex items-center"}>
-                                                            <span className={"text-start pr-1"}>
-                                                                Paid on {order.paidAt.substring(0, 10)} with {order.paymentMethod}
-                                                            </span>
-                                                            <span>
-                                                                <PayPal fill={"#383070"} className={"w-4"}/>
+                                                            <span className={"flex flex-wrap text-start pr-1"}>
+                                                                <span className={"pr-1"}>
+                                                                Paid on {order.paidAt.substring(0, 10)} with</span><span className={"pr-1 font-semibold"}>{order.paymentMethod}</span>
+                                                                  <PayPal className={"pt-[2px]"} width={"16"} height={"24"}/>
                                                             </span>
                                                         </div>
                                                     </Message>
@@ -370,7 +369,7 @@ const OrderPage = () => {
                                 !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
                                     <div className={"w-full pt-5 lg:pt-0 pb-5"}>
                                         <button onClick={() => cancelOrderHandler(order._id)}
-                                                className={"btn text-xs btn-error btn-sm w-full"}>
+                                                className={"btn text-xs btn-neutral btn-sm w-full"}>
                                             Cancel Order
                                         </button>
                                         {/*{*/}
@@ -404,7 +403,7 @@ const OrderPage = () => {
                                                     Order Summary
                                                 </h3>
                                                 <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
-                                                <div className={"flex justify-between font-bold text-sm my-1"}>
+                                                <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
                                                         Items ({totalNumberOfItems}):
                                                     </span>
@@ -412,7 +411,7 @@ const OrderPage = () => {
                                                         ${(order.itemsPrice).toFixed(2)}
                                                     </span>
                                                 </div>
-                                                <div className={"flex justify-between font-bold text-sm my-1"}>
+                                                <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
                                                         Shipping & Handling:
                                                     </span>
@@ -421,7 +420,7 @@ const OrderPage = () => {
                                                     </span>
                                                 </div>
                                                 <span className={"self-end w-16 my-1 border-b-2 border-grey-500"}/>
-                                                <div className={"flex justify-between font-bold text-sm my-1"}>
+                                                <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
                                                         Total before tax:
                                                     </span>
@@ -429,7 +428,7 @@ const OrderPage = () => {
                                                         ${(order.itemsPrice + order.shippingPrice).toFixed(2)}
                                                     </span>
                                                 </div>
-                                                <div className={"flex justify-between font-bold text-sm my-1"}>
+                                                <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
                                                         Estimated tax to be collected:
                                                     </span>
