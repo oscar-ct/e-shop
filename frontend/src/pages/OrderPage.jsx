@@ -369,7 +369,7 @@ const OrderPage = () => {
                                 !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
                                     <div className={"w-full pt-5 lg:pt-0 pb-5"}>
                                         <button onClick={() => cancelOrderHandler(order._id)}
-                                                className={"btn text-xs btn-neutral btn-sm w-full"}>
+                                                className={"btn text-xs btn-neutral btn-sm w-full rounded-xl"}>
                                             Cancel Order
                                         </button>
                                         {/*{*/}
