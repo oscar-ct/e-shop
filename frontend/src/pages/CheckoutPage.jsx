@@ -8,7 +8,7 @@ import {setLoading} from "../slices/loadingSlice";
 import {clearCartItems} from "../slices/cartSlice";
 import Message from "../components/Message";
 import CheckoutItem from "../components/CheckoutItem";
-import {ReactComponent as PayPal} from "../icons/paypal.svg";
+import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
 import {FaCreditCard} from "react-icons/fa";
 
 const CheckoutPage = () => {
@@ -83,8 +83,8 @@ const CheckoutPage = () => {
                                 <div className={"pb-5"}>
                                     <h1
                                         // style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"border-b-[1px] border-gray-300 py-2 text-gray-700 rounded-xl text-2xl text-center"}>
-                                        Checkout (
+                                        className={"border-b-[1px] border-gray-300 py-2 text-gray-700 rounded-xl text-2xl text-center font-semibold"}>
+                                        Order Review (
                                         <span className={"text-xl text-gray-500 font-bold"}>
                                             {totalNumberOfItems}
                                         {
@@ -99,7 +99,7 @@ const CheckoutPage = () => {
                                 </div>
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                     <div className={"w-5/12 lg:w-4/12"}>
-                                        <h3 className={"text-lg"}>
+                                        <h3 className={"font-semibold"}>
                                             Ship To:
                                         </h3>
                                     </div>
@@ -124,7 +124,7 @@ const CheckoutPage = () => {
 
                                 <div className={"flex border-b-[1px] border-gray-300 py-5"}>
                                     <div className={"w-5/12 lg:w-4/12"}>
-                                        <h3 className={"text-lg"}>
+                                        <h3 className={"font-semibold"}>
                                             Payment Method:
                                         </h3>
                                     </div>
@@ -133,7 +133,7 @@ const CheckoutPage = () => {
                                             <div>
                                                 {
                                                     paymentMethod === "PayPal" ? (
-                                                        <PayPal className={"w-6"}/>
+                                                        <PayPal width={"22"} height={"26"}/>
                                                     ) : (
                                                         <FaCreditCard className={"text-2xl"}/>
                                                     )
@@ -149,7 +149,7 @@ const CheckoutPage = () => {
 
 
                                 <div className={"py-5"}>
-                                    <h3 className={"text-lg"}>
+                                    <h3 className={"font-semibold"}>
                                         Review Items:
                                     </h3>
                                     <div>
@@ -172,7 +172,7 @@ const CheckoutPage = () => {
                                             <button
                                                 onClick={checkoutHandler}
                                                 disabled={cartItems.length === 0}
-                                                className="btn btn-warning">
+                                                className="btn btn-warning rounded-xl">
                                                 Place your order
                                             </button>
                                         </div>
@@ -181,7 +181,7 @@ const CheckoutPage = () => {
                                             <h3 className={"pb-5 text-xl font-bold"}>
                                                 Order Summary
                                             </h3>
-                                            <div className={"flex justify-between font-bold text-sm my-1"}>
+                                            <div className={"flex justify-between font-semibold text-sm my-1"}>
                                              <span className="">
                                                 Items
                                                 ({totalNumberOfItems}):
@@ -190,7 +190,7 @@ const CheckoutPage = () => {
                                             ${itemsPrice.toFixed(2)}
                                             </span>
                                             </div>
-                                            <div className={"flex justify-between font-bold text-sm my-1"}>
+                                            <div className={"flex justify-between font-semibold text-sm my-1"}>
                                              <span className="">
                                                 Shipping & Handling:
                                             </span>
@@ -199,7 +199,7 @@ const CheckoutPage = () => {
                                             </span>
                                             </div>
                                             <span className={"self-end w-16 my-1 border-b-2 border-grey-500"}/>
-                                            <div className={"flex justify-between font-bold text-sm my-1"}>
+                                            <div className={"flex justify-between font-semibold text-sm my-1"}>
                                              <span className="">
                                                 Total before tax:
                                             </span>
@@ -207,7 +207,7 @@ const CheckoutPage = () => {
                                             ${(itemsPrice + shippingPrice).toFixed(2)}
                                             </span>
                                             </div>
-                                            <div className={"flex justify-between font-bold text-sm my-1"}>
+                                            <div className={"flex justify-between font-semibold text-sm my-1"}>
                                              <span className="">
                                                 Estimated tax to be collected:
                                             </span>
