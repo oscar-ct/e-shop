@@ -69,6 +69,8 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
                             canceledItems.map(function (x) {
                                 if (x.productId === item.productId) {
                                     return x.canceledAt;
+                                } else {
+                                    return ""
                                 }
                             })
                         }

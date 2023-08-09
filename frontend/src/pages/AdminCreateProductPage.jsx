@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import {
     useCreateProductMutation, useDeleteProductImageMutation, useUpdateProductImagesMutation,
 } from "../slices/productsApiSlice";
-import {useDispatch, useSelector} from "react-redux";
+import {useDispatch} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {setLoading} from "../slices/loadingSlice";
 import {FaTrash, FaUpload} from "react-icons/fa";
@@ -34,9 +34,9 @@ const AdminCreateProductPage = () => {
         // {error: errorEncodeHandle}
     ] = useEncodeHandleMutation();
     
-    const {userData} = useSelector(function (state) {
-        return state.auth;
-    });
+    // const {userData} = useSelector(function (state) {
+    //     return state.auth;
+    // });
 
     const initialState = {
         name: "",
