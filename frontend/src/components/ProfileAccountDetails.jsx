@@ -3,6 +3,7 @@ import {setCredentials} from "../slices/authSlice";
 import {useUpdateUserCredentialsMutation, useVerifyPasswordMutation} from "../slices/usersApiSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+import {toast} from "react-hot-toast";
 
 
 const ProfileAccountDetails = () => {
@@ -10,8 +11,8 @@ const ProfileAccountDetails = () => {
     const [name, setName] = useState("");
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
-    const [errorMessage, setErrorMessage] = useState(null);
-    const [successMessage, setSuccessMessage] = useState(null);
+    // const [errorMessage, setErrorMessage] = useState(null);
+    // const [successMessage, setSuccessMessage] = useState(null);
 
     const {userData} = useSelector(function(state) {
         return state.auth;
@@ -40,23 +41,28 @@ const ProfileAccountDetails = () => {
                     });
                     if (user) {
                         dispatch(setCredentials(user.data));
-                        setSuccessMessage("Account details updated!")
+                        toast.success("Account details updated");
+                        // setSuccessMessage("Account details updated!");
                         dispatch(setLoading(false));
                     } else {
-                        setErrorMessage("Something went wrong, try again later");
+                        toast.error("Something went wrong, try again later");
+                        // setErrorMessage("Something went wrong, try again later");
                         dispatch(setLoading(false));
                     }
                 } catch (e) {
-                    setErrorMessage(e.message)
+                    toast.error(e.message);
+                    // setErrorMessage(e.message);
                     dispatch(setLoading(false));
                 }
 
             } else {
-                setErrorMessage("Invalid Password");
+                toast.error("Invalid Password");
+                // setErrorMessage("Invalid Password");
                 dispatch(setLoading(false));
             }
         } catch (e) {
-            setErrorMessage(e.message)
+            toast.error(e.message);
+            // setErrorMessage(e.message);
             dispatch(setLoading(false));
         }
         clearPasswordFields();
@@ -64,27 +70,20 @@ const ProfileAccountDetails = () => {
 
 
     useEffect(function() {
-        if (errorMessage || successMessage) {
-            setTimeout(function () {
-                setErrorMessage(null);
-                setSuccessMessage(null);
-
-            }, 3000)
-        }
         if (userData) {
             setName(userData.name);
             setEmail(userData.email);
         }
-    }, [userData, userData.name, userData.email, errorMessage, successMessage]);
+    }, [userData, userData.name, userData.email]);
 
 
 
     return (
-        <div className="bg-base-100 shadow-md sm:shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
+        <div className="bg-base-100 shadow-xl p-12 mx-auto rounded-xl sm:w-96 w-full">
             <div className="mb-4">
                 <h3 className="font-semibold text-2xl text-gray-800">Account Details
                 </h3>
-                <p className="text-gray-500 text-xs font-bold">Password is required to update account details
+                <p className="text-gray-500 text-xs font-semibold">Password is required to update account details
                 </p>
             </div>
             <form onSubmit={submitAccountHandler} className="space-y-5">
@@ -130,25 +129,25 @@ const ProfileAccountDetails = () => {
                         required
                     />
                 </div>
-                <div className={"flex justify-center items-center h-5 text-lg"}>
-                    {
-                        errorMessage && (
-                            <span className={"text-red-500 font-bold"}>
-                                {errorMessage}
-                            </span>
+                {/*<div className={"flex justify-center items-center h-5 text-lg"}>*/}
+                {/*    {*/}
+                {/*        errorMessage && (*/}
+                {/*            <span className={"text-red-500 font-bold"}>*/}
+                {/*                {errorMessage}*/}
+                {/*            </span>*/}
 
-                        )
-                    }
-                    {
-                        successMessage && (
-                            <span className={"text-green-500 font-bold"}>
-                                {successMessage}
-                            </span>
-                        )
-                    }
-                </div>
-                <div className={"flex justify-center"}>
-                    <button disabled={(userData.name === name.trim() && userData.email === email.trim())} type="submit" className="btn btn-wide btn-primary">
+                {/*        )*/}
+                {/*    }*/}
+                {/*    {*/}
+                {/*        successMessage && (*/}
+                {/*            <span className={"text-green-500 font-bold"}>*/}
+                {/*                {successMessage}*/}
+                {/*            </span>*/}
+                {/*        )*/}
+                {/*    }*/}
+                {/*</div>*/}
+                <div className={"pt-8 flex justify-center"}>
+                    <button disabled={(userData.name === name.trim() && userData.email === email.trim())} type="submit" className={`${(userData.name !== name.trim() || userData.email !== email.trim()) && "shadow-blue"} btn btn-wide btn-primary`}>
                         Update
                     </button>
                 </div>
