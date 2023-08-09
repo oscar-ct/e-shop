@@ -1,5 +1,5 @@
 import React, {useEffect} from 'react';
-import {useParams, useNavigate, useLocation} from "react-router-dom";
+import {useParams, useLocation} from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
 import {useState} from "react";
@@ -14,6 +14,8 @@ import ReviewModal from "../components/ReviewModal";
 import {Zoom, Navigation, Pagination} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css/zoom';
+import {toast} from "react-hot-toast";
+import BackButton from "../components/BackButton";
 
 const ProductPage = () => {
     // const [product, setProduct] = useState({});
@@ -36,7 +38,7 @@ const ProductPage = () => {
     // }, [productId]);
 
     const location = useLocation();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
     const dispatch = useDispatch();
     const [quantity, setQuantity] = useState(1);
 
@@ -44,7 +46,8 @@ const ProductPage = () => {
         dispatch(addToCart({
             ...product, quantity
         }));
-        navigate("/cart");
+        toast.success("Added To Cart")
+        // navigate("/cart");
     }
     useEffect(function () {
         if (location.search === "?review=true" && !window.review_modal.open) {
@@ -92,108 +95,122 @@ const ProductPage = () => {
                         </div>
                     </div>
                     ) : (
-                    <div className={"lg:pt-10"}>
-                        {/*<Link className={"btn btn-light my-5"} to={"/"}>*/}
-                        {/*    Go Back*/}
-                        {/*</Link>*/}
-                        <div className={"flex flex-col bg-base-100 shadow-xl px-5 xl:px-10 pt-10 pb-10 rounded-xl mb-10"}>
-                            <div className={"w-full flex flex-col lg:flex-row flex-wrap "}>
-                                <div className={"flex flex-col lg:w-5/12"}>
-                                    <div className={"w-full flex justify-center bg-zinc-100/60 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
-                                        <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"cursor-pointer rounded-sm lg:object-cover object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
+                    <>
+                        <BackButton/>
+                        <div className={"mb-10 flex flex-col"}>
+                            <div className={"flex flex-col lg:flex-row"}>
+                                <div className={"lg:w-9/12 flex flex-col "}>
+                                    <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl rounded-xl px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
+                                        <div className={"flex flex-col lg:w-7/12"}>
+                                            <div className={"w-full flex justify-center rounded-xl bg-zinc-100/60 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
+                                                <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl cursor-pointer rounded-sm lg:object-cover object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
+                                            </div>
+                                            <div className={"w-full flex pt-7"}>
+                                                {
+                                                    product.images.map(function (image, index) {
+                                                        return (
+                                                            <div onMouseEnter={() => setImageIndex(index)} key={index} onDoubleClick={() => setFullScreen(true)} className={"px-1 cursor-pointer"}>
+                                                                <img src={image.url} className={`rounded-sm object-cover h-16 transform transition duration-300 ${imageIndex === index ? "outline outline-offset-1 outline-blue-500 outline-1 opacity-100" : "opacity-50"}`} alt={"products"}/>
+                                                            </div>
+                                                        )
+                                                    })
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className={"lg:w-5/12 flex flex-col lg:flex-row lg:pl-7 py-7 lg:pt-0"}>
+                                            <div className={"w-full h-min border-b-[1px] border-gray-300"}>
+                                                <div className={"pb-3 border-b-[1px] border-gray-300"}>
+                                                    <span className={"text-2xl lg:text-xl font-semibold"}>
+                                                        {product.name}
+                                                    </span>
+                                                    <a href={`/product/${productId}/#reviews`} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
+                                                    </a>
+                                                </div>
+                                                <div className={"py-4 border-b-[1px] text-2xl border-gray-300 flex items-start"}>
+                                                    {
+                                                        formatPrice(product.price)
+                                                    }
+                                                </div>
+                                                <div>
+                                                    <h6 className={"text-lg lg:text-sm text-center pt-5"}>Product Details</h6>
+                                                </div>
+                                                <div className={"text-lg lg:text-sm py-1"}>
+                                                    <span className={"font-semibold pr-2"}>
+                                                        Brand:
+                                                    </span>
+                                                    <span className={"font-light"}>
+                                                        {product.brand}
+                                                    </span>
+                                                </div>
+                                                <div className={"text-lg lg:text-sm py-1"}>
+                                                    <span className={"font-semibold pr-2"}>
+                                                        Model:
+                                                    </span>
+                                                    <span className={"font-light"}>
+                                                        {product.model}
+                                                    </span>
+                                                </div>
+                                                <div className={"text-lg lg:text-sm py-1"}>
+                                                    <span className={"font-semibold pr-2"}>
+                                                        Color:
+                                                    </span>
+                                                    <span className={"font-light"}>
+                                                        {product.color}
+                                                    </span>
+                                                </div>
+                                                <div className={"text-lg lg:text-sm pt-1 pb-5"}>
+                                                    <span className={"font-semibold pr-2"}>
+                                                        Description:
+                                                    </span>
+                                                    <span className={"font-light"}>
+                                                        {product.description}
+                                                    </span>
+                                                </div>
+                                            </div>
+                                            {/*<div className={"lg:hidden border-b-[1px] border-gray-300"}/>*/}
+                                        </div>
                                     </div>
-                                    <div className={"w-full flex pt-7"}>
-                                        {
-                                            product.images.map(function (image, index) {
-                                                return (
-                                                    <div onMouseEnter={() => setImageIndex(index)} key={index} onClick={() => setFullScreen(true)} className={"px-1 cursor-pointer"}>
-                                                        <img src={image.url} className={`rounded-sm object-cover h-16 transform transition duration-300 ${imageIndex === index ? "outline outline-offset-1 outline-blue-500 outline-1 opacity-100" : "opacity-50"}`} alt={"products"}/>
-                                                    </div>
-                                                )
-                                            })
-                                        }
-                                    </div>
+
                                 </div>
-                                <div className={"lg:w-7/12 flex flex-col lg:flex-row lg:pl-7 py-7"}>
-                                    <div className={"lg:w-7/12"}>
-                                        <div className={"pb-3 border-b-[1px] border-gray-300"}>
-                                            <span className={"text-2xl lg:text-xl"}>
-                                                {product.name}
-                                            </span>
-                                            <a href={`/product/${productId}/#reviews`} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
-                                            </a>
-                                        </div>
-                                        <div className={"py-4 border-b-[1px] text-2xl border-gray-300 flex font-bold items-start"}>
-                                            {
-                                                formatPrice(product.price)
-                                            }
-                                        </div>
-                                        <div className={"text-lg lg:text-sm py-4 border-b-[1px] border-gray-300"}>
-                                            <span className={"font-bold pr-2"}>
-                                                Brand:
-                                            </span>
-                                            <span>
-                                                {product.brand}
+
+                                <div className={"pt-10 lg:pt-0 lg:w-3/12 lg:pl-5"}>
+                                    <div
+                                        className={"rounded-xl p-7 text-lg lg:text-sm bg-base-100 shadow-xl border-[1px] border-gray-300 mx-6 sm:mx-0 sm:border-none"}
+                                        // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,228,253,1) 175%)"}}
+                                    >
+                                        <div className={"py-2 sm:hidden"}>Buy Now</div>
+                                        <div className={"flex py-2"}>
+                                            <span className={"w-full flex justify-start items-start"}>
+                                                {formatPrice(product.price, "text-2xl")}
                                             </span>
                                         </div>
-                                        <div className={"text-lg lg:text-sm py-4 border-b-[1px] border-gray-300"}>
-                                            <span className={"font-bold pr-2"}>
-                                                Model:
-                                            </span>
-                                            <span>
-                                                {product.model}
-                                            </span>
-                                        </div>
-                                        <div className={"text-lg lg:text-sm py-4"}>
-                                            <span className={"font-bold pr-2"}>
-                                                Description:
-                                            </span>
-                                            <span>
-                                                {product.description}
-                                            </span>
-                                        </div>
-                                    </div>
-                                    <div className={"lg:hidden border-b-[1px] border-gray-300"}/>
-                                    <div className={"pt-5 lg:pt-0 lg:pl-7 lg:w-5/12 text-lg lg:text-sm"}>
-                                        <div className={"flex"}>
-                                            <span className={"pt-1 font-semibold text-start w-7/12"}>
-                                                List Price:
-                                            </span>
-                                            <span className={"w-5/12 flex justify-end items-start"}>
-                                                {formatPrice(product.price, "text-xl lg:text-lg")}
-                                            </span>
-                                        </div>
-                                        <div className={"flex pt-5"}>
+                                        {
+                                            product.price > 100 && (
+                                                <div className={"flex py-2"}>
+                                                    <span><span className={"pr-1 text-lg font-semibold text-green-400"}>FREE</span>3-day shipping </span>
+                                                </div>
+                                            )
+                                        }
+                                        <div className={"flex py-2"}>
                                             {
                                                 product.countInStock > 0 ? (
-                                                    <>
-                                                        <span className={"w-7/12 font-semibold text-start"}>
-                                                            In Stock:
-                                                        </span>
-                                                        <span className={"w-5/12 text-end text-md"}>
-                                                            {product.countInStock} left!
-                                                        </span>
-                                                    </>
+                                                    <span className={"font-semibold"}>
+                                                        Only {product.countInStock} left in stock - order soon
+                                                    </span>
                                                 ) : (
-                                                    <span className={"text-red-600 w-full font-bold flex justify-end"}>
-                                                            Out of stock
+                                                    <span className={"text-red-600 w-full font-semibold flex justify-start"}>
+                                                        Out of stock
                                                     </span>
                                                 )
                                             }
-
                                         </div>
-                                        <div className={"flex pt-5"}>
-                                             <span className={"w-7/12 font-semibold text-start"}>
-                                                Sold By:
-                                            </span>
-                                            <span className={"w-5/12 text-end"}>
-                                                Admin
-                                            </span>
+                                        <div className={"flex py-3 text-sm text-gray-500"}>
+                                            <span className={"w-4/12  font-semibold text-start"}>Sold By:</span>
+                                            <span className={"w-8/12 text-start"}>Admin</span>
                                         </div>
-                                        {/*<div className={"flex justify-center"}>*/}
-                                            <div className={"w-full flex flex-col justify-between pt-5"}>
-                                                <div className={"flex pb-5"}>
-                                                    <div className={"flex items-center justify-end w-7/12"}/>
+                                        <div className={"w-full flex flex-col justify-between pt-3"} >
+                                            <div className={"flex pb-5"}>
+                                                <div className={"flex items-center justify-end w-7/12"}/>
                                                 {
                                                     product.countInStock > 0 && (
                                                         <div className={"pl-2 flex justify-end items-center w-5/12"}>
@@ -217,46 +234,42 @@ const ProductPage = () => {
                                                         </div>
                                                     )
                                                 }
-                                                </div>
-                                                <button className={`btn-md btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
-                                                    Add To Cart
-                                                </button>
                                             </div>
-                                        {/*</div>*/}
+                                            <button className={`shadow-blue rounded-xl btn-md btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
+                                                Add To Cart
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                            <div>
-                                {/*<div className={"pt-5 pb-5 xl:pt-10 px-3"}>*/}
-                                {/*    <h2 className={"text-2xl font-bold"}>Reviews</h2>*/}
-                                {/*</div>*/}
+
+
+                            <div className={"w-full"}>
                                 <div id="reviews" className={"pt-10 xl:pt-15 flex flex-col lg:flex-row lg:justify-start"}>
-                                    <div className={"w-full lg:w-7/12"}>
-                                        <div className={"overflow-x-auto border-[1px] border-neutral-300 rounded-xl"}>
-                                            <div className={"p-5 lg:p-8 text-base-content relative col-start-1 row-start-1 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [&::selection]:bg-blue-700/20 [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]"}>
+                                    <div className={"w-full lg:w-6/12"}>
+                                        <div className={"bg-base-100 shadow-xl rounded-xl overflow-x-auto"}>
+                                            <div className={"p-5 lg:p-8 "}>
                                                 <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px]" : "pb-0"} flex justify-between items-center  border-neutral-300`}>
                                                     {
                                                         product.reviews.length !== 0 ? (
-                                                            <span className={"text-xl"}>Customer Reviews ({product.numReviews})</span>
+                                                            <span className={"text-xl font-semibold"}>Customer Reviews ({product.numReviews})</span>
                                                         ) : (
-                                                            <h2 className={"text-xl"}>Be the first to write a review!</h2>
+                                                            <h2 className={"font-semibold text-xl"}>Be the first to write a review!</h2>
                                                         )
                                                     }
 
                                                     {
                                                         userData ? (
-                                                            <button onClick={() =>  window.review_modal.showModal()} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase font-bold hover:bg-neutral/20"}>
+                                                            <button onClick={() =>  window.review_modal.showModal()} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase hover:bg-neutral/20"}>
                                                                 Write a review
                                                             </button>
                                                         ) : (
-                                                            <Link to={"/login"} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase font-bold hover:bg-neutral/20"}>
+                                                            <Link to={"/login"} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase hover:bg-neutral/20"}>
                                                                 Write a review
                                                             </Link>
                                                         )
                                                     }
                                                 </div>
-
-
                                                 {
                                                     product.reviews.length !== 0 && (
                                                         product.reviews.map(function (review, index) {
@@ -264,12 +277,12 @@ const ProductPage = () => {
                                                                 <div key={index} className={"pt-3"}>
                                                                     <div className={"flex flex-col"}>
                                                                         <div className={"flex justify-between"}>
-                                                                    <span className={"pb-2 text-xs font-bold text-neutral-500"}>
-                                                                        {review.name}
-                                                                    </span>
+                                                                        <span className={"pb-2 text-xs font-bold text-neutral-500"}>
+                                                                            {review.name}
+                                                                        </span>
                                                                             <span className={"pb-2 text-xs font-bold text-neutral-500"}>
-                                                                        {review.createdAt.substring(0, 10)}
-                                                                    </span>
+                                                                            {review.createdAt.substring(0, 10)}
+                                                                        </span>
                                                                         </div>
 
                                                                         <div className={"flex items-start"}>
@@ -278,11 +291,11 @@ const ProductPage = () => {
                                                                             </div>
 
                                                                             <span className={"pl-2 text-sm font-bold"}>
-                                                                                {review.title}
-                                                                            </span>
+                                                                                    {review.title}
+                                                                                </span>
                                                                         </div>
                                                                     </div>
-                                                                    <p className={"pt-2 text-sm"}>
+                                                                    <p className={"pt-2 text-sm font-light"}>
                                                                         {review.comment}
                                                                     </p>
                                                                 </div>
@@ -291,14 +304,13 @@ const ProductPage = () => {
 
                                                     )
                                                 }
-
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                    </>
                 )
             }
             <ReviewModal productId={productId} refetch={refetch} onPage={true}/>
@@ -309,3 +321,7 @@ const ProductPage = () => {
 
 
 export default ProductPage;
+
+
+
+// text-base-content relative col-start-1 row-start-1 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [&::selection]:bg-blue-700/20 [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]
