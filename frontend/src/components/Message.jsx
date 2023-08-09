@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Message = ({variant, children}) => {
+const Message = ({variant, children, border}) => {
 
     const iconType = (variant) => {
         if (variant === "info") {
@@ -30,13 +30,13 @@ const Message = ({variant, children}) => {
     const alertClass = (variant) => {
         switch (variant) {
             case "error" :
-                return "alert flex alert-error bg-[#F4595E59] rounded-md";
+                return `alert flex alert-error bg-[#F4595E59] ${border}`;
             case "warning" :
-                return "alert flex alert-warning bg-[#F8B11C59] rounded-md";
+                return `alert flex alert-warning bg-[#F8B11C59] ${border}`;
             case "success" :
-                return "alert flex alert-success bg-[#32CD8859] rounded-md";
+                return `alert flex alert-success bg-[#32CD8859] ${border}`;
             case "info" :
-                return "alert flex alert-info bg-[#32B0F559] rounded-md";
+                return `alert flex alert-info bg-[#32B0F559] ${border}`;
             default :
                 return "alert flex"
         }
@@ -55,6 +55,8 @@ const Message = ({variant, children}) => {
     );
 };
 
-
+Message.defaultProps = {
+    border: "rounded-md"
+}
 
 export default Message;

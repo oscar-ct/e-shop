@@ -102,7 +102,7 @@ const CartPage = () => {
                                     {
                                         totalPrice > 100 ? (
                                             <div className={"pb-3 w-full"}>
-                                                <Message variant={"success"}>
+                                                <Message variant={"success"} border={"rounded-xl"}>
                                                     <span className={"text-sm"}>
                                                         Your order qualifies for FREE shipping!
                                                     </span>
@@ -110,7 +110,7 @@ const CartPage = () => {
                                             </div>
                                         ) : (
                                             <div className={"pb-3 w-full"}>
-                                                <Message variant={"info"}>
+                                                <Message variant={"info"} border={"rounded-xl"}>
                                                     <span className={"text-sm"}>
                                                         Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
                                                     </span>
