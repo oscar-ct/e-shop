@@ -170,7 +170,7 @@ const ShippingPage = () => {
                                     </label>
                                 </div>
                                 <div className={"pt-5 w-full flex justify-end"}>
-                                    <button disabled={shippingData.address.length === 0 || shippingData.city.length === 0 || shippingData.postalCode.length === 0 || shippingData.country.length === 0} className="btn btn-primary btn-wide">
+                                    <button disabled={shippingData.address.length === 0 || shippingData.city.length === 0 || shippingData.postalCode.length === 0 || shippingData.country.length === 0} className={`${(shippingData.address.length !== 0 && shippingData.city.length !== 0 && shippingData.postalCode.length !== 0 && shippingData.country.length !== 0) && "shadow-blue"} btn btn-primary btn-wide`}>
                                         Continue To Payment
                                     </button>
                                 </div>
@@ -211,7 +211,7 @@ const ShippingPage = () => {
                                 <div className={"pt-5 w-full flex justify-end"}>
                                     <button
                                         disabled={radioId === ""}
-                                        className="shadow-blue btn btn-primary btn-wide rounded-xl">
+                                        className={`${radioId !== "" && "shadow-blue"} btn btn-primary btn-wide rounded-xl`}>
                                         Continue To Payment
                                     </button>
                                 </div>
