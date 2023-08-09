@@ -30,13 +30,13 @@ const Message = ({variant, children}) => {
     const alertClass = (variant) => {
         switch (variant) {
             case "error" :
-                return "alert flex alert-error";
+                return "alert flex alert-error bg-[#F4595EBF]";
             case "warning" :
-                return "alert flex alert-warning";
+                return "alert flex alert-warning bg-[#F8B11CBF]";
             case "success" :
-                return "alert flex alert-success";
+                return "alert flex alert-success bg-[#32CD88BF]";
             case "info" :
-                return "alert flex alert-info";
+                return "alert flex alert-info bg-[#32B0F5BF]";
             default :
                 return "alert flex"
         }
