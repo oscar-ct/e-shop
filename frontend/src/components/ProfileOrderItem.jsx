@@ -4,10 +4,12 @@ import {Link, useNavigate} from "react-router-dom";
 import Message from "./Message";
 import {useCancelOrderItemMutation, useCancelOrderMutation} from "../slices/ordersApiSlice";
 import {FaRegCopy} from "react-icons/fa";
+import AlertModal from "./AlertModal";
 
 
 const ProfileOrderItem = ({refetch, order}) => {
     const navigate = useNavigate();
+    // const [productId, setProductId] = useState("");
 
     const [cancelOrder,
         // {error: errorCancelOrder}
@@ -63,10 +65,12 @@ const ProfileOrderItem = ({refetch, order}) => {
         }, 1500)
     }
 
+
     return (
-        <div className={"px-3 sm:px-8 lg:px-14 py-5"}>
+        <>
+        <div className={"px-3 sm:px-8 lg:px-14 xl:px-24 py-5"}>
             <div className={"rounded-xl bg-base-100 shadow-xl w-full flex flex-col"}>
-                <div className={"p-6 rounded-tr-xl rounded-tl-xl flex flex-row bg-base-200"}>
+                <div className={"p-6 rounded-tr-xl rounded-tl-xl flex flex-row bg-neutral-100"}>
                     <div className={"w-full flex justify-between"}>
                         <div className={"flex"}>
                             <div className={"flex flex-col lg:pr-3"}>
@@ -107,10 +111,10 @@ const ProfileOrderItem = ({refetch, order}) => {
                     </div>
                 </div>
         {
-            !order.isPaid && (!order.isCanceled || order.orderItems.length === order.canceledItems.length) && (
+            !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
                 <div className={"pt-3 px-10"}>
                     <div className={"w-full"}>
-                        <Message variant={"error"}>
+                        <Message variant={"warning"}>
                             Awaiting payment, please
                             <Link
                                 to={`/order/${order._id}`}
@@ -171,7 +175,7 @@ const ProfileOrderItem = ({refetch, order}) => {
 
 
                                 <div className={"py-2 px-1 w-full"}>
-                                    <div className={`w-full ${order.trackingNumber && "tooltip tooltip-top"}`} data-tip={copyMessage}>
+                                    <div className={`w-full ${order.trackingNumber && order.isShipped && "tooltip tooltip-top"}`} data-tip={copyMessage}>
                                         <button onClick={copyToClipboard} disabled={(!order.isShipped || order.canceledItems.some(e => e.productId === product.productId))} className={"btn h-fit normal-case text-xs btn-sm w-full"}>
                                             <FaRegCopy/>
                                             Tracking Number
@@ -214,6 +218,8 @@ const ProfileOrderItem = ({refetch, order}) => {
 
             </div>
         </div>
+
+        </>
     );
 };
 
