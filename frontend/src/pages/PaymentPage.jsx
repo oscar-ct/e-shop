@@ -102,7 +102,7 @@ const PaymentPage = () => {
                         {/*    </div>*/}
                         {/*</div>*/}
                         <div className={"pt-5 w-full flex justify-end"}>
-                            <button className="shadow-blue btn btn-primary btn-wide rounded-xl " disabled={paymentMeth === null}>
+                            <button className={`${paymentMeth && "shadow-blue"} btn btn-primary btn-wide rounded-xl`} disabled={paymentMeth === null}>
                                 Continue To Checkout
                             </button>
                         </div>
