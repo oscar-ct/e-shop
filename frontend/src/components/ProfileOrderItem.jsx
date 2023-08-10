@@ -6,7 +6,7 @@ import {useCancelOrderItemMutation, useCancelOrderMutation} from "../slices/orde
 import {FaRegCopy} from "react-icons/fa";
 
 
-const ProfileOrderItem = ({refetch, order}) => {
+const ProfileOrderItem = ({refetch, order, index, orderLength}) => {
     const navigate = useNavigate();
     // const [productId, setProductId] = useState("");
 
@@ -67,7 +67,7 @@ const ProfileOrderItem = ({refetch, order}) => {
 
     return (
         <>
-        <div className={"px-3 sm:px-8 lg:px-14 xl:px-24 py-5"}>
+        <div className={`px-3 sm:px-8 lg:px-14 xl:px-24 ${index+1 !== orderLength && "pb-16"}`}>
             <div className={"rounded-xl bg-base-100 shadow-xl w-full flex flex-col"}>
                 <div className={"p-6 rounded-tr-xl rounded-tl-xl flex flex-row bg-neutral-100"}>
                     <div className={"w-full flex justify-between"}>
