@@ -15,11 +15,10 @@ import Message from "../components/Message";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
 // import {FaCreditCard} from "react-icons/fa";
 import OrderItem from "../components/OrderItem";
-
+import BackButton from "../components/BackButton";
 
 
 const OrderPage = () => {
-
 
     const dispatch = useDispatch();
     const { id: orderId } = useParams();
@@ -37,9 +36,7 @@ const OrderPage = () => {
         return (acc + product.quantity);
     }, 0);
 
-
     const [{isPending}, paypalDispatch] = usePayPalScriptReducer();
-
 
     useEffect(function () {
         if (!errorPayPal && !loadingPayPal && paypal.clientId) {
@@ -130,8 +127,9 @@ const OrderPage = () => {
                 isLoading ? (
                     <Spinner/>
                 ) : error ? (
-                    <div className={"pt-5"}>
-                        <Message variant={"error"}>{error.data.message}</Message>
+                    <div className={"pt-10 px-2"}>
+                        <BackButton/>
+                        <Message variant={"error"} children={error?.data?.message || error.error}/>
                     </div>
                 ) : (
                     <>
@@ -473,7 +471,6 @@ const OrderPage = () => {
                                                 </div>
                                             )
                                         }
-
                                     </div>
                                 </div>
                             </div>
