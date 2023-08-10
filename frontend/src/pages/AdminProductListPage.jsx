@@ -184,21 +184,21 @@ const AdminProductListPage = () => {
             name,
             brand,
             model,
+            color,
             price,
             countInStock: inStock.toString(),
             category,
             description,
-            color,
         }
         const a = {
             name: updatedObj.name,
             brand: updatedObj.brand,
             model: updatedObj.model,
+            color: updatedObj.color,
             price: updatedObj.price,
             countInStock: updatedObj.countInStock.toString(),
             category: updatedObj.category,
             description: updatedObj.description,
-            color: updatedObj.color,
         }
         return Object.entries(b).filter(([key, val]) => a[key] !== val && key in a).reduce((a, [key, v]) => ({
             ...a,
@@ -315,10 +315,9 @@ const AdminProductListPage = () => {
                             Products
                             <button
                                 onClick={() => navigate("/admin/products/create")}
-                                className={"absolute right-6 self-end btn btn-primary btn-xs lg:btn-sm normal-case"}
+                                className={"absolute right-6 self-end btn btn-info border-[1px] border-neutral btn-sm"}
                             >
                                 <FaPlus/>
-                                New Product
                             </button>
                         </div>
 
