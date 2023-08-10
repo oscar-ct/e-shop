@@ -6,7 +6,7 @@ const AdminTabs = () => {
     const location = useLocation();
 
     return (
-        <div className={"p-5 flex justify-center"}>
+        <div className={"pb-5 flex justify-center"}>
             <div className="tabs tabs-boxed bg-neutral">
                 <Link
                     to={"/admin/orders"}
