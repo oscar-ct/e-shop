@@ -6,8 +6,6 @@ import ProfileAccountDetails from "../components/ProfileAccountDetails";
 import ProfileAccountPassword from "../components/ProfileAccountPassword";
 
 
-
-
 const ProfilePage = () => {
 
     const {id: params} = useParams();
@@ -19,8 +17,8 @@ const ProfilePage = () => {
             isLoading ?
                 <Spinner/>
                 : (
-                    <div className={"flex justify-center"}>
-                        <div className={"grow max-w-[72rem] my-10 flex flex-col"}>
+                    <div className={"pt-10 flex justify-center"}>
+                        <div className={"grow max-w-[72rem] flex flex-col"}>
                             <div className={"pb-5 flex justify-center"}>
                                 <div className="tabs tabs-boxed">
                                     <Link
@@ -38,14 +36,19 @@ const ProfilePage = () => {
                             {
                                 params === "orders" ? (
                                     orders.length > 0 ? (
-                                        orders.map(function (order, index) {
-                                            return <ProfileOrderItem refetch={refetch} key={index} order={order}/>
-                                        })
+                                        <div className="mt-5 mb-10">
+                                            {
+                                                orders.map(function (order, index) {
+                                                    return <ProfileOrderItem refetch={refetch} key={index} order={order} index={index} orderLength={orders.length}/>
+                                                })
+                                            }
+                                        </div>
+
                                     ) : (
-                                        <h1>No Orders</h1>
+                                        <h1 className={"mt-5 text-2xl font-bold text-center"}>No Orders Found</h1>
                                     )
                                 ) : (
-                                    <div className="mt-5 w-full h-full flex flex-col lg:flex-row justify-between items-start">
+                                    <div className="mt-5 mb-10 w-full h-full flex flex-col lg:flex-row justify-between items-start">
                                         <ProfileAccountDetails/>
                                         <ProfileAccountPassword/>
                                     </div>
