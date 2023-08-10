@@ -62,7 +62,10 @@ const ProductPage = () => {
                 isLoading ? (
                     <Spinner/>
                 ) : error ? (
-                    <Message variant={"error"} children={error?.data?.message || error.error}/>
+                    <div className={"pt-10 px-2"}>
+                        <BackButton/>
+                        <Message variant={"error"} children={error?.data?.message || error.error}/>
+                    </div>
                 ) : fullScreen ? (
                     <div className={"z-10 h-max bg-black absolute top-0 right-0 left-0 bottom-0"}>
                         <div className={"relative"}>
@@ -103,7 +106,7 @@ const ProductPage = () => {
                                     <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl rounded-xl px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
                                         <div className={"flex flex-col lg:w-7/12"}>
                                             <div className={"w-full flex justify-center rounded-xl bg-zinc-100/60 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
-                                                <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl cursor-pointer rounded-sm lg:object-cover object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
+                                                <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl cursor-pointer rounded-sm object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
                                             </div>
                                             <div className={"w-full flex pt-7"}>
                                                 {
