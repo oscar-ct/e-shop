@@ -10,6 +10,7 @@ import Message from "../components/Message";
 import CheckoutItem from "../components/CheckoutItem";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
 import {FaCreditCard} from "react-icons/fa";
+import BackButton from "../components/BackButton";
 
 const CheckoutPage = () => {
 
@@ -64,20 +65,17 @@ const CheckoutPage = () => {
 
     return (
         <>
-            <CheckoutSteps/>
-            <div>
-                {
-                    cartItems.length === 0 ? (
-                        <Message>
-                            Your cart is empty
-                            <Link className={"ml-2"} to={"/"}>
-                                <button className={"link btn btn-xs"}>
-                                    Go back
-                                </button>
-                            </Link>
+            {
+                cartItems.length === 0 ? (
+                    <div className={"pt-10 px-2"}>
+                        <BackButton/>
+                        <Message variant={"info"}>
+                            You have no items in your cart.  Click <Link to={"/"} className={"link link-primary"}>here</Link> to continue shopping.
                         </Message>
-
-                    ) : (
+                    </div>
+                ) : (
+                    <div>
+                        <CheckoutSteps/>
                         <div className={"mb-10 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
                                 <div className={"pb-5"}>
@@ -232,10 +230,9 @@ const CheckoutPage = () => {
                                 </div>
                             </div>
                         </div>
-                    )
-                }
-            </div>
-
+                    </div>
+                )
+            }
         </>
     )
 };

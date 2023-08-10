@@ -4,6 +4,7 @@ import Message from "../components/Message";
 import {useSelector} from "react-redux";
 import CartItem from "../components/CartItem";
 import CheckoutSteps from "../components/CheckoutSteps";
+import BackButton from "../components/BackButton";
 
 const CartPage = () => {
 
@@ -33,17 +34,12 @@ const CartPage = () => {
 
             {
                 cartItems.length === 0 ? (
-                    <div className={"p-5"}>
-                        <Message>
-                            Your cart is empty
-                            <Link className={"ml-2"} to={"/"}>
-                                <button className={"link btn btn-xs"}>
-                                    Home
-                                </button>
-                            </Link>
+                    <div className={"pt-10 px-2"}>
+                        <BackButton/>
+                        <Message variant={"info"}>
+                            You have no items in your cart.  Click <Link to={"/"} className={"link link-primary"}>here</Link> to continue shopping.
                         </Message>
                     </div>
-
                 ) : (
                     <>
                         <CheckoutSteps step1 />
