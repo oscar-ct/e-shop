@@ -28,6 +28,7 @@ import AdminOrderListPage from "./pages/AdminOrderListPage";
 import AdminProductListPage from "./pages/AdminProductListPage";
 import AdminCreateProductPage from "./pages/AdminCreateProductPage";
 import AdminUserListPage from "./pages/AdminUserListPage";
+import NotFoundPage from "./pages/NotFoundPage";
 
 
 const router = createBrowserRouter(
@@ -51,6 +52,8 @@ const router = createBrowserRouter(
                 <Route path={"/submitorder"} element={<CheckoutPage/>}/>
                 <Route path={"/order/:id"} element={<OrderPage/>}/>
                 <Route path={"/profile/:id"} element={<ProfilePage/>}/>
+                <Route path={"/notfound"} element={<NotFoundPage/>}/>
+                <Route path={"/*"} element={<NotFoundPage/>}/>
             </Route>
 
             <Route path={""} element={<AdminRoute/>}>
