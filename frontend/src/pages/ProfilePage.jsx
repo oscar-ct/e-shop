@@ -4,12 +4,21 @@ import Spinner from "../components/Spinner";
 import ProfileOrderItem from "../components/ProfileOrderItem";
 import ProfileAccountDetails from "../components/ProfileAccountDetails";
 import ProfileAccountPassword from "../components/ProfileAccountPassword";
+import NotFoundPage from "./NotFoundPage";
 
 
 const ProfilePage = () => {
 
     const {id: params} = useParams();
     const {data: orders, isLoading, refetch} = useGetMyOrdersQuery();
+    // const navigate = useNavigate();
+
+    // useEffect(function () {
+    //     console.log(params)
+    //     if (params && (params !== "orders" && params !== "account")) {
+    //         navigate("/notfound")
+    //     }
+    // }, [params, navigate])
 
     return (
 
@@ -57,7 +66,7 @@ const ProfilePage = () => {
                         </div>
                     </div>
                 )
-        ) : "Error Page"
+        ) : <NotFoundPage/>
 
     );
 };
