@@ -21,32 +21,36 @@ const ProfilePage = () => {
                 : (
                     <div className={"flex justify-center"}>
                         <div className={"grow max-w-[72rem] my-10 flex flex-col"}>
-                                <div className={"pb-5 flex justify-center"}>
-                                    <div className="tabs tabs-boxed">
-                                        <Link
-                                            to={"/profile/account"}
-                                            className={`tab ${params === "account" && "tab-active"}`}>
-                                            Account
-                                        </Link>
-                                        <Link
-                                            to={"/profile/orders"}
-                                            className={`tab ${params === "orders" && "tab-active"}`}>
-                                            Your Orders ({orders.length})
-                                        </Link>
-                                    </div>
+                            <div className={"pb-5 flex justify-center"}>
+                                <div className="tabs tabs-boxed">
+                                    <Link
+                                        to={"/profile/account"}
+                                        className={`tab ${params === "account" && "tab-active"}`}>
+                                        Account
+                                    </Link>
+                                    <Link
+                                        to={"/profile/orders"}
+                                        className={`tab ${params === "orders" && "tab-active"}`}>
+                                        Your Orders ({orders.length})
+                                    </Link>
                                 </div>
-                                {
-                                    params === "orders" ? (
+                            </div>
+                            {
+                                params === "orders" ? (
+                                    orders.length > 0 ? (
                                         orders.map(function (order, index) {
                                             return <ProfileOrderItem refetch={refetch} key={index} order={order}/>
                                         })
                                     ) : (
-                                        <div className="mt-5 w-full h-full flex flex-col lg:flex-row justify-between items-start">
-                                            <ProfileAccountDetails/>
-                                            <ProfileAccountPassword/>
-                                        </div>
+                                        <h1>No Orders</h1>
                                     )
-                                }
+                                ) : (
+                                    <div className="mt-5 w-full h-full flex flex-col lg:flex-row justify-between items-start">
+                                        <ProfileAccountDetails/>
+                                        <ProfileAccountPassword/>
+                                    </div>
+                                )
+                            }
                         </div>
                     </div>
                 )
