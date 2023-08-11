@@ -59,12 +59,12 @@ const OrderPage = () => {
         }
     }, [order, paypal, paypalDispatch, loadingPayPal, errorPayPal]);
     
-    const onApproveTest = async  () => {
-        dispatch(setLoading(true));
-        await payOrder({orderId, details: { payer: {} }});
-        refetch();
-        dispatch(setLoading(false));
-    }
+    // const onApproveTest = async  () => {
+    //     dispatch(setLoading(true));
+    //     await payOrder({orderId, details: { payer: {} }});
+    //     refetch();
+    //     dispatch(setLoading(false));
+    // }
     const onError = (error) => {
         console.log(error);
     }
@@ -461,12 +461,12 @@ const OrderPage = () => {
                                                                     onError={onError}
                                                                 >
                                                                 </PayPalButtons>
-                                                                <button
-                                                                    onClick={onApproveTest}
-                                                                    className={"btn btn-xs"}
-                                                                >
-                                                                    Pay
-                                                                </button>
+                                                                {/*<button*/}
+                                                                {/*    onClick={onApproveTest}*/}
+                                                                {/*    className={"btn btn-xs"}*/}
+                                                                {/*>*/}
+                                                                {/*    Pay*/}
+                                                                {/*</button>*/}
                                                             </div>
                                                         )
                                                     }
