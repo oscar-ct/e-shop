@@ -37,15 +37,15 @@ const Navbar = () => {
         }
         return () => window.removeEventListener("mousedown", closeOpenDropdown);
     }, [dropdownActive]);
-    useEffect(() => {
-        const closeMobileNavOnScroll = () => {
-            setOpenNav(false);
-        }
-        if (openNav) {
-            window.addEventListener("scroll", closeMobileNavOnScroll);
-        }
-        return () => window.removeEventListener("scroll", closeMobileNavOnScroll);
-    }, [openNav]);
+    // useEffect(() => {
+    //     const closeMobileNavOnScroll = () => {
+    //         setOpenNav(false);
+    //     }
+    //     if (openNav) {
+    //         window.addEventListener("scroll", closeMobileNavOnScroll);
+    //     }
+    //     return () => window.removeEventListener("scroll", closeMobileNavOnScroll);
+    // }, [openNav]);
     useEffect(() => {
         const closeMobileNavOnResize = () => {
             window.innerWidth >= 960 && setOpenNav(false);
@@ -245,7 +245,7 @@ const Navbar = () => {
 
 
                 <div ref={documentRef3} className={`fixed top-[5rem] left-0 w-7/12 md:w-6/12 bg-neutral/70 py-6  lg:hidden h-[calc(100vh-80px)]`} style={openNav ? styles.active : styles.hidden2}>
-                    <div className={"flex flex-col justify-center h-full w-full"}>
+                    <div className={"flex flex-col justify-start h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
                             <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
                                 <Link to={"/"} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
