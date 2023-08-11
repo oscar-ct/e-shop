@@ -15,8 +15,7 @@ import 'swiper/css/autoplay';
 import {useEffect, useState} from "react";
 import {HOME_IMAGE_1, HOME_IMAGE_3, HOME_IMAGE_2} from "../variables";
 import Rating from "../components/Rating";
-
-
+import {ReactComponent as Logo} from "../icons/e.svg"
 
 
 const HomePage = () => {
@@ -52,8 +51,6 @@ const HomePage = () => {
         return () => window.removeEventListener("resize", adjustSlides);
     }, [slides]);
 
-
-
     return (
         <>
             {
@@ -80,14 +77,12 @@ const HomePage = () => {
                                                     className={"h-[25em] rounded-br-xl rounded-bl-xl"}
                                                      style={{background: `url(${HOME_IMAGE_1})`, backgroundPosition: "top", backgroundSize: "cover"}}
                                                 >
-                                                    <div className={"absolute w-full text-center top-[40%]"}>
-                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl"}>
-                                                            <span className={"font-bold text-base-100"}>
-                                                                Welcome
-                                                            </span> to e-shop!
-                                                        </span>
-                                                        <div className={"text-white font-bold"}>
-                                                            A site created and developed by Oscar Castro
+                                                    <div className={"absolute w-full top-[40%]"}>
+                                                        <div style={{fontFamily: 'Ubuntu'}} className={"text-6xl flex justify-center items-center"}>
+                                                            <span className={"font-bold text-base-100 pr-2"}>Welcome</span> <span className={"pr-2 text-neutral"}>to</span><span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span><span className={"pl-2 text-neutral"}>-shop!</span>
+                                                        </div>
+                                                        <div className={"text-center text-neutral font-bold"}>
+                                                            An e-commerce site designed and developed by Oscar Castro
                                                         </div>
                                                     </div>
                                                 </div>
