@@ -140,10 +140,10 @@ const HomePage = () => {
                                                             <img
                                                                 className={"bg-zinc-100/70 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl "}
                                                                 src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
-                                                            <div className={"opacity-90 p-2 rounded-tl-lg bg-white absolute bottom-0 right-0"}>
+                                                            <div className={"opacity-90 p-2 rounded-tl-lg bg-white absolute bottom-0 right-0 rounded-br-xl"}>
                                                                 <h5 className={"sm:text-xs"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
                                                             </div>
-                                                            <div className={"opacity-90 p-2 rounded-bl-lg bg-white absolute top-0 right-0"}>
+                                                            <div className={"opacity-90 p-2 rounded-bl-lg rounded-tr-xl bg-white absolute top-0 right-0"}>
                                                                 <Rating rating={data.rating}/>
                                                             </div>
                                                         </Link>
@@ -158,7 +158,7 @@ const HomePage = () => {
 
                         <div className={"pt-3 pb-10"}>
                             <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-3 text-center lg:text-start"}>
-                                Recently Added
+                                Lastest Products
                             </h2>
                             <div className={"w-full flex flex-wrap justify-center"}>
                                 {
