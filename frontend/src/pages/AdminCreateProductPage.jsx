@@ -9,7 +9,7 @@ import {FaTrash, FaUpload} from "react-icons/fa";
 import * as filestack from "filestack-js";
 import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncodeHandleMutation} from "../slices/filestackSlice";
 import {toast} from "react-hot-toast";
-import {ReactComponent as Images} from "../icons/images.svg";
+import {ReactComponent as Images} from "../icons/add-image.svg";
 import BackButton from "../components/BackButton";
 
 
@@ -178,7 +178,7 @@ const AdminCreateProductPage = () => {
 
                     </h2>
 
-                    <form onSubmit={createProductHandler} className={"w-full pb-5 pt-3 border-neutral-400 border-dotted border-b-2"}>
+                    <form onSubmit={createProductHandler} className={"rounded-xl w-full pb-5 pt-3 border-neutral-400 border-dotted border-b-2"}>
                         <div className={"flex flex-col lg:flex-row"}>
                             <div className={"w-full flex flex-col lg:w-6/12 sm:px-10 lg:pr-10 lg:pl-5"}>
                                 <div className={"space-y-2 pb-2"}>
@@ -328,8 +328,8 @@ const AdminCreateProductPage = () => {
                         </div>
                         <div className={`px-5 sm:px-0 pt-5 w-full flex flex-col lg:flex-row lg:justify-end items-center`}>
 
-                            <button disabled={newProduct !== null} type={"submit"} className={"rounded-xl shadow-blue self-end btn btn-primary w-full lg:btn-wide"}>
-                               CREATE
+                            <button disabled={newProduct !== null} type={"submit"} className={`rounded-xl ${newProduct === null && "shadow-blue"} self-end btn btn-primary w-full lg:btn-wide`}>
+                               Create Listing
                             </button>
 
                         </div>
@@ -386,9 +386,9 @@ const AdminCreateProductPage = () => {
                 </div>
                 {
                     imagesUploaded && (
-                        <div className={"py-10 px-5 lg:px-0 lg:flex lg:justify-center"}>
-                            <button onClick={() => navigate("/admin/products")} className={"btn btn-success w-full lg:btn-wide rounded-xl"}>
-                                Done
+                        <div className={"py-10 px-5 lg:px-0 flex justify-center"}>
+                            <button onClick={() => navigate("/admin/products")} className={"item-center btn btn-success rounded-xl"}>
+                                Finished
                             </button>
                         </div>
                     )
