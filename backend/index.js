@@ -8,6 +8,7 @@ import userRoutes from "./routes/userRoutes.js";
 import {notFoundError, errorHandler} from "./middleware/errorMiddleware.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import filestackRoutes from "./routes/filestackRoutes.js";
+import * as path from "path";
 
 const port = process.env.PORT || 8080;
 
@@ -27,9 +28,6 @@ app.use(express.urlencoded({extended: true}));
 // Cookie parser
 app.use(cookieParser());
 
-app.get('/', function (request, response) {
-    response.send("API is running!!!");
-});
 
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
@@ -38,7 +36,16 @@ app.use('/api/filestack', filestackRoutes)
 
 app.get('/api/config/paypal', ((req, res) => res.send({clientId: process.env.PAYPAL_CLIENT_ID})));
 
-
+if (process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "/frontend/build")));
+    app.get("*", (req, res) => {
+        res.sendFile(path.resolve(__dirname, "frontend", "build", "index.html"))
+    });
+} else {
+    app.get('/', function (request, response) {
+        response.send("API is running!!!");
+    });
+}
 
 // Custom middleware
 app.use(notFoundError);
