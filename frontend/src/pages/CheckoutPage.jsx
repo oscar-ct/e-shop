@@ -11,6 +11,7 @@ import CheckoutItem from "../components/CheckoutItem";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
 import {FaCreditCard} from "react-icons/fa";
 import BackButton from "../components/BackButton";
+import Meta from "../components/Meta";
 
 const CheckoutPage = () => {
 
@@ -65,6 +66,7 @@ const CheckoutPage = () => {
 
     return (
         <>
+            <Meta title={"Order Review"}/>
             {
                 cartItems.length === 0 ? (
                     <div className={"pt-10 px-2"}>

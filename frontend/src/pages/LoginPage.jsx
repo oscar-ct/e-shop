@@ -8,6 +8,7 @@ import {setCredentials} from "../slices/authSlice";
 import {setLoading} from "../slices/loadingSlice";
 import axios from "axios";
 import {toast} from "react-hot-toast";
+import Meta from "../components/Meta";
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -76,6 +77,7 @@ const LoginPage = () => {
 
     return (
         <>
+            <Meta title={"Login"}/>
             <div className="h-max relative">
                 <div className="h-full flex flex-row justify-center">
                     <div className="my-10 w-full flex justify-center self-center">

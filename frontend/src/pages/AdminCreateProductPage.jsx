@@ -11,6 +11,7 @@ import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncod
 import {toast} from "react-hot-toast";
 import {ReactComponent as Images} from "../icons/add-image.svg";
 import BackButton from "../components/BackButton";
+import Meta from "../components/Meta";
 
 
 
@@ -152,7 +153,8 @@ const AdminCreateProductPage = () => {
 
     return (
         <>
-           <BackButton/>
+            <Meta title={"New Product Listing"}/>
+            <BackButton/>
             <div className={"2xl:px-20"}>
                 <div className={"bg-base-100 shadow-xl px-12 py-7 mx-auto rounded-2xl w-full"}>
                     <h2 className={"mb-2 text-2xl text-center py-2 rounded-xl border-b-[1px] border-gray-300"}>

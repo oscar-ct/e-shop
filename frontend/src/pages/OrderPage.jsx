@@ -16,6 +16,7 @@ import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
 // import {FaCreditCard} from "react-icons/fa";
 import OrderItem from "../components/OrderItem";
 import BackButton from "../components/BackButton";
+import Meta from "../components/Meta";
 
 
 const OrderPage = () => {
@@ -133,6 +134,7 @@ const OrderPage = () => {
                     </div>
                 ) : (
                     <>
+                        <Meta title={`Order # ${order._id}`}/>
                         <div className={"p-5 lg:pt-10 lg:pb-5"}>
                             {
                                 order.isPaid && !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (

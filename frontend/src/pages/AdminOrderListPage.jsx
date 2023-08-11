@@ -8,6 +8,7 @@ import {setLoading} from "../slices/loadingSlice";
 import {useDispatch} from "react-redux";
 import {toast} from "react-hot-toast";
 import ConfirmModal from "../components/ConfirmModal";
+import Meta from "../components/Meta";
 
 const AdminOrderListPage = () => {
 
@@ -200,6 +201,7 @@ const AdminOrderListPage = () => {
     return (
         isLoading || !localData ? <Spinner/> : error ? error : (
             <>
+                <Meta title={"Order List"}/>
                 <div className={"pt-10"}>
                     <AdminTabs/>
                     <div className={"mt-5 card bg-base-100 shadow-xl"}>

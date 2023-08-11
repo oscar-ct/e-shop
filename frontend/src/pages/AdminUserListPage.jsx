@@ -10,6 +10,7 @@ import AdminTabs from "../components/AdminTabs";
 import {setCredentials} from "../slices/authSlice";
 import AlertModal from "../components/AlertModal";
 import ConfirmModal from "../components/ConfirmModal";
+import Meta from "../components/Meta";
 
 
 const AdminUserListPage = () => {
@@ -158,184 +159,187 @@ const AdminUserListPage = () => {
 
     return (
         isLoading || !localData ? <Spinner/> : error ? error : (
-            <div className={"pt-10"}>
-                <AdminTabs/>
-                <div className={"mt-5 card bg-base-100 shadow-xl"}>
-                    <div className={"w-full px-5 flex justify-center pt-5"}>
-                        <div className={" text-2xl text-center"}>
-                            Users
+            <>
+                <Meta title={"User List"}/>
+                <div className={"pt-10"}>
+                    <AdminTabs/>
+                    <div className={"mt-5 card bg-base-100 shadow-xl"}>
+                        <div className={"w-full px-5 flex justify-center pt-5"}>
+                            <div className={" text-2xl text-center"}>
+                                Users
+                            </div>
+
                         </div>
+                        <div className="overflow-x-auto px-5 py-10">
+                            <table className="table w-full table-zebra table-sm">
+                                <thead>
+                                <tr>
+                                    <th/>
+                                    {/*<th>ID</th>*/}
+                                    <th className={"p-1"}>Name</th>
+                                    <th className={"p-1"}>Email</th>
+                                    <th className={"p-1"}>Admin</th>
+                                    <th className={"p-1"}>Address</th>
+                                    <th className={"p-1"}>Joined</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    localData && (
+                                        localData.map(function(user, index) {
+                                            return (
+                                                <tr className={"hover"} key={index}>
 
-                    </div>
-                    <div className="overflow-x-auto px-5 py-10">
-                        <table className="table w-full table-zebra table-sm">
-                            <thead>
-                            <tr>
-                                <th/>
-                                {/*<th>ID</th>*/}
-                                <th className={"p-1"}>Name</th>
-                                <th className={"p-1"}>Email</th>
-                                <th className={"p-1"}>Admin</th>
-                                <th className={"p-1"}>Address</th>
-                                <th className={"p-1"}>Joined</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                localData && (
-                                    localData.map(function(user, index) {
-                                        return (
-                                            <tr className={"hover"} key={index}>
-
-                                                {
-                                                    editMode && user._id === userId ? (
-                                                        <>
-                                                            <th className={"bg-blue-200"}>{index+1}</th>
-                                                            {/*<td className={"bg-blue-200"}>{user._id.substring(user._id.length - 6, user._id.length)}</td>*/}
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    className="pl-1 py-2 shadow w-full appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    value={name}
-                                                                    onChange={(e) => setName(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    className="pl-1 w-full shadow appearance-none border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    type={"text"}
-                                                                    value={email}
-                                                                    onChange={(e) => setEmail(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <select
-                                                                    className="pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    value={isAdmin}
-                                                                    onChange={(e) => setIsAdmin(e.target.value)}
-                                                                >
-                                                                    <option value={"true"}>
-                                                                        true
-                                                                    </option>
-                                                                    <option value={"false"}>
-                                                                        false
-                                                                    </option>
-                                                                </select>
-                                                            </td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <details className={"flex flex-wrap"}>
-                                                                    <summary className={"hover:link-primary truncate cursor-pointer "}>
-                                                                        Address List
-                                                                    </summary>
-                                                                    {user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
-                                                                        return (
-                                                                            <span key={index} className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pt-2 pl-2 text-xs`}>
-                                                                            {obj.address}, {obj.city}, {obj.postalCode}
-                                                                        </span>
-                                                                        )
-                                                                    }) : (
-                                                                        <span className={"pl-2 text-xs"}>
-                                                                            No saved address
-                                                                        </span>
-                                                                    )}
-                                                                </details>
-                                                            </td>
-                                                            <td className={"p-1 truncate bg-blue-200"}>{user?.createdAt.substring(0, 10)}</td>
-                                                            <td className={"p-1 bg-blue-200 w-20"}>
-                                                                <div className={"flex items-center"}>
-                                                                    <div className="tooltip tooltip-bottom" data-tip="save changes">
-                                                                        <button onClick={confirmUpdateModal} className={"text-green-500 btn-glass btn-xs rounded-full"}>
-                                                                            <FaCheckCircle className={"text-sm"}/>
-                                                                        </button>
-                                                                    </div>
-                                                                    <div className="tooltip tooltip-bottom" data-tip="delete user">
-                                                                        <button onClick={openConfirmDeleteUserModal} className={"text-red-500 btn-glass btn-xs rounded-full"}>
-                                                                            <FaMinusCircle className={"text-sm"}/>
-                                                                        </button>
-                                                                    </div>
-                                                                </div>
-                                                            </td>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                            <th>{index+1}</th>
-                                                            {/*<td>{user._id.substring(user._id.length - 6, user._id.length)}</td>*/}
-                                                            <td className={"p-1 truncate"}>{user.name}</td>
-                                                            <td className={"p-1"}>{user.email}</td>
-                                                            <td className={"p-1"}>{user.isAdmin ? <FaCheck className={"text-green-500"}/> : <FaTimes fill={"red"}/>}</td>
-                                                            <td className={"p-1 "}>
-                                                                <details className={"flex flex-wrap"}>
-                                                                    <summary className={"hover:link-primary truncate cursor-pointer "}>
-                                                                        Address List
+                                                    {
+                                                        editMode && user._id === userId ? (
+                                                            <>
+                                                                <th className={"bg-blue-200"}>{index+1}</th>
+                                                                {/*<td className={"bg-blue-200"}>{user._id.substring(user._id.length - 6, user._id.length)}</td>*/}
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <input
+                                                                        className="pl-1 py-2 shadow w-full appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        value={name}
+                                                                        onChange={(e) => setName(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <input
+                                                                        className="pl-1 w-full shadow appearance-none border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        type={"text"}
+                                                                        value={email}
+                                                                        onChange={(e) => setEmail(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <select
+                                                                        className="pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        value={isAdmin}
+                                                                        onChange={(e) => setIsAdmin(e.target.value)}
+                                                                    >
+                                                                        <option value={"true"}>
+                                                                            true
+                                                                        </option>
+                                                                        <option value={"false"}>
+                                                                            false
+                                                                        </option>
+                                                                    </select>
+                                                                </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <details className={"flex flex-wrap"}>
+                                                                        <summary className={"hover:link-primary truncate cursor-pointer "}>
+                                                                            Address List
                                                                         </summary>
-                                                                    {user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
-                                                                    return (
-                                                                        <span key={index} className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pl-2 pt-2 text-xs`}>
-                                                                            {obj.address}, {obj.city}, {obj.postalCode}
-                                                                        </span>
-                                                                        )
-                                                                    }) : (
-                                                                        <span className={"pl-2 text-xs"}>
-                                                                            No saved address
-                                                                        </span>
-                                                                    )}
-                                                                </details>
-                                                            </td>
-                                                            <td className={"p-1 truncate"}>{user?.createdAt.substring(0, 10)}</td>
-                                                            <td className={"p-1 w-20"}>
-                                                                <div className={"flex "}>
-                                                                    <button onClick={() => editUserHandler(user._id)} className={"btn-glass btn-xs rounded-full hover:text-primary"}>
-                                                                        <FaEdit className={"text-sm"}/>
-                                                                    </button>
-                                                                    <span className={"px-4"}/>
-                                                                </div>
-                                                            </td>
-                                                        </>
-                                                    )
-                                                }
-                                            </tr>
+                                                                        {user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
+                                                                            return (
+                                                                                <span key={index} className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pt-2 pl-2 text-xs`}>
+                                                                                {obj.address}, {obj.city}, {obj.postalCode}
+                                                                            </span>
+                                                                            )
+                                                                        }) : (
+                                                                            <span className={"pl-2 text-xs"}>
+                                                                                No saved address
+                                                                            </span>
+                                                                        )}
+                                                                    </details>
+                                                                </td>
+                                                                <td className={"p-1 truncate bg-blue-200"}>{user?.createdAt.substring(0, 10)}</td>
+                                                                <td className={"p-1 bg-blue-200 w-20"}>
+                                                                    <div className={"flex items-center"}>
+                                                                        <div className="tooltip tooltip-bottom" data-tip="save changes">
+                                                                            <button onClick={confirmUpdateModal} className={"text-green-500 btn-glass btn-xs rounded-full"}>
+                                                                                <FaCheckCircle className={"text-sm"}/>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div className="tooltip tooltip-bottom" data-tip="delete user">
+                                                                            <button onClick={openConfirmDeleteUserModal} className={"text-red-500 btn-glass btn-xs rounded-full"}>
+                                                                                <FaMinusCircle className={"text-sm"}/>
+                                                                            </button>
+                                                                        </div>
+                                                                    </div>
+                                                                </td>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                                <th>{index+1}</th>
+                                                                {/*<td>{user._id.substring(user._id.length - 6, user._id.length)}</td>*/}
+                                                                <td className={"p-1 truncate"}>{user.name}</td>
+                                                                <td className={"p-1"}>{user.email}</td>
+                                                                <td className={"p-1"}>{user.isAdmin ? <FaCheck className={"text-green-500"}/> : <FaTimes fill={"red"}/>}</td>
+                                                                <td className={"p-1 "}>
+                                                                    <details className={"flex flex-wrap"}>
+                                                                        <summary className={"hover:link-primary truncate cursor-pointer "}>
+                                                                            Address List
+                                                                            </summary>
+                                                                        {user.shippingAddresses.length !== 0 ? user.shippingAddresses.map(function (obj, index) {
+                                                                        return (
+                                                                            <span key={index} className={`${index % 2 === 0 ? "font-bold" : "text-zinc-600"} truncate pl-2 pt-2 text-xs`}>
+                                                                                {obj.address}, {obj.city}, {obj.postalCode}
+                                                                            </span>
+                                                                            )
+                                                                        }) : (
+                                                                            <span className={"pl-2 text-xs"}>
+                                                                                No saved address
+                                                                            </span>
+                                                                        )}
+                                                                    </details>
+                                                                </td>
+                                                                <td className={"p-1 truncate"}>{user?.createdAt.substring(0, 10)}</td>
+                                                                <td className={"p-1 w-20"}>
+                                                                    <div className={"flex "}>
+                                                                        <button onClick={() => editUserHandler(user._id)} className={"btn-glass btn-xs rounded-full hover:text-primary"}>
+                                                                            <FaEdit className={"text-sm"}/>
+                                                                        </button>
+                                                                        <span className={"px-4"}/>
+                                                                    </div>
+                                                                </td>
+                                                            </>
+                                                        )
+                                                    }
+                                                </tr>
 
-                                        )
-                                    })
-                                )
+                                            )
+                                        })
+                                    )
 
-                            }
-                            </tbody>
-                            <tfoot>
-                            </tfoot>
-                        </table>
+                                }
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
+                        </div>
                     </div>
+
+                    {/*MODALS BELOW*/}
+
+                    <ConfirmModal title={"Confirm Changes"} initiateFunction={submitUpdateHandler}>
+                        <h3 className="font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
+                        {
+                            modalMessage !== "" && (
+                                modalMessage.split("&").map(function(sentence, index){
+                                    return (
+                                        <p className={"pt-3"} key={index}>{sentence}</p>
+                                    )
+                                })
+                            )
+                        }
+                    </ConfirmModal>
+
+                    <AlertModal title={"Delete User"} initiateFunction={() => submitDeleteUser()}>
+                        <div className={"flex flex-col"}>
+                            <p>
+                                Are you sure you want to delete this user?
+                                <span className={"pl-2 text-red-600 font-semibold"}>
+                                    This cannot be undone.
+                                </span>
+                            </p>
+                            <p className={"pt-3 text-center font-bold text-lg"}>
+                                {`${name}, ${email}`}
+                            </p>
+                        </div>
+                    </AlertModal>
+
                 </div>
-
-                {/*MODALS BELOW*/}
-
-                <ConfirmModal title={"Confirm Changes"} initiateFunction={submitUpdateHandler}>
-                    <h3 className="font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
-                    {
-                        modalMessage !== "" && (
-                            modalMessage.split("&").map(function(sentence, index){
-                                return (
-                                    <p className={"pt-3"} key={index}>{sentence}</p>
-                                )
-                            })
-                        )
-                    }
-                </ConfirmModal>
-
-                <AlertModal title={"Delete User"} initiateFunction={() => submitDeleteUser()}>
-                    <div className={"flex flex-col"}>
-                        <p>
-                            Are you sure you want to delete this user?
-                            <span className={"pl-2 text-red-600 font-semibold"}>
-                                This cannot be undone.
-                            </span>
-                        </p>
-                        <p className={"pt-3 text-center font-bold text-lg"}>
-                            {`${name}, ${email}`}
-                        </p>
-                    </div>
-                </AlertModal>
-
-            </div>
+            </>
         )
     );
 };

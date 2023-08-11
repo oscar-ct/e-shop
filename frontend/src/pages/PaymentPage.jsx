@@ -5,6 +5,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {savePaymentMethod} from "../slices/cartSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
+import Meta from "../components/Meta";
 // import {FaCreditCard} from "react-icons/fa";
 
 const PaymentPage = () => {
@@ -38,6 +39,7 @@ const PaymentPage = () => {
     }
     return (
         <>
+            <Meta title={"Payment Method"}/>
             <CheckoutSteps step3 />
             <div className={"w-full flex justify-center"}>
                 <div className={"mb-10 card p-10 w-[35em] bg-base-100 shadow-xl"}>

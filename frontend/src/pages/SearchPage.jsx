@@ -5,6 +5,7 @@ import Paginate from "../components/Paginate";
 import Spinner from "../components/Spinner";
 import Snake from "../components/Snake";
 import {useEffect, useState} from "react";
+import Meta from "../components/Meta";
 
 
 const SearchPage = () => {
@@ -33,6 +34,7 @@ const SearchPage = () => {
             <Spinner/>
             ) : (
                 <>
+                    <Meta title={`Search - ${searchTerm}`}/>
                     {
                         data.products.length === 0 ? (
 

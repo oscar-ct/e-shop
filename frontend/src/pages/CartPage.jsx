@@ -5,6 +5,7 @@ import {useSelector} from "react-redux";
 import CartItem from "../components/CartItem";
 import CheckoutSteps from "../components/CheckoutSteps";
 import BackButton from "../components/BackButton";
+import Meta from "../components/Meta";
 
 const CartPage = () => {
 
@@ -31,7 +32,7 @@ const CartPage = () => {
 
     return (
         <div>
-
+            <Meta title={"Shopping Cart"}/>
             {
                 cartItems.length === 0 ? (
                     <div className={"pt-10 px-2"}>

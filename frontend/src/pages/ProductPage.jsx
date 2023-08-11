@@ -16,6 +16,7 @@ import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css/zoom';
 import {toast} from "react-hot-toast";
 import BackButton from "../components/BackButton";
+import Meta from "../components/Meta";
 
 const ProductPage = () => {
     // const [product, setProduct] = useState({});
@@ -99,6 +100,7 @@ const ProductPage = () => {
                     </div>
                     ) : (
                     <>
+                        <Meta title={product.name}/>
                         <BackButton/>
                         <div className={"mb-10 flex flex-col"}>
                             <div className={"flex flex-col lg:flex-row"}>

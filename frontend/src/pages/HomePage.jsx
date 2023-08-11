@@ -16,6 +16,7 @@ import {useEffect, useState} from "react";
 import {HOME_IMAGE_1, HOME_IMAGE_3, HOME_IMAGE_2} from "../variables";
 import Rating from "../components/Rating";
 import {ReactComponent as Logo} from "../icons/e.svg"
+import Meta from "../components/Meta";
 
 
 const HomePage = () => {
@@ -60,6 +61,7 @@ const HomePage = () => {
                     <Message variant={"error"} children={error?.data?.message || error.error || errorRated.error || errorRated?.data?.message}/>
                 ) : (
                     <>
+                        <Meta title={"Home"}/>
                         {
                             !searchTerm && (
                                 <>

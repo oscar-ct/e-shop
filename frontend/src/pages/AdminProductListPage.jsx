@@ -18,6 +18,7 @@ import {useParams} from "react-router-dom";
 import Paginate from "../components/Paginate";
 import AlertModal from "../components/AlertModal";
 import ConfirmModal from "../components/ConfirmModal";
+import Meta from "../components/Meta";
 
 
 const AdminProductListPage = () => {
@@ -307,262 +308,265 @@ const AdminProductListPage = () => {
 
     return (
         isLoading || !localData ? <Spinner/> : error ? error : (
-            <div className={"pt-10"}>
-                <AdminTabs/>
-                <div className={"mt-5 card bg-base-100 shadow-xl"}>
-                    <div className={"w-full px-5 flex justify-center py-5"}>
-                        <div className={"text-2xl"}>
-                            Products
-                            <button
-                                onClick={() => navigate("/admin/products/create")}
-                                className={"absolute right-6 self-end btn btn-info border-[1px] border-neutral btn-sm"}
-                            >
-                                <FaPlus/>
-                            </button>
+            <>
+                <Meta title={"Product List"}/>
+                <div className={"pt-10"}>
+                    <AdminTabs/>
+                    <div className={"mt-5 card bg-base-100 shadow-xl"}>
+                        <div className={"w-full px-5 flex justify-center py-5"}>
+                            <div className={"text-2xl"}>
+                                Products
+                                <button
+                                    onClick={() => navigate("/admin/products/create")}
+                                    className={"absolute right-6 self-end btn btn-info border-[1px] border-neutral btn-sm"}
+                                >
+                                    <FaPlus/>
+                                </button>
+                            </div>
+
                         </div>
+                        <div className="overflow-x-auto p-5">
+                            <table className="table table-zebra w-full table-xs">
+                                <thead>
+                                <tr>
+                                    <th/>
+                                    {/*<th>ID</th>*/}
+                                    <th className={"p-1"}>Name</th>
+                                    <th className={"p-1"}>Brand</th>
+                                    <th className={"p-1"}>Model</th>
+                                    <th className={"p-1"}>Color</th>
+                                    <th className={"p-1"}>Price</th>
+                                    <th className={"p-1"}>Stock</th>
+                                    <th className={"p-1"}>Category</th>
+                                    <th className={"p-1"}>Description</th>
+                                    <th className={"p-1"}>List date</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {
+                                    localData && (
+                                        localData.map(function(item, index) {
+                                            return (
+                                                <tr className={"hover"} key={index}>
 
-                    </div>
-                    <div className="overflow-x-auto p-5">
-                        <table className="table table-zebra w-full table-xs">
-                            <thead>
-                            <tr>
-                                <th/>
-                                {/*<th>ID</th>*/}
-                                <th className={"p-1"}>Name</th>
-                                <th className={"p-1"}>Brand</th>
-                                <th className={"p-1"}>Model</th>
-                                <th className={"p-1"}>Color</th>
-                                <th className={"p-1"}>Price</th>
-                                <th className={"p-1"}>Stock</th>
-                                <th className={"p-1"}>Category</th>
-                                <th className={"p-1"}>Description</th>
-                                <th className={"p-1"}>List date</th>
-                            </tr>
-                            </thead>
-                            <tbody>
-                            {
-                                localData && (
-                                    localData.map(function(item, index) {
-                                        return (
-                                            <tr className={"hover"} key={index}>
-
-                                                {
-                                                    editMode && item._id === productId ? (
-                                                        <>
-                                                            <th className={"bg-blue-200"}>{index+1}</th>
-                                                            {/*<td className={"bg-blue-200"}>{item._id.substring(item._id.length - 6, item._id.length)}</td>*/}
-                                                            <td className={"p-1 pt-2 bg-blue-200"}>
-                                                                <textarea
-                                                                    className="pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    // className="pl-1 py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    value={name}
-                                                                    onChange={(e) => setName(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    type={"text"}
-                                                                    value={brand}
-                                                                    onChange={(e) => setBrand(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    type={"text"}
-                                                                    value={model}
-                                                                    onChange={(e) => setModel(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    type={"text"}
-                                                                    value={color}
-                                                                    onChange={(e) => setColor(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-[65px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    type={"number"}
-                                                                    min={0}
-                                                                    value={price}
-                                                                    onChange={(e) => setPrice(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-[40px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    type={"number"}
-                                                                    min={0}
-                                                                    value={inStock}
-                                                                    onChange={(e) => setInStock(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <input
-                                                                    className="pl-1 shadow appearance-none border rounded w-[90px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    type={"text"}
-                                                                    value={category}
-                                                                    onChange={(e) => setCategory(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 pt-2 bg-blue-200"}>
-                                                                <textarea
-                                                                    className="pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                    value={description}
-                                                                    onChange={(e) => setDescription(e.target.value)}
-                                                                />
-                                                            </td>
-                                                            <td className={"p-1 w-20 bg-blue-200"}>{item?.createdAt.substring(0, 10)}</td>
-                                                            <td className={"p-1 bg-blue-200"}>
-                                                                <div className={"flex justify-center items-center"}>
-                                                                    <div className="tooltip tooltip-bottom" data-tip="save changes">
-                                                                        <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-xs rounded-full"}>
-                                                                            <FaCheckCircle className={"text-sm"}/>
-                                                                        </button>
+                                                    {
+                                                        editMode && item._id === productId ? (
+                                                            <>
+                                                                <th className={"bg-blue-200"}>{index+1}</th>
+                                                                {/*<td className={"bg-blue-200"}>{item._id.substring(item._id.length - 6, item._id.length)}</td>*/}
+                                                                <td className={"p-1 pt-2 bg-blue-200"}>
+                                                                    <textarea
+                                                                        className="pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        // className="pl-1 py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        value={name}
+                                                                        onChange={(e) => setName(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <input
+                                                                        className="pl-1 shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        type={"text"}
+                                                                        value={brand}
+                                                                        onChange={(e) => setBrand(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <input
+                                                                        className="pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        type={"text"}
+                                                                        value={model}
+                                                                        onChange={(e) => setModel(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <input
+                                                                        className="pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        type={"text"}
+                                                                        value={color}
+                                                                        onChange={(e) => setColor(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <input
+                                                                        className="pl-1 shadow appearance-none border rounded w-[65px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        type={"number"}
+                                                                        min={0}
+                                                                        value={price}
+                                                                        onChange={(e) => setPrice(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <input
+                                                                        className="pl-1 shadow appearance-none border rounded w-[40px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        type={"number"}
+                                                                        min={0}
+                                                                        value={inStock}
+                                                                        onChange={(e) => setInStock(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <input
+                                                                        className="pl-1 shadow appearance-none border rounded w-[90px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        type={"text"}
+                                                                        value={category}
+                                                                        onChange={(e) => setCategory(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 pt-2 bg-blue-200"}>
+                                                                    <textarea
+                                                                        className="pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        value={description}
+                                                                        onChange={(e) => setDescription(e.target.value)}
+                                                                    />
+                                                                </td>
+                                                                <td className={"p-1 w-20 bg-blue-200"}>{item?.createdAt.substring(0, 10)}</td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <div className={"flex justify-center items-center"}>
+                                                                        <div className="tooltip tooltip-bottom" data-tip="save changes">
+                                                                            <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-xs rounded-full"}>
+                                                                                <FaCheckCircle className={"text-sm"}/>
+                                                                            </button>
+                                                                        </div>
+                                                                        <div className="tooltip tooltip-bottom" data-tip="delete item">
+                                                                            <button onClick={() => openConfirmDeleteProductModal()} className={"text-red-500 btn-glass btn-xs rounded-full"}>
+                                                                                <FaMinusCircle className={"text-sm"}/>
+                                                                            </button>
+                                                                        </div>
                                                                     </div>
-                                                                    <div className="tooltip tooltip-bottom" data-tip="delete item">
-                                                                        <button onClick={() => openConfirmDeleteProductModal()} className={"text-red-500 btn-glass btn-xs rounded-full"}>
-                                                                            <FaMinusCircle className={"text-sm"}/>
-                                                                        </button>
-                                                                    </div>
+                                                                </td>
+                                                            </>
+                                                        ) : (
+                                                            <>
+                                                            <th>{index+1}</th>
+                                                            {/*<td>{item._id.substring(item._id.length - 6, item._id.length)}*/}
+                                                            {/*</td>*/}
+                                                            <td className={"p-1 w-64"}><Link className={"link link-primary"} to={`/product/${item._id}`}>
+                                                                {item.name.substring(0, 42)}
+                                                            </Link></td>
+                                                            <td className={"p-1"}>{item.brand}</td>
+                                                            <td className={"p-1"}>{item.model}</td>
+                                                            <td className={"p-1"}>{item.color}</td>
+                                                            <td className={"p-1"}>${item.price}</td>
+                                                            <td className={"p-1"}>{item.countInStock !== 0 ? item.countInStock : <FaTimes fill={"red"}/>}</td>
+                                                            <td className={"p-1"}>{item.category}</td>
+                                                            <td className={"p-1 w-64"}>{item.description.substring(0, 32)}...</td>
+                                                            <td className={"w-20 p-1"}>{item?.createdAt.substring(0, 10)}</td>
+                                                            <td className={"p-2"}>
+                                                                <div className={"flex justify-end items-center"}>
+                                                                    <button
+                                                                        onClick={() => editProductHandler(item._id)}
+                                                                        className={"btn-glass btn-xs rounded-full hover:text-primary"}
+                                                                    >
+                                                                        <FaEdit className={"text-sm"}/>
+                                                                    </button>
+                                                                    <button
+                                                                        onClick={() => openImagesModal(item._id)}
+                                                                        className={`btn-glass btn-xs rounded-full hover:text-primary ${editMode && "hidden"}`}
+                                                                    >
+                                                                        <FaImages className={"text-sm"}/>
+                                                                    </button>
                                                                 </div>
                                                             </td>
-                                                        </>
-                                                    ) : (
-                                                        <>
-                                                        <th>{index+1}</th>
-                                                        {/*<td>{item._id.substring(item._id.length - 6, item._id.length)}*/}
-                                                        {/*</td>*/}
-                                                        <td className={"p-1 w-64"}><Link className={"link link-primary"} to={`/product/${item._id}`}>
-                                                            {item.name.substring(0, 42)}
-                                                        </Link></td>
-                                                        <td className={"p-1"}>{item.brand}</td>
-                                                        <td className={"p-1"}>{item.model}</td>
-                                                        <td className={"p-1"}>{item.color}</td>
-                                                        <td className={"p-1"}>${item.price}</td>
-                                                        <td className={"p-1"}>{item.countInStock !== 0 ? item.countInStock : <FaTimes fill={"red"}/>}</td>
-                                                        <td className={"p-1"}>{item.category}</td>
-                                                        <td className={"p-1 w-64"}>{item.description.substring(0, 32)}...</td>
-                                                        <td className={"w-20 p-1"}>{item?.createdAt.substring(0, 10)}</td>
-                                                        <td className={"p-2"}>
-                                                            <div className={"flex justify-end items-center"}>
-                                                                <button
-                                                                    onClick={() => editProductHandler(item._id)}
-                                                                    className={"btn-glass btn-xs rounded-full hover:text-primary"}
-                                                                >
-                                                                    <FaEdit className={"text-sm"}/>
-                                                                </button>
-                                                                <button
-                                                                    onClick={() => openImagesModal(item._id)}
-                                                                    className={`btn-glass btn-xs rounded-full hover:text-primary ${editMode && "hidden"}`}
-                                                                >
-                                                                    <FaImages className={"text-sm"}/>
-                                                                </button>
-                                                            </div>
-                                                        </td>
-                                                        </>
-                                                    )
-                                                }
-                                            </tr>
+                                                            </>
+                                                        )
+                                                    }
+                                                </tr>
 
-                                        )
-                                    })
-                                )
+                                            )
+                                        })
+                                    )
 
-                            }
-                            </tbody>
-                            <tfoot>
-                            </tfoot>
-                        </table>
-                    </div>
-
-
-                    <div className={"pt-4 lg:pt-0 pb-8 flex justify-center"}>
-                        <div className={"join"}>
-                            <Paginate pages={data.pages} page={data.page} isAdmin={true}/>
+                                }
+                                </tbody>
+                                <tfoot>
+                                </tfoot>
+                            </table>
                         </div>
+
+
+                        <div className={"pt-4 lg:pt-0 pb-8 flex justify-center"}>
+                            <div className={"join"}>
+                                <Paginate pages={data.pages} page={data.page} isAdmin={true}/>
+                            </div>
+                        </div>
+
                     </div>
 
-                </div>
 
+                   {/*MODALS BELOW */}
 
-               {/*MODALS BELOW */}
+                    <ConfirmModal title={"Confirm Changes"} initiateFunction={submitUpdateHandler}>
+                        <h3 className="font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
+                        {
+                            modalMessage !== "" && (
+                                modalMessage.split("&").map(function(sentence, index){
+                                    return (
+                                        <p className={"pt-3"} key={index}>{sentence}</p>
+                                    )
+                                })
+                            )
+                        }
+                    </ConfirmModal>
 
-                <ConfirmModal title={"Confirm Changes"} initiateFunction={submitUpdateHandler}>
-                    <h3 className="font-semibold text-lg">Please confirm these are the changes you wish to make --</h3>
-                    {
-                        modalMessage !== "" && (
-                            modalMessage.split("&").map(function(sentence, index){
-                                return (
-                                    <p className={"pt-3"} key={index}>{sentence}</p>
-                                )
-                            })
-                        )
-                    }
-                </ConfirmModal>
-
-                <dialog id="images_modal" className="modal modal-bottom sm:modal-middle">
-                    {
-                        modalIsOpen && (
-                            <form method="dialog" className="modal-box">
-                                <div className="px-2 pt-2">
-                                    <h2 className={"pb-5 text-center text-xl"}>{localData.find((x) => x._id === productId).name}</h2>
-                                    {
-                                        localData.find((x) => x._id === productId).images.length !== 0 ? (
-                                            localData.find((x) => x._id === productId).images.map(function (image) {
-                                                return (
-                                                    <div key={image._id}>
-                                                        <div className={"flex"}>
-                                                            <div className={"w-11/12 py-2"}>
-                                                                <img className={"rounded-xl w-full"} src={image.url} alt={"product"}/>
-                                                            </div>
-                                                            <div className={"w-1/12 flex justify-end items-center"}>
-                                                                <button
-                                                                    onClick={async (e) => {
-                                                                        e.preventDefault();
-                                                                        await deleteProductImageFromDbAndFilestack(image._id, image.handle)
-                                                                    }}
-                                                                    className={"text-red-500 rounded-full text-xl"}>
-                                                                    <FaMinusCircle/>
-                                                                </button>
+                    <dialog id="images_modal" className="modal modal-bottom sm:modal-middle">
+                        {
+                            modalIsOpen && (
+                                <form method="dialog" className="modal-box">
+                                    <div className="px-2 pt-2">
+                                        <h2 className={"pb-5 text-center text-xl"}>{localData.find((x) => x._id === productId).name}</h2>
+                                        {
+                                            localData.find((x) => x._id === productId).images.length !== 0 ? (
+                                                localData.find((x) => x._id === productId).images.map(function (image) {
+                                                    return (
+                                                        <div key={image._id}>
+                                                            <div className={"flex"}>
+                                                                <div className={"w-11/12 py-2"}>
+                                                                    <img className={"rounded-xl w-full"} src={image.url} alt={"product"}/>
+                                                                </div>
+                                                                <div className={"w-1/12 flex justify-end items-center"}>
+                                                                    <button
+                                                                        onClick={async (e) => {
+                                                                            e.preventDefault();
+                                                                            await deleteProductImageFromDbAndFilestack(image._id, image.handle)
+                                                                        }}
+                                                                        className={"text-red-500 rounded-full text-xl"}>
+                                                                        <FaMinusCircle/>
+                                                                    </button>
+                                                                </div>
                                                             </div>
                                                         </div>
-                                                    </div>
-                                                )
-                                            })
-                                        ) : (
-                                            <h2 className={"font-bold text-2xl"}>No images found</h2>
-                                        )
-                                    }
-                                </div>
-                                <div className="modal-action">
-                                    <button className={"btn btn-neutral rounded-xl"} onClick={closeImagesModal}>Close</button>
-                                    <button onClick={openPicker} className={"btn rounded-xl"}>Add Image</button>
-                                </div>
-                            </form>
-                        )
-                    }
-                </dialog>
+                                                    )
+                                                })
+                                            ) : (
+                                                <h2 className={"font-bold text-2xl"}>No images found</h2>
+                                            )
+                                        }
+                                    </div>
+                                    <div className="modal-action">
+                                        <button className={"btn btn-neutral rounded-xl"} onClick={closeImagesModal}>Close</button>
+                                        <button onClick={openPicker} className={"btn rounded-xl"}>Add Image</button>
+                                    </div>
+                                </form>
+                            )
+                        }
+                    </dialog>
 
-                <AlertModal title={"Delete Product"} initiateFunction={() => submitDeleteProduct()}>
-                    <div className={"flex flex-col"}>
-                        <p>
-                            Are you sure you want to delete this product?
-                            <span className={"pl-2 text-red-600 font-semibold"}>
-                                This cannot be undone.
-                            </span>
-                        </p>
-                        <p className={"pt-3 text-center font-bold text-lg"}>
-                            {name}
-                        </p>
-                    </div>
-                </AlertModal>
+                    <AlertModal title={"Delete Product"} initiateFunction={() => submitDeleteProduct()}>
+                        <div className={"flex flex-col"}>
+                            <p>
+                                Are you sure you want to delete this product?
+                                <span className={"pl-2 text-red-600 font-semibold"}>
+                                    This cannot be undone.
+                                </span>
+                            </p>
+                            <p className={"pt-3 text-center font-bold text-lg"}>
+                                {name}
+                            </p>
+                        </div>
+                    </AlertModal>
 
-            </div>
+                </div>
+            </>
         )
     );
 };

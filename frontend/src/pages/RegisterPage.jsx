@@ -8,6 +8,7 @@ import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {setLoading} from "../slices/loadingSlice";
 import axios from "axios";
 import {toast} from "react-hot-toast";
+import Meta from "../components/Meta";
 
 const RegisterPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -81,6 +82,7 @@ const RegisterPage = () => {
 
     return (
         <>
+            <Meta title={"Register"}/>
             <div className="h-max relative">
                 <div className="h-full flex flex-row justify-center">
                     <div className="my-10 w-full flex justify-center self-center">

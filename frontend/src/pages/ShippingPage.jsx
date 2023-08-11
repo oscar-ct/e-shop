@@ -5,6 +5,7 @@ import {saveShippingAddress} from "../slices/cartSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
 import {useUpdateUserAddressMutation} from "../slices/usersApiSlice";
 import {setCredentials} from "../slices/authSlice";
+import Meta from "../components/Meta";
 
 const ShippingPage = () => {
 
@@ -89,6 +90,7 @@ const ShippingPage = () => {
 
     return (
         <>
+            <Meta title={"Shipping Address"}/>
             <CheckoutSteps step2 />
             <div className={"w-full flex justify-center"}>
                 <div className={"mb-10 card p-10 w-[35em] bg-base-100 shadow-xl"}>
