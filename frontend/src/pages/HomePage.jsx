@@ -79,12 +79,14 @@ const HomePage = () => {
                                                     className={"h-[25em] rounded-br-xl rounded-bl-xl"}
                                                      style={{background: `url(${HOME_IMAGE_1})`, backgroundPosition: "top", backgroundSize: "cover"}}
                                                 >
-                                                    <div className={"absolute w-full top-[40%]"}>
-                                                        <div style={{fontFamily: 'Ubuntu'}} className={"text-6xl flex justify-center items-center"}>
-                                                            <span className={"font-bold text-base-100 pr-2"}>Welcome</span> <span className={"pr-2 text-neutral"}>to</span><span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span><span className={"pl-2 text-neutral"}>-shop!</span>
-                                                        </div>
-                                                        <div className={"text-center text-neutral font-bold"}>
-                                                            An e-commerce site designed and developed by Oscar Castro
+                                                    <div className={"absolute w-full h-full flex items-center justify-center"}>
+                                                        <div className={"flex flex-col"}>
+                                                            <div style={{fontFamily: 'Ubuntu'}} className={"text-6xl flex justify-center flex-wrap items-center px-3"}>
+                                                                <span className={"font-bold text-base-100 pr-2"}>Welcome</span> <span className={"pr-2 text-neutral"}>to</span><span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span><span className={"pl-2 text-neutral"}>-shop!</span>
+                                                            </div>
+                                                            <p className={"px-3 text-center text-base-100 font-bold"}>
+                                                                An e-commerce site designed and developed by Oscar Castro
+                                                            </p>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -94,8 +96,8 @@ const HomePage = () => {
                                                     className={"h-[25em] rounded-br-xl rounded-bl-xl"}
                                                      style={{background: `url(${HOME_IMAGE_2})`, backgroundPosition: "center", backgroundSize: "cover"}}
                                                 >
-                                                    <div className={"absolute w-full text-center top-[40%]"}>
-                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-5xl text-white font-bold"}>
+                                                    <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
+                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-5xl text-white font-bold px-3"}>
                                                             Shop safe and secure with PayPal
                                                         </span>
                                                     </div>
@@ -106,8 +108,8 @@ const HomePage = () => {
                                                     className={"h-[25em] rounded-br-xl rounded-bl-xl"}
                                                     style={{background: `url(${HOME_IMAGE_3})`, backgroundPosition: "center", backgroundSize: "cover"}}
                                                 >
-                                                    <div className={"absolute w-full text-center top-[40%]"}>
-                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl text-white font-bold"}>
+                                                    <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
+                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl text-white font-bold px-3"}>
                                                             Fast 3-day shipping!
                                                         </span>
                                                     </div>
@@ -135,13 +137,15 @@ const HomePage = () => {
                                                     return <SwiperSlide key={index}>
                                                         <Link to={`/product/${data._id}`} className={"relative"}>
                                                             <img
-                                                                className={"bg-zinc-100/70 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl "}
+                                                                className={"bg-zinc-100/70 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                                 src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
-                                                            <div className={"opacity-90 p-2 rounded-tl-lg bg-white absolute bottom-0 right-0 rounded-br-xl"}>
-                                                                <h5 className={"sm:text-xs"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
+                                                            <div className={" absolute top-0 left-0 bottom-0 right-0 flex justify-end items-end"}>
+                                                                <h5 className={"rounded-tl-md rounded-br-xl p-2 bg-base-100/90 sm:text-xs"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
                                                             </div>
-                                                            <div className={"opacity-90 p-2 rounded-bl-lg rounded-tr-xl bg-white absolute top-0 right-0"}>
-                                                                <Rating rating={data.rating}/>
+                                                            <div className={"absolute top-0 right-0 left-0 bottom-0 flex justify-end items-start"}>
+                                                                <div className={"p-2 bg-base-100/90 rounded-bl-md rounded-tr-xl"}>
+                                                                    <Rating rating={data.rating}/>
+                                                                </div>
                                                             </div>
                                                         </Link>
                                                     </SwiperSlide>
