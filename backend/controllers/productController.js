@@ -4,18 +4,17 @@ import asyncHandler from "../middleware/asyncHandler.js";
 
 
 const getAllProducts = asyncHandler(async (req, res) => {
-
 // .find({}) - empty object will find all products
-    const pageSize = 5;
+    const pageSize = req.query.searchTerm ||  req.query.sortByTerm ? 8 : 6;
     const page = Number(req.query.pageNumber) || 1;
-    const searchWord = req.query.searchTerm;
+    const keyword = req.query.searchTerm || req.query.sortByTerm || "";
+    const sortTerm = req.query.sortByTerm === "toprated" ? {rating: -1} : req.query.sortByTerm === "latest" ? {createdAt: -1} : {createdAt: -1};
     const searchTerm = req.query.searchTerm ? { name: {$regex: req.query.searchTerm, $options: "i"} } : {};
     const count = await Product.countDocuments({...searchTerm});
-    const products = await Product.find({...searchTerm}).sort({createdAt: -1}).limit(pageSize).skip(pageSize * (page-1));
+    const products = await Product.find({...searchTerm}).sort({...sortTerm}).limit(pageSize).skip(pageSize * (page-1));
     res.status(201);
-    return res.json({products, page, pages: Math.ceil(count / pageSize), searchWord: searchWord});
+    return res.json({products, page, pages: Math.ceil(count / pageSize), keyword: keyword});
 });
-
 
 
 const getProductById = asyncHandler(async (req, res) => {
