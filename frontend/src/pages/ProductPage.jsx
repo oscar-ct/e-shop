@@ -105,6 +105,13 @@ const ProductPage = () => {
                         <div className={"mb-10 flex flex-col"}>
                             <div className={"flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col "}>
+                                    <div className={"sm:hidden px-3 py-3 border-b-[1px] border-gray-300"}>
+                                        <span className={"text-2xl lg:text-xl font-semibold"}>
+                                            {product.name}
+                                        </span>
+                                        <a href={`/product/${productId}/#reviews`} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
+                                        </a>
+                                    </div>
                                     <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl rounded-xl px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
                                         <div className={"flex flex-col lg:w-7/12"}>
                                             <div className={"w-full flex justify-center rounded-xl bg-zinc-100/60 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
@@ -124,14 +131,14 @@ const ProductPage = () => {
                                         </div>
                                         <div className={"lg:w-5/12 flex flex-col lg:flex-row lg:pl-7 py-7 lg:pt-0"}>
                                             <div className={"w-full h-min border-b-[1px] border-gray-300"}>
-                                                <div className={"pb-3 border-b-[1px] border-gray-300"}>
+                                                <div className={"hidden sm:block pb-3 border-b-[1px] border-gray-300"}>
                                                     <span className={"text-2xl lg:text-xl font-semibold"}>
                                                         {product.name}
                                                     </span>
                                                     <a href={`/product/${productId}/#reviews`} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
                                                     </a>
                                                 </div>
-                                                <div className={"py-4 border-b-[1px] text-2xl border-gray-300 flex items-start"}>
+                                                <div className={"pb-4 sm:pt-4 border-b-[1px] sm:text-3xl text-4xl border-gray-300 flex items-start"}>
                                                     {
                                                         formatPrice(product.price)
                                                     }

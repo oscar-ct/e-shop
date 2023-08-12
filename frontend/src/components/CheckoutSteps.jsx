@@ -14,7 +14,7 @@ const CheckoutSteps = ({ step1, step2, step3 }) => {
     const step4name = "Submit Order"
 
     return (
-        <div className={"flex justify-center py-5 lg:py-10"}>
+        <div className={"flex justify-center pt-5 sm:pb-5 lg:py-10 text-xs sm:text-sm"}>
             {
                 step1 ? (
                     <div className={"steps w-full"}>

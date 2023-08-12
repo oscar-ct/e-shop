@@ -82,7 +82,7 @@ const ProfileAccountPassword = () => {
 
 
     return (
-        <div className="mt-10 lg:mt-0 bg-base-100 shadow-xl p-12 mx-auto rounded-xl sm:w-96 w-full">
+        <div className="sm:mt-10 lg:mt-0 bg-base-100 shadow-xl p-12 mx-auto rounded-xl sm:w-96 w-full sm:border-none border-t-[1px] border-gray-300">
             <div className="mb-4">
                 <h3 className="font-semibold text-2xl text-gray-800">Change Password
                 </h3>

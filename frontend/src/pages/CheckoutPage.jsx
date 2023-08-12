@@ -69,7 +69,7 @@ const CheckoutPage = () => {
             <Meta title={"Order Review"}/>
             {
                 cartItems.length === 0 ? (
-                    <div className={"pt-10 px-2"}>
+                    <div className={"sm:pt-10 px-2"}>
                         <BackButton/>
                         <Message variant={"info"}>
                             You have no items in your cart.  Click <Link to={"/"} className={"link link-primary"}>here</Link> to continue shopping.

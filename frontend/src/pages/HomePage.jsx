@@ -139,10 +139,10 @@ const HomePage = () => {
                                                             <img
                                                                 className={"bg-zinc-100/70 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                                 src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
-                                                            <div className={" absolute top-0 left-0 bottom-0 right-0 flex justify-end items-end"}>
-                                                                <h5 className={"rounded-tl-md rounded-br-xl p-2 bg-base-100/90 sm:text-xs"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
+                                                            <div className={"flex justify-start items-end"}>
+                                                                <h5 className={"rounded-tl-md rounded-br-xl p-2 bg-base-100/90 text-xs sm:text-sm font-semibold"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
                                                             </div>
-                                                            <div className={"absolute top-0 right-0 left-0 bottom-0 flex justify-end items-start"}>
+                                                            <div className={"top-0 right-0 absolute flex justify-end items-start"}>
                                                                 <div className={"p-2 bg-base-100/90 rounded-bl-md rounded-tr-xl"}>
                                                                     <Rating rating={data.rating}/>
                                                                 </div>
