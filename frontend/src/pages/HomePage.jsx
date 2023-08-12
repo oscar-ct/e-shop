@@ -6,7 +6,7 @@ import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import { Autoplay, Navigation, Pagination } from "swiper/modules";
+import { Autoplay, Navigation } from "swiper/modules";
 import { Swiper, SwiperSlide } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -17,6 +17,7 @@ import {HOME_IMAGE_1, HOME_IMAGE_3, HOME_IMAGE_2} from "../variables";
 import Rating from "../components/Rating";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
+import {useSelector} from "react-redux";
 
 
 const HomePage = () => {
@@ -25,6 +26,10 @@ const HomePage = () => {
     const { data, isLoading, error } = useGetProductsQuery({searchTerm, pageNumber});
     const { data: topRatedProducts, isLoading: loadingRated, error: errorRated } = useGetProductsByRatingQuery();
     const [slides, setSlides] = useState(window.innerWidth <= 640 ? 1 : window.innerWidth > 640 && window.innerWidth <= 1280 ? 2 : 3);
+    const {userData} = useSelector(function (state) {
+        return state.auth;
+    });
+    console.log(userData)
 
     // const [products, setProducts] = useState([]);
     // useEffect(function () {
@@ -82,11 +87,34 @@ const HomePage = () => {
                                                     <div className={"absolute w-full h-full flex items-center justify-center"}>
                                                         <div className={"flex flex-col"}>
                                                             <div style={{fontFamily: 'Ubuntu'}} className={"text-6xl flex justify-center flex-wrap items-center px-3"}>
-                                                                <span className={"font-bold text-base-100 pr-2"}>Welcome</span> <span className={"pr-2 text-neutral"}>to</span><span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span><span className={"pl-2 text-neutral"}>-shop!</span>
+
+                                                                <span className={`${userData && "font-normal text-neutral"} font-bold text-base-100 pr-2`}>Welcome</span>
+                                                                {
+                                                                    userData ? (
+                                                                        <span><span className={"font-bold text-base-100"}>{userData.name.split(" ")[0]}</span>, </span>
+                                                                    ) : (
+                                                                        <>
+                                                                        <span className={"pr-2 text-neutral"}>to</span>
+                                                                        <span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span>
+                                                                        <span className={"pl-2 text-neutral"}>-shop!</span>
+                                                                        </>
+                                                                    )
+                                                                }
+
+
                                                             </div>
-                                                            <p className={"px-3 text-center text-base-100 font-bold"}>
-                                                                An e-commerce site designed and developed by Oscar Castro
-                                                            </p>
+                                                            {
+                                                                userData ? (
+                                                                    <p className={"px-5 text-center text-base-100 font-bold"}>
+                                                                        a site designed and developed by Oscar Castro
+                                                                    </p>
+                                                                ) : (
+                                                                    <p className={"px-3 text-center text-base-100 font-bold"}>
+                                                                        An e-commerce site designed and developed by Oscar Castro
+                                                                    </p>
+                                                                )
+                                                            }
+
                                                         </div>
                                                     </div>
                                                 </div>
@@ -129,9 +157,9 @@ const HomePage = () => {
                                                     delay: 3500,
                                                     disableOnInteraction: false,
                                                 }}
-                                                modules={[Autoplay, Navigation, Pagination]}
+                                                modules={[Autoplay, Navigation]}
                                                 slidesPerView={slides}
-                                                pagination={{clickable: true}}
+                                                // pagination={{clickable: true}}
                                                 navigation>
                                                 {topRatedProducts.map(function (data, index) {
                                                     return <SwiperSlide key={index}>
@@ -142,12 +170,12 @@ const HomePage = () => {
                                                             <div className={"flex justify-start items-end"}>
                                                                 <h5 className={"rounded-tl-md rounded-br-xl p-2 bg-base-100/90 text-xs sm:text-sm font-semibold"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
                                                             </div>
-                                                            <div className={"top-0 right-0 absolute flex justify-end items-start"}>
-                                                                <div className={"p-2 bg-base-100/90 rounded-bl-md rounded-tr-xl"}>
-                                                                    <Rating rating={data.rating}/>
-                                                                </div>
-                                                            </div>
                                                         </Link>
+                                                        <div className={"absolute right-0 top-0 "}>
+                                                            <div className={"p-2 bg-base-100/90 rounded-bl-md rounded-tr-xl"}>
+                                                                <Rating rating={data.rating}/>
+                                                            </div>
+                                                        </div>
                                                     </SwiperSlide>
                                                 })}
                                             </Swiper>
