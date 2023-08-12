@@ -22,14 +22,13 @@ import {useSelector} from "react-redux";
 
 const HomePage = () => {
 
-    const {searchTerm, pageNumber} = useParams();
-    const { data, isLoading, error } = useGetProductsQuery({searchTerm, pageNumber});
+    const {pageNumber} = useParams();
+    const { data, isLoading, error } = useGetProductsQuery({pageNumber});
     const { data: topRatedProducts, isLoading: loadingRated, error: errorRated } = useGetProductsByRatingQuery();
     const [slides, setSlides] = useState(window.innerWidth <= 640 ? 1 : window.innerWidth > 640 && window.innerWidth <= 1280 ? 2 : 3);
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
-    console.log(userData)
 
     // const [products, setProducts] = useState([]);
     // useEffect(function () {
@@ -67,128 +66,130 @@ const HomePage = () => {
                 ) : (
                     <>
                         <Meta title={"Home"}/>
-                        {
-                            !searchTerm && (
-                                <>
-                                    <div className={"bg-base-100 shadow-xl rounded-xl"}>
-                                        <Swiper
-                                            autoplay={{
-                                                delay: 7500,
-                                                disableOnInteraction: false,
-                                            }}
-                                            modules={[Autoplay]}
-                                            slidesPerView={1}
-                                        >
-                                            <SwiperSlide>
-                                                <div
-                                                    className={"h-[25em] rounded-br-xl rounded-bl-xl"}
-                                                     style={{background: `url(${HOME_IMAGE_1})`, backgroundPosition: "top", backgroundSize: "cover"}}
-                                                >
-                                                    <div className={"absolute w-full h-full flex items-center justify-center"}>
-                                                        <div className={"flex flex-col"}>
-                                                            <div style={{fontFamily: 'Ubuntu'}} className={"text-6xl flex justify-center flex-wrap items-center px-3"}>
+                        <div className={"bg-base-100 shadow-xl rounded-xl"}>
+                            <Swiper
+                                autoplay={{
+                                    delay: 7500,
+                                    disableOnInteraction: false,
+                                }}
+                                modules={[Autoplay]}
+                                slidesPerView={1}
+                            >
+                                <SwiperSlide>
+                                    <div
+                                        className={"h-[25em] rounded-br-xl rounded-bl-xl"}
+                                         style={{background: `url(${HOME_IMAGE_1})`, backgroundPosition: "top", backgroundSize: "cover"}}
+                                    >
+                                        <div className={"absolute w-full h-full flex items-center justify-center"}>
+                                            <div className={"flex flex-col"}>
+                                                <div style={{fontFamily: 'Ubuntu'}} className={"text-6xl flex justify-center flex-wrap items-center px-3"}>
 
-                                                                <span className={`${userData && "font-normal text-neutral"} font-bold text-base-100 pr-2`}>Welcome</span>
-                                                                {
-                                                                    userData ? (
-                                                                        <span><span className={"font-bold text-base-100"}>{userData.name.split(" ")[0]}</span>, </span>
-                                                                    ) : (
-                                                                        <>
-                                                                        <span className={"pr-2 text-neutral"}>to</span>
-                                                                        <span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span>
-                                                                        <span className={"pl-2 text-neutral"}>-shop!</span>
-                                                                        </>
-                                                                    )
-                                                                }
+                                                    <span className={`${userData && "font-normal text-neutral"} font-bold text-base-100 pr-2`}>Welcome</span>
+                                                    {
+                                                        userData ? (
+                                                            <span><span className={"font-bold text-base-100"}>{userData.name.split(" ")[0]}</span>, </span>
+                                                        ) : (
+                                                            <>
+                                                            <span className={"pr-2 text-neutral"}>to</span>
+                                                            <span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span>
+                                                            <span className={"pl-2 text-neutral"}>-shop!</span>
+                                                            </>
+                                                        )
+                                                    }
 
 
-                                                            </div>
-                                                            {
-                                                                userData ? (
-                                                                    <p className={"px-5 text-center text-base-100 font-bold"}>
-                                                                        a site designed and developed by Oscar Castro
-                                                                    </p>
-                                                                ) : (
-                                                                    <p className={"px-3 text-center text-base-100 font-bold"}>
-                                                                        An e-commerce site designed and developed by Oscar Castro
-                                                                    </p>
-                                                                )
-                                                            }
-
-                                                        </div>
-                                                    </div>
                                                 </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div
-                                                    className={"h-[25em] rounded-br-xl rounded-bl-xl"}
-                                                     style={{background: `url(${HOME_IMAGE_2})`, backgroundPosition: "center", backgroundSize: "cover"}}
-                                                >
-                                                    <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
-                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-5xl text-white font-bold px-3"}>
-                                                            Shop safe and secure with PayPal
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </SwiperSlide>
-                                            <SwiperSlide>
-                                                <div
-                                                    className={"h-[25em] rounded-br-xl rounded-bl-xl"}
-                                                    style={{background: `url(${HOME_IMAGE_3})`, backgroundPosition: "center", backgroundSize: "cover"}}
-                                                >
-                                                    <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
-                                                        <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl text-white font-bold px-3"}>
-                                                            Fast 3-day shipping!
-                                                        </span>
-                                                    </div>
-                                                </div>
-                                            </SwiperSlide>
-                                        </Swiper>
-                                    </div>
-                                    <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-5 text-center lg:text-start"}>
-                                        Top Rated Products
-                                    </h2>
-                                    <div className={"m-auto w-full rounded-xl max-w-7xl"}>
-                                        <div className={"p-3"}>
-                                            <Swiper
-                                                spaceBetween={10}
-                                                // centeredSlides={true}
-                                                autoplay={{
-                                                    delay: 3500,
-                                                    disableOnInteraction: false,
-                                                }}
-                                                modules={[Autoplay, Navigation]}
-                                                slidesPerView={slides}
-                                                // pagination={{clickable: true}}
-                                                navigation>
-                                                {topRatedProducts.map(function (data, index) {
-                                                    return <SwiperSlide key={index}>
-                                                        <Link to={`/product/${data._id}`} className={"relative"}>
-                                                            <img
-                                                                className={"bg-zinc-100/70 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
-                                                                src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
-                                                            <div className={"flex justify-start items-end"}>
-                                                                <h5 className={"rounded-tl-md rounded-br-xl p-2 bg-base-100/90 text-xs sm:text-sm font-semibold"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
-                                                            </div>
-                                                        </Link>
-                                                        <div className={"absolute right-0 top-0 "}>
-                                                            <div className={"p-2 bg-base-100/90 rounded-bl-md rounded-tr-xl"}>
-                                                                <Rating rating={data.rating}/>
-                                                            </div>
-                                                        </div>
-                                                    </SwiperSlide>
-                                                })}
-                                            </Swiper>
+                                                {
+                                                    userData ? (
+                                                        <p className={"px-5 text-center text-base-100 font-bold"}>
+                                                            a site designed and developed by Oscar Castro
+                                                        </p>
+                                                    ) : (
+                                                        <p className={"px-3 text-center text-base-100 font-bold"}>
+                                                            An e-commerce site designed and developed by Oscar Castro
+                                                        </p>
+                                                    )
+                                                }
+
+                                            </div>
                                         </div>
                                     </div>
-                                </>
-                            )
-                        }
-
-                        <div className={"pt-3 pb-10"}>
-                            <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-3 text-center lg:text-start"}>
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <div
+                                        className={"h-[25em] rounded-br-xl rounded-bl-xl"}
+                                         style={{background: `url(${HOME_IMAGE_2})`, backgroundPosition: "center", backgroundSize: "cover"}}
+                                    >
+                                        <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
+                                            <span style={{fontFamily: 'Ubuntu'}} className={"text-5xl text-white font-bold px-3"}>
+                                                Shop safe and secure with PayPal
+                                            </span>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                                <SwiperSlide>
+                                    <div
+                                        className={"h-[25em] rounded-br-xl rounded-bl-xl"}
+                                        style={{background: `url(${HOME_IMAGE_3})`, backgroundPosition: "center", backgroundSize: "cover"}}
+                                    >
+                                        <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
+                                            <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl text-white font-bold px-3"}>
+                                                Fast 3-day shipping!
+                                            </span>
+                                        </div>
+                                    </div>
+                                </SwiperSlide>
+                            </Swiper>
+                        </div>
+                        <div className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
+                            <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
+                                Top Rated Products
+                            </h2>
+                            <Link to={"/sort/toprated"} className={"link text-xs sm:text-sm"}>View All</Link>
+                        </div>
+                        <div className={"m-auto w-full rounded-xl max-w-7xl"}>
+                            <div className={"p-3"}>
+                                <Swiper
+                                    spaceBetween={10}
+                                    // centeredSlides={true}
+                                    autoplay={{
+                                        delay: 3500,
+                                        disableOnInteraction: false,
+                                    }}
+                                    modules={[Autoplay, Navigation]}
+                                    slidesPerView={slides}
+                                    // pagination={{clickable: true}}
+                                    navigation>
+                                    {topRatedProducts.map(function (data, index) {
+                                        return <SwiperSlide key={index}>
+                                            <Link to={`/product/${data._id}`} className={"relative"}>
+                                                <img
+                                                    className={"bg-zinc-100/70 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                    src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
+                                                <div className={"flex justify-start items-end"}>
+                                                    <h5 className={"rounded-tl-md rounded-br-xl p-2 bg-base-100/90 text-xs sm:text-sm font-semibold"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
+                                                </div>
+                                            </Link>
+                                            <div className={"absolute right-0 top-0 "}>
+                                                <div className={"p-2 bg-base-100/90 rounded-bl-md rounded-tr-xl"}>
+                                                    <Rating rating={data.rating}/>
+                                                </div>
+                                            </div>
+                                        </SwiperSlide>
+                                    })}
+                                </Swiper>
+                            </div>
+                        </div>
+                        <div className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
+                            <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
                                 Lastest Products
                             </h2>
+                            <Link to={"/sort/latest"} className={"link text-xs sm:text-sm"}>View All</Link>
+                        </div>
+                        <div className={"pb-10"}>
+                            {/*<h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-3 text-center lg:text-start"}>*/}
+                            {/*    Lastest Products*/}
+                            {/*</h2>*/}
                             <div className={"w-full flex flex-wrap justify-center"}>
                                 {
                                     data.products.map(function (product) {
@@ -198,7 +199,7 @@ const HomePage = () => {
                             </div>
                             <div className={"pt-10 flex justify-center"}>
                                 <div className={"join"}>
-                                    <Paginate pages={data.pages} page={data.page} searchTerm={searchTerm}/>
+                                    <Paginate pages={data.pages} page={data.page}/>
                                 </div>
                             </div>
                         </div>
