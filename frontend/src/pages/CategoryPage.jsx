@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import {Link, useParams} from "react-router-dom";
 import {useGetProductsQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
@@ -11,6 +11,10 @@ const CategoryPage = () => {
 
     const {sortByTerm, pageNumber} = useParams();
     const { data, isLoading} = useGetProductsQuery({sortByTerm, pageNumber});
+
+    useEffect(function () {
+        window.scrollTo(0,0);
+    }, [])
 
     return (
         isLoading ? (
@@ -27,7 +31,7 @@ const CategoryPage = () => {
                                     BACK
                                 </span>
                             </Link>
-                            <h2 className={"text-3xl text-center px-2 pb-5"}>
+                            <h2 className={"text-2xl lg:text-3xl text-center px-2 pb-5"}>
                                 {
                                     data.keyword === "latest" ? "Latest Products" : "Top Rated Products"
                                 }
