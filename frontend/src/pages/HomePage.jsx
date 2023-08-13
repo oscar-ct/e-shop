@@ -76,9 +76,8 @@ const HomePage = () => {
                                 slidesPerView={1}
                             >
                                 <SwiperSlide>
-                                    <div
+                                    <div style={{background: `url(${HOME_IMAGE_1})`,  backgroundPosition: "center", backgroundSize: "cover"}}
                                         className={"h-[25em] rounded-br-xl rounded-bl-xl"}
-                                         style={{background: `url(${HOME_IMAGE_1})`, backgroundPosition: "top", backgroundSize: "cover"}}
                                     >
                                         <div className={"absolute w-full h-full flex items-center justify-center"}>
                                             <div className={"flex flex-col"}>
