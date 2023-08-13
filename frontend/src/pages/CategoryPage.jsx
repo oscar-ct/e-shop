@@ -6,6 +6,7 @@ import Meta from "../components/Meta";
 import ProductItem from "../components/ProductItem";
 import Paginate from "../components/Paginate";
 import {ReactComponent as Arrow} from "../icons/arrow_back.svg";
+import SelectMenu from "../components/SelectMenu";
 
 const CategoryPage = () => {
 
@@ -13,8 +14,13 @@ const CategoryPage = () => {
     const { data, isLoading} = useGetProductsQuery({sortByTerm, pageNumber});
 
     useEffect(function () {
-        window.scrollTo(0,0);
-    }, [])
+        if (data) {
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+        }
+    }, [data])
 
     return (
         isLoading ? (
@@ -25,12 +31,19 @@ const CategoryPage = () => {
                 {
                     data.products.length !== 0 && (
                         <div className={"mb-10"}>
-                            <Link className={"px-2 md:px-0 my-5 flex items-center w-min"} to={"/"}>
-                                <Arrow className={"w-5 h-5"}/>
-                                <span className={"pl-1 lg:text-sm font-normal"}>
-                                    BACK
-                                </span>
-                            </Link>
+                            <div className={"flex justify-between"}>
+                                <Link className={"px-2 md:px-0 my-5 flex items-center w-min"} to={"/"}>
+                                    <Arrow className={"w-5 h-5"}/>
+                                    <span className={"pl-1 lg:text-sm font-normal"}>
+                                        HOME
+                                    </span>
+                                </Link>
+                                <div className={"w-max m-2 flex items-center"}>
+                                    <p className={"pr-2 text-xs sm:text-sm"}>Sort By:</p>
+                                    <SelectMenu params={sortByTerm}/>
+                                </div>
+                            </div>
+
                             <h2 className={"text-2xl lg:text-3xl text-center px-2 pb-5"}>
                                 {
                                     data.keyword === "latest" ? "Latest Products" : "Top Rated Products"
