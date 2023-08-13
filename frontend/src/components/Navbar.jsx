@@ -109,7 +109,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md bg-neutral/70 text-white backdrop-blur-sm lg:py-4`}>
+            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md bg-neutral/80 text-white backdrop-blur-lg lg:py-4`}>
                 <div className="px-5 flex justify-between items-center">
                     <div className={"hidden lg:flex lg:items-center cursor-pointer rounded-xl py-2 px-3"}>
                         <motion.div
@@ -233,11 +233,11 @@ const Navbar = () => {
                             </svg>
                         )}
                     </button>
-                    <div className={"lg:hidden gap-2 flex items-center"}>
+                    <div className={"lg:hidden flex items-center"}>
                         <div className={"py-1"}>
                             <SearchBox/>
                         </div>
-                        <div className={"hidden sm:block"}>
+                        <div>
                             <CartIcon cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice} />
                         </div>
                     </div>
