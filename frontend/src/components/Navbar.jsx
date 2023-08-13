@@ -110,7 +110,7 @@ const Navbar = () => {
     return (
         <>
             <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md bg-neutral/80 text-white backdrop-blur-lg lg:py-4`}>
-                <div className="px-5 flex justify-between items-center">
+                <div className="px-2 sm:px-5 flex justify-between items-center">
                     <div className={"hidden lg:flex lg:items-center cursor-pointer rounded-xl py-2 px-3"}>
                         <motion.div
                             onClick={() => navigate("/")}
