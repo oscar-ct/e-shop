@@ -62,9 +62,9 @@ const Navbar = () => {
             }
         };
         if (openNav) {
-            window.addEventListener("mousedown", handleClickOutside);
+            window.addEventListener("click", handleClickOutside);
         }
-        return () => window.removeEventListener("mousedown", handleClickOutside);
+        return () => window.removeEventListener("click", handleClickOutside);
     }, [openNav]);
 
     const styles = {
@@ -109,7 +109,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md bg-neutral/80 text-white backdrop-blur-lg lg:py-4`}>
+            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md text-neutral backdrop-blur-lg lg:py-4`}>
                 <div className="px-2 sm:px-5 flex justify-between items-center">
                     <div className={"hidden lg:flex lg:items-center cursor-pointer rounded-xl py-2 px-3"}>
                         <motion.div
@@ -118,7 +118,7 @@ const Navbar = () => {
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 1.0 }}
                         >
-                            <Logo className={"w-6 mr-1"} fill={"white"}/>
+                            <Logo className={"w-6 mr-1"} fill={"black"}/>
                             {/*<button*/}
                             {/*    style={{fontFamily: 'Moirai One, cursive', fontSize: "40px"}}*/}
                             {/*>*/}

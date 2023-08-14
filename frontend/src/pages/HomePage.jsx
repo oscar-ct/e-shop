@@ -83,7 +83,7 @@ const HomePage = () => {
                                             <div className={"flex flex-col"}>
                                                 <div style={{fontFamily: 'Ubuntu'}} className={"text-6xl flex justify-center flex-wrap items-center px-3"}>
 
-                                                    <span className={`${userData && "font-normal text-neutral"} font-bold text-base-100 pr-2`}>Welcome</span>
+                                                    <span className={`${userData && "font-normal text-neutral"} font-bold text-base-100 pr-2`}>{userData ? "Hello" : "Welcome"}</span>
                                                     {
                                                         userData ? (
                                                             <span><span className={"font-bold text-base-100"}>{userData.name.split(" ")[0]}</span>, </span>
@@ -100,8 +100,8 @@ const HomePage = () => {
                                                 </div>
                                                 {
                                                     userData ? (
-                                                        <p className={"px-5 text-center text-base-100 font-bold"}>
-                                                            a site designed and developed by Oscar Castro
+                                                        <p className={"px-5 text-center text-neutral font-bold"}>
+                                                            welcome to e-shop, a site designed and developed by Oscar Castro
                                                         </p>
                                                     ) : (
                                                         <p className={"px-3 text-center text-base-100 font-bold"}>

@@ -11,7 +11,7 @@ body {
   background-position: left top;
   position:absolute;
   background-image: url("./icons/bg.png");
-  background-size: contain;
+  background-size: cover;
   /*background-position: top;*/
   /*background-repeat: no-repeat;*/
   margin: 0;
