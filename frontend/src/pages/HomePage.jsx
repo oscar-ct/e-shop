@@ -88,7 +88,7 @@ const HomePage = () => {
                                                             <>
                                                                 <div className={"w-full flex flex-col"}>
                                                                     <div className={"text-6xl flex flex-wrap justify-center items-center"}>
-                                                                        <span className={"font-semibold"}>Welcome,</span>
+                                                                        <span className={"font-semibold text-neutral"}>Welcome,</span>
                                                                         <span className={"px-3 font-bold text-white"}>{userData.name.split(" ")[0]}!</span>
                                                                     </div>
                                                                     {/*<p className={"px-3 text-center text-base-100 font-bold"}>*/}
