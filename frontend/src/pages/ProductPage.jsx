@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useRef} from 'react';
 import {useParams, useLocation} from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
@@ -56,6 +56,12 @@ const ProductPage = () => {
         }
     }, [location.search]);
 
+    const scrollTo = useRef(null);
+
+    const executeScroll = (ref) => {
+        scrollTo.current.scrollIntoView({behavior: "smooth", block: "start"})
+    };
+
 
     return (
         <>
@@ -109,12 +115,12 @@ const ProductPage = () => {
                                         <span className={"text-2xl lg:text-xl font-semibold"}>
                                             {product.name}
                                         </span>
-                                        <a href={`/product/${productId}/#reviews`} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
-                                        </a>
+                                        <button onClick={executeScroll} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
+                                        </button>
                                     </div>
                                     <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl rounded-xl px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
-                                        <div className={"flex flex-col lg:w-7/12"}>
-                                            <div className={"w-full flex justify-center rounded-xl bg-zinc-100/60 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
+                                        <div className={"flex flex-col lg:w-6/12"}>
+                                            <div className={"w-full flex justify-center rounded-xl bg-zinc-100/20 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
                                                 <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl cursor-pointer rounded-sm object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
                                             </div>
                                             <div className={"w-full flex pt-7"}>
@@ -129,14 +135,14 @@ const ProductPage = () => {
                                                 }
                                             </div>
                                         </div>
-                                        <div className={"lg:w-5/12 flex flex-col lg:flex-row lg:pl-7 py-7 lg:pt-0"}>
+                                        <div className={"lg:w-6/12 flex flex-col lg:flex-row lg:pl-7 py-7 lg:pt-0"}>
                                             <div className={"w-full h-min border-b-[1px] border-gray-300"}>
                                                 <div className={"hidden sm:block pb-3 border-b-[1px] border-gray-300"}>
                                                     <span className={"text-2xl lg:text-xl font-semibold"}>
                                                         {product.name}
                                                     </span>
-                                                    <a href={`/product/${productId}/#reviews`} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
-                                                    </a>
+                                                    <button onClick={executeScroll} className={"block text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
+                                                    </button>
                                                 </div>
                                                 <div className={"pb-4 sm:pt-4 border-b-[1px] sm:text-3xl text-4xl border-gray-300 flex items-start"}>
                                                     {
@@ -147,10 +153,10 @@ const ProductPage = () => {
                                                     <h6 className={"text-lg lg:text-sm text-center pt-5"}>Product Details</h6>
                                                 </div>
                                                 <div className={"text-lg lg:text-sm py-1"}>
-                                                    <span className={"font-semibold pr-2"}>
+                                                    <span className={"font-semibold pr-3"}>
                                                         Brand:
                                                     </span>
-                                                    <span className={"font-light"}>
+                                                    <span className={"font-normal"}>
                                                         {product.brand}
                                                     </span>
                                                 </div>
@@ -158,23 +164,23 @@ const ProductPage = () => {
                                                     <span className={"font-semibold pr-2"}>
                                                         Model:
                                                     </span>
-                                                    <span className={"font-light"}>
+                                                    <span className={"font-normal"}>
                                                         {product.model}
                                                     </span>
                                                 </div>
                                                 <div className={"text-lg lg:text-sm py-1"}>
-                                                    <span className={"font-semibold pr-2"}>
+                                                    <span className={"font-semibold pr-3"}>
                                                         Color:
                                                     </span>
-                                                    <span className={"font-light"}>
+                                                    <span className={"font-normal"}>
                                                         {product.color}
                                                     </span>
                                                 </div>
                                                 <div className={"text-lg lg:text-sm pt-1 pb-5"}>
-                                                    <span className={"font-semibold pr-2"}>
+                                                    <span className={"font-semibold pr-3"}>
                                                         Description:
                                                     </span>
-                                                    <span className={"font-light"}>
+                                                    <span className={"font-normal"}>
                                                         {product.description}
                                                     </span>
                                                 </div>
@@ -247,7 +253,7 @@ const ProductPage = () => {
                                                     )
                                                 }
                                             </div>
-                                            <button className={`shadow-blue rounded-xl btn-md btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
+                                            <button className={`rounded-xl btn-md btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary shadow-blue"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
                                                 Add To Cart
                                             </button>
                                         </div>
@@ -256,7 +262,7 @@ const ProductPage = () => {
                             </div>
 
 
-                            <div className={"w-full"}>
+                            <div ref={scrollTo} className={"w-full"}>
                                 <div id="reviews" className={"pt-10 xl:pt-15 flex flex-col lg:flex-row lg:justify-start"}>
                                     <div className={"w-full lg:w-6/12"}>
                                         <div className={"bg-base-100 shadow-xl rounded-xl overflow-x-auto"}>
@@ -272,11 +278,11 @@ const ProductPage = () => {
 
                                                     {
                                                         userData ? (
-                                                            <button onClick={() =>  window.review_modal.showModal()} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase hover:bg-neutral/20"}>
+                                                            <button onClick={() =>  window.review_modal.showModal()} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase hover:bg-neutral/20 text-center"}>
                                                                 Write a review
                                                             </button>
                                                         ) : (
-                                                            <Link to={"/login"} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase hover:bg-neutral/20"}>
+                                                            <Link to={"/login"} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase hover:bg-neutral/20 text-center"}>
                                                                 Write a review
                                                             </Link>
                                                         )
@@ -304,10 +310,10 @@ const ProductPage = () => {
 
                                                                             <span className={"pl-2 text-sm font-bold"}>
                                                                                     {review.title}
-                                                                                </span>
+                                                                            </span>
                                                                         </div>
                                                                     </div>
-                                                                    <p className={"pt-2 text-sm font-light"}>
+                                                                    <p className={"pt-2 text-sm font-normal"}>
                                                                         {review.comment}
                                                                     </p>
                                                                 </div>
