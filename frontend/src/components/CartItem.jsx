@@ -28,7 +28,7 @@ const CartItem = ( {item} ) => {
 
                 <div className={"w-7/12"}>
                     <div className={"flex flex-col px-5"}>
-                        <Link to={`/product/${item._id}`} className={"lg:text-lg font-bold text-neutral hover:link hover:link-primary"}>
+                        <Link to={`/product/${item._id}`} className={"lg:text-lg font-bold hover:link hover:link-primary"}>
                             {item.name}
                         </Link>
 
@@ -77,8 +77,8 @@ const CartItem = ( {item} ) => {
                 {
                     formatPrice(item.price * item.quantity, "text-xl")
                 }
-                    <div className={"py-2 flex items-center"}>
-                        <label className="block mr-2 text-sm font-medium text-gray-900 dark:text-white">
+                    <div className={"py-2 flex justify-end items-center flex-col lg:flex-row"}>
+                        <label className="block lg:mr-2 text-sm font-medium text-gray-900 dark:text-white pb-2">
                             Qty:
                         </label>
                         <select

@@ -22,7 +22,7 @@ const OrderItem = ( {item, canceledItems, isCanceled} ) => {
 
                 <div className={"w-8/12 flex flex-col px-3 sm:px-5"}>
 
-                    <Link to={`/product/${item.productId}`} className={`sm:text-lg font-bold text-neutral hover:link-primary ${strikethrough()}`}>
+                    <Link to={`/product/${item.productId}`} className={`sm:text-lg font-bold hover:link-primary ${strikethrough()}`}>
                         {item.name}
                     </Link>
 

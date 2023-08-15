@@ -111,7 +111,7 @@ const ProductPage = () => {
                         <div className={"mb-10 flex flex-col"}>
                             <div className={"flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col "}>
-                                    <div className={"sm:hidden px-3 py-3 border-b-[1px] border-gray-300"}>
+                                    <div className={"sm:hidden px-3 py-3 border-b-[1px] border-gray-300 flex flex-col"}>
                                         <span className={"text-2xl lg:text-xl font-semibold"}>
                                             {product.name}
                                         </span>
@@ -267,7 +267,7 @@ const ProductPage = () => {
                                     <div className={"w-full lg:w-6/12"}>
                                         <div className={"bg-base-100 shadow-xl rounded-xl overflow-x-auto"}>
                                             <div className={"p-5 lg:p-8 "}>
-                                                <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px]" : "pb-0"} flex justify-between items-center  border-neutral-300`}>
+                                                <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px]" : "pb-0"} flex justify-between items-center  border-gray-300`}>
                                                     {
                                                         product.reviews.length !== 0 ? (
                                                             <span className={"text-xl font-semibold"}>Customer Reviews ({product.numReviews})</span>

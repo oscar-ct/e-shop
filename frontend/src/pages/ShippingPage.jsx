@@ -96,7 +96,7 @@ const ShippingPage = () => {
             <div className={"w-full flex justify-center"}>
                 <div className={"mb-10 card p-10 w-[35em] bg-base-100 shadow-xl"}>
                     <div className={"w-full pb-5 flex justify-center"}>
-                        <h1 className={"text-2xl text-neutral font-semibold"}>Shipping Address</h1>
+                        <h1 className={"text-2xl font-semibold"}>Shipping Address</h1>
                     </div>
 
                     {

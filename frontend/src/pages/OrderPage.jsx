@@ -138,15 +138,15 @@ const OrderPage = () => {
                         <div className={"p-5 lg:pt-10 lg:pb-5"}>
                             {
                                 order.isPaid && !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
-                                    <h1 className={"text-4xl font-bold text-neutral-700"}>
+                                    <h1 className={"text-4xl font-bold"}>
                                         Payment successful! Order is now being processed.
                                     </h1>
                                 ) : order.isPaid && order.isShipped && !order.isDelivered ? (
-                                    <h1 className={"text-4xl font-bold text-neutral-700"}>
+                                    <h1 className={"text-4xl font-bold"}>
                                         Your order is on the way.
                                     </h1>
                                 ) : order.isPaid && order.isShipped && order.isDelivered ? (
-                                    <h1 className={"text-4xl font-bold text-neutral-700"}>
+                                    <h1 className={"text-4xl font-bold "}>
                                         Your order has been delivered, thank you!
                                     </h1>
                                 ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && order.isPaid && !order.isShipped && !order.isDelivered ? (
@@ -158,7 +158,7 @@ const OrderPage = () => {
                                         Your order has been canceled.
                                     </h1>
                                 ) : (
-                                    <h1 className={"text-4xl font-bold text-neutral-700"}>
+                                    <h1 className={"text-4xl font-bold"}>
                                         Please pay order below to begin shipment process.
                                     </h1>
                                 )

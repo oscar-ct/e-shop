@@ -70,7 +70,7 @@ const CartPage = () => {
                                 <div className={"pb-10"}>
                                     <h1
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"border-b-[1px] border-gray-300 py-2 text-gray-700 rounded-xl text-2xl text-center font-semibold"}>
+                                        className={"border-b-[1px] border-gray-300 py-2 rounded-xl text-2xl text-center font-semibold"}>
                                          Shopping Cart (
                                         <span className={"text-xl text-gray-500 font-bold"}>
                                             {totalNumberOfItems}

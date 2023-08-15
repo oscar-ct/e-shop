@@ -109,7 +109,7 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md text-neutral backdrop-blur-lg lg:py-4`}>
+            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-lg lg:py-4`}>
                 <div className="px-2 sm:px-5 flex justify-between items-center">
                     <div className={"hidden lg:flex lg:items-center cursor-pointer rounded-xl py-2 px-3"}>
                         <motion.div

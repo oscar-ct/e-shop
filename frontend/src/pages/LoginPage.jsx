@@ -83,14 +83,14 @@ const LoginPage = () => {
                     <div className="sm:mt-10 mb-10 w-full flex justify-center self-center">
                         <div className="bg-base-100 shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
                             <div className="mb-4">
-                                <h3 className="font-semibold text-2xl text-gray-800">Login
+                                <h3 className="font-semibold text-2xl">Login
                                 </h3>
                                 <p className="text-gray-500">Please sign in to your account.
                                 </p>
                             </div>
                             <form onSubmit={submitSignIn} className="space-y-5">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Email
+                                    <label className="text-sm font-medium text-gray-600 tracking-wide">Email
                                     </label>
                                     <input
                                         className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
@@ -104,7 +104,7 @@ const LoginPage = () => {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="mb-5 text-sm font-medium text-gray-700 tracking-wide">
+                                    <label className="mb-5 text-sm font-medium text-gray-600 tracking-wide">
                                         Password
                                     </label>
 

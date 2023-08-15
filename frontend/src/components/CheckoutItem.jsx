@@ -29,7 +29,7 @@ const CheckoutItem = ( {item} ) => {
 
                 <div className={"w-8/12 flex flex-col px-3 sm:px-5"}>
 
-                    <Link to={`/product/${item._id}`} className={"sm:text-lg font-bold text-neutral hover:link hover:link-primary"}>
+                    <Link to={`/product/${item._id}`} className={"sm:text-lg font-bold hover:link hover:link-primary"}>
                         {item.name}
                     </Link>
 
@@ -63,8 +63,8 @@ const CheckoutItem = ( {item} ) => {
 
                         <div className={"w-3/12 flex justify-end items-end"}>
 
-                            <div className={"flex justify-end items-end"}>
-                                <label className="block mr-2 text-sm font-medium text-gray-900 dark:text-white pb-3">
+                            <div className={"flex justify-end items-center flex-col lg:flex-row"}>
+                                <label className="block lg:mr-2 text-sm font-medium text-gray-900 dark:text-white pb-3">
                                     Qty:
                                 </label>
                                 <select

@@ -80,38 +80,40 @@ const HomePage = () => {
                                         className={"h-[25em] rounded-br-xl rounded-bl-xl"}
                                     >
                                         <div className={"absolute w-full h-full flex items-center justify-center"}>
-                                            <div className={"flex flex-col"}>
-                                                <div style={{fontFamily: 'Ubuntu'}} className={"text-6xl flex justify-center flex-wrap items-center px-3"}>
 
-                                                    <span className={`${userData && "font-normal text-neutral"} font-bold text-base-100 pr-2`}>{userData ? "Hello" : "Welcome"}</span>
+                                                <div style={{fontFamily: 'Ubuntu'}} className={"w-full px-3"}>
+
                                                     {
                                                         userData ? (
-                                                            <span><span className={"font-bold text-base-100"}>{userData.name.split(" ")[0]}</span>, </span>
-                                                        ) : (
                                                             <>
-                                                            <span className={"pr-2 text-neutral"}>to</span>
-                                                            <span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span>
-                                                            <span className={"pl-2 text-neutral"}>-shop!</span>
+                                                                <div className={"w-full flex flex-col"}>
+                                                                    <div className={"text-6xl flex flex-wrap justify-center items-center"}>
+                                                                        <span className={"text-base-100 font-semibold"}>Welcome,</span>
+                                                                        <span className={"px-3 font-bold"}>{userData.name.split(" ")[0]}!</span>
+                                                                    </div>
+                                                                    <p className={"px-3 text-center text-base-100 font-bold"}>
+
+                                                                    </p>
+                                                                </div>
                                                             </>
+                                                        ) : (
+                                                            <div className={"w-full flex flex-col"}>
+                                                                <div className={"text-6xl flex flex-wrap justify-center items-center"}>
+                                                                    <span className={"font-bold text-base-100"}>Welcome</span>
+                                                                    <span className={"px-3"}>to</span>
+                                                                    <span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span>
+                                                                    <span className={"pl-3"}>-shop!</span>
+                                                                </div>
+                                                                <p className={"px-3 text-center text-base-100 font-bold"}>
+                                                                    An e-commerce site designed and developed by Oscar Castro
+                                                                </p>
+                                                            </div>
                                                         )
                                                     }
 
-
                                                 </div>
-                                                {
-                                                    userData ? (
-                                                        <p className={"px-5 text-center text-neutral font-bold"}>
-                                                            welcome to e-shop, a site designed and developed by Oscar Castro
-                                                        </p>
-                                                    ) : (
-                                                        <p className={"px-3 text-center text-base-100 font-bold"}>
-                                                            An e-commerce site designed and developed by Oscar Castro
-                                                        </p>
-                                                    )
-                                                }
-
                                             </div>
-                                        </div>
+
                                     </div>
                                 </SwiperSlide>
                                 <SwiperSlide>
