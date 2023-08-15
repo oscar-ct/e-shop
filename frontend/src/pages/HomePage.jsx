@@ -88,23 +88,23 @@ const HomePage = () => {
                                                             <>
                                                                 <div className={"w-full flex flex-col"}>
                                                                     <div className={"text-6xl flex flex-wrap justify-center items-center"}>
-                                                                        <span className={"text-base-100 font-semibold"}>Welcome,</span>
-                                                                        <span className={"px-3 font-bold"}>{userData.name.split(" ")[0]}!</span>
+                                                                        <span className={"font-semibold"}>Welcome,</span>
+                                                                        <span className={"px-3 font-bold text-white"}>{userData.name.split(" ")[0]}!</span>
                                                                     </div>
-                                                                    <p className={"px-3 text-center text-base-100 font-bold"}>
+                                                                    {/*<p className={"px-3 text-center text-base-100 font-bold"}>*/}
 
-                                                                    </p>
+                                                                    {/*</p>*/}
                                                                 </div>
                                                             </>
                                                         ) : (
                                                             <div className={"w-full flex flex-col"}>
                                                                 <div className={"text-6xl flex flex-wrap justify-center items-center"}>
-                                                                    <span className={"font-bold text-base-100"}>Welcome</span>
-                                                                    <span className={"px-3"}>to</span>
+                                                                    <span className={"font-bold text-white"}>Welcome</span>
+                                                                    <span className={"px-3 text-neutral"}>to</span>
                                                                     <span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span>
-                                                                    <span className={"pl-3"}>-shop!</span>
+                                                                    <span className={"pl-3 text-neutral"}>-shop!</span>
                                                                 </div>
-                                                                <p className={"px-3 text-center text-base-100 font-bold"}>
+                                                                <p className={"px-3 text-center text-white font-bold"}>
                                                                     An e-commerce site designed and developed by Oscar Castro
                                                                 </p>
                                                             </div>
