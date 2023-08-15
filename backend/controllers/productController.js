@@ -5,7 +5,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 
 const getAllProducts = asyncHandler(async (req, res) => {
 // .find({}) - empty object will find all products
-    const pageSize = req.query.searchTerm ||  req.query.sortByTerm ? 8 : 6;
+    const pageSize = req.query.searchTerm ||  req.query.sortByTerm ? 10 : 8;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.searchTerm || req.query.sortByTerm || "";
     const sortTerm = req.query.sortByTerm === "toprated" ? {rating: -1} : req.query.sortByTerm === "latest" ? {createdAt: -1} : {createdAt: -1};
