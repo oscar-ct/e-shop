@@ -15,6 +15,7 @@ const authSlice = createSlice({
         logout: function (state) {
             state.userData = null;
             localStorage.removeItem("userData");
+            // localStorage.removeItem("cart");
         },
         // updateShippingData: function (state, action) {
         //     state.userData.shippingAddresses = action.payload;

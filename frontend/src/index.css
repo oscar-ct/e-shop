@@ -11,7 +11,7 @@ body {
   background-position: left top;
   position:absolute;
   background-image: url("./icons/bg.png");
-  background-size: cover;
+  background-size: contain;
   /*background-position: top;*/
   /*background-repeat: no-repeat;*/
   margin: 0;
@@ -82,11 +82,6 @@ code {
   }
   .rounded-br-xl, .rounded-bl-xl, .rounded-tr-xl, .rounded-tl-xl, .rounded-xl {
     border-radius: 0!important;
-  }
-  body {
-    background-image: none;
-    background: rgb(255,255,255);
-    background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%);
   }
 }
 

@@ -4,14 +4,17 @@ import {Link, useNavigate} from "react-router-dom";
 import CheckoutSteps from "../components/CheckoutSteps";
 import {useSelector, useDispatch} from "react-redux";
 import {useCreateOrderMutation} from "../slices/ordersApiSlice";
+import {useValidateDiscountCodeMutation} from "../slices/productsApiSlice";
 import {setLoading} from "../slices/loadingSlice";
-import {clearCartItems} from "../slices/cartSlice";
+import {applyDiscountCode, clearCartItems, removeDiscountCode} from "../slices/cartSlice";
 import Message from "../components/Message";
 import CheckoutItem from "../components/CheckoutItem";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
-import {FaCreditCard} from "react-icons/fa";
+import {FaCreditCard, FaTimes} from "react-icons/fa";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
+import {toast} from "react-hot-toast";
+
 
 const CheckoutPage = () => {
 
@@ -23,12 +26,14 @@ const CheckoutPage = () => {
     });
 
     const [orderSubmitted, setOrderSubmitted] = useState(false);
+    const [discountCode, setDiscountCode] = useState("");
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
-    const { shippingAddress, paymentMethod, cartItems, taxPrice, shippingPrice, itemsPrice,totalPrice } = cartState;
+    const { discount, shippingAddress, paymentMethod, cartItems, taxPrice, shippingPrice, itemsPrice,totalPrice } = cartState;
 
     const [createOrder, {error}] = useCreateOrderMutation();
+    const [validateDiscountCode] = useValidateDiscountCodeMutation();
 
     useEffect(function () {
         if (Object.keys(shippingAddress).length === 0 && !orderSubmitted) {
@@ -41,6 +46,22 @@ const CheckoutPage = () => {
     const totalNumberOfItems = cartItems.reduce(function (acc, product) {
         return (acc + product.quantity);
     }, 0);
+
+
+    const submitApplyDiscountCode = async () => {
+        const res = await validateDiscountCode({code: discountCode}).unwrap();
+        if (!res.validCode) {
+            toast.error("Invalid discount code");
+        } else {
+            toast.success("Discount applied!");
+            dispatch(applyDiscountCode());
+            setDiscountCode("");
+        }
+    };
+
+    const submitRemoveDiscountCode = () => {
+        dispatch(removeDiscountCode());
+    }
 
     const checkoutHandler = async () => {
         setOrderSubmitted(true);
@@ -62,14 +83,14 @@ const CheckoutPage = () => {
             console.log(e || error);
             dispatch(setLoading(false));
         }
-    }
+    };
 
     return (
         <>
             <Meta title={"Order Review"}/>
             {
                 cartItems.length === 0 ? (
-                    <div className={"sm:pt-10 px-2"}>
+                    <div className={"px-2"}>
                         <BackButton/>
                         <Message variant={"info"}>
                             You have no items in your cart.  Click <Link to={"/"} className={"link link-primary"}>here</Link> to continue shopping.
@@ -221,7 +242,7 @@ const CheckoutPage = () => {
                                         </div>
                                     </div>
                                     <div
-                                        className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-xl px-8 py-8"}>
+                                        className={"flex justify-between font-bold text-xl mx-8 py-8 border-b-[1px] border-gray-300"}>
                                          <span className="text-red-600">
                                             Order Total:
                                         </span>
@@ -229,6 +250,40 @@ const CheckoutPage = () => {
                                         ${(taxPrice + shippingPrice + itemsPrice).toFixed(2)}
                                         </span>
                                     </div>
+
+                                        {
+                                            discount ? (
+                                                <div className={"px-8 py-10"}>
+                                                    <div className={"w-full"}>
+                                                        <div className={"w-full text-sm font-semibold flex items-center justify-around text-base-content relative col-start-1 row-start-1 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [&::selection]:bg-blue-700/20 [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]"}>
+                                                            <span>
+                                                                 Discount code has been applied! &#x1F389;
+                                                            </span>
+                                                            <button onClick={submitRemoveDiscountCode} className={"hover:opacity-80 cursor-pointer rounded-full border-2 border-[#27B1FFFF] p-[3px]"}>
+                                                                <FaTimes className={"h-2 w-2"} fill={"#27b1ff"}/>
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            ) : (
+                                                <div className={"px-8 py-8"}>
+                                                    <label className={"text-sm font-semibold flex flex-wrap items-center"}>
+                                                        <span>
+                                                            Have a discount code?
+                                                        </span>
+                                                    </label>
+                                                    <div className={"flex justify-between"}>
+                                                        <input className={"input input-bordered input-sm w-full max-w-xs border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"} value={discountCode} onChange={(e) => setDiscountCode(e.target.value)} type={"text"}/>
+                                                        <div className={"pl-10"}>
+                                                            <button onClick={submitApplyDiscountCode} className={"btn btn-sm btn-neutral"}>
+                                                                Apply
+                                                            </button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            )
+                                        }
+
                                 </div>
                             </div>
                         </div>

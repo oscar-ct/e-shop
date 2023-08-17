@@ -1,4 +1,4 @@
-import {PRODUCTS_URL} from "../variables";
+import {DISCOUNT_URL, PRODUCTS_URL} from "../variables";
 import {apiSlice} from "./apiSlice";
 
 export const productsApiSlice = apiSlice.injectEndpoints({
@@ -105,8 +105,18 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                     keepUnusedDataFor: 5
                 }
             ),
+            validateDiscountCode: build.mutation({
+                    query: function (data) {
+                        return {
+                            url: DISCOUNT_URL,
+                            method: "POST",
+                            body: data,
+                        }
+                    },
+                }
+            ),
         };
     }
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation, useDeleteProductImageMutation, useCreateReviewMutation, useGetProductsByRatingQuery} = productsApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation, useDeleteProductImageMutation, useCreateReviewMutation, useGetProductsByRatingQuery, useValidateDiscountCodeMutation} = productsApiSlice;

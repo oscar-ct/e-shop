@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {updateCart} from "../utils/cartUtils";
 
 
-const initialState = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {cartItems: [], shippingAddress: {}, paymentMethod: null};
+const initialState = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {cartItems: [], shippingAddress: {}, paymentMethod: null, discount: false};
 
 const cartSlice = createSlice({
    name: "cart",
@@ -36,7 +36,7 @@ const cartSlice = createSlice({
       },
       removeFromCart: function (state, action) {
          state.cartItems = state.cartItems.filter(function (item) {
-            return item._id !== action.payload
+            return item._id !== action.payload;
          });
          return updateCart(state);
       },
@@ -49,14 +49,23 @@ const cartSlice = createSlice({
          return updateCart(state);
       },
       clearCartItems: function (state) {
-         state.cartItems = []
-         state.shippingAddress = {}
-         state.paymentMethod = null
+         state.cartItems = [];
+         state.shippingAddress = {};
+         state.paymentMethod = null;
+         state.discount = false;
          return updateCart(state);
-      }
+      },
+      applyDiscountCode: function (state) {
+         state.discount = true;
+         return updateCart(state);
+      },
+      removeDiscountCode: function (state) {
+         state.discount = false;
+         return updateCart(state);
+      },
    },
 });
 
-export const { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod, clearCartItems} = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod, clearCartItems, applyDiscountCode, removeDiscountCode } = cartSlice.actions;
 
 export default cartSlice.reducer;
