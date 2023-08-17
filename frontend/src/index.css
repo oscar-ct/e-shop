@@ -6,10 +6,10 @@
 
 body {
   width: 100%;
-  background-repeat:repeat-x;
+  background-repeat: no-repeat;
   background-attachment:fixed;
-  background-position: left top;
-  position:absolute;
+  background-position: top;
+  /*position: absolute;*/
   background-image: url("./icons/bg.png");
   background-size: contain;
   /*background-position: top;*/
@@ -82,6 +82,9 @@ code {
   }
   .rounded-br-xl, .rounded-bl-xl, .rounded-tr-xl, .rounded-tl-xl, .rounded-xl {
     border-radius: 0!important;
+  }
+  .rounded-xl {
+    border-radius: 5px!important;
   }
 }
 
