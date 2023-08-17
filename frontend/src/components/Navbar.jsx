@@ -26,7 +26,8 @@ const Navbar = () => {
     const documentRef3 = useRef();
     const [openNav, setOpenNav] = useState(false);
     const [dropdownActive, setDropdownActive] = useState(false);
-    const { scrollY, scrollDirection } = useScroll();
+    const { scrollDirection } = useScroll();
+
 
     useEffect(function () {
         const closeOpenDropdown = (e) => {
@@ -106,13 +107,36 @@ const Navbar = () => {
             console.log(e)
         }
     }
+    const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
+    const [windowScrollY, setWindowScrollY] = useState(window.scrollY);
 
+    useEffect(function () {
+        const setInnerWidth = () => {
+           setWindowInnerWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", setInnerWidth);
+        return () => {
+            window.removeEventListener("resize", setInnerWidth)
+        }
+    }, []);
+
+    useEffect(function () {
+        const setScrollY = () => {
+            if (windowInnerWidth <= 500) {
+                setWindowScrollY(window.scrollY);
+            }
+        };
+        window.addEventListener("scroll", setScrollY);
+        return () => {
+            window.removeEventListener("scroll", setScrollY)
+        }
+    }, [windowInnerWidth]);
 
 
     return (
         <>
             <nav
-                className={`${window.innerWidth > 500 ? "sticky" : scrollY < 100 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 100) ? "sticky visible transition-all duration-700" : "sticky visible duration-700 transition-all translate-y-[-100%]" } inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-lg`}
+                className={`${windowInnerWidth > 500 || scrollDirection === "neutral" ? "sticky" : windowScrollY < 50 || scrollDirection === "up" || (scrollDirection === "down" &&  windowScrollY < 50) ? "translate-y-0 sticky visible transition-all duration-700" : "sticky visible duration-700 transition-all translate-y-[-100%]" } inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-lg`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
@@ -137,7 +161,7 @@ const Navbar = () => {
                             <div className="ml-auto hidden items-center gap-2 lg:flex">
                                 <SearchBox/>
                                 <div className="flex-none">
-                                    <CartIcon cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice} />
+                                    <CartIcon cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice}/>
                                 </div>
                                 {
                                     userData ? (
