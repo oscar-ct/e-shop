@@ -18,6 +18,7 @@ import {toast} from "react-hot-toast";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 
+
 const ProductPage = () => {
     // const [product, setProduct] = useState({});
     const { id: productId } = useParams();
@@ -61,7 +62,6 @@ const ProductPage = () => {
     const executeScroll = (ref) => {
         scrollTo.current.scrollIntoView({behavior: "smooth", block: "start"})
     };
-
 
     return (
         <>
@@ -115,8 +115,10 @@ const ProductPage = () => {
                                         <span className={"text-2xl lg:text-xl font-semibold"}>
                                             {product.name}
                                         </span>
-                                        <button onClick={executeScroll} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
-                                        </button>
+                                        <div className={"flex"}>
+                                            <button onClick={executeScroll} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
+                                            </button>
+                                        </div>
                                     </div>
                                     <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl rounded-xl px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
                                         <div className={"flex flex-col lg:w-6/12"}>
