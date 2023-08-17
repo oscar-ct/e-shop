@@ -112,7 +112,7 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`${window.innerWidth > 500 ? "sticky" : scrollY < 100 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 100) ? "sticky visible transition-all duration-700" : "sticky invisible duration-700 transition-all translate-y-[-100%]" } inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-lg`}
+                className={`${window.innerWidth > 500 ? "sticky" : scrollY < 100 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 100) ? "sticky visible transition-all duration-700" : "sticky visible duration-700 transition-all translate-y-[-100%]" } inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-lg`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
