@@ -2,6 +2,7 @@ import {Outlet} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import {useSelector} from "react-redux";
 import { Toaster } from 'react-hot-toast';
+import { ScrollRestoration } from "react-router-dom";
 
 function App() {
 
@@ -10,6 +11,7 @@ function App() {
     });
   return (
       <>
+          <ScrollRestoration/>
           <Toaster />
           {
               loading.loading && (
