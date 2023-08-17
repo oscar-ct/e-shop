@@ -273,7 +273,7 @@ const CheckoutPage = () => {
                                                         </span>
                                                     </label>
                                                     <div className={"flex justify-between"}>
-                                                        <input className={"input input-bordered input-sm w-full max-w-xs border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"} value={discountCode} onChange={(e) => setDiscountCode(e.target.value)} type={"text"}/>
+                                                        <input className={"text-[16px] input input-bordered input-sm w-full max-w-xs border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"} value={discountCode} onChange={(e) => setDiscountCode(e.target.value)} type={"text"}/>
                                                         <div className={"pl-10"}>
                                                             <button onClick={submitApplyDiscountCode} className={"btn btn-sm btn-neutral"}>
                                                                 Apply
