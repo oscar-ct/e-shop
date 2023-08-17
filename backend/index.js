@@ -32,7 +32,15 @@ app.use(cookieParser());
 app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
-app.use('/api/filestack', filestackRoutes)
+app.use('/api/filestack', filestackRoutes);
+
+app.post('/api/config/discountcode', ((req, res) => {
+    if (req.body.code === process.env.DISCOUNT_CODE) {
+        res.send({validCode: true})
+    } else {
+        res.send({validCode: false})
+    }
+}));
 
 app.get('/api/config/paypal', ((req, res) => res.send({clientId: process.env.PAYPAL_CLIENT_ID})));
 

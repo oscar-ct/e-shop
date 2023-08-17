@@ -267,7 +267,6 @@ const deleteUsers = asyncHandler(async (req, res) => {
 // ************************
 
 
-
 export {
     authUser,
     registerUser,

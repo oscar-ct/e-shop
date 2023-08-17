@@ -20,9 +20,7 @@ router.get('/',getAllProducts);
 router.get('/top', getProductsByRating);
 router.get('/:id', getProductById);
 
-
 router.post("/:id/reviews", protect, createProductReview);
-
 
 // ADMIN ACCESS ONLY
 router.post("/", protect, admin, createProduct);
