@@ -1,5 +1,5 @@
 import {useEffect, useState, useRef} from "react";
-import {useScroll} from "../hooks/useScroll";
+// import {useScroll} from "../hooks/useScroll";
 import {motion} from "framer-motion";
 import {FaUser, FaChevronDown} from "react-icons/fa";
 import {ReactComponent as Logo} from "../icons/e.svg"
@@ -26,7 +26,7 @@ const Navbar = () => {
     const documentRef3 = useRef();
     const [openNav, setOpenNav] = useState(false);
     const [dropdownActive, setDropdownActive] = useState(false);
-    const { scrollY, scrollDirection } = useScroll();
+    // const { scrollY, scrollDirection } = useScroll();
 
     useEffect(function () {
         const closeOpenDropdown = (e) => {
@@ -111,7 +111,10 @@ const Navbar = () => {
 
     return (
         <>
-            <nav className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-lg lg:py-4`} style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}>
+            <nav
+                className={`inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-lg`}
+                 // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
+            >
                 <div className="px-2 sm:px-5 flex justify-between items-center">
                     <div className={"hidden lg:flex lg:items-center cursor-pointer rounded-xl py-2 px-3"}>
                         <motion.div
