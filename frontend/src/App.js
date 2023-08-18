@@ -11,7 +11,12 @@ function App() {
     });
   return (
       <>
-          <ScrollRestoration/>
+          <ScrollRestoration
+              getKey={(location, matches) => {
+                  const paths = ["/product/:id"];
+                  return paths.includes(location.pathname) ? location.pathname : location.key;
+              }}
+          />
           <Toaster />
           {
               loading.loading && (
