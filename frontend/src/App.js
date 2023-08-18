@@ -12,10 +12,10 @@ function App() {
   return (
       <>
           <ScrollRestoration
-              getKey={(location, matches) => {
-                  const paths = ["/product/:id"];
-                  return paths.includes(location.pathname) ? location.pathname : location.key;
-              }}
+              // getKey={(location, matches) => {
+              //     const paths = ["/product/:id"];
+              //     return paths.includes(location.pathname) ? location.pathname : location.key;
+              // }}
           />
           <Toaster />
           {
