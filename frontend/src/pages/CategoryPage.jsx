@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+// import React, {useEffect} from 'react';
 import {Link, useParams} from "react-router-dom";
 import {useGetProductsQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
@@ -13,14 +13,14 @@ const CategoryPage = () => {
     const {sortByTerm, pageNumber} = useParams();
     const { data, isLoading} = useGetProductsQuery({sortByTerm, pageNumber});
 
-    useEffect(function () {
-        if (data) {
-            window.scrollTo({
-                top: 0,
-                behavior: "smooth"
-            });
-        }
-    }, [data])
+    // useEffect(function () {
+    //     if (data) {
+    //         window.scrollTo({
+    //             top: 0,
+    //             behavior: "smooth"
+    //         });
+    //     }
+    // }, [data])
 
     return (
         isLoading ? (
