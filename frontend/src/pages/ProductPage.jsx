@@ -108,7 +108,7 @@ const ProductPage = () => {
                     <>
                         <Meta title={product.name}/>
                         <BackButton/>
-                        <div className={"mb-10 flex flex-col"}>
+                        <div className={"pb-10 flex flex-col"}>
                             <div className={"flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col "}>
                                     <div className={"sm:hidden px-3 py-3 border-b-[1px] border-gray-300 flex flex-col"}>
