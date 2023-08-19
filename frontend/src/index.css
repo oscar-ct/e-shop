@@ -6,12 +6,14 @@
 
 body {
   width: 100%;
-  background-repeat: no-repeat;
-  background-attachment:fixed;
-  background-position: top;
+  background: rgb(255,255,255);
+  background: linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 34%, rgba(237,243,255,1) 48%, rgba(235,234,254,1) 57%, rgba(250,249,255,1) 66%, rgba(255,255,255,1) 100%);
+  /*background-repeat: no-repeat;*/
+  /*background-attachment:fixed;*/
+  /*background-position: top;*/
   /*position: absolute;*/
-  background-image: url("./icons/bg.png");
-  background-size: contain;
+  /*background-image: url("./icons/bg.png");*/
+  /*background-size: contain;*/
   /*background-position: top;*/
   /*background-repeat: no-repeat;*/
   margin: 0;
@@ -21,7 +23,6 @@ body {
   /*  sans-serif;*/
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  overflow-x: hidden
 }
 
 
