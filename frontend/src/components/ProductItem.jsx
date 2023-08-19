@@ -18,7 +18,7 @@ const ProductItem = ( {product} ) => {
 
                         {/*<p>{product.description}</p>*/}
                         <div className={"w-full flex flex-col"}>
-                            <div className={"hidden sm:flex justify-start"}>
+                            <div className={"flex justify-start text-xs sm:text-base"}>
                                 <Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews !== 1 ? "reviews" : "review"}`}/>
                             </div>
                             <div className={"flex sm:pt-2 justify-end"}>
