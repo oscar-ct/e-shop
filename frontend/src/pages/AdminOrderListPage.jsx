@@ -244,7 +244,7 @@ const AdminOrderListPage = () => {
                                                                 <td className={"bg-blue-200"}>{order._id.substring(order._id.length - 6, order._id.length)}</td>
                                                                 <td className={"p-1 bg-blue-200"}>{order.user?.name}</td>
                                                                 <td className={"p-1 bg-blue-200"}>{order.createdAt.substring(0, 10)}</td>
-                                                                <td className={"p-1 bg-blue-200"}>${order.totalPrice}</td>
+                                                                <td className={"p-1 bg-blue-200"}>${order.totalPrice.toFixed(2)}</td>
                                                                 {
                                                                     orderStatus(order, "bg-blue-200 p-1")
                                                                 }
@@ -262,7 +262,7 @@ const AdminOrderListPage = () => {
                                                                         </option>
                                                                     </select>
                                                                 </td>
-                                                                <td className={"p-1 bg-blue-200"}>{order.isPaid ? order.paidAt.substring(0,10) : <FaTimes fill={"red"}/>}
+                                                                <td className={"p-1 bg-blue-200 truncate"}>{order.isPaid ? order.paidAt.substring(0,10) : <FaTimes fill={"red"}/>}
                                                                 </td>
                                                                 {/*<td className={"p-1 bg-blue-200"}>*/}
                                                                 {/*    {order.isCanceled ? order.canceledAt.substring(0, 10) : "Active"}*/}
@@ -319,9 +319,9 @@ const AdminOrderListPage = () => {
                                                                 <td><Link className={"link link-primary"} to={`/order/${order._id}`}>{order._id.substring(order._id.length - 6, order._id.length)}</Link></td>
                                                                 <td className={"p-1"}>{order.user?.name}</td>
                                                                 <td className={"p-1"}>{order.createdAt.substring(0, 10)}</td>
-                                                                <td className={"p-1"}>${order.totalPrice}</td>
+                                                                <td className={"p-1"}>${order.totalPrice.toFixed(2)}</td>
                                                                 {
-                                                                    orderStatus(order, "p-1")
+                                                                    orderStatus(order, "p-1 truncate")
                                                                 }
                                                                 <td className={"p-1"}>
                                                                     {(order.isCanceled || order.canceledItems.length !== 0) && order.isPaid && !order.isReimbursed ? (
@@ -334,13 +334,13 @@ const AdminOrderListPage = () => {
                                                                         </span>
                                                                     )}
                                                                 </td>
-                                                                <td className={"p-1"}>{order.isPaid ? order.paidAt.substring(0,10) : <FaTimes fill={"red"}/>}
+                                                                <td className={"p-1 truncate"}>{order.isPaid ? order.paidAt.substring(0,10) : <FaTimes fill={"red"}/>}
                                                                 </td>
                                                                 <td className={"p-1"}>{order.isShipped ? <FaCheck className={"text-green-500"}/> : <FaTimes fill={"red"}/>}
                                                                 </td>
                                                                 {/*<td className={"p-1"}>{order.isShipped && order.trackingNumber ? order.trackingNumber : <FaTimes fill={"red"}/>}*/}
                                                                 {/*</td>*/}
-                                                                <td className={"p-1"}>{order.isDelivered ? order.deliveredAt.substring(0,10) : <FaTimes fill={"red"}/>}
+                                                                <td className={"p-1 truncate"}>{order.isDelivered ? order.deliveredAt.substring(0,10) : <FaTimes fill={"red"}/>}
                                                                 </td>
                                                                 <td className={"p-1 w-20"}>
                                                                     <div className={"flex items-center"}>
