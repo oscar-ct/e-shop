@@ -32,7 +32,7 @@ const ProfilePage = () => {
                         <div className={"pt-10 flex justify-center"}>
                             <div className={"grow max-w-[72rem] flex flex-col"}>
                                 <div className={"pb-5 flex justify-center"}>
-                                    <div className="bg-white tabs tabs-boxed">
+                                    <div className="bg-zinc-100 tabs tabs-boxed">
                                         <Link
                                             to={"/profile/account"}
                                             className={`tab ${params === "account" ? "tab-active" : "text-black"}`}>

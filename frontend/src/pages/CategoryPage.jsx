@@ -30,7 +30,7 @@ const CategoryPage = () => {
                 <Meta title={`Category - ${sortByTerm}`}/>
                 {
                     data.products.length !== 0 && (
-                        <div className={"mb-10"}>
+                        <div className={"pb-10"}>
                             <div className={"flex justify-between"}>
                                 <Link className={"px-2 md:px-0 my-5 flex items-center w-min"} to={"/"}>
                                     <Arrow className={"w-5 h-5"}/>

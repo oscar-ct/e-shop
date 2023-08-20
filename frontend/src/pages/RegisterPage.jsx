@@ -98,7 +98,7 @@ const RegisterPage = () => {
                                     <label className="text-sm font-medium text-gray-600 tracking-wide">Full Name
                                     </label>
                                     <input
-                                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"name"}
                                         type={"name"}
                                         placeholder={"John Doe"}
@@ -112,7 +112,7 @@ const RegisterPage = () => {
                                     <label className="text-sm font-medium text-gray-600 tracking-wide">Email
                                     </label>
                                     <input
-                                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"email"}
                                         type={"email"}
                                         placeholder={"mail@hotmail.com"}
@@ -128,7 +128,7 @@ const RegisterPage = () => {
                                     </label>
 
                                     <input
-                                        className="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"password"}
                                         type={ showPassword ? "text" : "password"}
                                         placeholder={"Enter your password"}
@@ -144,7 +144,7 @@ const RegisterPage = () => {
                                     </label>
 
                                     <input
-                                        className="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"confirm-password"}
                                         type={ showPassword ? "text" : "password"}
                                         placeholder={"Confirm your password"}

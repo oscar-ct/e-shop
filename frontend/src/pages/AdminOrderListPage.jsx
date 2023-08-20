@@ -401,7 +401,7 @@ const AdminOrderListPage = () => {
                                                 <input
                                                     type="text"
                                                     placeholder={"Enter a tracking number"}
-                                                    className="input input-bordered w-full"
+                                                    className="bg-white input input-bordered w-full"
                                                     value={trackingNumber}
                                                     onChange={(e) => setTrackingNumber((e.target.value))}
                                                 />
@@ -418,7 +418,7 @@ const AdminOrderListPage = () => {
                                                     disabled={true}
                                                     type="text"
                                                     placeholder="Enter tacking number"
-                                                    className="input input-bordered w-full"
+                                                    className="bg-white input input-bordered w-full"
                                                     value={trackingNumber}
                                                     onChange={(e) => setTrackingNumber((e.target.value))}
                                                 />

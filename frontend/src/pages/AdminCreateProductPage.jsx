@@ -187,7 +187,7 @@ const AdminCreateProductPage = () => {
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Title
                                     </label>
                                     <input
-                                        className={`w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
+                                        className={`bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                         autoComplete={"off"}
                                         type={"text"}
                                         placeholder={"e.g. Brand, model name, color, and size"}
@@ -202,7 +202,7 @@ const AdminCreateProductPage = () => {
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Description
                                     </label>
                                     <textarea
-                                        className={`w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
+                                        className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                         autoComplete={"off"}
                                         placeholder={"Tell customers more about your details about the product"}
                                         id={"description"}
@@ -221,7 +221,7 @@ const AdminCreateProductPage = () => {
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">Brand
                                             </label>
                                             <input
-                                                className={`w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
+                                                className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                                 autoComplete={"off"}
                                                 type={"text"}
                                                 placeholder={"e.g. Sony"}
@@ -236,7 +236,7 @@ const AdminCreateProductPage = () => {
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">Model Number
                                             </label>
                                             <input
-                                                className={`w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
+                                                className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                                 autoComplete={"off"}
                                                 type={"text"}
                                                 placeholder={"e.g. KDL-32BX330"}
@@ -251,7 +251,7 @@ const AdminCreateProductPage = () => {
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">Category
                                             </label>
                                             <input
-                                                className={`w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
+                                                className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                                 autoComplete={"off"}
                                                 type={"text"}
                                                 placeholder={"e.g. Electronics"}
@@ -269,7 +269,7 @@ const AdminCreateProductPage = () => {
                                                 <label className="text-sm font-medium text-gray-700 tracking-wide">Qty In Stock
                                                 </label>
                                                 <input
-                                                    className={`w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
+                                                    className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                                     autoComplete={"off"}
                                                     type={"number"}
                                                     placeholder={"Product Brand"}
@@ -280,7 +280,7 @@ const AdminCreateProductPage = () => {
                                                     required
                                                 />
                                             </div>
-                                            <div className={"w-full pl-5 lg:pl-0 space-y-2 pb-2"}>
+                                            <div className={"bg-white w-full pl-5 lg:pl-0 space-y-2 pb-2"}>
                                                 <label className="text-sm font-medium text-gray-700 tracking-wide">List Price
                                                 </label>
                                                 <input
@@ -302,7 +302,7 @@ const AdminCreateProductPage = () => {
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">Color
                                             </label>
                                             <input
-                                                className={`w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
+                                                className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                                 autoComplete={"off"}
                                                 type={"text"}
                                                 placeholder={"e.g. Silver"}

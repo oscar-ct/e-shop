@@ -152,7 +152,7 @@ const ProductPage = () => {
                                                     }
                                                 </div>
                                                 <div>
-                                                    <h6 className={"text-lg lg:text-sm text-center pt-5"}>Product Details</h6>
+                                                    <h6 className={"text-lg lg:text-sm text-center pt-5 pb-5 font-semibold lg:pb-2"}>Product Details</h6>
                                                 </div>
                                                 <div className={"text-lg lg:text-sm py-1"}>
                                                     <span className={"font-semibold pr-3"}>
