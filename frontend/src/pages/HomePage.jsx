@@ -12,7 +12,7 @@ import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
-import {useEffect, useState} from "react";
+import {useEffect, useRef, useState} from "react";
 import {HOME_IMAGE_1, HOME_IMAGE_3, HOME_IMAGE_2} from "../variables";
 import Rating from "../components/Rating";
 import {ReactComponent as Logo} from "../icons/e.svg"
@@ -55,6 +55,8 @@ const HomePage = () => {
         // window.addEventListener("resize", () => window.innerWidth <= 640 ? setSlides(1) : window.innerWidth > 640 && window.innerWidth <= 1280 ? setSlides(2) : setSlides(3));
         return () => window.removeEventListener("resize", adjustSlides);
     }, [slides]);
+
+    const scrollTo = useRef(null);
 
     return (
         <>
@@ -181,7 +183,7 @@ const HomePage = () => {
                                 </Swiper>
                             </div>
                         </div>
-                        <div className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
+                        <div ref={scrollTo} className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
                             <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
                                 Lastest Products
                             </h2>
@@ -200,7 +202,7 @@ const HomePage = () => {
                             </div>
                             <div className={"pt-10 flex justify-center"}>
                                 <div className={"join"}>
-                                    <Paginate pages={data.pages} page={data.page}/>
+                                    <Paginate pages={data.pages} page={data.page} scrollTo={scrollTo}/>
                                 </div>
                             </div>
                         </div>
