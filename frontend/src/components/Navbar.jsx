@@ -40,15 +40,15 @@ const Navbar = () => {
         }
         return () => window.removeEventListener("mousedown", closeOpenDropdown);
     }, [dropdownActive]);
-    // useEffect(() => {
-    //     const closeMobileNavOnScroll = () => {
-    //         setOpenNav(false);
-    //     }
-    //     if (openNav) {
-    //         window.addEventListener("scroll", closeMobileNavOnScroll);
-    //     }
-    //     return () => window.removeEventListener("scroll", closeMobileNavOnScroll);
-    // }, [openNav]);
+    useEffect(() => {
+        const closeMobileNavOnScroll = () => {
+            setOpenNav(false);
+        }
+        if (openNav) {
+            window.addEventListener("scroll", closeMobileNavOnScroll);
+        }
+        return () => window.removeEventListener("scroll", closeMobileNavOnScroll);
+    }, [openNav]);
     useEffect(() => {
         const closeMobileNavOnResize = () => {
             window.innerWidth >= 960 && setOpenNav(false);
@@ -248,9 +248,6 @@ const Navbar = () => {
                             </div>
                         </div>
                     </div>
-
-
-{/*/////// mobile nav ///////*/}
                     <button ref={documentRef2} className="middle none relative mr-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center uppercase transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden" onClick={() => setOpenNav(!openNav)}>
 
                         {openNav ? (
@@ -273,8 +270,10 @@ const Navbar = () => {
                     </div>
                 </div>
 
-
-                <div ref={documentRef3} className={`fixed top-[5rem] left-0 w-7/12 md:w-6/12 bg-white/90 py-6  lg:hidden h-[calc(100vh-80px)]`} style={openNav ? styles.active : styles.hidden2}>
+            </nav>
+            {/*/////// mobile nav ///////*/}
+            <nav>
+                <div ref={documentRef3} className={`z-10 backdrop-blur-lg fixed top-[5rem] left-0 w-7/12 md:w-6/12 py-6  lg:hidden h-[calc(100vh-80px)]`} style={openNav ? styles.active : styles.hidden2}>
                     <div className={"flex flex-col justify-start h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
                             <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
@@ -306,7 +305,7 @@ const Navbar = () => {
                                         </li>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
                                             <Link to={"/profile/orders"} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
-                                            My Orders
+                                                My Orders
                                             </Link>
                                         </li>
                                     </>
@@ -357,8 +356,8 @@ const Navbar = () => {
                         </ul>
                     </div>
                 </div>
-{/*/////// mobile nav ///////*/}
             </nav>
+            {/*/////// mobile nav ///////*/}
         </>
     );
 };
