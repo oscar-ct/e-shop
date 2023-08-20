@@ -58,6 +58,25 @@ const HomePage = () => {
 
     const scrollTo = useRef(null);
 
+    useEffect(function () {
+        console.log(data)
+        const executeScroll = () => {
+            if (scrollTo) {
+                var headerOffset = 70;
+                var elementPosition = scrollTo.current.getBoundingClientRect().top;
+                var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+                window.scrollTo({
+                    top: offsetPosition,
+                    behavior: "smooth"
+                });
+                // scrollTo.current.scrollIntoView({behavior: "smooth", block: "start"})
+            }
+        };
+        if ((data && pageNumber) && (data?.page !== pageNumber)) {
+            executeScroll();
+        }
+    }, [data, pageNumber, data?.page]);
+
     return (
         <>
             {
@@ -202,7 +221,7 @@ const HomePage = () => {
                             </div>
                             <div className={"pt-10 flex justify-center"}>
                                 <div className={"join"}>
-                                    <Paginate pages={data.pages} page={data.page} scrollTo={scrollTo}/>
+                                    <Paginate pages={data.pages} page={data.page}/>
                                 </div>
                             </div>
                         </div>
