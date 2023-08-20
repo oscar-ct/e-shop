@@ -12,8 +12,9 @@ const ProductItem = ( {product} ) => {
                         </figure>
                     </Link>
                     <div className="card-body p-2 sm:p-4 items-center">
-                        <div className={"w-full h-[50px]"}>
-                            <h2 className="text-sm font-semibold">{product.name.length > 65 ? `${product.name.substring(0, 65)}...` : product.name}</h2>
+                        <div className={"w-full"}>
+                            {/*<h2 className="text-concat text-sm font-semibold">{product.name.length > 65 ? `${product.name.substring(0, 65)}` : product.name}</h2>*/}
+                            <h2 className="text-concat text-sm font-semibold">{product.name}</h2>
                         </div>
 
                         {/*<p>{product.description}</p>*/}

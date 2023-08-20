@@ -168,11 +168,11 @@ const HomePage = () => {
                                                     className={"bg-zinc-100/70 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                 <div className={"flex justify-start items-end"}>
-                                                    <h5 className={"rounded-tl-md rounded-br-xl p-2 bg-base-100/90 text-xs sm:text-sm font-semibold"}>{data.name.substring(0, 32)}.. - ${data.price}</h5>
+                                                    <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>
                                                 </div>
                                             </Link>
                                             <div className={"absolute right-0 top-0 "}>
-                                                <div className={"p-2 bg-base-100/90 rounded-bl-md rounded-tr-xl"}>
+                                                <div className={"p-2 rounded-bl-md rounded-tr-xl"}>
                                                     <Rating rating={data.rating}/>
                                                 </div>
                                             </div>
@@ -185,7 +185,7 @@ const HomePage = () => {
                             <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
                                 Lastest Products
                             </h2>
-                            <Link to={"/sort/latest"} className={"link text-xs sm:text-sm"}>View All</Link>
+                            <Link to={"/sort/latest"} className={"link text-sm"}>View All</Link>
                         </div>
                         <div className={"pb-10"}>
                             {/*<h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-3 text-center lg:text-start"}>*/}

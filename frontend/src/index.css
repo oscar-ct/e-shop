@@ -97,3 +97,12 @@ code {
   /*color: rgba(248, 177, 28, 0.35);*/
   /*color: rgba(244, 89, 94, 0.35);*/
 }
+
+.text-concat {
+  position: relative;
+  display: inline-block;
+  word-wrap: break-word;
+  overflow: hidden;
+  max-height: 3.6em;
+  line-height: 1.2em;
+}
