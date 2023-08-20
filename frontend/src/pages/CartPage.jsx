@@ -66,7 +66,7 @@ const CartPage = () => {
                                 )
                             }
                             </div>
-                            <div className={"lg:mb-10 lg:w-8/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
+                            <div className={"lg:mb-10 lg:w-8/12 card bg-white shadow-xl h-min p-4 sm:p-7"}>
                                 <div className={"pb-10"}>
                                     <h1
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
@@ -116,7 +116,7 @@ const CartPage = () => {
                                         )
                                     }
                                 </div>
-                                <div className="mt-5 mb-10 lg:my-0 card lg:w-full shadow-xl bg-base-100 self-end">
+                                <div className="mt-5 mb-10 lg:my-0 card lg:w-full shadow-xl bg-white self-end">
                                     <div className="px-8 py-5">
                                         <div className={"flex flex-col"}>
                                             <h3 className={"text-lg"}>

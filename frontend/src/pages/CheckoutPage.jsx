@@ -100,7 +100,7 @@ const CheckoutPage = () => {
                     <div>
                         <CheckoutSteps/>
                         <div className={"mb-10 flex-col flex lg:flex-row w-full"}>
-                            <div className={"lg:w-7/12 card bg-base-100 shadow-xl h-min p-4 sm:p-7"}>
+                            <div className={"lg:w-7/12 card bg-white shadow-xl h-min p-4 sm:p-7"}>
                                 <div className={"pb-5"}>
                                     <h1
                                         // style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
@@ -187,7 +187,7 @@ const CheckoutPage = () => {
 
 
                             <div className={"p-3 pt-5 lg:pl-10 lg:w-5/12"}>
-                                <div className="card bg-base-100 shadow-xl">
+                                <div className="card bg-white shadow-xl">
                                     <div className="pt-8 px-8">
                                         <div className="card-actions justify-center">
                                             <button

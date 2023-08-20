@@ -19,12 +19,12 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
 
     return (
         <>
-            <div className={"py-3 pl-5"}>
+            <div className={"py-3 pl-5 bg-white"}>
                 <div className={"flex flex-col lg:flex-row"}>
                     <div className={"w-full"}>
                         <div className={"flex pb-2"}>
                             <div className="w-3/12">
-                                <Link to={`/product/${product.productId}`} className="bg-zinc-100/70 rounded-md w-full h-full flex items-center justify-center">
+                                <Link to={`/product/${product.productId}`} className="bg-zinc-100/20 rounded-md w-full h-full flex items-center justify-center">
                                     <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"}  alt={"product"} className="rounded-md object-scale-down max-h-36"/>
                                 </Link>
                             </div>

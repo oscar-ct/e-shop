@@ -54,9 +54,9 @@ const ReviewModal = ({productId, refetch, onPage}) => {
 
     return (
         <dialog id="review_modal" className="modal modal-bottom sm:modal-middle">
-            <form method="dialog" className="modal-box">
+            <form method="dialog" className="modal-box bg-white">
                 <div className={"flex justify-between items-center"}>
-                    <h3 className="p-4 font-bold text-xl">Create review</h3>
+                    <h3 className="p-4 font-bold text-xl">Review</h3>
                     <div className="rating rating-lg">
                         <input type="radio" value={"0"} name="rating-2" className="rating-hidden" defaultChecked onChange={(e) => setRating(e.target.value)}/>
                         <input type="radio"  value={"1"} name="rating-2" className="mask mask-star-2 bg-orange-300" onChange={(e) => setRating(e.target.value)}/>

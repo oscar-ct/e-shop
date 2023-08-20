@@ -156,7 +156,7 @@ const AdminCreateProductPage = () => {
             <Meta title={"New Product Listing"}/>
             <BackButton/>
             <div className={"2xl:px-20"}>
-                <div className={"bg-base-100 shadow-xl px-12 py-7 mx-auto rounded-2xl w-full"}>
+                <div className={"bg-white shadow-xl px-12 py-7 mx-auto rounded-2xl w-full"}>
                     <h2 className={"mb-2 text-2xl text-center py-2 rounded-xl border-b-[1px] border-gray-300"}>
                         New Product Listing
                     </h2>

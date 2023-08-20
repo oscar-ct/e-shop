@@ -81,7 +81,7 @@ const LoginPage = () => {
             <div className="h-max relative">
                 <div className="h-full flex flex-row justify-center">
                     <div className="sm:mt-10 mb-10 w-full flex justify-center self-center">
-                        <div className="bg-base-100 shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
+                        <div className="bg-white shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
                             <div className="mb-4">
                                 <h3 className="font-semibold text-2xl">Login
                                 </h3>

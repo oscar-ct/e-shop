@@ -146,7 +146,7 @@ const HomePage = () => {
                             <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
                                 Top Rated Products
                             </h2>
-                            <Link to={"/sort/toprated"} className={"link text-xs sm:text-sm"}>View All</Link>
+                            <Link to={"/sort/toprated"} className={"link text-sm"}>View All</Link>
                         </div>
                         <div className={"m-auto w-full rounded-xl max-w-7xl"}>
                             <div className={"p-3"}>
@@ -165,7 +165,7 @@ const HomePage = () => {
                                         return <SwiperSlide key={index}>
                                             <Link to={`/product/${data._id}`} className={"relative"}>
                                                 <img
-                                                    className={"bg-zinc-100/70 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                    className={"bg-white shadow-sm sm:shadow-lg object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                 <div className={"flex justify-start items-end"}>
                                                     <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>

@@ -94,7 +94,7 @@ const ShippingPage = () => {
             <Meta title={"Shipping Address"}/>
             <CheckoutSteps step2 />
             <div className={"w-full flex justify-center"}>
-                <div className={"mb-10 card p-10 w-[35em] bg-base-100 shadow-xl"}>
+                <div className={"mb-10 card p-10 w-[35em] bg-white shadow-xl"}>
                     <div className={"w-full pb-5 flex justify-center"}>
                         <h1 className={"text-2xl font-semibold"}>Shipping Address</h1>
                     </div>

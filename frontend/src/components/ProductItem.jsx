@@ -5,7 +5,7 @@ const ProductItem = ( {product} ) => {
     return (
         <>
             <div className="w-6/12 sm:w-72 p-2 sm:p-3">
-                <div className={"card bg-base-100 shadow-xl h-full"}>
+                <div className={"card bg-white shadow-xl h-full"}>
                     <Link to={`/product/${product._id}`}>
                         <figure className="p-2">
                             <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"} alt="product" className="bg-zinc-100/20 w-[248px] h-[197px] object-scale-down rounded-tr-xl rounded-tl-xl" />

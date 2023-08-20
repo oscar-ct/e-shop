@@ -120,7 +120,7 @@ const ProductPage = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-base-100 shadow-xl rounded-xl px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
+                                    <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-white shadow-xl rounded-xl px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
                                         <div className={"flex flex-col lg:w-6/12"}>
                                             <div className={"w-full flex justify-center rounded-xl bg-zinc-100/20 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
                                                 <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl cursor-pointer rounded-sm object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
@@ -195,7 +195,7 @@ const ProductPage = () => {
 
                                 <div className={"pt-10 lg:pt-0 lg:w-3/12 lg:pl-5"}>
                                     <div
-                                        className={"rounded-xl p-7 text-lg lg:text-sm bg-base-100 shadow-xl border-[1px] border-gray-300 mx-6 sm:mx-0 sm:border-none"}
+                                        className={"rounded-xl p-7 text-lg lg:text-sm bg-white shadow-xl border-[1px] border-gray-300 mx-6 sm:mx-0 sm:border-none"}
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,228,253,1) 175%)"}}
                                     >
                                         <div className={"py-2 sm:hidden"}>Buy Now</div>
@@ -267,7 +267,7 @@ const ProductPage = () => {
                             <div ref={scrollTo} className={"w-full"}>
                                 <div id="reviews" className={"pt-10 xl:pt-15 flex flex-col lg:flex-row lg:justify-start"}>
                                     <div className={"w-full lg:w-6/12"}>
-                                        <div className={"bg-base-100 shadow-xl rounded-xl overflow-x-auto"}>
+                                        <div className={"bg-white shadow-xl rounded-xl overflow-x-auto"}>
                                             <div className={"p-5 lg:p-8 "}>
                                                 <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px]" : "pb-0"} flex justify-between items-center  border-gray-300`}>
                                                     {

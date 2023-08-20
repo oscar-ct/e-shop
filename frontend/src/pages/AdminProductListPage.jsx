@@ -312,7 +312,7 @@ const AdminProductListPage = () => {
                 <Meta title={"Product List"}/>
                 <div className={"pt-10"}>
                     <AdminTabs/>
-                    <div className={"mt-5 card bg-base-100 shadow-xl"}>
+                    <div className={"mt-5 card bg-white shadow-xl"}>
                         <div className={"w-full px-5 flex justify-center py-5"}>
                             <div className={"text-2xl"}>
                                 Products
@@ -511,7 +511,7 @@ const AdminProductListPage = () => {
                     <dialog id="images_modal" className="modal modal-bottom sm:modal-middle">
                         {
                             modalIsOpen && (
-                                <form method="dialog" className="modal-box">
+                                <form method="dialog" className="modal-box bg-white">
                                     <div className="px-2 pt-2">
                                         <h2 className={"pb-5 text-center text-xl"}>{localData.find((x) => x._id === productId).name}</h2>
                                         {

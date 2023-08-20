@@ -68,7 +68,7 @@ const ProfileOrderItem = ({refetch, order, index, orderLength}) => {
     return (
         <>
         <div className={`mb-5 sm:mb-0 sm:border-none border-b-[3px] border-gray-300 px-3 sm:px-8 lg:px-14 xl:px-24 ${index+1 !== orderLength && "pb-16"}`}>
-            <div className={"rounded-xl bg-base-100 shadow-xl w-full flex flex-col"}>
+            <div className={"rounded-xl bg-white shadow-xl w-full flex flex-col"}>
                 <div className={"p-6 rounded-tr-xl rounded-tl-xl flex flex-row bg-neutral-100"}>
                     <div className={"w-full flex justify-between"}>
                         <div className={"flex"}>

@@ -204,7 +204,7 @@ const AdminOrderListPage = () => {
                 <Meta title={"Order List"}/>
                 <div className={"pt-10"}>
                     <AdminTabs/>
-                    <div className={"mt-5 card bg-base-100 shadow-xl"}>
+                    <div className={"mt-5 card bg-white shadow-xl"}>
                         <div className={"w-full px-5 flex justify-center pt-5"}>
                             <div className={" text-2xl text-center"}>
                                 Orders
@@ -388,7 +388,7 @@ const AdminOrderListPage = () => {
                 <dialog id="tracking_modal" className="modal modal-bottom sm:modal-middle">
                     {
                         trackingNumberModalIsOpen && (
-                            <form method="dialog" className="modal-box">
+                            <form method="dialog" className="modal-box bg-white">
                                 <div className="p-3">
                                     {
                                         isShipped ? (
