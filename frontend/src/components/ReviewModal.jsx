@@ -72,7 +72,7 @@ const ReviewModal = ({productId, refetch, onPage}) => {
                         <label className="label">
                             <span className="label-text">Add a headline</span>
                         </label>
-                        <input type="text" placeholder="What's most important to know?" className="input input-bordered w-full" value={title} onChange={(e) => {
+                        <input type="text" placeholder="What's most important to know?" className="bg-white input input-bordered w-full" value={title} onChange={(e) => {
                             setTitle(e.target.value);
                         }}/>
                     </div>
@@ -80,7 +80,7 @@ const ReviewModal = ({productId, refetch, onPage}) => {
                         <label className="label">
                             <span className="label-text">Add a review</span>
                         </label>
-                        <textarea value={reviewBody} placeholder="What did you like or dislike? What did you use this product for?" className="h-20 pt-2 input input-bordered w-full" onChange={(e) => {
+                        <textarea value={reviewBody} placeholder="What did you like or dislike? What did you use this product for?" className="bg-white h-20 pt-2 input input-bordered w-full" onChange={(e) => {
                             setReviewBody(e.target.value);
                         }}/>
                     </div>

@@ -108,10 +108,7 @@ code {
   line-height: 1.2em;
 }
 
-input {
-  background-color: white;
-}
-
-textarea {
-  background-color: white;
-}
+.step:after { background-color: lightgrey!important;}
+.step:before { background-color: lightgrey!important;}
+.step-primary:after { background-color: #570df8!important;}
+.step-primary:before { background-color: #570df8!important;}

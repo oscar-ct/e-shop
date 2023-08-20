@@ -35,12 +35,12 @@ const ProfilePage = () => {
                                     <div className="bg-white tabs tabs-boxed">
                                         <Link
                                             to={"/profile/account"}
-                                            className={`tab ${params === "account" && "tab-active"}`}>
+                                            className={`tab ${params === "account" ? "tab-active" : "text-black"}`}>
                                             Account
                                         </Link>
                                         <Link
                                             to={"/profile/orders"}
-                                            className={`tab ${params === "orders" && "tab-active"}`}>
+                                            className={`tab ${params === "orders" ? "tab-active" : "text-black"}`}>
                                             Your Orders ({orders.length})
                                         </Link>
                                     </div>

@@ -184,7 +184,7 @@ const ShippingPage = () => {
                                     userData.shippingAddresses.map(function(item, index) {
                                         return (
                                             <div key={index} className="my-5">
-                                                <div className={"w-full card bg-white cursor-pointer"}>
+                                                <div className={"w-full card bg-zinc-100 cursor-pointer"}>
                                                     <div className={"w-full flex p-6"}>
                                                         <div className={"w-10/12 flex  items-center"}>
                                                             <span className={"text-md"}>

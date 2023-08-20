@@ -100,7 +100,7 @@ const CartItem = ( {item} ) => {
                     <div>
                         <button
                             onClick={() => removeFromCartHandler(item._id)}
-                            className={"btn btn-xs rounded-full"}
+                            className={"btn-glass btn-xs rounded-full"}
                         >
                             <FaTrash className={"text-sm text-red-500"}/>
                         </button>

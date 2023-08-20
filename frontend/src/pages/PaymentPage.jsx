@@ -49,7 +49,7 @@ const PaymentPage = () => {
                     <form onSubmit={submitPaymentMethod}>
                         <div className="my-5">
                             <div
-                                className={"w-full card bg-white cursor-pointer"}
+                                className={"w-full card bg-zinc-100 cursor-pointer"}
                                 onClick={() => setPaymentMeth("PayPal")}
                             >
                                 <div className={"w-full flex p-6"}>

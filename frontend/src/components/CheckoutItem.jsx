@@ -95,7 +95,7 @@ const CheckoutItem = ( {item} ) => {
                     <div>
                         <button
                             onClick={() => removeFromCartHandler(item._id)}
-                            className={"btn btn-xs rounded-full"}
+                            className={"btn-glass btn-xs rounded-full"}
                         >
                             <FaTrash className={"text-red-500 text-md"}/>
                         </button>
