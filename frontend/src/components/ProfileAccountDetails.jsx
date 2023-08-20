@@ -82,7 +82,7 @@ const ProfileAccountDetails = () => {
                     <label className="text-sm font-medium text-gray-700 tracking-wide">Name
                     </label>
                     <input
-                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                         autoComplete={"name"}
                         type={"name"}
                         id={"name"}
@@ -95,7 +95,7 @@ const ProfileAccountDetails = () => {
                     <label className="text-sm font-medium text-gray-700 tracking-wide">Email
                     </label>
                     <input
-                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                         autoComplete={"email"}
                         type={"email"}
                         id={"email"}
@@ -110,7 +110,7 @@ const ProfileAccountDetails = () => {
                     </label>
 
                     <input
-                        className="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                        className="bg-white w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                         autoComplete={"current-password"}
                         type={"password"}
                         placeholder={"Enter your password"}

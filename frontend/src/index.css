@@ -5,6 +5,7 @@
 
 
 body {
+  color: black;
   width: 100%;
   background: rgb(255,255,255);
   background: linear-gradient(293deg, rgba(255,255,255,1) 0%, rgba(255,255,255,1) 38%, rgba(237,243,255,1) 48%, rgba(235,234,254,1) 55%, rgba(250,249,255,1) 63%, rgba(255,255,255,1) 100%);
@@ -105,4 +106,12 @@ code {
   overflow: hidden;
   max-height: 3.6em;
   line-height: 1.2em;
+}
+
+input {
+  background-color: white;
+}
+
+textarea {
+  background-color: white;
 }

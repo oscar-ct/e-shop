@@ -106,7 +106,7 @@ const ShippingPage = () => {
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Address
                                     </label>
                                     <input
-                                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"address"}
                                         type={"text"}
                                         placeholder={"1600 Pennsylvania Ave"}
@@ -120,7 +120,7 @@ const ShippingPage = () => {
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">City
                                     </label>
                                     <input
-                                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"city"}
                                         type={"text"}
                                         placeholder={"Washington, DC"}
@@ -134,7 +134,7 @@ const ShippingPage = () => {
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Postal Code
                                     </label>
                                     <input
-                                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"postalCode"}
                                         type={"text"}
                                         placeholder={"20500"}
@@ -148,7 +148,7 @@ const ShippingPage = () => {
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Country
                                     </label>
                                     <input
-                                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"country"}
                                         type={"text"}
                                         placeholder={"United States"}
@@ -168,7 +168,7 @@ const ShippingPage = () => {
                                     }
 
                                     <label className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
-                                        <span className="label-text pr-5">Save this address</span>
+                                        <span className="label-text pr-1 ">Save this address</span>
                                         <input type="checkbox" checked={savePaymentData} onChange={() => setSavePaymentData(prevState => !prevState)} className="checkbox checkbox-primary" />
                                     </label>
                                 </div>
@@ -184,7 +184,7 @@ const ShippingPage = () => {
                                     userData.shippingAddresses.map(function(item, index) {
                                         return (
                                             <div key={index} className="my-5">
-                                                <div className={"w-full card bg-base-200 cursor-pointer"}>
+                                                <div className={"w-full card bg-white cursor-pointer"}>
                                                     <div className={"w-full flex p-6"}>
                                                         <div className={"w-10/12 flex  items-center"}>
                                                             <span className={"text-md"}>

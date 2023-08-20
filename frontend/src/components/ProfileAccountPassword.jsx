@@ -95,7 +95,7 @@ const ProfileAccountPassword = () => {
                         New password
                     </label>
                     <input
-                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                         autoComplete={"password"}
                         placeholder={"New password"}
                         type={"password"}
@@ -111,7 +111,7 @@ const ProfileAccountPassword = () => {
                     </label>
 
                     <input
-                        className="w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                        className="bg-white w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                         autoComplete={"password"}
                         type={"password"}
                         placeholder={"Confirm password"}
@@ -125,7 +125,7 @@ const ProfileAccountPassword = () => {
                     <label className="text-sm font-medium text-gray-700 tracking-wide">Current password
                     </label>
                     <input
-                        className="w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                         autoComplete={"password"}
                         placeholder={"Current password"}
                         type={"password"}
