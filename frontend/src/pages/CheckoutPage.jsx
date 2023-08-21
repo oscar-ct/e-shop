@@ -99,7 +99,7 @@ const CheckoutPage = () => {
                 ) : (
                     <div>
                         <CheckoutSteps/>
-                        <div className={"mb-10 flex-col flex lg:flex-row w-full"}>
+                        <div className={"pt-3 sm:pt-0 mb-10 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-white shadow-xl h-min p-4 sm:p-7"}>
                                 <div className={"pb-5"}>
                                     <h1
