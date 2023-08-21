@@ -89,6 +89,17 @@ code {
   .rounded-xl {
     border-radius: 5px!important;
   }
+  .table-zebra tbody tr:nth-child(2n) {
+    background-color: #f1f1f1 !important;
+  }
+  .table :where(thead, tbody) :where(tr:not(:last-child)) {
+    background-color: #f1f1f1 !important;
+  }
+  .step:after { background-color: lightgrey!important;}
+  .step:before { background-color: lightgrey!important;}
+  .step-primary:after { background-color: #570df8!important;}
+  .step-primary:before { background-color: #570df8!important;}
+
 }
 
 .shadow-blue {
@@ -107,8 +118,3 @@ code {
   max-height: 3.6em;
   line-height: 1.2em;
 }
-
-.step:after { background-color: lightgrey!important;}
-.step:before { background-color: lightgrey!important;}
-.step-primary:after { background-color: #570df8!important;}
-.step-primary:before { background-color: #570df8!important;}
