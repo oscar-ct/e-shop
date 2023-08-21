@@ -27,7 +27,7 @@ const AdminOrderListPage = () => {
     const [isReimbursed, setIsReimbursed] = useState(null);
     const [trackingNumber, setTrackingNumber] = useState("");
     const [modalMessage, setModalMessage] = useState("");
-    const [trackingNumberModalIsOpen, setTrackingNumberModalIsOpen] = useState(false);
+    // const [trackingNumberModalIsOpen, setTrackingNumberModalIsOpen] = useState(false);
 
     const confirmUpdateModal = () => {
         let updated = confirmChanges();
@@ -159,7 +159,7 @@ const AdminOrderListPage = () => {
         }
         setOrderId(orderId);
         setIsShipped(isShipped);
-        setTrackingNumberModalIsOpen(true);
+        // setTrackingNumberModalIsOpen(true);
         window.tracking_modal.showModal();
     }
 
@@ -185,16 +185,23 @@ const AdminOrderListPage = () => {
         } catch (e) {
             console.log(e);
         }
-       closeTrackingNumberModal();
-    }
-
-    const closeTrackingNumberModal = (e) => {
-        e && e.preventDefault();
         window.tracking_modal.close();
-        setTrackingNumberModalIsOpen(false);
+        // setTrackingNumberModalIsOpen(false);
         setTrackingNumber("");
         setIsShipped(null);
         setOrderId(null);
+        // closeTrackingNumberModal();
+    }
+
+    const closeTrackingNumberModal = (e) => {
+        // e && e.preventDefault();
+        // window.tracking_modal.close();
+        setTimeout(function () {
+            // setTrackingNumberModalIsOpen(false);
+            setTrackingNumber("");
+            setIsShipped(null);
+            setOrderId(null);
+        }, 300);
     }
 
 
@@ -202,12 +209,12 @@ const AdminOrderListPage = () => {
         isLoading || !localData ? <Spinner/> : error ? error : (
             <>
                 <Meta title={"Order List"}/>
-                <div className={"pt-10"}>
+                <div className={"py-10"}>
                     <AdminTabs/>
                     <div className={"mt-5 card bg-white shadow-xl"}>
                         <div className={"w-full px-5 flex justify-center pt-5"}>
                             <div className={" text-2xl text-center"}>
-                                Orders
+                                Orders ({localData.length})
                             </div>
 
                         </div>
@@ -250,7 +257,7 @@ const AdminOrderListPage = () => {
                                                                 }
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <select
-                                                                        className="pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         value={isReimbursed}
                                                                         onChange={(e) => setIsReimbursed(e.target.value)}
                                                                     >
@@ -269,7 +276,7 @@ const AdminOrderListPage = () => {
                                                                 {/*</td>*/}
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <select
-                                                                        className="pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         value={isShipped}
                                                                         onChange={(e) => setIsShipped(e.target.value)}
                                                                     >
@@ -291,7 +298,7 @@ const AdminOrderListPage = () => {
                                                                 {/*</td>*/}
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <select
-                                                                        className="pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         value={isDelivered}
                                                                         onChange={(e) => setIsDelivered(e.target.value)}
                                                                     >
@@ -386,8 +393,8 @@ const AdminOrderListPage = () => {
                 </ConfirmModal>
 
                 <dialog id="tracking_modal" className="modal modal-bottom sm:modal-middle">
-                    {
-                        trackingNumberModalIsOpen && (
+                    {/*{*/}
+                    {/*    trackingNumberModalIsOpen && (*/}
                             <form method="dialog" className="modal-box bg-white">
                                 <div className="p-3">
                                     {
@@ -431,7 +438,7 @@ const AdminOrderListPage = () => {
                                         onClick={closeTrackingNumberModal}
                                         className={"btn btn-neutral rounded-xl"}
                                     >
-                                        Close
+                                        Cancel
                                     </button>
                                     <button
                                         disabled={!isShipped}
@@ -442,8 +449,8 @@ const AdminOrderListPage = () => {
                                     </button>
                                 </div>
                             </form>
-                        )
-                    }
+                    {/*    )*/}
+                    {/*}*/}
                 </dialog>
             </>
 

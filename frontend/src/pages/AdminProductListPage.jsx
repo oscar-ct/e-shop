@@ -103,9 +103,9 @@ const AdminProductListPage = () => {
     };
     const closeImagesModal = (e) => {
         e.preventDefault();
+        window.images_modal.close();
         setModalIsOpen(false);
         setProductId(null);
-        window.images_modal.close();
     };
     const submitUpdateHandler = async (e) => {
         e.preventDefault();
@@ -310,15 +310,15 @@ const AdminProductListPage = () => {
         isLoading || !localData ? <Spinner/> : error ? error : (
             <>
                 <Meta title={"Product List"}/>
-                <div className={"pt-10"}>
+                <div className={"py-10"}>
                     <AdminTabs/>
                     <div className={"mt-5 card bg-white shadow-xl"}>
                         <div className={"w-full px-5 flex justify-center py-5"}>
                             <div className={"text-2xl"}>
-                                Products
+                                Products ({localData.length})
                                 <button
                                     onClick={() => navigate("/admin/products/create")}
-                                    className={"absolute right-6 self-end btn btn-info border-[1px] border-neutral btn-sm"}
+                                    className={"absolute right-6 self-end btn btn-info btn-sm"}
                                 >
                                     <FaPlus/>
                                 </button>
@@ -340,6 +340,7 @@ const AdminProductListPage = () => {
                                     <th className={"p-1"}>Category</th>
                                     <th className={"p-1"}>Description</th>
                                     <th className={"p-1"}>List date</th>
+                                    <th/>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -356,7 +357,7 @@ const AdminProductListPage = () => {
                                                                 {/*<td className={"bg-blue-200"}>{item._id.substring(item._id.length - 6, item._id.length)}</td>*/}
                                                                 <td className={"p-1 pt-2 bg-blue-200"}>
                                                                     <textarea
-                                                                        className="pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         // className="pl-1 py-2 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         value={name}
                                                                         onChange={(e) => setName(e.target.value)}
@@ -364,7 +365,7 @@ const AdminProductListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <input
-                                                                        className="pl-1 shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         type={"text"}
                                                                         value={brand}
                                                                         onChange={(e) => setBrand(e.target.value)}
@@ -372,7 +373,7 @@ const AdminProductListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <input
-                                                                        className="pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         type={"text"}
                                                                         value={model}
                                                                         onChange={(e) => setModel(e.target.value)}
@@ -380,7 +381,7 @@ const AdminProductListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <input
-                                                                        className="pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         type={"text"}
                                                                         value={color}
                                                                         onChange={(e) => setColor(e.target.value)}
@@ -388,7 +389,7 @@ const AdminProductListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <input
-                                                                        className="pl-1 shadow appearance-none border rounded w-[65px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-[65px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         type={"number"}
                                                                         min={0}
                                                                         value={price}
@@ -397,7 +398,7 @@ const AdminProductListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <input
-                                                                        className="pl-1 shadow appearance-none border rounded w-[40px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-[40px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         type={"number"}
                                                                         min={0}
                                                                         value={inStock}
@@ -406,7 +407,7 @@ const AdminProductListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <input
-                                                                        className="pl-1 shadow appearance-none border rounded w-[90px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-[90px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         type={"text"}
                                                                         value={category}
                                                                         onChange={(e) => setCategory(e.target.value)}
@@ -414,7 +415,7 @@ const AdminProductListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 pt-2 bg-blue-200"}>
                                                                     <textarea
-                                                                        className="pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-full text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         value={description}
                                                                         onChange={(e) => setDescription(e.target.value)}
                                                                     />
@@ -543,7 +544,7 @@ const AdminProductListPage = () => {
                                         }
                                     </div>
                                     <div className="modal-action">
-                                        <button className={"btn btn-neutral rounded-xl"} onClick={closeImagesModal}>Close</button>
+                                        <button className={"btn btn-neutral rounded-xl"} onClick={closeImagesModal}>Cancel</button>
                                         <button onClick={openPicker} className={"btn rounded-xl"}>Add Image</button>
                                     </div>
                                 </form>

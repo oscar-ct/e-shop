@@ -161,12 +161,12 @@ const AdminUserListPage = () => {
         isLoading || !localData ? <Spinner/> : error ? error : (
             <>
                 <Meta title={"User List"}/>
-                <div className={"pt-10"}>
+                <div className={"py-10"}>
                     <AdminTabs/>
                     <div className={"mt-5 card bg-white shadow-xl"}>
                         <div className={"w-full px-5 flex justify-center pt-5"}>
                             <div className={" text-2xl text-center"}>
-                                Users
+                                Users ({localData.length})
                             </div>
 
                         </div>
@@ -181,6 +181,7 @@ const AdminUserListPage = () => {
                                     <th className={"p-1"}>Admin</th>
                                     <th className={"p-1"}>Address</th>
                                     <th className={"p-1"}>Joined</th>
+                                    <th/>
                                 </tr>
                                 </thead>
                                 <tbody>
@@ -197,14 +198,14 @@ const AdminUserListPage = () => {
                                                                 {/*<td className={"bg-blue-200"}>{user._id.substring(user._id.length - 6, user._id.length)}</td>*/}
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <input
-                                                                        className="pl-1 py-2 shadow w-full appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 py-2 shadow w-full appearance-none border rounded text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         value={name}
                                                                         onChange={(e) => setName(e.target.value)}
                                                                     />
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <input
-                                                                        className="pl-1 w-full shadow appearance-none border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 w-full shadow appearance-none border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         type={"text"}
                                                                         value={email}
                                                                         onChange={(e) => setEmail(e.target.value)}
@@ -212,7 +213,7 @@ const AdminUserListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <select
-                                                                        className="pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         value={isAdmin}
                                                                         onChange={(e) => setIsAdmin(e.target.value)}
                                                                     >
