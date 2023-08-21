@@ -85,7 +85,7 @@ const ProfileOrderItem = ({refetch, order, index, orderLength}) => {
                                     TOTAL
                                 </span>
                                 <span className={"text-sm"}>
-                                    ${order.totalPrice}
+                                    ${order.totalPrice.toFixed(2)}
                                 </span>
                             </div>
                             <div className={"flex flex-col pl-3 lg:pr-3"}>
