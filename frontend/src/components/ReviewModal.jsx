@@ -106,6 +106,9 @@ const ReviewModal = ({productId, refetch, onPage}) => {
                     </button>
                 </div>
             </form>
+            <form method="dialog" className="modal-backdrop">
+                <button>close</button>
+            </form>
         </dialog>
     );
 };

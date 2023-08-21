@@ -548,8 +548,12 @@ const AdminProductListPage = () => {
                                         <button onClick={openPicker} className={"btn rounded-xl"}>Add Image</button>
                                     </div>
                                 </form>
+
                             )
                         }
+                        <form method="dialog" className="modal-backdrop">
+                            <button>close</button>
+                        </form>
                     </dialog>
 
                     <AlertModal title={"Delete Product"} initiateFunction={() => submitDeleteProduct()}>
