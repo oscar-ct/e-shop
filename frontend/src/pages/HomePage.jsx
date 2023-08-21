@@ -59,7 +59,6 @@ const HomePage = () => {
     const scrollTo = useRef(null);
 
     useEffect(function () {
-        console.log(data)
         const executeScroll = () => {
             if (scrollTo) {
                 var headerOffset = 70;
@@ -87,7 +86,7 @@ const HomePage = () => {
                 ) : (
                     <>
                         <Meta title={"Home"}/>
-                        <div className={"bg-base-100 shadow-xl rounded-xl"}>
+                        <div className={"bg-white shadow-xl rounded-xl"}>
                             <Swiper
                                 autoplay={{
                                     delay: 7500,
