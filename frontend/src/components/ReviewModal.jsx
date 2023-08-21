@@ -1,5 +1,6 @@
 import {useState} from "react";
 import {useCreateReviewMutation} from "../slices/productsApiSlice";
+import {toast} from "react-hot-toast";
 
 const ReviewModal = ({productId, refetch, onPage}) => {
 
@@ -11,12 +12,12 @@ const ReviewModal = ({productId, refetch, onPage}) => {
 
 
     const closeReviewModal = (e) => {
-        e.preventDefault();
+        // e.preventDefault();
+        // window.review_modal.close();
         setErrorReviewMessage("");
         setReviewBody("");
-        setRating("0");
+        // setRating("0");
         setTitle("");
-        window.review_modal.close();
     }
 
     const submitReview = async (e) => {
@@ -42,12 +43,13 @@ const ReviewModal = ({productId, refetch, onPage}) => {
             }
         } catch (e) {
             // toast error message for later
-            console.log(e)
+            toast.error(e.error || e.data?.message);
+            // console.log(e);
         }
 
         setErrorReviewMessage("");
         setReviewBody("");
-        setRating("0");
+        // setRating("0");
         setTitle("");
         window.review_modal.close();
     }
@@ -72,7 +74,7 @@ const ReviewModal = ({productId, refetch, onPage}) => {
                         <label className="label">
                             <span className="label-text">Add a headline</span>
                         </label>
-                        <input type="text" placeholder="What's most important to know?" className="bg-white input input-bordered w-full" value={title} onChange={(e) => {
+                        <input type="text" placeholder="What's most important to know?" className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400" value={title} onChange={(e) => {
                             setTitle(e.target.value);
                         }}/>
                     </div>
@@ -80,7 +82,7 @@ const ReviewModal = ({productId, refetch, onPage}) => {
                         <label className="label">
                             <span className="label-text">Add a review</span>
                         </label>
-                        <textarea value={reviewBody} placeholder="What did you like or dislike? What did you use this product for?" className="bg-white h-20 pt-2 input input-bordered w-full" onChange={(e) => {
+                        <textarea value={reviewBody} placeholder="What did you like or dislike? What did you use this product for?" className="h-20 bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400" onChange={(e) => {
                             setReviewBody(e.target.value);
                         }}/>
                     </div>

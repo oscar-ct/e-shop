@@ -2,10 +2,10 @@ import React from 'react';
 
 const AlertModal = ({id, title, children, initiateFunction}) => {
 
-    const closeModal = (e) => {
-        e.preventDefault();
-        window.alert_modal.close();
-    }
+    // const closeModal = (e) => {
+    //     e.preventDefault();
+    //     window.alert_modal.close();
+    // }
 
 
     return (
@@ -17,7 +17,9 @@ const AlertModal = ({id, title, children, initiateFunction}) => {
                     <div className="px-3">
                         {children}
                         <div className="modal-action">
-                            <button onClick={closeModal} className={"btn btn-neutral rounded-xl"}>Cancel</button>
+                            <button
+                                // onClick={closeModal}
+                                className={"btn btn-neutral rounded-xl"}>Cancel</button>
                             <button
                                 onClick={initiateFunction}
                                 className="btn rounded-xl"
