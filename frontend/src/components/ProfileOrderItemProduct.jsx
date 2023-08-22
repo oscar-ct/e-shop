@@ -19,7 +19,7 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
 
     return (
         <>
-            <div className={"py-3 pl-5 bg-white"}>
+            <div className={"py-3 pl-5 bg-white rounded-bl-xl"}>
                 <div className={"flex flex-col lg:flex-row"}>
                     <div className={"w-full"}>
                         <div className={"flex pb-2"}>
