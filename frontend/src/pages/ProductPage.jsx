@@ -4,7 +4,7 @@ import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
 import {useState} from "react";
 // import axios from "axios";
-import {useGetProductDetailsQuery} from "../slices/productsApiSlice";
+import {useGetProductDetailsQuery, useGetProductsByRatingQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {addToCart} from "../slices/cartSlice";
@@ -17,12 +17,14 @@ import 'swiper/css/zoom';
 import {toast} from "react-hot-toast";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
+import ProductItem from "../components/ProductItem";
 
 
 const ProductPage = () => {
     // const [product, setProduct] = useState({});
     const { id: productId } = useParams();
     const { data: product, refetch, isLoading, error } = useGetProductDetailsQuery(productId);
+    const { data: topRatedProducts, isLoading: loadingRated, error: errorRated } = useGetProductsByRatingQuery();
 
     const {userData} = useSelector(function (state) {
         return state.auth;
@@ -110,7 +112,7 @@ const ProductPage = () => {
                         <BackButton/>
                         <div className={"pb-10 flex flex-col"}>
                             <div className={"flex flex-col lg:flex-row"}>
-                                <div className={"lg:w-9/12 flex flex-col "}>
+                                <div className={"lg:w-9/12 flex flex-col lg:pr-3"}>
                                     <div className={"sm:hidden px-3 py-3 border-b-[1px] border-gray-300 flex flex-col"}>
                                         <span className={"text-2xl lg:text-xl font-semibold"}>
                                             {product.name}
@@ -193,9 +195,9 @@ const ProductPage = () => {
 
                                 </div>
 
-                                <div className={"pt-10 lg:pt-0 lg:w-3/12 lg:pl-5"}>
+                                <div className={"pt-10 lg:pt-0 lg:w-3/12 lg:pl-3"}>
                                     <div
-                                        className={"rounded-xl p-7 text-lg lg:text-sm bg-white shadow-xl border-[1px] border-gray-300 mx-6 sm:mx-0 sm:border-none"}
+                                        className={"rounded-xl h-full p-7 text-lg lg:text-sm bg-white shadow-xl border-[1px] border-gray-300 mx-6 sm:mx-0 sm:border-none"}
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,228,253,1) 175%)"}}
                                     >
                                         <div className={"py-2 sm:hidden"}>Buy Now</div>
@@ -265,11 +267,11 @@ const ProductPage = () => {
 
 
                             <div ref={scrollTo} className={"w-full"}>
-                                <div id="reviews" className={"pt-10 xl:pt-15 flex flex-col lg:flex-row lg:justify-start"}>
-                                    <div className={"w-full lg:w-6/12"}>
-                                        <div className={"bg-white shadow-xl rounded-xl overflow-x-auto"}>
+                                <div id="reviews" className={"pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start h-[27em]"}>
+                                    <div className={"w-full lg:w-6/12 lg:pr-3"}>
+                                        <div className={"h-full bg-white shadow-xl rounded-xl overflow-x-auto"}>
                                             <div className={"p-5 lg:p-8 "}>
-                                                <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px]" : "pb-0"} flex justify-between items-center  border-gray-300`}>
+                                                <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px] border-gray-300" : "pb-0"} flex justify-between items-center`}>
                                                     {
                                                         product.reviews.length !== 0 ? (
                                                             <span className={"text-xl font-semibold"}>Customer Reviews ({product.numReviews})</span>
@@ -323,6 +325,22 @@ const ProductPage = () => {
                                                         })
 
                                                     )
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className={"w-full lg:w-6/12 pt-10 lg:pt-0 lg:pl-3"}>
+                                        <div className={"h-full bg-white shadow-xl rounded-xl overflow-y-auto flex flex-col"}>
+                                            <div className={"pt-8 px-8"}>
+                                                <h2 className={"text-xl font-semibold"}>Suggested for you</h2>
+                                            </div>
+                                            <div className={"flex"}>
+                                                {
+                                                    topRatedProducts.map(function (product, index) {
+                                                        return <ProductItem key={index} product={product} smallSize={true} cardWidth={"w-56"}/>
+                                                    })
                                                 }
                                             </div>
                                         </div>
