@@ -18,6 +18,7 @@ import OrderItem from "../components/OrderItem";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import ConfirmModal from "../components/ConfirmModal";
+import {toast} from "react-hot-toast";
 
 
 const OrderPage = () => {
@@ -67,7 +68,8 @@ const OrderPage = () => {
     //     dispatch(setLoading(false));
     // }
     const onError = (error) => {
-        console.log(error);
+        // console.log(error);
+        toast.error(error);
     }
     const onApprove = (data, actions) => {
         return actions.order.capture().then(async function (details) {
@@ -185,7 +187,7 @@ const OrderPage = () => {
                                             {order.shippingAddress.address}
                                         </span>
                                             <span>
-                                            {order.shippingAddress.city}, {order.shippingAddress.postalCode}
+                                            {order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode}
                                         </span>
                                             <span>
                                             {order.shippingAddress.country}
@@ -221,7 +223,7 @@ const OrderPage = () => {
                                                     <Message variant={"info"}>
                                                         <div className={"flex flex-col"}>
                                                             <span className={"text-start"}>
-                                                                Shipped with USPS
+                                                                Shipped
                                                             </span>
                                                         </div>
                                                     </Message>

@@ -133,7 +133,7 @@ const CheckoutPage = () => {
                                             {shippingAddress.address}
                                         </span>
                                             <span>
-                                            {shippingAddress.city}, {shippingAddress.postalCode}
+                                            {shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}
                                         </span>
                                             <span>
                                             {shippingAddress.country}

@@ -37,9 +37,10 @@ const ShippingPage = () => {
         address: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.address ? shippingAddress.address : "",
         city: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.city ? shippingAddress.city : "",
         postalCode: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.postalCode ? shippingAddress.postalCode : "",
+        state: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.state ? shippingAddress.state : "",
         country: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.country ? shippingAddress.country : "",
     });
-    const {address, city, postalCode, country} = shippingData;
+    const {address, city, postalCode, state, country} = shippingData;
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
@@ -109,7 +110,7 @@ const ShippingPage = () => {
                                         className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"address"}
                                         type={"text"}
-                                        placeholder={"1600 Pennsylvania Ave"}
+                                        placeholder={"600 Navarro St #300"}
                                         id={"address"}
                                         value={address}
                                         onChange={onChange}
@@ -123,7 +124,7 @@ const ShippingPage = () => {
                                         className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"city"}
                                         type={"text"}
-                                        placeholder={"Washington, DC"}
+                                        placeholder={"San Antonio"}
                                         id={"city"}
                                         value={city}
                                         onChange={onChange}
@@ -131,18 +132,36 @@ const ShippingPage = () => {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Postal Code
-                                    </label>
-                                    <input
-                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
-                                        autoComplete={"postalCode"}
-                                        type={"text"}
-                                        placeholder={"20500"}
-                                        id={"postalCode"}
-                                        value={postalCode}
-                                        onChange={onChange}
-                                        required
-                                    />
+                                    <div className={"flex w-full"}>
+                                        <div className={"w-6/12 pr-2"}>
+                                            <label className="text-sm font-medium text-gray-700 tracking-wide">Postal Code
+                                            </label>
+                                            <input
+                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                                autoComplete={"postalCode"}
+                                                type={"text"}
+                                                placeholder={"78205"}
+                                                id={"postalCode"}
+                                                value={postalCode}
+                                                onChange={onChange}
+                                                required
+                                            />
+                                        </div>
+                                        <div className={"w-6/12 pl-2"}>
+                                            <label className="text-sm font-medium text-gray-700 tracking-wide">State
+                                            </label>
+                                            <input
+                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                                autoComplete={"state"}
+                                                type={"text"}
+                                                placeholder={"Texas"}
+                                                id={"state"}
+                                                value={state}
+                                                onChange={onChange}
+                                                required
+                                            />
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Country
@@ -173,7 +192,7 @@ const ShippingPage = () => {
                                     </label>
                                 </div>
                                 <div className={"pt-5 w-full flex justify-end"}>
-                                    <button disabled={shippingData.address.length === 0 || shippingData.city.length === 0 || shippingData.postalCode.length === 0 || shippingData.country.length === 0} className={`${(shippingData.address.length !== 0 && shippingData.city.length !== 0 && shippingData.postalCode.length !== 0 && shippingData.country.length !== 0) && "shadow-blue"} btn btn-primary btn-wide`}>
+                                    <button disabled={shippingData.address.length === 0 || shippingData.city.length === 0 || shippingData.postalCode.length === 0 || shippingData.state.length === 0 || shippingData.country.length === 0} className={`${(shippingData.address.length !== 0 && shippingData.city.length !== 0 && shippingData.postalCode.length !== 0 && shippingData.country.length !== 0) && "shadow-blue"} btn btn-primary btn-wide`}>
                                         Continue To Payment
                                     </button>
                                 </div>
@@ -188,7 +207,7 @@ const ShippingPage = () => {
                                                     <div className={"w-full flex p-6"}>
                                                         <div className={"w-10/12 flex  items-center"}>
                                                             <span className={"text-md"}>
-                                                                {`${item.address} ${item.city} ${item.postalCode} ${item.country}`}
+                                                                {`${item.address} ${item.city}, ${item.state} ${item.postalCode} ${item.country}`}
                                                             </span>
                                                         </div>
                                                         <div className={"w-2/12 flex items-center"}>

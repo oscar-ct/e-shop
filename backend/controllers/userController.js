@@ -168,6 +168,7 @@ const updateUserAddress = asyncHandler(async (req, res) => {
             address: req.body.address,
             city: req.body.city,
             postalCode: req.body.postalCode,
+            state: req.body.state,
             country: req.body.country
         }
         if (user.shippingAddresses.length === 0) {

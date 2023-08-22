@@ -57,7 +57,7 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
                                 <span className={"text-xs font-bold"}>
                                     SHIP TO
                                 </span>
-                                <div className="tooltip tooltip-bottom" data-tip={`${order.shippingAddress.address}, ${order.shippingAddress.city}, ${order.shippingAddress.postalCode}`}>
+                                <div className="tooltip tooltip-bottom" data-tip={`${order.shippingAddress.address}, ${order.shippingAddress.city}, ${order.shippingAddress.state} ${order.shippingAddress.postalCode}`}>
                                     <span className={"cursor-default text-primary text-sm"}>
                                         {order.user.name}
                                     </span>
