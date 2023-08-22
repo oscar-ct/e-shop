@@ -134,20 +134,6 @@ const ShippingPage = () => {
                                 <div className="space-y-2">
                                     <div className={"flex w-full"}>
                                         <div className={"w-6/12 pr-2"}>
-                                            <label className="text-sm font-medium text-gray-700 tracking-wide">Postal Code
-                                            </label>
-                                            <input
-                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
-                                                autoComplete={"postalCode"}
-                                                type={"text"}
-                                                placeholder={"78205"}
-                                                id={"postalCode"}
-                                                value={postalCode}
-                                                onChange={onChange}
-                                                required
-                                            />
-                                        </div>
-                                        <div className={"w-6/12 pl-2"}>
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">State
                                             </label>
                                             <input
@@ -157,6 +143,20 @@ const ShippingPage = () => {
                                                 placeholder={"Texas"}
                                                 id={"state"}
                                                 value={state}
+                                                onChange={onChange}
+                                                required
+                                            />
+                                        </div>
+                                        <div className={"w-6/12 pl-2"}>
+                                            <label className="text-sm font-medium text-gray-700 tracking-wide">Postal Code
+                                            </label>
+                                            <input
+                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                                autoComplete={"postalCode"}
+                                                type={"text"}
+                                                placeholder={"78205"}
+                                                id={"postalCode"}
+                                                value={postalCode}
                                                 onChange={onChange}
                                                 required
                                             />
