@@ -17,6 +17,7 @@ import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
 import OrderItem from "../components/OrderItem";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
+import ConfirmModal from "../components/ConfirmModal";
 
 
 const OrderPage = () => {
@@ -95,20 +96,17 @@ const OrderPage = () => {
         });
     }
     
-    const cancelOrderHandler = async () => {
-        const confirm = window.confirm("Are you sure you want to cancel this entire order? This cannot be undone");
-        if (confirm) {
-            await Promise.all(order.orderItems.map(async function (item) {
-                const canceledItem = {
-                    orderId: order._id,
-                    productId: item.productId,
-                }
-                await cancelOrderItem(canceledItem);
-            }))
-
-            await cancelOrder(order._id);
-            refetch();
-        }
+    const submitCancel = async () => {
+        // window.alert("Are you sure you want to cancel this entire order? This cannot be undone");
+        await Promise.all(order.orderItems.map(async function (item) {
+            const canceledItem = {
+                orderId: order._id,
+                productId: item.productId,
+            }
+            await cancelOrderItem(canceledItem);
+        }))
+        await cancelOrder(order._id);
+        refetch();
     }
 
     const booleanOrderHasCanceledItems = () => {
@@ -368,7 +366,7 @@ const OrderPage = () => {
                             {
                                 !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
                                     <div className={"w-full pt-5 lg:pt-0 pb-5"}>
-                                        <button onClick={() => cancelOrderHandler(order._id)}
+                                        <button onClick={() => window.confirm_modal.showModal()}
                                                 className={"btn text-xs btn-neutral btn-sm w-full rounded-xl"}>
                                             Cancel Order
                                         </button>
@@ -477,7 +475,7 @@ const OrderPage = () => {
                                 </div>
                             </div>
                         </div>
-
+                        <ConfirmModal title={"Are you sure you want to cancel this entire order? This cannot be undone."} initiateFunction={submitCancel}/>
                     </>
                 )
             }
