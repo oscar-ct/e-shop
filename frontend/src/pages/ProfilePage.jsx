@@ -1,11 +1,14 @@
 import {Link, useParams} from "react-router-dom"
 import {useGetMyOrdersQuery} from "../slices/ordersApiSlice";
+import {useCancelOrderItemMutation, useCancelOrderMutation} from "../slices/ordersApiSlice";
 import Spinner from "../components/Spinner";
 import ProfileOrderItem from "../components/ProfileOrderItem";
 import ProfileAccountDetails from "../components/ProfileAccountDetails";
 import ProfileAccountPassword from "../components/ProfileAccountPassword";
 import NotFoundPage from "./NotFoundPage";
 import Meta from "../components/Meta";
+import ConfirmModal from "../components/ConfirmModal";
+import {useSelector} from "react-redux";
 
 
 const ProfilePage = () => {
@@ -14,12 +17,56 @@ const ProfilePage = () => {
     const {data: orders, isLoading, refetch} = useGetMyOrdersQuery();
     // const navigate = useNavigate();
 
+    const {order} = useSelector(function (state) {
+        return state.order;
+    });
+    const [cancelOrder,
+        // {error: errorCancelOrder}
+    ] = useCancelOrderMutation();
+    const [cancelOrderItem,
+        // {error: errorCancelOrderItem}
+    ] = useCancelOrderItemMutation();
+
+
     // useEffect(function () {
     //     console.log(params)
     //     if (params && (params !== "orders" && params !== "account")) {
     //         navigate("/notfound")
     //     }
     // }, [params, navigate])
+
+    const submitCancel = async () => {
+       if (order) {
+           if (order.orderItemsLength > 1 && order.orderItemsLength !== order.canceledItems.length + 1 && !order.isCanceled) {
+               window.alert("Are you sure you want to cancel this one item? This cannot be undone");
+               const data = {
+                   orderId: order._id,
+                   productId: order.productId,
+               }
+               await cancelOrderItem(data);
+               refetch();
+           } else if (order.orderItemsLength > 1 && order.orderItemsLength === order.canceledItems.length + 1 && !order.isCanceled) {
+               window.alert("Are you sure you want to cancel this entire order? This cannot be undone");
+               const data = {
+                   orderId: order._id,
+                   productId: order.productId,
+               }
+               await cancelOrderItem(data);
+               await cancelOrder(order._id);
+               refetch();
+
+           } else if (order.orderItemsLength === 1 && !order.isCanceled) {
+               window.alert("Are you sure you want to cancel this order? This cannot be undone");
+               const data = {
+                   orderId: order._id,
+                   productId: order.productId,
+               }
+               await cancelOrderItem(data);
+               await cancelOrder(order._id);
+               refetch();
+           }
+       }
+    }
 
     return (
 
@@ -51,7 +98,7 @@ const ProfilePage = () => {
                                             <div className="mt-5 mb-10">
                                                 {
                                                     orders.map(function (order, index) {
-                                                        return <ProfileOrderItem refetch={refetch} key={index} order={order} index={index} orderLength={orders.length}/>
+                                                        return <ProfileOrderItem key={index} order={order} index={index} orderLength={orders.length}/>
                                                     })
                                                 }
                                             </div>
@@ -68,6 +115,7 @@ const ProfilePage = () => {
                                 }
                             </div>
                         </div>
+                        <ConfirmModal title={"Are you sure you want to cancel? This cannot be undone."} initiateFunction={submitCancel}/>
                     </>
                 )
         ) : <NotFoundPage/>
