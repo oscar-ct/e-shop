@@ -38,7 +38,7 @@ const ProfilePage = () => {
     const submitCancel = async () => {
        if (order) {
            if (order.orderItemsLength > 1 && order.orderItemsLength !== order.canceledItems.length + 1 && !order.isCanceled) {
-               window.alert("Are you sure you want to cancel this one item? This cannot be undone");
+               // window.alert("Are you sure you want to cancel this one item? This cannot be undone");
                const data = {
                    orderId: order._id,
                    productId: order.productId,
@@ -46,7 +46,7 @@ const ProfilePage = () => {
                await cancelOrderItem(data);
                refetch();
            } else if (order.orderItemsLength > 1 && order.orderItemsLength === order.canceledItems.length + 1 && !order.isCanceled) {
-               window.alert("Are you sure you want to cancel this entire order? This cannot be undone");
+               // window.alert("Are you sure you want to cancel this entire order? This cannot be undone");
                const data = {
                    orderId: order._id,
                    productId: order.productId,
@@ -56,7 +56,7 @@ const ProfilePage = () => {
                refetch();
 
            } else if (order.orderItemsLength === 1 && !order.isCanceled) {
-               window.alert("Are you sure you want to cancel this order? This cannot be undone");
+               // window.alert("Are you sure you want to cancel this order? This cannot be undone");
                const data = {
                    orderId: order._id,
                    productId: order.productId,
