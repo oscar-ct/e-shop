@@ -2,57 +2,22 @@ import React, {useState} from 'react';
 import ProfileOrderItemProduct from "./ProfileOrderItemProduct";
 import {Link, useNavigate} from "react-router-dom";
 import Message from "./Message";
-import {useCancelOrderItemMutation, useCancelOrderMutation} from "../slices/ordersApiSlice";
+// import {useCancelOrderItemMutation, useCancelOrderMutation} from "../slices/ordersApiSlice";
 import {FaRegCopy} from "react-icons/fa";
+import {useDispatch} from "react-redux";
+import {setOrder} from "../slices/orderSlice";
 
 
-const ProfileOrderItem = ({refetch, order, index, orderLength}) => {
+const ProfileOrderItem = ({order, index, orderLength}) => {
     const navigate = useNavigate();
     // const [productId, setProductId] = useState("");
-
-    const [cancelOrder,
-        // {error: errorCancelOrder}
-    ] = useCancelOrderMutation();
-    const [cancelOrderItem,
-        // {error: errorCancelOrderItem}
-    ] = useCancelOrderItemMutation();
+    const dispatch = useDispatch();
     const [copyMessage, setCopyMessage] = useState("copy to clipboard");
 
     const cancelOrderItemHandler = async (productId) => {
-
-        if (order.orderItems.length > 1 && order.orderItems.length !== order.canceledItems.length+1 && !order.isCanceled) {
-            const confirm = window.confirm("Are you sure you want to cancel this one item? This cannot be undone");
-            if (confirm) {
-                const data = {
-                    orderId: order._id,
-                    productId: productId,
-                }
-                await cancelOrderItem(data);
-                refetch();
-            }
-        } else if (order.orderItems.length > 1 && order.orderItems.length === order.canceledItems.length+1 && !order.isCanceled) {
-            const confirm = window.confirm("Are you sure you want to cancel this entire order? This cannot be undone");
-            if (confirm) {
-                const data = {
-                    orderId: order._id,
-                    productId: productId,
-                }
-                await cancelOrderItem(data);
-                await cancelOrder(order._id);
-                refetch();
-            }
-        } else if (order.orderItems.length === 1 && !order.isCanceled) {
-            const confirm = window.confirm("Are you sure you want to cancel this order? This cannot be undone");
-            if (confirm) {
-                const data = {
-                    orderId: order._id,
-                    productId: productId,
-                }
-                await cancelOrderItem(data);
-                await cancelOrder(order._id);
-                refetch();
-            }
-        }
+        const data = {_id: order._id, canceledItems: order.canceledItems, orderItemsLength: order.orderItems.length, isCanceled: order.isCanceled, productId: productId}
+        dispatch(setOrder(data));
+        window.confirm_modal.showModal();
     }
 
 
