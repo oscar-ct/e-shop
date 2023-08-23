@@ -270,7 +270,7 @@ const ProductPage = () => {
                                 <div id="reviews" className={"pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start h-[27em]"}>
                                     <div className={"w-full lg:w-6/12 lg:pr-3"}>
                                         <div className={"h-full bg-white shadow-xl rounded-xl overflow-x-auto"}>
-                                            <div className={"p-5 lg:p-8 "}>
+                                            <div className={"p-5 lg:p-8 h-full"}>
                                                 <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px] border-gray-300" : "pb-0"} flex justify-between items-center`}>
                                                     {
                                                         product.reviews.length !== 0 ? (
@@ -292,6 +292,62 @@ const ProductPage = () => {
                                                         )
                                                     }
                                                 </div>
+                                                {
+                                                    product.reviews.length === 0 && (
+                                                        <div className={"w-full px-4 pt-10 flex flex-col gap-6 justify-center items-center"}>
+                                                            <div className={"flex items-center"}>
+                                                                <div className="rating rating-sm pr-5">
+                                                                    <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled checked type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                </div>
+                                                                <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                            </div>
+                                                            <div className={"flex items-center"}>
+                                                                <div className="rating rating-sm pr-5">
+                                                                    <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled checked type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                </div>
+                                                                <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                            </div>
+                                                            <div className={"flex items-center"}>
+                                                                <div className="rating rating-sm pr-5">
+                                                                    <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled checked type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                </div>
+                                                                <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                            </div>
+                                                            <div className={"flex items-center"}>
+                                                                <div className="rating rating-sm pr-5">
+                                                                    <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled checked type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                </div>
+                                                                <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                            </div>
+                                                            <div className={"flex items-center"}>
+                                                                <div className="rating rating-sm pr-5">
+                                                                    <input disabled checked type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                    <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                </div>
+                                                                <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                            </div>
+                                                        </div>
+                                                    )
+                                                }
                                                 {
                                                     product.reviews.length !== 0 && (
                                                         product.reviews.map(function (review, index) {
