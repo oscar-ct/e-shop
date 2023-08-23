@@ -70,7 +70,7 @@ const ProductPage = () => {
             {
                 isLoading ? (
                     <Spinner/>
-                ) : error ? (
+                ) : error || errorRated ? (
                     <div className={"pt-10 px-2"}>
                         <BackButton/>
                         <Message variant={"error"} children={error?.data?.message || error.error}/>
@@ -338,9 +338,11 @@ const ProductPage = () => {
                                             </div>
                                             <div className={"flex"}>
                                                 {
-                                                    topRatedProducts.map(function (product, index) {
-                                                        return <ProductItem key={index} product={product} smallSize={true} cardWidth={"w-56"}/>
-                                                    })
+                                                    !loadingRated && (
+                                                        topRatedProducts.map(function (product, index) {
+                                                            return <ProductItem key={index} product={product} smallSize={true} cardWidth={"w-56"}/>
+                                                        })
+                                                    )
                                                 }
                                             </div>
                                         </div>
