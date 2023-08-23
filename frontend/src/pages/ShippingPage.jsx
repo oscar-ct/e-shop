@@ -80,7 +80,7 @@ const ShippingPage = () => {
                     console.log(e);
                 }
             } else {
-                dispatch(saveShippingAddress({address: address, city: city, postalCode: postalCode, country: country}));
+                dispatch(saveShippingAddress({address: address, city: city, state: state, postalCode: postalCode, country: country}));
                 navigate("/payment");
             }
         } else {
