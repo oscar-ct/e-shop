@@ -19,13 +19,8 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
 
                         {/*<p>{product.description}</p>*/}
                         <div className={"w-full h-full flex flex-col justify-end"}>
-                            <div className={"flex justify-start text-xs sm:text-base"}>
-                                {
-                                    !smallSize && (
-                                        <Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews !== 1 ? "reviews" : "review"}`}/>
-                                    )
-                                }
-
+                            <div className={`flex justify-start text-xs ${!smallSize && "sm:text-base"}`}>
+                                <Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews !== 1 ? "reviews" : "review"}`}/>
                             </div>
                                 {
                                     !smallSize && (
@@ -34,7 +29,6 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
                                         </div>
                                     )
                                 }
-
                         </div>
                         {/*<div className="card-actions">*/}
                         {/*    <button className="btn btn-primary">Buy Now</button>*/}
