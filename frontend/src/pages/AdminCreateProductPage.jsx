@@ -186,10 +186,10 @@ const AdminCreateProductPage = () => {
                                 <div className={"space-y-2 pb-2"}>
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Title
                                     </label>
-                                    <input
+                                    <textarea
                                         className={`bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                         autoComplete={"off"}
-                                        type={"text"}
+                                        // type={"text"}
                                         placeholder={"e.g. Brand, model name, color, and size"}
                                         id={"name"}
                                         value={formData.name}
@@ -204,7 +204,7 @@ const AdminCreateProductPage = () => {
                                     <textarea
                                         className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                         autoComplete={"off"}
-                                        placeholder={"Tell customers more about your details about the product"}
+                                        placeholder={"Tell customers more details about the product"}
                                         id={"description"}
                                         value={formData.description}
                                         required
@@ -328,7 +328,7 @@ const AdminCreateProductPage = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={`px-5 sm:px-0 pt-5 w-full flex flex-col lg:flex-row lg:justify-end items-center`}>
+                        <div className={`px-5 sm:px-0 pt-1 w-full flex flex-col lg:flex-row lg:justify-end items-center`}>
 
                             <button disabled={newProduct !== null} type={"submit"} className={`rounded-xl ${newProduct === null && "shadow-blue"} self-end btn btn-primary w-full lg:btn-wide`}>
                                Create Listing
@@ -377,7 +377,7 @@ const AdminCreateProductPage = () => {
 
                     <div className={"px-5 sm:px-0 py-5 w-full flex flex-col lg:flex-row lg:justify-between"}>
                         <p className={"text-xs py-1 text-center"}>
-                            * Please note the first uploaded image will be the cover
+                            *Please note the first uploaded image will be the cover
                         </p>
                         <button disabled={newProduct === null || newProduct.images.length >= 7} onClick={openPicker} className={"rounded-xl btn w-full lg:btn-wide"}>
                             <FaUpload/>
