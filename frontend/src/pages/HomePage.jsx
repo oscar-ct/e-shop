@@ -220,7 +220,7 @@ const HomePage = () => {
                             </div>
                             <div className={"pt-10 flex justify-center"}>
                                 <div className={"join"}>
-                                    <Paginate pages={data.pages} page={data.page}/>
+                                    <Paginate pages={data.pages} page={data.page} isHomePage={true}/>
                                 </div>
                             </div>
                         </div>
