@@ -441,7 +441,7 @@ const OrderPage = () => {
                                             </div>
                                         </div>
                                         <div
-                                            className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-xl px-8 py-6"}>
+                                            className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-xl px-8 pt-6 pb-8"}>
                                              <span className="text-red-600">
                                                 Order Total:
                                             </span>
@@ -451,10 +451,15 @@ const OrderPage = () => {
                                         </div>
                                         {
                                            !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
-                                                <div className={"flex font-bold rounded-bl-xl rounded-br-xl text-xl px-12 py-5"}>
+                                                <div className={"flex font-bold rounded-bl-xl rounded-br-xl text-xl px-12 pb-5"}>
                                                     {
                                                         !isPending && (
                                                             <div className={"w-full"}>
+                                                                <div>
+                                                                    <p className={"text-xs font-normal px-3 pb-5 italic"}>
+                                                                        *Please note payment data you enter using PayPal Services does not get seen or saved by e-shop-us.com
+                                                                    </p>
+                                                                </div>
                                                                 <PayPalButtons
                                                                     createOrder={createOrder}
                                                                     onApprove={onApprove}
