@@ -388,11 +388,11 @@ const ProductPage = () => {
 
 
                                     <div className={"w-full lg:w-6/12 pt-10 lg:pt-0 lg:pl-3"}>
-                                        <div className={"h-full bg-white shadow-xl rounded-xl overflow-y-auto flex flex-col"}>
-                                            <div className={"pt-8 px-8"}>
+                                        <div className={"h-full bg-white shadow-xl rounded-xl flex flex-col"}>
+                                            <div className={"sticky pt-8 px-8"}>
                                                 <h2 className={"text-xl font-semibold"}>Suggested for you</h2>
                                             </div>
-                                            <div className={"flex"}>
+                                            <div className={"flex overflow-y-auto h-full"}>
                                                 {
                                                     !loadingRated && (
                                                         topRatedProducts.map(function (product, index) {
