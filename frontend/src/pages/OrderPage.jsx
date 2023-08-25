@@ -149,9 +149,13 @@ const OrderPage = () => {
                                     <h1 className={"text-4xl font-bold "}>
                                         Your order has been delivered, thank you!
                                     </h1>
-                                ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && order.isPaid && !order.isShipped && !order.isDelivered ? (
+                                ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && order.isPaid && !order.isShipped && !order.isDelivered && !order.isReimbursed ? (
                                     <h1 className={"text-4xl font-bold"}>
                                         Your order has been canceled and your refund process has begun.
+                                    </h1>
+                                ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && order.isPaid && !order.isShipped && !order.isDelivered && order.isReimbursed ? (
+                                    <h1 className={"text-4xl font-bold"}>
+                                        Your order has been canceled and your refund has been sent.
                                     </h1>
                                 ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && !order.isShipped && !order.isDelivered ? (
                                     <h1 className={"text-4xl font-bold"}>
@@ -173,12 +177,12 @@ const OrderPage = () => {
                                     </h1>
                                 </div>
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-5/12 lg:w-4/12"}>
+                                    <div className={"w-3/12 sm:w-5/12 lg:w-4/12"}>
                                         <h3 className={"font-semibold"}>
                                             Ship To:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12 lg:w-8/12"}>
+                                    <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
                                         <div className={"flex flex-col text-sm"}>
                                         <span>
                                             {order.user.name}
@@ -197,12 +201,12 @@ const OrderPage = () => {
                                 </div>
 
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-5/12 lg:w-4/12"}>
-                                        <h3 className={"font-semibold"}>
+                                    <div className={"w-3/12 sm:w-5/12 lg:w-4/12"}>
+                                        <h3 className={"font-semibold pr-2"}>
                                             Order Status:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12 lg:w-8/12"}>
+                                    <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
                                         <div className={"flex flex-col text-sm"}>
                                             {
                                                 order.isPaid && !order.isShipped && !order.isCanceled && order.orderItems.length !== order.canceledItems?.length ? (
@@ -249,17 +253,15 @@ const OrderPage = () => {
                                 {
                                     order.isShipped && (
                                         <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                            <div className={"w-5/12 lg:w-4/12"}>
-                                                <h3 className={"font-semibold"}>
+                                            <div className={"w-3/12 sm:w-5/12 lg:w-4/12"}>
+                                                <h3 className={"font-semibold pr-2"}>
                                                     Tracking Number:
                                                 </h3>
                                             </div>
-                                            <div className={"w-7/12 lg:w-8/12"}>
-                                                <div className={"flex items-center text-sm"}>
-                                                    <span>
-                                                        {order.trackingNumber}
-                                                    </span>
-                                                </div>
+                                            <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
+                                                <span className={"text-sm"}>
+                                                    {order.trackingNumber}
+                                                </span>
                                             </div>
                                         </div>
                                     )
@@ -291,21 +293,26 @@ const OrderPage = () => {
                                 {/*</div>*/}
 
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-5/12 lg:w-4/12"}>
-                                        <h3 className={"font-semibold"}>
+                                    <div className={"w-3/12 sm:w-5/12 lg:w-4/12"}>
+                                        <h3 className={"font-semibold pr-2"}>
                                             Payment Status:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12 lg:w-8/12"}>
+                                    <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
                                         <div className={"flex items-center text-sm"}>
                                             {
                                                 order.isPaid ? (
                                                     <Message variant={"success"}>
-                                                        <div className={"flex items-center"}>
-                                                            <span className={"flex flex-wrap text-start pr-1"}>
-                                                                <span className={"pr-1"}>
-                                                                Paid on {order.paidAt.substring(0, 10)} with</span><span className={"pr-1 font-semibold"}>{order.paymentMethod}</span>
-                                                                  <PayPal className={"pt-[2px]"} width={"16"} height={"24"}/>
+                                                        <div className={"flex flex-wrap items-center"}>
+                                                            <span className={"pr-1"}>
+                                                                Paid on
+                                                            </span>
+                                                            <span className={"pr-1"}>
+                                                                {order.paidAt.substring(0, 10)}
+                                                            </span>
+                                                            <span className={"font-semibold flex items-center"}>
+                                                                <span className={"pr-1"}>w/ {order.paymentMethod}</span>
+                                                                <PayPal className={"pt-[2px]"} width={"16"} height={"24"}/>
                                                             </span>
                                                         </div>
                                                     </Message>
@@ -326,18 +333,40 @@ const OrderPage = () => {
                                 {
                                     (order.isCanceled || (order.orderItems.length === order.canceledItems?.length || booleanOrderHasCanceledItems())) && order.isPaid && (
                                         <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                            <div className={"w-5/12 lg:w-4/12"}>
-                                                <h3 className={"font-semibold"}>
+                                            <div className={"w-3/12 sm:w-5/12 lg:w-4/12"}>
+                                                <h3 className={"font-semibold pr-2"}>
                                                     Refund Status:
                                                 </h3>
                                             </div>
-                                            <div className={"w-7/12 lg:w-8/12"}>
+                                            <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
                                                 <div className={"flex items-center text-sm"}>
-                                                    <Message>
-                                                        <span className={"text-start"}>
-                                                           Refund In Progress
-                                                        </span>
-                                                    </Message>
+                                                    {
+                                                        order.isReimbursed ? (
+                                                            <Message variant={"success"}>
+                                                                <div className={"flex flex-wrap items-center"}>
+                                                                    <span className={"pr-1"}>
+                                                                        Refunded
+                                                                    </span>
+                                                                    <span className={"font-semibold pr-1"}>
+                                                                        ${order.reimbursedAmount.toFixed(2)} on
+                                                                    </span>
+                                                                    <span className={"pr-1"}>
+                                                                        {order.reimbursedAt.substring(0, 10)}
+                                                                    </span>
+                                                                    <span className={"font-semibold flex items-center"}>
+                                                                        <span className={"pr-1"}>w/ {order.paymentMethod}</span>
+                                                                        <PayPal className={"pt-[2px]"} width={"16"} height={"24"}/>
+                                                                    </span>
+                                                                </div>
+                                                            </Message>
+                                                        ) : (
+                                                            <Message variant={"info"}>
+                                                                <span className={"text-start"}>
+                                                                   Refund In Progress
+                                                                </span>
+                                                            </Message>
+                                                        )
+                                                    }
                                                 </div>
                                             </div>
                                         </div>
@@ -381,11 +410,11 @@ const OrderPage = () => {
                                         {/*}*/}
 
                                     </div>
-                                ) : (order.isCanceled || order.canceledItems?.length > 0) && order.isPaid ? (
+                                ) : (order.isCanceled || order.canceledItems?.length > 0) && order.isPaid && !order.isReimbursed ? (
                                         <h5 className={"text-center pb-5"}>
                                             Refunds can take up 5-7 business to process.
                                         </h5>
-                                ) : (order.isCanceled || order.canceledItems?.length > 0) && !order.isPaid ? (
+                                ) : (order.isCanceled || order.canceledItems?.length > 0) && (!order.isPaid || order.isReimbursed)  ? (
                                         ""
                                 ) : (
                                     <h5 className={"text-center pb-5"}>
