@@ -166,7 +166,8 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
         if (req.body.isReimbursed) {
             if (req.body.isReimbursed  === "true") {
                 order.isReimbursed = true;
-                order.reimburedAt = Date.now();
+                order.reimbursedAt = Date.now();
+                order.reimbursedAmount = order.totalPrice;
             } else {
                 order.isReimbursed = false;
             }

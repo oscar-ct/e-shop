@@ -163,6 +163,9 @@ const orderSchema = new mongoose.Schema({
     reimbursedAt: {
         type: Date,
     },
+    reimbursedAmount: {
+        type: Number,
+    },
 
 },
 {
