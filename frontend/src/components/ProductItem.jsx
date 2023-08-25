@@ -13,7 +13,7 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
                     </Link>
                     <div className={`card-body p-2 sm:px-4 items-start h-full flex flex-col ${!smallSize ? "justify-between" : "justify-start"} `}>
                         <Link to={`/product/${product._id}`}
-                              className={"w-full h-full text-concat text-sm font-semibold"}
+                              className={`w-full h-full text-concat ${smallSize && "max-height-2"} text-sm font-semibold`}
                         >
                             {product.name}
                             {/*<h2 className="text-concat text-sm font-semibold">{product.name.length > 65 ? `${product.name.substring(0, 65)}` : product.name}</h2>*/}
