@@ -55,7 +55,6 @@ const CheckoutPage = () => {
         } else {
             toast.success("Discount applied!");
             dispatch(applyDiscountCode());
-            setDiscountCode("");
         }
     };
 
@@ -66,6 +65,7 @@ const CheckoutPage = () => {
     const checkoutHandler = async () => {
         setOrderSubmitted(true);
         dispatch(setLoading(true));
+        const res = await validateDiscountCode({code: discountCode}).unwrap();
         try {
             const order = await createOrder({
                 orderItems: cartItems,
@@ -75,6 +75,7 @@ const CheckoutPage = () => {
                 shippingPrice: shippingPrice,
                 taxPrice: taxPrice,
                 totalPrice: totalPrice,
+                validCode : res.validCode,
             }).unwrap();
             dispatch(setLoading(false));
             dispatch(clearCartItems());
@@ -255,12 +256,12 @@ const CheckoutPage = () => {
                                             discount ? (
                                                 <div className={"px-8 py-10"}>
                                                     <div className={"w-full"}>
-                                                        <div className={"w-full text-sm font-semibold flex items-center justify-around text-base-content relative col-start-1 row-start-1 bg-[linear-gradient(90deg,hsl(var(--s))_0%,hsl(var(--sf))_9%,hsl(var(--pf))_42%,hsl(var(--p))_47%,hsl(var(--a))_100%)] bg-clip-text [-webkit-text-fill-color:transparent] [&::selection]:bg-blue-700/20 [@supports(color:oklch(0_0_0))]:bg-[linear-gradient(90deg,hsl(var(--s))_4%,color-mix(in_oklch,hsl(var(--sf)),hsl(var(--pf)))_22%,hsl(var(--p))_45%,color-mix(in_oklch,hsl(var(--p)),hsl(var(--a)))_67%,hsl(var(--a))_100.2%)]"}>
-                                                            <span>
-                                                                 Discount code has been applied! &#x1F389;
+                                                        <div className={"w-full text-sm font-semibold flex items-center justify-around"}>
+                                                            <span className={""}>
+                                                                 Thank you! I love you too. Congrats, you are now getting free shipping! &#x1F389;
                                                             </span>
-                                                            <button onClick={submitRemoveDiscountCode} className={"hover:opacity-80 cursor-pointer rounded-full border-2 border-[#27B1FFFF] p-[3px]"}>
-                                                                <FaTimes className={"h-2 w-2"} fill={"#27b1ff"}/>
+                                                            <button onClick={submitRemoveDiscountCode} className={"hover:opacity-80 cursor-pointer rounded-full border-2 border-[red] p-[3px]"}>
+                                                                <FaTimes className={"h-2 w-2"} fill={"red"}/>
                                                             </button>
                                                         </div>
                                                     </div>
