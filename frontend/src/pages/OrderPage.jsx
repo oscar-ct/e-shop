@@ -3,7 +3,6 @@ import {PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
 import {useParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {
-    useCancelOrderItemMutation,
     useCancelOrderMutation,
     useGetOrderByIdQuery,
     useGetPayPalClientIdQuery,
@@ -33,11 +32,32 @@ const OrderPage = () => {
     const [cancelOrder,
         // {error: errorCancelOrder}
     ] = useCancelOrderMutation();
-    const [cancelOrderItem] = useCancelOrderItemMutation();
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
     }, 0);
+
+    const totalNumberOfCanceledItems = order && order?.canceledItems.length > 0 ? order.canceledItems.reduce(function (acc, item) {
+        return (acc + item.productQuantity);
+    }, 0) : 0;
+
+    const canceledItemsThatRequireRefund = order?.canceledItems.filter(function (item) {
+        return item.canceledAt > order.paidAt;
+    });
+
+    const totalNumberOfCanceledItemsThatRequireRefund = order && canceledItemsThatRequireRefund.length > 0 ? canceledItemsThatRequireRefund.reduce(function (acc, item) {
+        return (acc + item.productQuantity);
+    }, 0) : 0;
+
+    const totalDollarAmountOfCanceledItemsThatRequireRefund = order && canceledItemsThatRequireRefund.length > 0 ? canceledItemsThatRequireRefund.reduce(function (acc, item) {
+        return (acc + item.productPrice * item.productQuantity);
+    }, 0) : 0;
+
+    const totalDollarAmountOfShippingRefund = order && canceledItemsThatRequireRefund.length > 0 && (order.freeShipping || totalDollarAmountOfCanceledItemsThatRequireRefund > 100) ? 0 : 10
+
+    const totalDollarAmountOfFees = order && order?.canceledItems.length > 0 && (order.freeShipping || (totalDollarAmountOfCanceledItemsThatRequireRefund + order.itemsPrice > 100 && order.itemsPrice > 100)) ? 0 : 10;
+
+
 
     const [{isPending}, paypalDispatch] = usePayPalScriptReducer();
 
@@ -61,12 +81,12 @@ const OrderPage = () => {
         }
     }, [order, paypal, paypalDispatch, loadingPayPal, errorPayPal]);
     
-    // const onApproveTest = async  () => {
-    //     dispatch(setLoading(true));
-    //     await payOrder({orderId, details: { payer: {} }});
-    //     refetch();
-    //     dispatch(setLoading(false));
-    // }
+    const onApproveTest = async  () => {
+        dispatch(setLoading(true));
+        await payOrder({orderId, details: { payer: {} }});
+        refetch();
+        dispatch(setLoading(false));
+    }
     const onError = (error) => {
         // console.log(error);
         toast.error(error);
@@ -99,28 +119,21 @@ const OrderPage = () => {
     }
     
     const submitCancel = async () => {
-        // window.alert("Are you sure you want to cancel this entire order? This cannot be undone");
-        await Promise.all(order.orderItems.map(async function (item) {
-            const canceledItem = {
-                orderId: order._id,
-                productId: item.productId,
-            }
-            await cancelOrderItem(canceledItem);
-        }))
         await cancelOrder(order._id);
         refetch();
     }
 
-    const booleanOrderHasCanceledItems = () => {
-        let bool = false;
-        order?.orderItems.forEach(function (item) {
-            if (order.canceledItems.some(e => e.productId === item.productId)) {
-                bool = true;
-            }
-        });
+    // const booleanOrderHasCanceledItems = () => {
+    //     let bool = false;
+    //     order?.orderItems.forEach(function (item) {
+    //         if (order.canceledItems.some(e => e.productId === item.productId)) {
+    //             bool = true;
+    //         }
+    //     });
+    //
+    //     return bool;
+    // }
 
-        return bool;
-    }
 
     return (
         <>
@@ -155,7 +168,7 @@ const OrderPage = () => {
                                     </h1>
                                 ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && order.isPaid && !order.isShipped && !order.isDelivered && order.isReimbursed ? (
                                     <h1 className={"text-4xl font-bold"}>
-                                        Your order has been canceled and your refund has been sent.
+                                        Your order has been canceled and your refund has been issued.
                                     </h1>
                                 ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) && !order.isShipped && !order.isDelivered ? (
                                     <h1 className={"text-4xl font-bold"}>
@@ -210,7 +223,7 @@ const OrderPage = () => {
                                         <div className={"flex flex-col text-sm"}>
                                             {
                                                 order.isPaid && !order.isShipped && !order.isCanceled && order.orderItems.length !== order.canceledItems?.length ? (
-                                                    <Message>
+                                                    <Message variant={"info"}>
                                                        <span className={"text-start"}>
                                                             Order is being processed
                                                        </span>
@@ -305,13 +318,16 @@ const OrderPage = () => {
                                                     <Message variant={"success"}>
                                                         <div className={"flex flex-wrap items-center"}>
                                                             <span className={"pr-1"}>
-                                                                Paid on
+                                                                Paid
+                                                            </span>
+                                                            <span className={"pr-1 font-bold"}>
+                                                                ${order.paidAmount.toFixed(2)}
                                                             </span>
                                                             <span className={"pr-1"}>
-                                                                {order.paidAt.substring(0, 10)}
+                                                                on {order.paidAt.substring(0, 10)}
                                                             </span>
-                                                            <span className={"font-semibold flex items-center"}>
-                                                                <span className={"pr-1"}>w/ {order.paymentMethod}</span>
+                                                            <span className={"flex items-center"}>with
+                                                                <span className={"px-1 font-bold"}>{order.paymentMethod}</span>
                                                                 <PayPal className={"pt-[2px]"} width={"16"} height={"24"}/>
                                                             </span>
                                                         </div>
@@ -331,7 +347,9 @@ const OrderPage = () => {
 
 
                                 {
-                                    (order.isCanceled || (order.orderItems.length === order.canceledItems?.length || booleanOrderHasCanceledItems())) && order.isPaid && (
+                                    // (order.isCanceled || (order.orderItems.length === order.canceledItems?.length || booleanOrderHasCanceledItems())) && order.isPaid &&
+                                    order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) &&
+                                    (
                                         <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                             <div className={"w-3/12 sm:w-5/12 lg:w-4/12"}>
                                                 <h3 className={"font-semibold pr-2"}>
@@ -347,14 +365,14 @@ const OrderPage = () => {
                                                                     <span className={"pr-1"}>
                                                                         Refunded
                                                                     </span>
-                                                                    <span className={"font-semibold pr-1"}>
-                                                                        ${order.reimbursedAmount.toFixed(2)} on
+                                                                    <span className={"font-bold pr-1"}>
+                                                                        ${order.reimbursedAmount.toFixed(2)}
                                                                     </span>
                                                                     <span className={"pr-1"}>
-                                                                        {order.reimbursedAt.substring(0, 10)}
+                                                                        on {order.reimbursedAt.substring(0, 10)}
                                                                     </span>
                                                                     <span className={"font-semibold flex items-center"}>
-                                                                        <span className={"pr-1"}>w/ {order.paymentMethod}</span>
+                                                                        <span className={"pr-1"}>with {order.paymentMethod}</span>
                                                                         <PayPal className={"pt-[2px]"} width={"16"} height={"24"}/>
                                                                     </span>
                                                                 </div>
@@ -384,7 +402,7 @@ const OrderPage = () => {
                                         {
                                             order.orderItems.map(function (item) {
                                                 return (
-                                                    <OrderItem canceledItems={order.canceledItems} item={item} isCanceled={order.isCanceled} key={item.productId}/>
+                                                    <OrderItem canceledItems={order.canceledItems} item={item} isCanceled={order.isCanceled} paidAt={order.paidAt} key={item.productId}/>
                                                 )
                                             })
                                         }
@@ -424,7 +442,7 @@ const OrderPage = () => {
                             }
 
 
-                                <div>
+                                <div className={"flex flex-col"}>
                                     <div className="card bg-white shadow-xl">
                                         <div className="pt-8 px-8">
                                             <div className={"flex flex-col"}>
@@ -434,7 +452,7 @@ const OrderPage = () => {
                                                 <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
                                                 <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
-                                                        Items ({totalNumberOfItems}):
+                                                        Items ({totalNumberOfItems - totalNumberOfCanceledItems}):
                                                     </span>
                                                     <span className="pl-2">
                                                         ${(order.itemsPrice).toFixed(2)}
@@ -442,7 +460,7 @@ const OrderPage = () => {
                                                 </div>
                                                 <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
-                                                        Shipping & Handling:
+                                                        Shipping & handling:
                                                     </span>
                                                     <span className="pl-2">
                                                         ${(order.shippingPrice).toFixed(2)}
@@ -470,7 +488,7 @@ const OrderPage = () => {
                                             </div>
                                         </div>
                                         <div
-                                            className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-xl px-8 pt-6 pb-8"}>
+                                            className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-lg px-8 pt-6 pb-8"}>
                                              <span className="text-red-600">
                                                 Order Total:
                                             </span>
@@ -495,12 +513,12 @@ const OrderPage = () => {
                                                                     onError={onError}
                                                                 >
                                                                 </PayPalButtons>
-                                                                {/*<button*/}
-                                                                {/*    onClick={onApproveTest}*/}
-                                                                {/*    className={"btn btn-xs"}*/}
-                                                                {/*>*/}
-                                                                {/*    Pay*/}
-                                                                {/*</button>*/}
+                                                                <button
+                                                                    onClick={onApproveTest}
+                                                                    className={"btn btn-xs"}
+                                                                >
+                                                                    Pay
+                                                                </button>
                                                             </div>
                                                         )
                                                     }
@@ -508,6 +526,92 @@ const OrderPage = () => {
                                             )
                                         }
                                     </div>
+
+                                    {
+                                        order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) && (
+                                            <div className="pt-5">
+                                                <div className={"card bg-white shadow-xl"}>
+                                                    <div className="pt-8 px-8">
+                                                        <div className={"flex flex-col"}>
+                                                            <h3 className={"text-xl font-bold"}>
+                                                                Refund Summary
+                                                            </h3>
+                                                            <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
+                                                            <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                                <span className="">
+                                                                    Items ({totalNumberOfCanceledItemsThatRequireRefund}):
+                                                                </span>
+                                                                <span className="pl-2">
+                                                                    ${totalDollarAmountOfCanceledItemsThatRequireRefund.toFixed(2)}
+                                                                </span>
+                                                            </div>
+                                                            {
+                                                                order.isCanceled && (
+                                                                    <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                                        <span className="">
+                                                                            Shipping & handling:
+                                                                        </span>
+                                                                        <span className="pl-2">
+                                                                            ${totalDollarAmountOfShippingRefund.toFixed(2)}
+                                                                        </span>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                            <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                                <span className="">
+                                                                    Tax collected:
+                                                                </span>
+                                                                <span className="pl-2">
+                                                                    ${(0.0825 * totalDollarAmountOfCanceledItemsThatRequireRefund).toFixed(2)}
+                                                                </span>
+                                                            </div>
+                                                            {
+                                                                !order.isCanceled && (
+                                                                    <>
+                                                                        <span className={"self-end w-16 my-1 border-b-2 border-grey-500"}/>
+                                                                        <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                                            <span className="">
+                                                                                Refund subtotal:
+                                                                            </span>
+                                                                            <span className="pl-2">$
+                                                                                {
+                                                                                    order.isCanceled ? (totalDollarAmountOfShippingRefund + totalDollarAmountOfCanceledItemsThatRequireRefund + (0.0825 * totalDollarAmountOfCanceledItemsThatRequireRefund)).toFixed(2) : (totalDollarAmountOfCanceledItemsThatRequireRefund + (0.0825 * totalDollarAmountOfCanceledItemsThatRequireRefund)).toFixed(2)
+                                                                                }
+                                                                            </span>
+                                                                        </div>
+                                                                        <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                                            <span className="">
+                                                                                Shipping Fee:
+                                                                            </span>
+                                                                            <span className="pl-2">
+                                                                                - ${totalDollarAmountOfFees.toFixed(2)}
+                                                                            </span>
+                                                                        </div>
+                                                                    </>
+                                                                )
+                                                            }
+
+                                                            <div
+                                                                className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-lg pt-6 pb-8"}>
+                                                                     <span className="text-green-500">
+                                                                        Total Estimated Refund:
+                                                                    </span>
+                                                                    <span className="text-green-500">$
+                                                                    {
+                                                                        order.isCanceled ?
+                                                                            (totalDollarAmountOfShippingRefund + totalDollarAmountOfCanceledItemsThatRequireRefund + (totalDollarAmountOfCanceledItemsThatRequireRefund * 0.0825)).toFixed(2)
+                                                                            :
+                                                                            (totalDollarAmountOfCanceledItemsThatRequireRefund + (totalDollarAmountOfCanceledItemsThatRequireRefund * 0.0825) - totalDollarAmountOfFees).toFixed(2)
+                                                                    }
+                                                                    </span>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        )
+                                    }
+
                                 </div>
                             </div>
                         </div>
