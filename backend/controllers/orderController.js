@@ -4,7 +4,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 
 
 const createOrder = asyncHandler(async (req, res) => {
-    const { orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice } = req.body;
+    const { orderItems, shippingAddress, paymentMethod, itemsPrice, taxPrice, shippingPrice, totalPrice, validCode } = req.body;
     if (orderItems && orderItems.length === 0) {
         res.status(400);
         throw new Error("Items not found");
@@ -22,9 +22,10 @@ const createOrder = asyncHandler(async (req, res) => {
                     _id: null,
                 }
             }),
+            freeShipping: !!validCode,
             shippingAddress: shippingAddress,
             paymentMethod: paymentMethod,
-            itemsPrice: itemsPrice,
+            itemsPrice: itemsPrice.toFixed(2),
             taxPrice: taxPrice,
             shippingPrice: shippingPrice,
             totalPrice: totalPrice,
@@ -54,6 +55,8 @@ const getUserOrders = asyncHandler(async (req, res) => {
 const updateOrderToPaid = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
      if (order) {
+         const {totalPrice} = order;
+         order.paidAmount = totalPrice;
          order.isPaid = true;
          order.paidAt = Date.now();
          order.paymentResult = {
@@ -75,9 +78,43 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
 const cancelOrder = asyncHandler(async (req, res) => {
     const order = await Order.findById(req.params.id);
     if (order) {
-        if (!order.isShipped) {
+        const {isShipped, canceledItems, orderItems} = order;
+        if (!isShipped) {
             order.isCanceled = true;
             order.canceledAt = Date.now();
+            if (canceledItems.length > 0) {
+                const canceledItemsIds = canceledItems.map(function (item) {
+                    return item["productId"]
+                });
+                const itemsNotCanceled = orderItems.filter(function (item) {
+                    if (!canceledItemsIds.includes(item.productId.toString())) {
+                        return item;
+                    }
+                });
+                itemsNotCanceled.forEach(function (item) {
+                    const data = {
+                        productId: item.productId,
+                        productPrice: item.price,
+                        productQuantity: item.quantity,
+                        canceledAt: Date.now(),
+                    }
+                    canceledItems.push(data);
+                })
+            } else {
+                orderItems.forEach(function (oItem) {
+                    const data = {
+                        productId: oItem.productId.toString(),
+                        productPrice: oItem.price,
+                        productQuantity: oItem.quantity,
+                        canceledAt: Date.now(),
+                    }
+                    canceledItems.push(data);
+                });
+            }
+            order.itemsPrice = 0;
+            order.shippingPrice = 0;
+            order.taxPrice = 0;
+            order.totalPrice = 0;
             const updatedOrder = await order.save();
             res.status(200);
             res.json(updatedOrder);
@@ -96,13 +133,30 @@ const cancelOrderItem = asyncHandler(async (req, res) => {
     const {productId} = req.body;
     const order = await Order.findById(req.params.id);
     if (order) {
-        const {isShipped, isCanceled} = order;
+        const {isShipped, isCanceled, orderItems, canceledItems} = order;
+        const canceledItem = orderItems.find(function (item) {
+            return productId === item.productId.toString();
+        });
         const data = {
-            productId,
+            productId: canceledItem.productId.toString(),
+            productPrice: canceledItem.price,
+            productQuantity: canceledItem.quantity,
             canceledAt: Date.now(),
         }
+        const newItemsPrice = order.itemsPrice - Number(canceledItem.price * canceledItem.quantity);
+        const newTaxPrice = 0.0825 * (order.itemsPrice - Number(canceledItem.price * canceledItem.quantity));
+
         if (!isShipped && !isCanceled) {
-            order.canceledItems.push(data);
+            if (orderItems.length - 1 === canceledItems.length) {
+                order.isCanceled = true;
+                order.canceledAt = Date.now();
+                order.shippingPrice = 0;
+            }
+            canceledItems.push(data);
+            order.itemsPrice = newItemsPrice.toFixed(2);
+            order.taxPrice = newTaxPrice.toFixed(2);
+            order.totalPrice = (newItemsPrice + newTaxPrice + order.shippingPrice).toFixed(2);
+
             const updatedOrder = await order.save();
             res.status(200);
             res.json(updatedOrder);
@@ -167,7 +221,14 @@ const updateOrderStatus = asyncHandler(async (req, res) => {
             if (req.body.isReimbursed  === "true") {
                 order.isReimbursed = true;
                 order.reimbursedAt = Date.now();
-                order.reimbursedAmount = order.totalPrice;
+                const canceledItemsThatRequireRefund = order.canceledItems.filter(function (item) {
+                    return item.canceledAt > order.paidAt;
+                });
+                const totalDollarAmountOfCanceledItemsThatRequireRefund = canceledItemsThatRequireRefund.reduce(function (acc, item) {
+                    return (acc + item.productPrice * item.productQuantity);
+                }, 0);
+                const totalRefundAmount = totalDollarAmountOfCanceledItemsThatRequireRefund + (totalDollarAmountOfCanceledItemsThatRequireRefund * 0.0825);
+                order.reimbursedAmount = totalRefundAmount.toFixed(2);
             } else {
                 order.isReimbursed = false;
             }
