@@ -82,6 +82,7 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                             method: "PUT",
                         }
                     },
+                    invalidatesTags: ["Order"]
                 }
             ),
             cancelOrderItem: build.mutation({
@@ -92,6 +93,7 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                             body: data,
                         }
                     },
+                    invalidatesTags: ["Order"]
                 }
             ),
         };
