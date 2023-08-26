@@ -75,7 +75,7 @@ const ProductPage = () => {
                         <BackButton/>
                         <Message variant={"error"} children={error?.data?.message || error.error}/>
                     </div>
-                ) : fullScreen ? (
+                ) : !isLoading && fullScreen ? (
                     <div className={"z-10 h-max bg-black absolute top-0 right-0 left-0 bottom-0"}>
                         <div className={"relative"}>
                             <button onClick={() => setFullScreen(false)} className={"z-10 hover:text-blue-500 btn-glass btn-lg text-2xl text-white absolute top-5 right-5"}>
@@ -106,7 +106,7 @@ const ProductPage = () => {
                             </Swiper>
                         </div>
                     </div>
-                    ) : (
+                    ) : !isLoading && (
                     <>
                         <Meta title={product.name}/>
                         <BackButton/>
@@ -392,11 +392,11 @@ const ProductPage = () => {
                                             <div className={"sticky pt-8 px-8"}>
                                                 <h2 className={"text-xl font-semibold"}>Suggested for you</h2>
                                             </div>
-                                            <div className={"flex overflow-y-auto h-full"}>
+                                            <div className={"sm:px-3 flex overflow-y-auto h-full"}>
                                                 {
                                                     !loadingRated && (
                                                         topRatedProducts.map(function (product, index) {
-                                                            return <ProductItem key={index} product={product} smallSize={true} cardWidth={"w-56"}/>
+                                                            return <ProductItem key={index} product={product} smallSize={true} cardWidth={"w-[12em] sm:w-56"}/>
                                                         })
                                                     )
                                                 }
