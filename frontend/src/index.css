@@ -89,6 +89,9 @@ code {
   .rounded-xl {
     border-radius: 5px!important;
   }
+  .card {
+    border-radius: 5px!important;
+  }
   .table-zebra tbody tr:nth-child(2n) {
     background-color: #f1f1f1 !important;
   }
@@ -119,5 +122,5 @@ code {
   line-height: 1.2em;
 }
 .max-height-2 {
-  max-height: 2.3em;
+  max-height: 2.6em;
 }
