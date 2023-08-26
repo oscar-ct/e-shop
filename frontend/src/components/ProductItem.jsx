@@ -4,8 +4,8 @@ import Rating from "./Rating";
 const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
     return (
         <>
-            <div className={"w-6/12 sm:w-72 p-2 sm:p-3"}>
-                <div className={`${cardWidth && cardWidth} card bg-white shadow-xl h-full`}>
+            <div className={"w-6/12 sm:w-72 p-1 sm:p-3"}>
+                <div className={`${cardWidth && cardWidth} rounded-xl flex flex-col bg-white shadow-xl h-full`}>
                     <Link to={`/product/${product._id}`}>
                         <figure className="p-2">
                             <img src={product.images.length !== 0 ? product.images[0].url : "/images/sample.jpg"} alt="product" className="bg-zinc-100/20 w-[248px] h-[197px] object-scale-down rounded-tr-xl rounded-tl-xl" />
@@ -22,7 +22,7 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
 
                         {/*<p>{product.description}</p>*/}
                         {/*<div className={"w-full flex flex-col justify-end"}>*/}
-                            <div className={`w-full text-xs ${!smallSize ? "sm:text-base" : "h-full flex justify-between items-center"}`}>
+                            <div className={`w-full text-xs ${!smallSize ? "sm:text-base" : " flex justify-between items-center"}`}>
                                 <Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews !== 1 ? "reviews" : "review"}`}/>
                                 {
                                     smallSize && (
