@@ -1,7 +1,7 @@
 export const updateCart = (state) => {
     if (state.cartItems.length !== 0) {
         state.itemsPrice = state.cartItems.reduce(function (acc, item) {
-            return acc + item.price * item.quantity;
+            return (acc + item.price * item.quantity);
         }, 0);
 
         state.shippingPrice =  state.discount ? 0 : Number(Math.round(state.itemsPrice > 100 ? 0 : 10).toFixed(2));
