@@ -182,7 +182,7 @@ const OrderPage = () => {
                             }
 
                         </div>
-                        <div className={"mb-10 lg:pt-5 flex-col flex lg:flex-row w-full"}>
+                        <div className={"md:pb-10 lg:pt-5 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-white shadow-xl h-min p-4 sm:p-7"}>
                                 <div className={"pb-7"}>
                                     <h1 className={"text-2xl font-semibold text-center"}>
