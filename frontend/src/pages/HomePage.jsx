@@ -86,7 +86,7 @@ const HomePage = () => {
                 ) : (
                     <>
                         <Meta title={"Home"}/>
-                        <div className={"bg-white shadow-xl rounded-xl"}>
+                        <div className={"drop-shadow-xl bg-transparent rounded-xl"}>
                             <Swiper
                                 autoplay={{
                                     delay: 7500,
@@ -95,7 +95,7 @@ const HomePage = () => {
                                 modules={[Autoplay]}
                                 slidesPerView={1}
                             >
-                                <SwiperSlide>
+                                <SwiperSlide className={""}>
                                     <div style={{background: `url(${HOME_IMAGE_1})`,  backgroundPosition: "center", backgroundSize: "cover"}}
                                         className={"h-[25em] rounded-br-xl rounded-bl-xl"}
                                     >
@@ -166,7 +166,7 @@ const HomePage = () => {
                             <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
                                 Top Rated Products
                             </h2>
-                            <Link to={"/sort/toprated"} className={"link text-sm"}>View All</Link>
+                            <Link to={"/sort/toprated"} className={"link text-sm hover:text-primary"}>View All</Link>
                         </div>
                         <div className={"m-auto w-full rounded-xl max-w-7xl"}>
                             <div className={"p-3"}>
@@ -205,7 +205,7 @@ const HomePage = () => {
                             <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
                                 Lastest Products
                             </h2>
-                            <Link to={"/sort/latest"} className={"link text-sm"}>View All</Link>
+                            <Link to={"/sort/latest"} className={"link text-sm hover:text-primary"}>View All</Link>
                         </div>
                         <div className={"pb-10"}>
                             {/*<h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-3 text-center lg:text-start"}>*/}
