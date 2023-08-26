@@ -119,11 +119,21 @@ const orderSchema = new mongoose.Schema({
     canceledAt: {
         type: Date,
     },
+    freeShipping: {
+        type: Boolean,
+        default: false,
+    },
     // canceledItems: [String],
     canceledItems: [
         {
             productId: {
                 type: String
+            },
+            productPrice: {
+                type: Number
+            },
+            productQuantity: {
+                type: Number
             },
             canceledAt: {
                 type: Date
@@ -137,6 +147,11 @@ const orderSchema = new mongoose.Schema({
     },
     paidAt: {
         type: Date,
+    },
+    paidAmount: {
+        type: Number,
+        required: true,
+        default: 0,
     },
     isDelivered: {
         type: Boolean,
