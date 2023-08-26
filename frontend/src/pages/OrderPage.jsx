@@ -443,89 +443,94 @@ const OrderPage = () => {
 
 
                                 <div className={"flex flex-col"}>
-                                    <div className="card bg-white shadow-xl">
-                                        <div className="pt-8 px-8">
-                                            <div className={"flex flex-col"}>
-                                                <h3 className={"text-xl font-bold"}>
-                                                    Order Summary
-                                                </h3>
-                                                <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
-                                                <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                    {
+                                        totalNumberOfItems - totalNumberOfCanceledItems !== 0 && (
+                                            <div className="card bg-white shadow-xl">
+                                                <div className="pt-8 px-8">
+                                                    <div className={"flex flex-col"}>
+                                                        <h3 className={"text-xl font-bold"}>
+                                                            Order Summary
+                                                        </h3>
+                                                        <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
+                                                        <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
                                                         Items ({totalNumberOfItems - totalNumberOfCanceledItems}):
                                                     </span>
-                                                    <span className="pl-2">
+                                                            <span className="pl-2">
                                                         ${(order.itemsPrice).toFixed(2)}
                                                     </span>
-                                                </div>
-                                                <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                        </div>
+                                                        <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
                                                         Shipping & handling:
                                                     </span>
-                                                    <span className="pl-2">
+                                                            <span className="pl-2">
                                                         ${(order.shippingPrice).toFixed(2)}
                                                     </span>
-                                                </div>
-                                                <span className={"self-end w-16 my-1 border-b-2 border-grey-500"}/>
-                                                <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                        </div>
+                                                        <span className={"self-end w-16 my-1 border-b-2 border-grey-500"}/>
+                                                        <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
                                                         Total before tax:
                                                     </span>
-                                                    <span className="pl-2">
+                                                            <span className="pl-2">
                                                         ${(order.itemsPrice + order.shippingPrice).toFixed(2)}
                                                     </span>
-                                                </div>
-                                                <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                        </div>
+                                                        <div className={"flex justify-between font-semibold text-sm my-1"}>
                                                     <span className="">
                                                         Estimated tax to be collected:
                                                     </span>
-                                                    <span className="pl-2">
+                                                            <span className="pl-2">
                                                         ${(order.taxPrice).toFixed(2)}
                                                     </span>
+                                                        </div>
+                                                        {/*<span className={"my-3 border-b-2 border-grey-500"}>*/}
+                                                        {/*</span>*/}
+                                                    </div>
                                                 </div>
-                                                {/*<span className={"my-3 border-b-2 border-grey-500"}>*/}
-                                                {/*</span>*/}
-                                            </div>
-                                        </div>
-                                        <div
-                                            className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-lg px-8 pt-6 pb-8"}>
+                                                <div
+                                                    className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-lg px-8 pt-6 pb-8"}>
                                              <span className="text-red-600">
                                                 Order Total:
                                             </span>
-                                            <span className="text-red-600">
+                                                    <span className="text-red-600">
                                             ${(order.taxPrice + order.shippingPrice + order.itemsPrice).toFixed(2)}
                                             </span>
-                                        </div>
-                                        {
-                                           !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
-                                                <div className={"flex font-bold rounded-bl-xl rounded-br-xl text-xl px-12 pb-5"}>
-                                                    {
-                                                        !isPending && (
-                                                            <div className={"w-full"}>
-                                                                <div>
-                                                                    <p className={"text-xs font-normal px-3 pb-5 italic"}>
-                                                                        *Please note payment data you enter using PayPal Services does not get seen or saved by e-shop-us.com
-                                                                    </p>
-                                                                </div>
-                                                                <PayPalButtons
-                                                                    createOrder={createOrder}
-                                                                    onApprove={onApprove}
-                                                                    onError={onError}
-                                                                >
-                                                                </PayPalButtons>
-                                                                <button
-                                                                    onClick={onApproveTest}
-                                                                    className={"btn btn-xs"}
-                                                                >
-                                                                    Pay
-                                                                </button>
-                                                            </div>
-                                                        )
-                                                    }
                                                 </div>
-                                            )
-                                        }
-                                    </div>
+                                                {
+                                                    !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
+                                                        <div className={"flex font-bold rounded-bl-xl rounded-br-xl text-xl px-12 pb-5"}>
+                                                            {
+                                                                !isPending && (
+                                                                    <div className={"w-full"}>
+                                                                        <div>
+                                                                            <p className={"text-xs font-normal px-3 pb-5 italic"}>
+                                                                                *Please note payment data you enter using PayPal Services does not get seen or saved by e-shop-us.com
+                                                                            </p>
+                                                                        </div>
+                                                                        <PayPalButtons
+                                                                            createOrder={createOrder}
+                                                                            onApprove={onApprove}
+                                                                            onError={onError}
+                                                                        >
+                                                                        </PayPalButtons>
+                                                                        <button
+                                                                            onClick={onApproveTest}
+                                                                            className={"btn btn-xs"}
+                                                                        >
+                                                                            Pay
+                                                                        </button>
+                                                                    </div>
+                                                                )
+                                                            }
+                                                        </div>
+                                                    )
+                                                }
+                                            </div>
+                                        )
+                                    }
+
 
                                     {
                                         order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) && (
