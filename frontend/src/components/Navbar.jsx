@@ -26,7 +26,7 @@ const Navbar = () => {
     const documentRef3 = useRef();
     const [openNav, setOpenNav] = useState(false);
     const [dropdownActive, setDropdownActive] = useState(false);
-    const { scrollDirection } = useScroll();
+    const { scrollDirection, scrollY } = useScroll();
 
 
     useEffect(function () {
@@ -89,7 +89,7 @@ const Navbar = () => {
 
     const rotateChevron = (action) => {
        return action ? "open" : "closed";
-    }
+    };
     const totalCartItems = cartItems?.reduce(function (acc, item) {
             return acc + item.quantity
         }, 0);
@@ -106,7 +106,7 @@ const Navbar = () => {
         } catch (e) {
             console.log(e)
         }
-    }
+    };
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
     const [windowScrollY, setWindowScrollY] = useState(window.scrollY);
 
@@ -136,7 +136,7 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`${windowInnerWidth > 500 || scrollDirection === "neutral" ? "sticky" : windowScrollY < 50 || scrollDirection === "up" || (scrollDirection === "down" &&  windowScrollY < 50) ? "translate-y-0 sticky visible transition-all duration-700" : "sticky visible duration-700 transition-all translate-y-[-100%]" } inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-md backdrop-blur-lg`}
+                className={`${windowScrollY < 50 || scrollDirection === "up" || (scrollDirection === "down" &&  windowScrollY < 50) ? "translate-y-0 sticky visible transition-all duration-700" : "sticky invisible duration-700 transition-all translate-y-[-100%]" } inset-0 z-10 block h-max w-full rounded-none py-4 shadow-md ${scrollY > 2 ? "backdrop-blur-lg " : undefined}`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
