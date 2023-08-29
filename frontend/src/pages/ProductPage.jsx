@@ -18,6 +18,7 @@ import {toast} from "react-hot-toast";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import ProductItem from "../components/ProductItem";
+import {motion} from "framer-motion";
 
 
 const ProductPage = () => {
@@ -110,7 +111,12 @@ const ProductPage = () => {
                     <>
                         <Meta title={product.name}/>
                         <BackButton/>
-                        <div className={"pb-10 flex flex-col"}>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className={"pb-10 flex flex-col"}
+                        >
                             <div className={"flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col lg:pr-3"}>
                                     <div className={"sm:hidden px-3 py-3 border-b-[1px] border-gray-300 flex flex-col"}>
@@ -405,7 +411,7 @@ const ProductPage = () => {
                                     </div>
                                 </div>
                             </div>
-                        </div>
+                        </motion.div>
                     </>
                 )
             }
