@@ -6,8 +6,8 @@ import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import { Autoplay, Navigation } from "swiper/modules";
-import { Swiper, SwiperSlide } from "swiper/react";
+import {Autoplay, Navigation} from "swiper/modules";
+import { Swiper, SwiperSlide, } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
 import 'swiper/css/pagination';
@@ -18,6 +18,7 @@ import Rating from "../components/Rating";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
 import {useSelector} from "react-redux";
+import {motion} from "framer-motion";
 
 
 const HomePage = () => {
@@ -86,13 +87,17 @@ const HomePage = () => {
                 ) : (
                     <>
                         <Meta title={"Home"}/>
-                        <div className={"drop-shadow-xl bg-transparent rounded-xl"}>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className={"drop-shadow-xl bg-transparent rounded-xl"}>
                             <Swiper
                                 autoplay={{
                                     delay: 7500,
                                     disableOnInteraction: false,
                                 }}
-                                modules={[Autoplay]}
+                                modules={[Autoplay,]}
                                 slidesPerView={1}
                             >
                                 <SwiperSlide className={""}>
@@ -161,14 +166,19 @@ const HomePage = () => {
                                     </div>
                                 </SwiperSlide>
                             </Swiper>
-                        </div>
+                        </motion.div>
                         <div className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
                             <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
                                 Top Rated Products
                             </h2>
                             <Link to={"/sort/toprated"} className={"link text-sm hover:text-primary"}>View All</Link>
                         </div>
-                        <div className={"m-auto w-full rounded-xl max-w-7xl"}>
+                        <motion.div
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
+                            className={"m-auto w-full rounded-xl max-w-7xl"}
+                        >
                             <div className={"p-3"}>
                                 <Swiper
                                     spaceBetween={10}
@@ -179,13 +189,13 @@ const HomePage = () => {
                                     }}
                                     modules={[Autoplay, Navigation]}
                                     slidesPerView={slides}
-                                    // pagination={{clickable: true}}
-                                    navigation>
+                                    navigation
+                                >
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
                                             <Link to={`/product/${data._id}`} className={"relative"}>
-                                                <img
-                                                    className={"bg-white shadow-sm sm:shadow-lg object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                <img data-swiper-parallax="-100"
+                                                    className={"parallax-bg bg-white shadow-sm sm:shadow-lg object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                 <div className={"flex justify-start items-end"}>
                                                     <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>
@@ -200,7 +210,7 @@ const HomePage = () => {
                                     })}
                                 </Swiper>
                             </div>
-                        </div>
+                        </motion.div>
                         <div ref={scrollTo} className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
                             <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
                                 Lastest Products
