@@ -48,6 +48,8 @@ const HomePage = () => {
                 setSlides(1);
             } else if (window.innerWidth > 640 && window.innerWidth <= 1280) {
                 setSlides(2);
+            } else if (window.innerWidth > 1535) {
+                setSlides(4)
             } else {
                 setSlides(3)
             }
@@ -130,7 +132,7 @@ const HomePage = () => {
                                                                     <span className={"pl-3 text-white font-bold"}>-shop!</span>
                                                                 </div>
                                                                 <p className={"px-3 text-center text-white font-bold"}>
-                                                                    An e-commerce site designed and developed by Oscar Castro
+                                                                    An e-commerce site designed and developed by <a className={"link"} href={"https://oscar-ct.com"}> Oscar Castro </a>
                                                                 </p>
                                                             </div>
                                                         )
@@ -177,11 +179,11 @@ const HomePage = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className={"m-auto w-full rounded-xl max-w-7xl px-3 pt-3"}
+                            className={"m-auto w-full rounded-xl max-w-8xl px-3 pt-3"}
                         >
                             {/*<div className={"p-3"}>*/}
                                 <Swiper
-                                    spaceBetween={10}
+                                    spaceBetween={22}
                                     // centeredSlides={true}
                                     autoplay={{
                                         delay: 3500,
@@ -196,7 +198,7 @@ const HomePage = () => {
                                             <Link to={`/product/${data._id}`} className={"relative"}>
                                                 <motion.img
                                                     whileHover={{ scale: .95}}
-                                                    className={"bg-white/80 hover:shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                    className={"bg-white/80 drop-shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                 <div className={"flex justify-start items-end"}>
                                                     <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>
