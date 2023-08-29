@@ -20,7 +20,7 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
     }, []);
     return (
         <>
-            <div className={"w-6/12 sm:w-72 p-1 sm:p-3"}>
+            <Link to={`/product/${product._id}`} className={"w-6/12 sm:w-72 p-1 sm:p-3"}>
                 <motion.div initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.2 }}
@@ -28,19 +28,19 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
                             whileTap={{ scale: 0.9 }}
                             className={`${cardWidth && cardWidth} rounded-xl flex flex-col bg-white shadow-xl h-full`}
                 >
-                    <Link to={`/product/${product._id}`} onMouseEnter={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(product.images.length - (product.images.length - 1))} onMouseLeave={() => (windowInnerWidth >= 500 && product.image.length > 1) && setImageIndex(0)}>
+                    <div onMouseEnter={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(product.images.length - (product.images.length - 1))} onMouseLeave={() => (windowInnerWidth >= 500 && product.image.length > 1) && setImageIndex(0)}>
                         <figure className="p-2">
                             <img src={product.images.length !== 0 ? product.images[imgIndex].url : "/images/sample.jpg"} alt="product" className="bg-zinc-100/20 w-[248px] h-[197px] object-scale-down rounded-tr-xl rounded-tl-xl" />
                         </figure>
-                    </Link>
+                    </div>
                     <div className={`card-body p-2 sm:px-4 items-start h-full flex flex-col ${!smallSize ? "justify-between" : "justify-start"} `}>
-                        <Link to={`/product/${product._id}`}
+                        <div
                               className={`w-full h-full text-concat ${smallSize && "max-height-2"} text-sm font-semibold`}
                         >
                             {product.name}
                             {/*<h2 className="text-concat text-sm font-semibold">{product.name.length > 65 ? `${product.name.substring(0, 65)}` : product.name}</h2>*/}
                             {/*<h2 className="text-concat text-sm font-semibold">{product.name}</h2>*/}
-                        </Link>
+                        </div>
 
                         {/*<p>{product.description}</p>*/}
                         {/*<div className={"w-full flex flex-col justify-end"}>*/}
@@ -67,7 +67,7 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
                         {/*</div>*/}
                     </div>
                 </motion.div>
-            </div>
+            </Link>
         </>
     );
 };
