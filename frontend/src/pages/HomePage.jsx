@@ -215,16 +215,17 @@ const HomePage = () => {
                                         return <SwiperSlide key={index}>
                                             <Link to={`/product/${data._id}`} className={"relative"}>
                                                 <img className={"sm:hover:scale-[.95] sm:duration-200 bg-white/90 drop-shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
-                                                    src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
+                                                    src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}
+                                                />
                                                 <div className={"flex justify-start items-end"}>
                                                     <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>
                                                 </div>
                                             </Link>
-                                            <div className={"absolute right-0 top-0 "}>
-                                                <div className={"p-2 rounded-bl-md rounded-tr-xl"}>
-                                                    <Rating rating={data.rating}/>
-                                                </div>
-                                            </div>
+                                            {/*<div className={"absolute right-0 top-0 "}>*/}
+                                            {/*    <div className={"p-2 rounded-bl-md rounded-tr-xl"}>*/}
+                                            {/*        <Rating rating={data.rating}/>*/}
+                                            {/*    </div>*/}
+                                            {/*</div>*/}
                                         </SwiperSlide>
                                     })}
                                 </Swiper>
