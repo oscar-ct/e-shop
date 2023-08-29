@@ -124,10 +124,10 @@ const HomePage = () => {
                                                         ) : (
                                                             <div className={"w-full flex flex-col"}>
                                                                 <div className={"text-6xl flex flex-wrap justify-center items-center"}>
-                                                                    <span className={"font-bold text-white"}>Welcome</span>
-                                                                    <span className={"px-3 text-neutral"}>to</span>
+                                                                    <span className={"font-bold text-neutral"}>Welcome</span>
+                                                                    <span className={"px-3 text-neutral font-bold"}>to</span>
                                                                     <span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span>
-                                                                    <span className={"pl-3 text-neutral"}>-shop!</span>
+                                                                    <span className={"pl-3 text-white font-bold"}>-shop!</span>
                                                                 </div>
                                                                 <p className={"px-3 text-center text-white font-bold"}>
                                                                     An e-commerce site designed and developed by Oscar Castro
@@ -168,18 +168,18 @@ const HomePage = () => {
                             </Swiper>
                         </motion.div>
                         <div className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
-                            <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
+                            <h2 className={"text-2xl"}>
                                 Top Rated Products
                             </h2>
-                            <Link to={"/sort/toprated"} className={"link text-sm hover:text-primary"}>View All</Link>
+                            <Link to={"/sort/toprated"} className={"btn btn-sm btn-ghost normal-case text-sm"}>View All</Link>
                         </div>
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className={"m-auto w-full rounded-xl max-w-7xl"}
+                            className={"m-auto w-full rounded-xl max-w-7xl px-3 pt-3"}
                         >
-                            <div className={"p-3"}>
+                            {/*<div className={"p-3"}>*/}
                                 <Swiper
                                     spaceBetween={10}
                                     // centeredSlides={true}
@@ -194,8 +194,9 @@ const HomePage = () => {
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
                                             <Link to={`/product/${data._id}`} className={"relative"}>
-                                                <img data-swiper-parallax="-100"
-                                                    className={"parallax-bg bg-white shadow-sm sm:shadow-lg object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                <motion.img
+                                                    whileHover={{ scale: .95}}
+                                                    className={"bg-white/80 hover:shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                 <div className={"flex justify-start items-end"}>
                                                     <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>
@@ -209,13 +210,13 @@ const HomePage = () => {
                                         </SwiperSlide>
                                     })}
                                 </Swiper>
-                            </div>
+                            {/*</div>*/}
                         </motion.div>
                         <div ref={scrollTo} className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
-                            <h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl"}>
+                            <h2 className={"text-2xl"}>
                                 Lastest Products
                             </h2>
-                            <Link to={"/sort/latest"} className={"link text-sm hover:text-primary"}>View All</Link>
+                            <Link to={"/sort/latest"} className={"btn btn-sm btn-ghost normal-case text-sm "}>View All</Link>
                         </div>
                         <div className={"pb-10"}>
                             {/*<h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-3 text-center lg:text-start"}>*/}
