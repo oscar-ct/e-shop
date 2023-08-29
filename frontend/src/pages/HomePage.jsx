@@ -19,6 +19,7 @@ import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
 import {useSelector} from "react-redux";
 import {motion} from "framer-motion";
+import Footer from "../components/Footer";
 
 
 const HomePage = () => {
@@ -64,9 +65,6 @@ const HomePage = () => {
             }
         }
         adjustSlides();
-        // window.addEventListener("resize", adjustSlides);
-        // window.addEventListener("resize", () => window.innerWidth <= 640 ? setSlides(1) : window.innerWidth > 640 && window.innerWidth <= 1280 ? setSlides(2) : setSlides(3));
-        // return () => window.removeEventListener("resize", adjustSlides);
     }, [windowInnerWidth]);
 
     const scrollTo = useRef(null);
@@ -129,9 +127,6 @@ const HomePage = () => {
                                                                         <span className={"font-semibold text-neutral"}>Welcome,</span>
                                                                         <span className={"px-3 font-bold text-white"}>{userData.name.split(" ")[0]}!</span>
                                                                     </div>
-                                                                    {/*<p className={"px-3 text-center text-base-100 font-bold"}>*/}
-
-                                                                    {/*</p>*/}
                                                                 </div>
                                                             </>
                                                         ) : (
@@ -194,7 +189,7 @@ const HomePage = () => {
                         >
                             {/*<div className={"p-3"}>*/}
                                 <Swiper
-                                    spaceBetween={windowInnerWidth <= 640 ? 0 : windowInnerWidth > 640 && windowInnerWidth <= 1280 ? 10 : 22}
+                                    spaceBetween={windowInnerWidth > 1280 ? 15 : 0}
                                     // centeredSlides={true}
                                     autoplay={{
                                         delay: 3500,
@@ -233,9 +228,6 @@ const HomePage = () => {
                             <Link to={"/sort/latest"} className={"btn btn-sm btn-ghost normal-case text-sm "}>View All</Link>
                         </div>
                         <div className={"pb-10"}>
-                            {/*<h2 style={{fontFamily: 'Ubuntu'}} className={"text-2xl py-3 text-center lg:text-start"}>*/}
-                            {/*    Lastest Products*/}
-                            {/*</h2>*/}
                             <div className={"w-full flex flex-wrap justify-center"}>
                                 {
                                     data.products.map(function (product) {
@@ -249,6 +241,7 @@ const HomePage = () => {
                                 </div>
                             </div>
                         </div>
+                        <Footer/>
                     </>
                 )
             }
