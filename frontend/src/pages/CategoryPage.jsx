@@ -36,7 +36,7 @@ const CategoryPage = () => {
                             <div className={"flex justify-between"}>
                                 <Link className={"px-2 md:px-0 my-5 flex items-center w-min"} to={"/"}>
                                     <Arrow className={"w-5 h-5"}/>
-                                    <span className={"pl-1 lg:text-sm font-normal"}>
+                                    <span className={"pl-1 font-base"}>
                                         HOME
                                     </span>
                                 </Link>
