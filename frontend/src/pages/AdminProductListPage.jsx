@@ -381,7 +381,7 @@ const AdminProductListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <input
-                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-24 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-16 py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
                                                                         type={"text"}
                                                                         value={color}
                                                                         onChange={(e) => setColor(e.target.value)}
@@ -420,15 +420,15 @@ const AdminProductListPage = () => {
                                                                         onChange={(e) => setDescription(e.target.value)}
                                                                     />
                                                                 </td>
-                                                                <td className={"p-1 w-20 bg-blue-200"}>{item?.createdAt.substring(0, 10)}</td>
-                                                                <td className={"p-1 bg-blue-200"}>
+                                                                <td className={"p-1 w-20 bg-blue-200 truncate"}>{item?.createdAt.substring(0, 10)}</td>
+                                                                <td className={"p-1 w-20 bg-blue-200"}>
                                                                     <div className={"flex justify-center items-center"}>
-                                                                        <div className="tooltip tooltip-bottom" data-tip="save changes">
+                                                                        <div className="tooltip tooltip-bottom" data-tip="save">
                                                                             <button onClick={confirmUpdateHandler} className={"text-green-500 btn-glass btn-xs rounded-full"}>
                                                                                 <FaCheckCircle className={"text-sm"}/>
                                                                             </button>
                                                                         </div>
-                                                                        <div className="tooltip tooltip-bottom" data-tip="delete item">
+                                                                        <div className="tooltip tooltip-bottom" data-tip="delete">
                                                                             <button onClick={() => openConfirmDeleteProductModal()} className={"text-red-500 btn-glass btn-xs rounded-full"}>
                                                                                 <FaMinusCircle className={"text-sm"}/>
                                                                             </button>
@@ -450,7 +450,7 @@ const AdminProductListPage = () => {
                                                             <td className={"p-1"}>${item.price}</td>
                                                             <td className={"p-1"}>{item.countInStock !== 0 ? item.countInStock : <FaTimes fill={"red"}/>}</td>
                                                             <td className={"p-1"}>{item.category}</td>
-                                                            <td className={"p-1 w-64"}>{item.description.substring(0, 32)}...</td>
+                                                            <td className={"p-1 w-48 text-clip"}>{item.description.substring(0, 48)}...</td>
                                                             <td className={"w-20 p-1"}>{item?.createdAt.substring(0, 10)}</td>
                                                             <td className={"p-2"}>
                                                                 <div className={"flex justify-end items-center"}>
