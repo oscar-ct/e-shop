@@ -26,7 +26,7 @@ const Navbar = () => {
     const documentRef3 = useRef();
     const [openNav, setOpenNav] = useState(false);
     const [dropdownActive, setDropdownActive] = useState(false);
-    const { scrollDirection, scrollY } = useScroll();
+    const { scrollDirection } = useScroll();
 
 
     useEffect(function () {
@@ -136,7 +136,7 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`${windowScrollY < 50 || scrollDirection === "up" || (scrollDirection === "down" &&  windowScrollY < 50) ? "translate-y-0 sticky visible transition-all duration-700" : "sticky invisible duration-700 transition-all translate-y-[-100%]" } inset-0 z-10 block h-max w-full rounded-none py-4 shadow-md ${scrollY > 5 ? "backdrop-blur-md" : undefined}`}
+                className={`${windowScrollY < 50 || scrollDirection === "up" || (scrollDirection === "down" &&  windowScrollY < 50) ? "translate-y-0 sticky visible transition-all duration-700" : "sticky invisible duration-700 transition-all translate-y-[-100%]" } inset-0 z-10 block h-max w-full rounded-none py-4 shadow-md ${window.scrollY > 5 ? "backdrop-blur-md" : undefined}`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
