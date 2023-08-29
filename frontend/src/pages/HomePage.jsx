@@ -6,7 +6,7 @@ import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import {Autoplay, Navigation, FreeMode} from "swiper/modules";
+import {Autoplay, EffectCoverflow, Navigation} from "swiper/modules";
 import { Swiper, SwiperSlide, } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -103,7 +103,8 @@ const HomePage = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className={"drop-shadow-xl bg-transparent rounded-xl"}>
+                            className={"drop-shadow-xl bg-transparent rounded-xl"}
+                        >
                             <Swiper
                                 autoplay={{
                                     delay: 7500,
@@ -112,7 +113,7 @@ const HomePage = () => {
                                 modules={[Autoplay,]}
                                 slidesPerView={1}
                             >
-                                <SwiperSlide className={""}>
+                                <SwiperSlide>
                                     <div style={{background: `url(${HOME_IMAGE_1})`,  backgroundPosition: "center", backgroundSize: "cover"}}
                                         className={"h-[25em] rounded-br-xl rounded-bl-xl"}
                                     >
@@ -198,13 +199,13 @@ const HomePage = () => {
                                     autoplay={{
                                         delay: 3500,
                                         disableOnInteraction : false,
-                                        pauseOnMouseEnter: true,
                                     }}
-                                    modules={[Autoplay, Navigation, FreeMode]}
+                                    modules={[Autoplay, Navigation, EffectCoverflow]}
                                     slidesPerView={slides}
                                     navigation
-                                    freeMode={true}
-                                    sticky={windowInnerWidth > 500}
+                                    effect={"coverflow"}
+                                    coverflowEffect={{slideShadows: false,
+                                    rotate: 30}}
                                 >
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
