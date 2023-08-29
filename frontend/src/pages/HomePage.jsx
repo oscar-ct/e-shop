@@ -6,7 +6,11 @@ import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import {Autoplay, EffectCoverflow, Navigation} from "swiper/modules";
+import {Autoplay,
+    // EffectCoverflow,
+    // Navigation
+}
+    from "swiper/modules";
 import { Swiper, SwiperSlide, } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -187,25 +191,25 @@ const HomePage = () => {
                             <Link to={"/sort/toprated"} className={"btn btn-sm btn-ghost normal-case text-sm"}>View All</Link>
                         </div>
                         <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
+                            // initial={{ opacity: 0 }}
+                            // animate={{ opacity: 1 }}
+                            // exit={{ opacity: 0 }}
                             className={"m-auto w-full rounded-xl max-w-8xl px-3 pt-3"}
                         >
                             {/*<div className={"p-3"}>*/}
                                 <Swiper
                                     spaceBetween={22}
                                     // centeredSlides={true}
-                                    autoplay={{
-                                        delay: 3500,
-                                        disableOnInteraction : false,
-                                    }}
-                                    modules={[Autoplay, Navigation, EffectCoverflow]}
+                                    // autoplay={{
+                                    //     delay: 3500,
+                                    //     disableOnInteraction : false,
+                                    // }}
+                                    // modules={[Autoplay, Navigation, EffectCoverflow]}
                                     slidesPerView={slides}
-                                    navigation
-                                    effect={"coverflow"}
-                                    coverflowEffect={{slideShadows: false,
-                                    rotate: 30}}
+                                    // navigation
+                                    // effect={"coverflow"}
+                                    // coverflowEffect={{slideShadows: false,
+                                    // rotate: 30}}
                                 >
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
