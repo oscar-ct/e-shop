@@ -6,7 +6,7 @@ import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import {Autoplay, Navigation} from "swiper/modules";
+import {Autoplay, Navigation, FreeMode, Pagination} from "swiper/modules";
 import { Swiper, SwiperSlide, } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -200,9 +200,11 @@ const HomePage = () => {
                                         delay: 3500,
                                         disableOnInteraction: false,
                                     }}
-                                    modules={[Autoplay, Navigation]}
+                                    modules={[Autoplay, Navigation, FreeMode]}
                                     slidesPerView={slides}
                                     navigation
+                                    freeMode={true}
+                                    sticky
                                 >
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
