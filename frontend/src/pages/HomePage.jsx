@@ -30,6 +30,7 @@ const HomePage = () => {
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
+    const [scale] = useState(0.95)
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
 
     useEffect(function () {
@@ -206,9 +207,7 @@ const HomePage = () => {
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
                                             <Link to={`/product/${data._id}`} className={"relative"}>
-                                                <motion.img
-                                                    whileHover={windowInnerWidth > 500 ? { scale: .95} : { scale: "none"}}
-                                                    className={"bg-white/80 drop-shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                <img className={"sm:hover:scale-[.95] sm:duration-200 bg-white/90 drop-shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                 <div className={"flex justify-start items-end"}>
                                                     <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>
