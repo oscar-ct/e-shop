@@ -197,13 +197,14 @@ const HomePage = () => {
                                     // centeredSlides={true}
                                     autoplay={{
                                         delay: 3500,
-                                        disableOnInteraction: false,
+                                        disableOnInteraction : false,
+                                        pauseOnMouseEnter: true,
                                     }}
                                     modules={[Autoplay, Navigation, FreeMode]}
                                     slidesPerView={slides}
                                     navigation
                                     freeMode={true}
-                                    sticky
+                                    sticky={windowInnerWidth > 500}
                                 >
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
