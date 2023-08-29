@@ -6,11 +6,7 @@ import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import {Autoplay,
-    // EffectCoverflow,
-    // Navigation
-}
-    from "swiper/modules";
+import {Autoplay, EffectCoverflow, Navigation} from "swiper/modules";
 import { Swiper, SwiperSlide, } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -18,7 +14,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import {useEffect, useRef, useState} from "react";
 import {HOME_IMAGE_1, HOME_IMAGE_3, HOME_IMAGE_2} from "../variables";
-// import Rating from "../components/Rating";
+import Rating from "../components/Rating";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
 import {useSelector} from "react-redux";
@@ -191,40 +187,40 @@ const HomePage = () => {
                             <Link to={"/sort/toprated"} className={"btn btn-sm btn-ghost normal-case text-sm"}>View All</Link>
                         </div>
                         <motion.div
-                            // initial={{ opacity: 0 }}
-                            // animate={{ opacity: 1 }}
-                            // exit={{ opacity: 0 }}
+                            initial={{ opacity: 0 }}
+                            animate={{ opacity: 1 }}
+                            exit={{ opacity: 0 }}
                             className={"m-auto w-full rounded-xl max-w-8xl px-3 pt-3"}
                         >
                             {/*<div className={"p-3"}>*/}
                                 <Swiper
+                                    spaceBetween={windowInnerWidth <= 640 ? 0 : windowInnerWidth > 640 && windowInnerWidth <= 1280 ? 10 : 22}
                                     // centeredSlides={true}
-                                    // autoplay={{
-                                    //     delay: 3500,
-                                    //     disableOnInteraction : false,
-                                    // }}
-                                    // modules={[Autoplay, Navigation, EffectCoverflow]}
+                                    autoplay={{
+                                        delay: 3500,
+                                        disableOnInteraction : false,
+                                    }}
+                                    modules={[Autoplay, Navigation, EffectCoverflow]}
                                     slidesPerView={slides}
-                                    // navigation
-                                    // effect={"coverflow"}
-                                    // coverflowEffect={{slideShadows: false,
-                                    // rotate: 30}}
+                                    navigation
+                                    effect={"coverflow"}
+                                    coverflowEffect={{slideShadows: false,
+                                    rotate: 30}}
                                 >
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
                                             <Link to={`/product/${data._id}`} className={"relative"}>
-                                                <img className={"sm:hover:scale-[.95] sm:duration-200 bg-white/90  object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
-                                                    src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}
-                                                />
+                                                <img className={"sm:hover:scale-[.95] sm:duration-200 bg-white/90 object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                    src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                 <div className={"flex justify-start items-end"}>
                                                     <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>
                                                 </div>
                                             </Link>
-                                            {/*<div className={"absolute right-0 top-0 "}>*/}
-                                            {/*    <div className={"p-2 rounded-bl-md rounded-tr-xl"}>*/}
-                                            {/*        <Rating rating={data.rating}/>*/}
-                                            {/*    </div>*/}
-                                            {/*</div>*/}
+                                            <div className={"absolute right-0 top-0 "}>
+                                                <div className={"p-2 rounded-bl-md rounded-tr-xl"}>
+                                                    <Rating rating={data.rating}/>
+                                                </div>
+                                            </div>
                                         </SwiperSlide>
                                     })}
                                 </Swiper>
