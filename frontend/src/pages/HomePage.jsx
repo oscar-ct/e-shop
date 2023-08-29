@@ -207,7 +207,7 @@ const HomePage = () => {
                                         return <SwiperSlide key={index}>
                                             <Link to={`/product/${data._id}`} className={"relative"}>
                                                 <motion.img
-                                                    whileHover={{ scale: .95}}
+                                                    whileHover={windowInnerWidth > 500 ? { scale: .95} : { scale: "none"}}
                                                     className={"bg-white/80 drop-shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                 <div className={"flex justify-start items-end"}>
