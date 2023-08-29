@@ -1,6 +1,7 @@
 import {Link} from 'react-router-dom'
 import Rating from "./Rating";
 import {useState, useEffect} from "react";
+import {motion} from "framer-motion";
 
 
 
@@ -20,7 +21,13 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
     return (
         <>
             <div className={"w-6/12 sm:w-72 p-1 sm:p-3"}>
-                <div className={`${cardWidth && cardWidth} rounded-xl flex flex-col bg-white shadow-xl h-full`}>
+                <motion.div initial={{ opacity: 0, scale: 0.5 }}
+                            animate={{ opacity: 1, scale: 1 }}
+                            transition={{ duration: 0.2 }}
+                            whileHover={{ scale: 1.1 }}
+                            whileTap={{ scale: 0.9 }}
+                            className={`${cardWidth && cardWidth} rounded-xl flex flex-col bg-white shadow-xl h-full`}
+                >
                     <Link to={`/product/${product._id}`} onMouseEnter={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(product.images.length - (product.images.length - 1))} onMouseLeave={() => (windowInnerWidth >= 500 && product.image.length > 1) && setImageIndex(0)}>
                         <figure className="p-2">
                             <img src={product.images.length !== 0 ? product.images[imgIndex].url : "/images/sample.jpg"} alt="product" className="bg-zinc-100/20 w-[248px] h-[197px] object-scale-down rounded-tr-xl rounded-tl-xl" />
@@ -59,7 +66,7 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
                         {/*    <button className="btn btn-primary">Buy Now</button>*/}
                         {/*</div>*/}
                     </div>
-                </div>
+                </motion.div>
             </div>
         </>
     );
