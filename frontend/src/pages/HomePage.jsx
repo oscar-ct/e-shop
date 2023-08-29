@@ -6,7 +6,7 @@ import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import {Autoplay, Navigation, FreeMode, Pagination} from "swiper/modules";
+import {Autoplay, Navigation, FreeMode} from "swiper/modules";
 import { Swiper, SwiperSlide, } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -30,7 +30,6 @@ const HomePage = () => {
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
-    const [scale] = useState(0.95)
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
 
     useEffect(function () {
