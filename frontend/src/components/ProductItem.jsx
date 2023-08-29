@@ -24,8 +24,8 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
                 <motion.div initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.2 }}
-                            whileHover={windowInnerWidth >= 500 ? { scale: 1.1} : {scale: "none"}}
-                            whileTap={{ scale: 0.9 }}
+                            whileHover={windowInnerWidth > 640 ? { scale: 1.1} : {scale: "none"}}
+                            whileTap={windowInnerWidth > 640 ? { scale: 0.9} : {scale: "none"}}
                             className={`${cardWidth && cardWidth} rounded-xl flex flex-col bg-white shadow-xl h-full`}
                 >
                     <div onMouseEnter={() => (windowInnerWidth >= 500 && product.images.length > 1) && setImageIndex(product.images.length - (product.images.length - 1))} onMouseLeave={() => (windowInnerWidth >= 500 && product.image.length > 1) && setImageIndex(0)}>
