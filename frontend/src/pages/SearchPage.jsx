@@ -62,7 +62,7 @@ const SearchPage = () => {
                                         {/*    </h2>*/}
                                         {/*</div>*/}
                                     </div>
-                                    <div className={"sm:hidden py-10 flex justify-center items-center"}>
+                                    <div className={"py-10 flex justify-center items-center"}>
                                         <div className={"w-40 flex flex-col"}>
                                             <div className={"flex justify-center"}>
                                                 <button onClick={() => dispatchEvent(new KeyboardEvent('keydown', {key: 'w', code: 'KeyW', keyCode: 87}))} className={"btn btn-neutral p-3 rounded-lg border-[2px]"}>
