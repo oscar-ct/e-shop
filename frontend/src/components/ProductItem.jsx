@@ -24,7 +24,7 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
                 <motion.div initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.2 }}
-                            whileHover={{ scale: 1.1 }}
+                            whileHover={windowInnerWidth >= 500 ? { scale: 1.1} : {scale: 1.0}}
                             whileTap={{ scale: 0.9 }}
                             className={`${cardWidth && cardWidth} rounded-xl flex flex-col bg-white shadow-xl h-full`}
                 >
