@@ -18,7 +18,7 @@ import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import {useEffect, useRef, useState} from "react";
 import {HOME_IMAGE_1, HOME_IMAGE_3, HOME_IMAGE_2} from "../variables";
-import Rating from "../components/Rating";
+// import Rating from "../components/Rating";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
 import {useSelector} from "react-redux";
