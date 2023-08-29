@@ -198,7 +198,6 @@ const HomePage = () => {
                         >
                             {/*<div className={"p-3"}>*/}
                                 <Swiper
-                                    spaceBetween={22}
                                     // centeredSlides={true}
                                     // autoplay={{
                                     //     delay: 3500,
@@ -214,7 +213,7 @@ const HomePage = () => {
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
                                             <Link to={`/product/${data._id}`} className={"relative"}>
-                                                <img className={"sm:hover:scale-[.95] sm:duration-200 bg-white/90 drop-shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                <img className={"sm:hover:scale-[.95] sm:duration-200 bg-white/90  object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}
                                                 />
                                                 <div className={"flex justify-start items-end"}>
