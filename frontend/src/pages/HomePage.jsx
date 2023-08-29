@@ -30,6 +30,15 @@ const HomePage = () => {
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
+    const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
+
+    useEffect(function () {
+        const adjustWidth = () => {
+            setWindowInnerWidth(window.innerWidth);
+        }
+        window.addEventListener("resize", adjustWidth);
+        return () => window.removeEventListener("resize", adjustWidth);
+    })
 
     // const [products, setProducts] = useState([]);
     // useEffect(function () {
@@ -44,20 +53,21 @@ const HomePage = () => {
 
     useEffect(() => {
         const adjustSlides = () => {
-            if (window.innerWidth <= 640) {
+            if (windowInnerWidth <= 640) {
                 setSlides(1);
-            } else if (window.innerWidth > 640 && window.innerWidth <= 1280) {
+            } else if (windowInnerWidth > 640 && windowInnerWidth <= 1280) {
                 setSlides(2);
-            } else if (window.innerWidth > 1535) {
+            } else if (windowInnerWidth > 1535) {
                 setSlides(4)
             } else {
                 setSlides(3)
             }
         }
-        window.addEventListener("resize", adjustSlides);
+        adjustSlides();
+        // window.addEventListener("resize", adjustSlides);
         // window.addEventListener("resize", () => window.innerWidth <= 640 ? setSlides(1) : window.innerWidth > 640 && window.innerWidth <= 1280 ? setSlides(2) : setSlides(3));
-        return () => window.removeEventListener("resize", adjustSlides);
-    }, [slides]);
+        // return () => window.removeEventListener("resize", adjustSlides);
+    }, [windowInnerWidth]);
 
     const scrollTo = useRef(null);
 
