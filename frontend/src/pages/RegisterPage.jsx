@@ -90,7 +90,7 @@ const RegisterPage = () => {
                     <div className="sm:mt-10 mb-10 w-full flex justify-center self-center">
                         <div className="bg-white shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
                             <div className="mb-4">
-                                <h3 className="font-semibold text-2xl">Create new account
+                                <h3 className="font-semibold text-2xl">Create an account
                                 </h3>
                                 <p className="text-gray-500">It's quick and easy
                                 </p>
