@@ -97,8 +97,33 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                     }
                 }
             }),
+            recoveryLink: build.mutation({
+                query: function (data) {
+                    return {
+                        url: USERS_URL + "/recovery-link",
+                        method: "POST",
+                        body: data,
+                    }
+                }
+            }),
+            getResetPassword: build.query({
+                query: function (data) {
+                    return {
+                        url: USERS_URL + `/reset-password/${data.id}/${data.token}`,
+                    }
+                }
+            }),
+            resetPassword: build.mutation({
+                query: function (data) {
+                    return {
+                        url: USERS_URL + "/reset-password",
+                        method: "POST",
+                        body: data,
+                    }
+                }
+            }),
         };
     }
 });
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useVerifyPasswordMutation, useGetUserDataQuery, useUpdateUserAddressMutation, useUpdateUserCredentialsMutation, useGetUsersQuery, useDeleteUserMutation, useUpdateUserMutation} = usersApiSlice;
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useVerifyPasswordMutation, useGetUserDataQuery, useUpdateUserAddressMutation, useUpdateUserCredentialsMutation, useGetUsersQuery, useDeleteUserMutation, useUpdateUserMutation, useRecoveryLinkMutation, useGetResetPasswordQuery, useResetPasswordMutation} = usersApiSlice;
