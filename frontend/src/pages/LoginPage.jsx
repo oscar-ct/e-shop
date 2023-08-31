@@ -3,7 +3,7 @@ import {useState, useEffect} from "react";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
 import {useSelector, useDispatch} from "react-redux";
-import {useLoginMutation} from "../slices/usersApiSlice";
+import {useLoginMutation, useRecoveryLinkMutation} from "../slices/usersApiSlice";
 import {setCredentials} from "../slices/authSlice";
 import {setLoading} from "../slices/loadingSlice";
 import axios from "axios";
@@ -22,8 +22,10 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const { email, password } = formData;
     const [login] = useLoginMutation();
+    const [recoveryLink, {error}] = useRecoveryLinkMutation();
+    const [isValidEmail, setIsValidEmail] = useState(false);
     // const {data, isLoading: userDataLoading} = useGetUserDataQuery();
-
+    const [passwordRecoveryEmail, setPasswordRecoveryEmail] = useState("");
 
     const { search } = useLocation();
     const searchParams = new URLSearchParams(search);
@@ -32,7 +34,6 @@ const LoginPage = () => {
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
-
 
     useEffect(function () {
         if (userData) {
@@ -73,6 +74,30 @@ const LoginPage = () => {
         }
         dispatch(setLoading(false));
     }
+
+    const submitResetPassword = async (e) => {
+        e.preventDefault();
+        if (isValidEmail) {
+            const status = await recoveryLink({email: passwordRecoveryEmail});
+            if (status) {
+                window.password_modal.close();
+                toast.success("Reset link sent!");
+            }
+            setPasswordRecoveryEmail("");
+        }
+    }
+
+    useEffect(function () {
+        const checkRecoveryEmail = () => {
+            const reg = /\S+@\S+\.\S+/;
+            if (reg.test(passwordRecoveryEmail)) {
+                setIsValidEmail(true);
+            } else {
+                setIsValidEmail(false);
+            }
+        }
+        checkRecoveryEmail();
+    }, [passwordRecoveryEmail])
 
 
     return (
@@ -135,9 +160,16 @@ const LoginPage = () => {
 
                                         <div className="flex justify-end">
                                             <div className="text-sm">
-                                                <Link to={"/forgot-password"} className="text-blue-400 hover:text-blue-500">
+                                                <button
+                                                    type={"button"}
+                                                    onClick={(e) => {
+                                                        e.preventDefault()
+                                                        window.password_modal.showModal()
+                                                        }
+                                                    }
+                                                    className="text-blue-400 hover:text-blue-500">
                                                     Forgot your password?
-                                                </Link>
+                                                </button>
                                             </div>
                                         </div>
                                     </div>
@@ -168,6 +200,38 @@ const LoginPage = () => {
                     </div>
                 </div>
             </div>
+            <dialog id="password_modal" className="modal modal-bottom sm:modal-middle">
+                <form method="dialog" className="modal-box bg-white">
+                    <div className={"flex justify-between items-center"}>
+                        <h3 className="p-3 font-bold text-xl">Reset Password</h3>
+                    </div>
+                    <div className="px-3">
+                        <div className="form-control w-full">
+                            <input type="email" placeholder="Enter your email to recover your password" className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400" value={passwordRecoveryEmail} onChange={(e) => {
+                                setPasswordRecoveryEmail(e.target.value);
+                            }}/>
+                        </div>
+                        <div className="modal-action">
+                            <button
+                                onClick={(e) => {
+                                    e.preventDefault();
+                                    window.password_modal.close();
+                                }}
+                                className={"btn btn-neutral rounded-xl"}>Cancel</button>
+                            <button
+                                disabled={!isValidEmail}
+                                onClick={submitResetPassword}
+                                className={`btn rounded-xl`}
+                            >
+                                Confirm
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
         </>
     );
 };
