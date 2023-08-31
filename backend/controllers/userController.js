@@ -2,6 +2,8 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
+import { MailtrapClient } from "mailtrap"
+
 
 const invalidCredentialsError = () => {
     throw new Error("Invalid email/password")
@@ -61,7 +63,18 @@ const recoveryLink = asyncHandler(async (req, res) => {
         }
         const link = `${domain}/reset-password/${_id}/${token}`
         /// send email here
-        console.log(link);
+
+        const client = new MailtrapClient({ token: process.env.MAILTRAP_TOKEN });
+        const sender = { name: "e-shop-us.com", email: "reset-password@e-shop-us.com" };
+        client
+            .send({
+                from: sender,
+                to: [{ email: email }],
+                subject: "Reset Password Link",
+                text: link,
+            })
+            .then(console.log)
+            .catch(console.error);
         res.send("email sent!")
     } else {
         res.status(404);
