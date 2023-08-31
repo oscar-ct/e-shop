@@ -22,7 +22,7 @@ const LoginPage = () => {
     const dispatch = useDispatch();
     const { email, password } = formData;
     const [login] = useLoginMutation();
-    const [recoveryLink, {error}] = useRecoveryLinkMutation();
+    const [recoveryLink] = useRecoveryLinkMutation();
     const [isValidEmail, setIsValidEmail] = useState(false);
     // const {data, isLoading: userDataLoading} = useGetUserDataQuery();
     const [passwordRecoveryEmail, setPasswordRecoveryEmail] = useState("");
