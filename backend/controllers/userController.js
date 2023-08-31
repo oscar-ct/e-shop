@@ -43,6 +43,73 @@ const authUser = asyncHandler(async (req, res) => {
         invalidCredentialsError();
     }
 });
+
+// POST
+const recoveryLink = asyncHandler(async (req, res) => {
+    const {email} = req.body;
+    const user = await User.findOne({email: email});
+    if (user) {
+        const {password, _id} = user;
+        const secret = process.env.JWT_SECERT + password;
+        const payload = {_id}
+        const token = jwt.sign(payload, secret, {expiresIn: "3m"});
+        let domain;
+        if (process.env.NODE_ENV !== "development") {
+            domain = "https://e-shop-us.com"
+        } else {
+            domain = "http://localhost:3000"
+        }
+        const link = `${domain}/reset-password/${_id}/${token}`
+        /// send email here
+        console.log(link);
+        res.send("email sent!")
+    } else {
+        res.status(404);
+        throw new Error("User not found");
+    }
+});
+
+// GET
+const getResetPassword = asyncHandler(async (req, res) => {
+    const {id, token} = req.params;
+    const user = await User.findById(id);
+    if (user) {
+        const {password} = user;
+        const secret = process.env.JWT_SECERT + password;
+        try {
+            const decode = jwt.verify(token, secret);
+            res.send(decode)
+        } catch (e) {
+            throw new Error(e);
+        }
+    } else {
+        res.status(404);
+        throw new Error("User not found");
+    }
+});
+
+// POST
+const resetPassword = asyncHandler(async (req, res) => {
+    const {id, newPassword} = req.body;
+    const user = await User.findById(id);
+    if (user) {
+        if (newPassword) {
+            const salt = await bcrypt.genSalt(10);
+            user.password = await bcrypt.hash(newPassword, salt);
+        }
+        const updatedUser = await user.save();
+        if (updatedUser) {
+            res.status(201);
+            return res.json({
+                message: "Password updated!"
+            });
+        }
+    } else {
+        res.status(404);
+        throw new Error("User not found");
+    }
+});
+
 // GET
 const getUserData = asyncHandler(async (req, res) => {
     const {_id} = req.user._id;
@@ -202,12 +269,6 @@ const updateUserAddress = asyncHandler(async (req, res) => {
 
 
 
-
-
-
-
-
-
 // ADMIN ONLY ACCESS
 // ***********************
 // GET
@@ -280,4 +341,7 @@ export {
     getUserById,
     updateUsers,
     deleteUsers,
+    recoveryLink,
+    getResetPassword,
+    resetPassword,
 };
