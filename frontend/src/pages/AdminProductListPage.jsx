@@ -326,7 +326,7 @@ const AdminProductListPage = () => {
 
                         </div>
                         <div className="overflow-x-auto p-5">
-                            <table className="table table-zebra w-full table-xs">
+                            <table className="table table-zebra table-xs lg:w-full w-[984px]">
                                 <thead>
                                 <tr>
                                     <th/>
