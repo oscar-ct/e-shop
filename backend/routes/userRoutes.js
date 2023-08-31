@@ -11,6 +11,9 @@ import {
     updateUsers,
     deleteUsers,
     updateUserAddress,
+    recoveryLink,
+    getResetPassword,
+    resetPassword,
 } from "../controllers/userController.js";
 import {protect, admin} from "../middleware/authMiddleware.js";
 
@@ -21,6 +24,9 @@ const router = express.Router();
 router.post('/',registerUser);
 router.post('/logout', logoutUser);
 router.post('/login', authUser);
+router.post('/recovery-link', recoveryLink);
+router.get('/reset-password/:id/:token', getResetPassword);
+router.post('/reset-password', resetPassword);
 
 // Using custom middleware PROTECT
 router.get('/profile', protect, getUserData);
