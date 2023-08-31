@@ -66,7 +66,7 @@ const ForgotPasswordPage = () => {
                                     <div className="mb-4">
                                         <h3 className="font-semibold text-2xl">Reset Password
                                         </h3>
-                                        <p className="text-xs text-gray-500">Please fill out all text fields.
+                                        <p className="text-xs text-gray-500">Password must be at least 6 characters
                                         </p>
                                     </div>
                                     <form onSubmit={submitResetPassword} className="space-y-3">
@@ -118,7 +118,7 @@ const ForgotPasswordPage = () => {
                                             </div>
                                         </div>
                                         <div className={"flex justify-center"}>
-                                            <button type="submit" className="btn rounded-xl btn-wide">
+                                            <button disabled={formData.password.trim().length < 6 || formData.confirmPassword.trim().length < 6} type="submit" className="btn rounded-xl btn-wide">
                                                 Reset
                                             </button>
                                         </div>

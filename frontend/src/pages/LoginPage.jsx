@@ -81,7 +81,7 @@ const LoginPage = () => {
             const status = await recoveryLink({email: passwordRecoveryEmail});
             if (status) {
                 window.password_modal.close();
-                toast.success("Reset link sent!");
+                toast.success("Password reset link sent!");
             }
             setPasswordRecoveryEmail("");
         }
@@ -110,7 +110,7 @@ const LoginPage = () => {
                             <div className="mb-4">
                                 <h3 className="font-semibold text-2xl">Login
                                 </h3>
-                                <p className="text-gray-500">Please sign in to your account.
+                                <p className="text-gray-500">Please sign in to your account
                                 </p>
                             </div>
                             <form onSubmit={submitSignIn} className="space-y-5">
@@ -188,12 +188,12 @@ const LoginPage = () => {
                                     </button>
                                 </div>
                             </form>
-                            <div className={"flex justify-center"}>
+                            <div className={"flex justify-center items-center text-sm"}>
                                 <p className={"pt-6"}>
                                     Don't have an account?
                                 </p>
-                                <Link to={ redirect ? `/register?redirect=${redirect}` : "/register"} className="link text-blue-400 hover:text-blue-500 pt-6 pl-1">
-                                    Register Now
+                                <Link to={ redirect ? `/register?redirect=${redirect}` : "/register"} className="link  text-blue-400 hover:text-blue-500 pt-6 pl-1">
+                                    Create new account
                                 </Link>
                             </div>
                         </div>
@@ -207,7 +207,10 @@ const LoginPage = () => {
                     </div>
                     <div className="px-3">
                         <div className="form-control w-full">
-                            <input type="email" placeholder="Enter your email to recover your password" className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400" value={passwordRecoveryEmail} onChange={(e) => {
+                            <label className="pb-2 text-sm font-medium text-gray-600 tracking-wide">
+                                Send password reset link
+                            </label>
+                            <input type="email" placeholder="Enter your email" className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400" value={passwordRecoveryEmail} onChange={(e) => {
                                 setPasswordRecoveryEmail(e.target.value);
                             }}/>
                         </div>
@@ -223,7 +226,7 @@ const LoginPage = () => {
                                 onClick={submitResetPassword}
                                 className={`btn rounded-xl`}
                             >
-                                Confirm
+                                SEND LINK
                             </button>
                         </div>
                     </div>

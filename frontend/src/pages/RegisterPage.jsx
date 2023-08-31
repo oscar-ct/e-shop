@@ -53,8 +53,10 @@ const RegisterPage = () => {
         dispatch(setLoading(true));
         if (password !== confirmPassword) {
             // setInvalidRegister(true);
-            toast.error("Passwords do not match")
+            toast.error("Passwords do not match");
             // setErrorMessage("Passwords do not match");
+        } else if (password.trim().length < 6 || confirmPassword.trim().length < 6) {
+            toast.error("Password is too short.  Password must be at least 6 characters");
         } else {
             try {
                 const payload = await register({ name: name, email: email, password: password }).unwrap();
@@ -88,9 +90,9 @@ const RegisterPage = () => {
                     <div className="sm:mt-10 mb-10 w-full flex justify-center self-center">
                         <div className="bg-white shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
                             <div className="mb-4">
-                                <h3 className="font-semibold text-2xl">Register an account
+                                <h3 className="font-semibold text-2xl">Create new account
                                 </h3>
-                                <p className="text-xs text-gray-500">Please fill out all text fields.
+                                <p className="text-gray-500">It's quick and easy
                                 </p>
                             </div>
                             <form onSubmit={submitRegister} className="space-y-3">
@@ -180,11 +182,11 @@ const RegisterPage = () => {
 
                                 <div className={"flex justify-center"}>
                                     <button type="submit" className="btn rounded-xl btn-wide">
-                                       Register
+                                       Sign up
                                     </button>
                                 </div>
                             </form>
-                            <div className={"flex justify-center"}>
+                            <div className={"flex justify-center text-sm"}>
                                 <p className={"pt-6"}>
                                     Already have an account?
                                 </p>
