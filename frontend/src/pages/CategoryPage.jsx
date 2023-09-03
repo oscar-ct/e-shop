@@ -48,7 +48,7 @@ const CategoryPage = () => {
 
                             <h2 className={"text-2xl lg:text-3xl text-center px-2 pb-5"}>
                                 {
-                                    data.keyword === "latest" ? "Latest Products" : "Top Rated Products"
+                                    data.keyword === "latest" ? "Latest Products" : data.keyword === "toprated" ? "Top Rated Products" : data.keyword === "price-asc" ? "Price: Low To High" : "Price: High To Low"
                                 }
                             </h2>
                             <div className={"w-full flex flex-wrap justify-center"}>
