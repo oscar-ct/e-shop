@@ -179,7 +179,7 @@ const HomePage = () => {
                             <h2 className={"text-2xl"}>
                                 Top Rated Products
                             </h2>
-                            <Link to={"/sort/toprated"} className={"btn btn-sm btn-ghost normal-case text-sm"}>View All</Link>
+                            <Link to={"/sort/toprated"} className={"link btn btn-sm btn-ghost normal-case text-sm"}>View All</Link>
                         </div>
                         <motion.div
                             initial={{ opacity: 0 }}
@@ -225,7 +225,7 @@ const HomePage = () => {
                             <h2 className={"text-2xl"}>
                                 Lastest Products
                             </h2>
-                            <Link to={"/sort/latest"} className={"btn btn-sm btn-ghost normal-case text-sm "}>View All</Link>
+                            <Link to={"/sort/latest"} className={"link btn btn-sm btn-ghost normal-case text-sm "}>View All</Link>
                         </div>
                         <div className={"pb-10"}>
                             <div className={"w-full flex flex-wrap justify-center"}>
