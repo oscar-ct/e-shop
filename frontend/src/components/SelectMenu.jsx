@@ -8,12 +8,15 @@ const SelectMenu = ({params}) => {
     const options = [
         {value: "toprated", label: "Top Rated"},
         {value: "latest", label: "Most Recent"},
+        {value: "price-asc", label: "Price: Low To High"},
+        {value: "price-dsc", label: "Price: High To Low"},
     ];
 
     const customStyles = {
         control: (base, state) => ({
             ...base,
             cursor: "pointer",
+            fontSize: "14px"
         }),
         option: (base, { data, isDisabled, isFocused, isSelected, isActive}) => {
             return {
@@ -43,15 +46,20 @@ const SelectMenu = ({params}) => {
         menuList: base => ({
             ...base,
             padding: 0,
-            cursor: "pointer"
+            cursor: "pointer",
+            fontSize: "14px"
         })
     }
 
     const placeHolder = () => {
         if (params === "toprated") {
             return "Top Rated"
-        } else {
+        } else if (params === "latest") {
             return "Most Recent"
+        } else if (params === "price-asc") {
+            return "Price: Low To High"
+        } else if (params === "price-dsc") {
+            return "Price: High To Low"
         }
     }
     const handleChange = (selectedOption) => {
@@ -62,7 +70,7 @@ const SelectMenu = ({params}) => {
         <Select
             styles={customStyles}
             isSearchable={false}
-            className={"text-black w-max"}
+            className={"text-black w-[12em]"}
             placeholder={placeHolder()}
             options={options}
             onChange={handleChange}
