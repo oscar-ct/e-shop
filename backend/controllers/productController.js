@@ -8,7 +8,8 @@ const getAllProducts = asyncHandler(async (req, res) => {
     const pageSize = req.query.searchTerm ||  req.query.sortByTerm ? 16 : 8;
     const page = Number(req.query.pageNumber) || 1;
     const keyword = req.query.searchTerm || req.query.sortByTerm || "";
-    const sortTerm = req.query.sortByTerm === "toprated" ? {rating: -1} : req.query.sortByTerm === "latest" ? {createdAt: -1} : {createdAt: -1};
+    // const sortTerm = req.query.sortByTerm === "toprated" ? {rating: -1} : req.query.sortByTerm === "latest" ? {createdAt: -1} : {createdAt: -1};
+    const sortTerm = req.query.sortByTerm === "toprated" ? {rating: -1} : req.query.sortByTerm === "latest" ? {createdAt: -1} : req.query.sortByTerm === "price-asc" ? {price: +1} : req.query.sortByTerm === "price-dsc" ? {price: -1} : {createdAt: -1};
     const searchTerm = req.query.searchTerm ? { name: {$regex: req.query.searchTerm, $options: "i"} } : req.query.sortByTerm === "toprated" ? {rating: {$gt: 0}} : {};
     const count = await Product.countDocuments({...searchTerm});
     const products = await Product.find({...searchTerm}).sort({...sortTerm}).limit(pageSize).skip(pageSize * (page-1));
