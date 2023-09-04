@@ -9,6 +9,7 @@ import NotFoundPage from "./NotFoundPage";
 import Meta from "../components/Meta";
 import ConfirmModal from "../components/ConfirmModal";
 import {useSelector} from "react-redux";
+import ProfileAccountSavedAddresses from "../components/ProfileAccountSavedAddresses";
 
 
 const ProfilePage = () => {
@@ -90,9 +91,14 @@ const ProfilePage = () => {
                                             <h1 className={"mt-5 text-2xl font-bold text-center"}>No Orders Found</h1>
                                         )
                                     ) : (
-                                        <div className="mt-5 mb-10 w-full h-full flex flex-col lg:flex-row justify-between items-start">
-                                            <ProfileAccountDetails/>
-                                            <ProfileAccountPassword/>
+                                        <div className="mt-5 mb-10 w-full h-full flex flex-col">
+                                            <div className={"w-full flex flex-col lg:flex-row justify-between items-start"}>
+                                                <ProfileAccountDetails/>
+                                                <ProfileAccountPassword/>
+                                            </div>
+                                            <div className={"w-full pt-10"}>
+                                                <ProfileAccountSavedAddresses/>
+                                            </div>
                                         </div>
                                     )
                                 }
