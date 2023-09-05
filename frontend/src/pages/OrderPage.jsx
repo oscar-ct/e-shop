@@ -143,7 +143,9 @@ const OrderPage = () => {
                 ) : error ? (
                     <div className={"pt-10 px-2"}>
                         <BackButton/>
-                        <Message variant={"error"} children={error?.data?.message || error.error}/>
+                        <Message variant={"error"}>
+                            {error?.data?.message || error.error}
+                        </Message>
                     </div>
                 ) : (
                     <>

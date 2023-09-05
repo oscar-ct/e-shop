@@ -1,6 +1,4 @@
-import React from 'react';
-
-const AlertModal = ({id, title, children, initiateFunction}) => {
+const AlertModal = ({title, children, initiateFunction}) => {
 
     // const closeModal = (e) => {
     //     e.preventDefault();

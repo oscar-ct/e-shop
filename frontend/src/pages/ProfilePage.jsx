@@ -9,7 +9,7 @@ import NotFoundPage from "./NotFoundPage";
 import Meta from "../components/Meta";
 import ConfirmModal from "../components/ConfirmModal";
 import {useSelector} from "react-redux";
-import ProfileAccountSavedAddresses from "../components/ProfileAccountSavedAddresses";
+// import ProfileAccountSavedAddresses from "../components/ProfileAccountSavedAddresses";
 
 
 const ProfilePage = () => {
@@ -96,9 +96,9 @@ const ProfilePage = () => {
                                                 <ProfileAccountDetails/>
                                                 <ProfileAccountPassword/>
                                             </div>
-                                            <div className={"w-full pt-10"}>
-                                                <ProfileAccountSavedAddresses/>
-                                            </div>
+                                            {/*<div className={"w-full pt-10"}>*/}
+                                            {/*    <ProfileAccountSavedAddresses/>*/}
+                                            {/*</div>*/}
                                         </div>
                                     )
                                 }

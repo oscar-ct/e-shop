@@ -13,12 +13,12 @@ const SelectMenu = ({params}) => {
     ];
 
     const customStyles = {
-        control: (base, state) => ({
+        control: (base) => ({
             ...base,
             cursor: "pointer",
             fontSize: "14px"
         }),
-        option: (base, { data, isDisabled, isFocused, isSelected, isActive}) => {
+        option: (base, {isDisabled, isFocused, isSelected}) => {
             return {
                 ...base,
                 cursor: "pointer",

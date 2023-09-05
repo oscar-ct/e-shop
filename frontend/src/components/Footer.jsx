@@ -1,4 +1,3 @@
-import React from 'react';
 import {Link} from "react-router-dom";
 import {ReactComponent as Logo} from "../icons/e.svg";
 import {FaGithub, FaGlobe, FaLinkedin} from "react-icons/fa";

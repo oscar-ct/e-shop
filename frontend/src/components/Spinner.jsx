@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Spinner = () => {
     return (
         <div className={"w-full min-h-[calc(100vh-80px)] flex justify-center"}>

@@ -1,4 +1,4 @@
-import React, {useEffect, useRef} from 'react';
+import {useEffect, useRef} from 'react';
 import {useParams, useLocation} from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
@@ -62,7 +62,7 @@ const ProductPage = () => {
 
     const scrollTo = useRef(null);
 
-    const executeScroll = (ref) => {
+    const executeScroll = () => {
         scrollTo.current.scrollIntoView({behavior: "smooth", block: "start"})
     };
 
@@ -74,7 +74,9 @@ const ProductPage = () => {
                 ) : error || errorRated ? (
                     <div className={"pt-10 px-2"}>
                         <BackButton/>
-                        <Message variant={"error"} children={error?.data?.message || error.error}/>
+                        <Message variant={"error"}>
+                            {error?.data?.message || error.error}
+                        </Message>
                     </div>
                 ) : !isLoading && fullScreen ? (
                     <div className={"z-10 h-max bg-black absolute top-0 right-0 left-0 bottom-0"}>

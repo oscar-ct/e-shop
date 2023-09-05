@@ -1,4 +1,3 @@
-import React from 'react';
 import {useState, useEffect} from "react";
 import {Link, useNavigate, useLocation} from "react-router-dom";
 import {FaEye, FaEyeSlash} from "react-icons/fa";
@@ -190,7 +189,7 @@ const LoginPage = () => {
                             </form>
                             <div className={"flex justify-center items-center text-sm"}>
                                 <p className={"pt-6"}>
-                                    Don't have an account?
+                                    Don&apos;t have an account?
                                 </p>
                                 <Link to={ redirect ? `/register?redirect=${redirect}` : "/register"} className="link  text-blue-400 hover:text-blue-500 pt-6 pl-1">
                                     Create new account

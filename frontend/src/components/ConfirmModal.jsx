@@ -1,5 +1,3 @@
-import React from 'react';
-
 const AlertModal = ({title, children, initiateFunction}) => {
 
     // const closeModal = (e) => {

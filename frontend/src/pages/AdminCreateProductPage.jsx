@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import {useState} from "react";
 import {
     useCreateProductMutation, useDeleteProductImageMutation, useUpdateProductImagesMutation,
 } from "../slices/productsApiSlice";

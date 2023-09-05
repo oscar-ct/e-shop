@@ -11,7 +11,7 @@ const ReviewModal = ({productId, refetch, onPage}) => {
     const [createReview] = useCreateReviewMutation();
 
 
-    const closeReviewModal = (e) => {
+    const closeReviewModal = () => {
         // e.preventDefault();
         // window.review_modal.close();
         setErrorReviewMessage("");

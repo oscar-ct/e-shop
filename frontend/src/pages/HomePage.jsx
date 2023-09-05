@@ -93,7 +93,9 @@ const HomePage = () => {
                 isLoading || loadingRated ? (
                     <Spinner/>
                 ) : error || errorRated ? (
-                    <Message variant={"error"} children={error?.data?.message || error.error || errorRated.error || errorRated?.data?.message}/>
+                    <Message variant={"error"}>
+                        {error?.data?.message || error.error || errorRated.error || errorRated?.data?.message}
+                    </Message>
                 ) : (
                     <>
                         <Meta title={"Home"}/>
@@ -205,7 +207,9 @@ const HomePage = () => {
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
                                             <Link to={`/product/${data._id}`} className={"relative"}>
-                                                <img className={"sm:hover:scale-[.95] sm:duration-200 bg-white/90 shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                <motion.img
+                                                    whileHover={windowInnerWidth > 640 ? { scale: 0.95} : {scale: "none"}}
+                                                    className={"bg-white/90 shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
                                                 <div className={"flex justify-start items-end"}>
                                                     <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>

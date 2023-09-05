@@ -15,7 +15,7 @@ const NotFoundPage = () => {
                             <h1 className="text-8xl font-bold mb-8"> 404
                             </h1>
                             <p className="text-3xl mb-8">
-                               Hmm, the page you were looking for doesn't seem to exist anymore
+                               Hmm, the page you were looking for doesn&apos;t seem to exist anymore
                             </p>
                             <div className={"pt-10 flex justify-center"}>
                                 <div>

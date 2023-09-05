@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import {formatPrice} from "../utils/formatPriceUtilis";
 
 
-const OrderItem = ( {item, canceledItems, isCanceled, paidAt} ) => {
+const OrderItem = ( {item, canceledItems, isCanceled} ) => {
 
     // const strikethrough = () => canceledItems.includes(item.productId) && "line-through opacity-70";
     const strikethrough = function () {

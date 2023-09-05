@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import Spinner from "../components/Spinner";
 import {FaCheckCircle, FaEdit, FaImages, FaMinusCircle, FaTimes, FaPlus} from "react-icons/fa";
 import {Link, useNavigate} from "react-router-dom";
