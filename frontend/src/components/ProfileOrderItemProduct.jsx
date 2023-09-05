@@ -1,4 +1,3 @@
-import React from 'react';
 import {addToCart} from "../slices/cartSlice";
 import {useDispatch} from "react-redux";
 import axios from "axios";

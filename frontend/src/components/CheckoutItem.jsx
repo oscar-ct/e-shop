@@ -1,4 +1,3 @@
-import React from 'react';
 import {Link} from "react-router-dom";
 import {FaTrash} from "react-icons/fa";
 import {addToCart, removeFromCart} from "../slices/cartSlice";

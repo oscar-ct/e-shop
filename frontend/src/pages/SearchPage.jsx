@@ -48,7 +48,7 @@ const SearchPage = () => {
                             {/*<div className={"absolute h-[calc(100vh-80px)] left-0 right-0 bottom-0"}>*/}
                             {/*<div className={"w-full h-full"} style={{background: "url(https://cdn-icons-png.flaticon.com/512/380/380005.png?w=996&t=st=1691200957~exp=1691201557~hmac=b73c3f7d38c1498bb4bfba1e8bfbd260397b34152e8b60c4064cf9bf646b8b3f)", backgroundSize: "10%", backgroundRepeat: "no-repeat", backgroundPositionX: "center", backgroundPositionY: "center"}}>*/}
                                     <h2 className={"text-2xl lg:text-3xl px-2 py-8 text-center"}>
-                                        No search results for "{data.keyword}"
+                                        No search results for &quot;{data.keyword}&quot;
                                     </h2>
                                     <div  className={"m-auto bg-neutral/70 rounded-xl max-w-[830px] shadow-xl"}>
                                         {
@@ -90,7 +90,7 @@ const SearchPage = () => {
                         ) : (
                             <div className={"mb-10"}>
                                 <h2 className={"pt-10 text-2xl lg:text-3xl text-center px-2 py-7"}>
-                                    Search results for "{data.keyword}"
+                                    Search results for &quot;{data.keyword}&quot;
                                 </h2>
                                 <div className={"w-full flex flex-wrap justify-center"}>
                                     {

@@ -1,4 +1,3 @@
-import React from 'react';
 import {useDeleteUserMutation, useGetUsersQuery, useUpdateUserMutation} from "../slices/usersApiSlice";
 import {useState} from "react";
 import Spinner from "../components/Spinner";

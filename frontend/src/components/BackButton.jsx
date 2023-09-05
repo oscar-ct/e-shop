@@ -1,4 +1,3 @@
-import React from 'react';
 import {ReactComponent as Arrow} from "../icons/arrow_back.svg";
 import {Link} from "react-router-dom";
 

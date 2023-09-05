@@ -1,5 +1,3 @@
-import React from 'react';
-
 const Message = ({variant, children, border}) => {
 
     const iconType = (variant) => {

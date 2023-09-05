@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 import {saveShippingAddress} from "../slices/cartSlice";
@@ -26,19 +26,19 @@ const ShippingPage = () => {
     const shipStatus = () => {
         if (Object.keys(shippingAddress).length !== 0) {
             // return Object.hasOwn(shippingAddress, "_id");
-            return !shippingAddress.hasOwnProperty("_id");
+            return !Object.hasOwnProperty.call(shippingAddress, "_id");
         }
         return userData.shippingAddresses.length === 0;
     }
-    const [radioId, setRadioId] = useState(shippingAddress.hasOwnProperty("_id") ? userId[0]._id : "");
+    const [radioId, setRadioId] = useState(Object.hasOwnProperty.call(shippingAddress, "_id") ? userId[0]._id : "");
     const [useNewAddress, setUseNewAddress] = useState(shipStatus());
     const [savePaymentData, setSavePaymentData] = useState(false);
     const [shippingData, setShippingData] = useState({
-        address: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.address ? shippingAddress.address : "",
-        city: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.city ? shippingAddress.city : "",
-        postalCode: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.postalCode ? shippingAddress.postalCode : "",
-        state: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.state ? shippingAddress.state : "",
-        country: shippingAddress.hasOwnProperty("_id") ? "" : shippingAddress?.country ? shippingAddress.country : "",
+        address: Object.hasOwnProperty.call(shippingAddress,"_id") ? "" : shippingAddress?.address ? shippingAddress.address : "",
+        city: Object.hasOwnProperty.call(shippingAddress, "_id") ? "" : shippingAddress?.city ? shippingAddress.city : "",
+        postalCode: Object.hasOwnProperty.call(shippingAddress,"_id") ? "" : shippingAddress?.postalCode ? shippingAddress.postalCode : "",
+        state: Object.hasOwnProperty.call(shippingAddress,"_id") ? "" : shippingAddress?.state ? shippingAddress.state : "",
+        country: Object.hasOwnProperty.call(shippingAddress,"_id") ? "" : shippingAddress?.country ? shippingAddress.country : "",
     });
     const {address, city, postalCode, state, country} = shippingData;
 

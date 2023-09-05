@@ -1,4 +1,3 @@
-import React from 'react';
 import {useEffect, useState} from "react";
 import {Link, useLocation, useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
@@ -92,7 +91,7 @@ const RegisterPage = () => {
                             <div className="mb-4">
                                 <h3 className="font-semibold text-2xl">Create an account
                                 </h3>
-                                <p className="text-gray-500">It's quick and easy
+                                <p className="text-gray-500">It&apos;s quick and easy
                                 </p>
                             </div>
                             <form onSubmit={submitRegister} className="space-y-3">

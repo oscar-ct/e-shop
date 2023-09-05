@@ -1,5 +1,4 @@
 import {Link} from "react-router-dom";
-import React from 'react';
 
 const Paginate = ({pages, page, isAdmin = false, searchTerm = "", sortByTerm = "", isHomePage = false}) => {
     return (

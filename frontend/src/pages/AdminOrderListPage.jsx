@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useGetOrdersQuery, useUpdateOrderMutation} from "../slices/ordersApiSlice";
 import Spinner from "../components/Spinner";
 import {FaCheck, FaCheckCircle, FaEdit, FaTimes, FaTruck} from "react-icons/fa";
@@ -193,7 +193,7 @@ const AdminOrderListPage = () => {
         // closeTrackingNumberModal();
     }
 
-    const closeTrackingNumberModal = (e) => {
+    const closeTrackingNumberModal = () => {
         // e && e.preventDefault();
         // window.tracking_modal.close();
         setTimeout(function () {

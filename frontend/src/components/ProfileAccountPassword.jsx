@@ -1,4 +1,3 @@
-import React from 'react';
 import {useState} from "react";
 import {useUpdateUserCredentialsMutation, useVerifyPasswordMutation} from "../slices/usersApiSlice";
 import {useDispatch} from "react-redux";
