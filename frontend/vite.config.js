@@ -7,7 +7,6 @@ import svgr from 'vite-plugin-svgr';
 export default defineConfig({
     base: "/",
     build: {
-        chunkSizeWarningLimit: 700,
         rollupOptions: {
             output: {
                 manualChunks(id) {
