@@ -5,11 +5,6 @@
   "dependencies": {
     "@paypal/react-paypal-js": "^8.1.0",
     "@reduxjs/toolkit": "^1.9.5",
-    "@testing-library/jest-dom": "^5.16.5",
-    "@testing-library/react": "^13.4.0",
-    "@testing-library/user-event": "^13.5.0",
-    "@vitejs/plugin-react": "^4.0.4",
-    "axios": "^1.4.0",
     "daisyui": "^3.1.0",
     "filestack-js": "^3.26.1",
     "framer-motion": "^10.12.16",
@@ -24,25 +19,13 @@
     "swiper": "^10.0.4",
     "tailwindcss": "^3.3.2",
     "vite-plugin-svgr": "^3.2.0",
-    "web-vitals": "^2.1.4",
     "autoprefixer": "^10.4.15",
-    "postcss": "^8.4.29",
-    "vite-plugin-eslint": "^1.8.1",
-    "eslint": "^8.45.0",
-    "eslint-plugin-react": "^7.32.2",
-    "eslint-plugin-react-hooks": "^4.6.0",
-    "eslint-plugin-react-refresh": "^0.4.3"
+    "postcss": "^8.4.29"
   },
   "scripts": {
     "start": "vite",
     "build": "vite build",
     "serve": "vite preview"
-  },
-  "eslintConfig": {
-    "extends": [
-      "react-app",
-      "react-app/jest"
-    ]
   },
   "browserslist": {
     "production": [
@@ -55,5 +38,19 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "axios": "^1.4.0",
+    "vite-plugin-eslint": "^1.8.1",
+    "vite": "^4.4.9",
+    "eslint": "^8.45.0",
+    "eslint-plugin-react": "^7.32.2",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.3",
+    "@testing-library/jest-dom": "^5.16.5",
+    "@testing-library/react": "^13.4.0",
+    "@testing-library/user-event": "^13.5.0",
+    "@vitejs/plugin-react": "^4.0.4",
+    "web-vitals": "^2.1.4"
   }
 }
