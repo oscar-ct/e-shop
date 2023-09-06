@@ -6,17 +6,6 @@ import svgr from 'vite-plugin-svgr';
 
 export default defineConfig({
     base: "/",
-    build: {
-        rollupOptions: {
-            output: {
-                manualChunks(id) {
-                    if (id.includes('node_modules')) {
-                        return id.toString().split('node_modules/')[1].split('/')[0].toString();
-                    }
-                }
-            }
-        }
-    },
     plugins: [
         react(),
         tailwindcss(),
@@ -32,7 +21,6 @@ export default defineConfig({
             exclude: [],
         }),
     ],
-
     server: {
         proxy: {
             "/api": "http://localhost:8080",
