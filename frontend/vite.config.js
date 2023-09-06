@@ -8,7 +8,7 @@ import { dependencies } from './package.json';
 function renderChunks(deps) {
     let chunks = {};
     Object.keys(deps).forEach((key) => {
-        if (['react', 'react-router-dom', 'react-dom', 'filestack-js'].includes(key)) return;
+        if (['swiper', 'react-dom', 'filestack-js'].includes(key)) return;
         chunks[key] = [key];
     });
     return chunks;
@@ -21,7 +21,7 @@ export default defineConfig({
         rollupOptions: {
             output: {
                 manualChunks: {
-                    vendor: ['react', 'react-router-dom', 'react-dom', 'filestack-js'],
+                    vendor: ['swiper', 'react-dom', 'filestack-js'],
                     ...renderChunks(dependencies),
                 },
             },
