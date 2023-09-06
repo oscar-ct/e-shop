@@ -3,16 +3,15 @@ import react from "@vitejs/plugin-react";
 import eslintPlugin from 'vite-plugin-eslint';
 import tailwindcss from "tailwindcss";
 import svgr from 'vite-plugin-svgr';
-import { dependencies } from './package.json';
 
-function renderChunks(deps) {
-    let chunks = {};
-    Object.keys(deps).forEach((key) => {
-        if (['swiper', 'react-dom', 'filestack-js'].includes(key)) return;
-        chunks[key] = [key];
-    });
-    return chunks;
-}
+// function renderChunks(deps) {
+//     let chunks = {};
+//     Object.keys(deps).forEach((key) => {
+//         if (['swiper', 'react-dom', 'filestack-js'].includes(key)) return;
+//         chunks[key] = [key];
+//     });
+//     return chunks;
+// }
 
 export default defineConfig({
     base: "/",
@@ -20,9 +19,15 @@ export default defineConfig({
         sourcemap: false,
         rollupOptions: {
             output: {
-                manualChunks: {
-                    vendor: ['swiper', 'react-dom', 'filestack-js'],
-                    ...renderChunks(dependencies),
+                manualChunks: (id) => {
+                   if (id.includes("node_modules")) {
+                       if (id.includes("filestack-js")) {
+                            return "vendor_fs";
+                       } else if (id.includes("swiper")) {
+                            return "vendor_swiper";
+                       }
+                       return "vendor";
+                   }
                 },
             },
         },
