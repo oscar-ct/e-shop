@@ -4,7 +4,11 @@ import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
 import {useState} from "react";
 // import axios from "axios";
-import {useGetProductDetailsQuery, useGetProductsByRatingQuery} from "../slices/productsApiSlice";
+import {
+    useDeleteReviewMutation,
+    useGetProductDetailsQuery,
+    useGetProductsByRatingQuery
+} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {addToCart} from "../slices/cartSlice";
@@ -19,6 +23,8 @@ import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import ProductItem from "../components/ProductItem";
 import {motion} from "framer-motion";
+import {FaTrash} from "react-icons/fa";
+import ConfirmModal from "../components/ConfirmModal";
 
 
 const ProductPage = () => {
@@ -26,6 +32,7 @@ const ProductPage = () => {
     const { id: productId } = useParams();
     const { data: product, refetch, isLoading, error } = useGetProductDetailsQuery(productId);
     const { data: topRatedProducts, isLoading: loadingRated, error: errorRated } = useGetProductsByRatingQuery();
+    const [deleteReview] = useDeleteReviewMutation();
 
     const {userData} = useSelector(function (state) {
         return state.auth;
@@ -33,6 +40,7 @@ const ProductPage = () => {
 
     const [imageIndex, setImageIndex] = useState(0);
     const [fullScreen, setFullScreen] =  useState(false);
+    const [reviewData, setReviewData] = useState({});
     // useEffect(function () {
     //     const fetchProduct = async () => {
     //         const { data } = await axios.get(`/api/products/${productId}`);
@@ -51,7 +59,7 @@ const ProductPage = () => {
         dispatch(addToCart({
             ...product, quantity
         }));
-        toast.success("Added To Cart")
+        toast.success("Added To Cart");
         // navigate("/cart");
     }
     useEffect(function () {
@@ -64,6 +72,17 @@ const ProductPage = () => {
 
     const executeScroll = () => {
         scrollTo.current.scrollIntoView({behavior: "smooth", block: "start"})
+    };
+
+    const submitDeleteProductReview = async () => {
+        const res = await deleteReview({...reviewData, productId}).unwrap();
+        toast.success(res.message);
+        refetch();
+    };
+
+    const openConfirmModal = (reviewId, user) => {
+        setReviewData({reviewId, user});
+        window.confirm_modal.showModal();
     };
 
     return (
@@ -363,12 +382,20 @@ const ProductPage = () => {
                                                                 <div key={index} className={"pt-3"}>
                                                                     <div className={"flex flex-col"}>
                                                                         <div className={"flex justify-between"}>
-                                                                        <span className={"pb-2 text-xs font-bold text-neutral-500"}>
-                                                                            {review.name}
-                                                                        </span>
                                                                             <span className={"pb-2 text-xs font-bold text-neutral-500"}>
-                                                                            {review.createdAt.substring(0, 10)}
-                                                                        </span>
+                                                                                {review.name}
+                                                                            </span>
+                                                                            <span className={"pb-2 text-xs font-bold text-neutral-500 flex items-center"}>
+                                                                                {review.createdAt.substring(0, 10)}
+                                                                                {
+                                                                                    userData?._id === review.user && (
+                                                                                        <button onClick={() => openConfirmModal(review._id, review.user)} className={"pl-2"}>
+                                                                                            <FaTrash fill={"red"}/>
+                                                                                        </button>
+                                                                                    )
+                                                                                }
+
+                                                                            </span>
                                                                         </div>
 
                                                                         <div className={"flex items-start"}>
@@ -398,9 +425,9 @@ const ProductPage = () => {
                                     <div className={"w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3"}>
                                         <div className={"h-full bg-white shadow-xl rounded-xl flex flex-col"}>
                                             <div className={"sticky pt-5 lg:pt-8 px-5 lg:px-8"}>
-                                                <h2 className={"text-xl font-semibold"}>Recommended</h2>
+                                                <h2 className={"text-xl font-semibold"}>You might also like</h2>
                                             </div>
-                                            <div className={"sm:px-3 flex overflow-y-auto h-full"}>
+                                            <div className={"sm:px-3 sm:pb-2 flex overflow-y-auto h-full"}>
                                                 {
                                                     !loadingRated && (
                                                         topRatedProducts.map(function (product, index) {
@@ -418,6 +445,7 @@ const ProductPage = () => {
                 )
             }
             <ReviewModal productId={productId} refetch={refetch} onPage={true}/>
+            <ConfirmModal title={"Are you sure you want to delete this review?"} initiateFunction={submitDeleteProductReview}/>
         </>
     );
 };
