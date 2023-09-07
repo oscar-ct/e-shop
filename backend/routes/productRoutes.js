@@ -8,6 +8,7 @@ import {
     deleteProduct,
     deleteProductImage,
     createProductReview,
+    deleteProductReview,
     getProductsByRating,
 } from "../controllers/productController.js";
 import {protect, admin} from "../middleware/authMiddleware.js";
@@ -21,6 +22,7 @@ router.get('/top', getProductsByRating);
 router.get('/:id', getProductById);
 
 router.post("/:id/reviews", protect, createProductReview);
+router.delete("/:id/reviews", protect, deleteProductReview);
 
 // ADMIN ACCESS ONLY
 router.post("/", protect, admin, createProduct);

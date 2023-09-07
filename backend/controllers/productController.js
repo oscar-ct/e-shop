@@ -182,13 +182,32 @@ const createProductReview = asyncHandler(async (req, res) => {
     }
 });
 
+const deleteProductReview = asyncHandler(async (req, res) => {
+    const {user, reviewId} = req.body;
+    const userId = req.user._id;
+    if (user === userId.toString()) {
+        const updated = await Product.updateOne({_id: req.params.id}, {$pull: {reviews: {_id: reviewId}}});
+        if (updated) {
+            res.status(201).json({
+                message: "Product review deleted"
+            });
+        } else {
+            res.status(404);
+            throw new Error("Product not found");
+        }
+    } else {
+        res.status(400);
+        throw new Error("You do not have permission to delete this review");
+    }
+});
+
 const getProductsByRating = asyncHandler(async (req, res) => {
     const products = await Product.find({}).sort({rating: -1}).limit(5);
     res.status(201);
     return res.json(products);
 });
 
-export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct, deleteProductImage, createProductReview, getProductsByRating};
+export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct, deleteProductImage, createProductReview, deleteProductReview, getProductsByRating};
 
 
 
