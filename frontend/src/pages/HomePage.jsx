@@ -6,7 +6,7 @@ import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import {Autoplay, EffectCoverflow, Navigation} from "swiper/modules";
+import {Autoplay, Navigation} from "swiper/modules";
 import { Swiper, SwiperSlide, } from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -197,12 +197,12 @@ const HomePage = () => {
                                         delay: 3500,
                                         disableOnInteraction : false,
                                     }}
-                                    modules={[Autoplay, Navigation, EffectCoverflow]}
+                                    modules={[Autoplay, Navigation]}
                                     slidesPerView={slides}
                                     navigation
-                                    effect={"coverflow"}
-                                    coverflowEffect={{slideShadows: false,
-                                    rotate: 30}}
+                                    // effect={"coverflow"}
+                                    // coverflowEffect={{slideShadows: false,
+                                    // rotate: 30}}
                                 >
                                     {topRatedProducts.map(function (data, index) {
                                         return <SwiperSlide key={index}>
