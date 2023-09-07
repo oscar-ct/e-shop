@@ -13,8 +13,6 @@ const CategoryPage = () => {
     const {sortByTerm, pageNumber} = useParams();
     const { data, isLoading} = useGetProductsQuery({sortByTerm, pageNumber});
 
-    console.log(data)
-
     // useEffect(function () {
     //     if (data) {
     //         window.scrollTo({
