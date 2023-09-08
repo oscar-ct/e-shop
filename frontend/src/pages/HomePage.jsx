@@ -1,57 +1,56 @@
-// import React, {useEffect, useState} from 'react';
 import ProductItem from "../components/ProductItem";
-// import axios from "axios";
 import {useGetProductsQuery, useGetProductsByRatingQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
-import {Autoplay, Navigation} from "swiper/modules";
-import { Swiper, SwiperSlide, } from "swiper/react";
+import {Autoplay, Navigation, EffectFade} from "swiper/modules";
+import { Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css';
 import 'swiper/css/navigation';
-import 'swiper/css/pagination';
+// import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
+import 'swiper/css/effect-fade';
 import {useEffect, useRef, useState} from "react";
-import {HOME_IMAGE_1, HOME_IMAGE_3, HOME_IMAGE_2} from "../variables";
 import Rating from "../components/Rating";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
 import {useSelector} from "react-redux";
 import {motion} from "framer-motion";
 import Footer from "../components/Footer";
+import {HOME_IMAGE_DAY, HOME_IMAGE_MORNING_EVENING, HOME_IMAGE_NIGHT, HOME_IMAGE_PAYPAL, HOME_IMAGE_SHIPPING} from "../variables";
 
 
 const HomePage = () => {
 
     const {pageNumber} = useParams();
+    // products query
     const { data, isLoading, error } = useGetProductsQuery({pageNumber});
+    // top rated products query
     const { data: topRatedProducts, isLoading: loadingRated, error: errorRated } = useGetProductsByRatingQuery();
+
+    // component state
     const [slides, setSlides] = useState(window.innerWidth <= 640 ? 1 : window.innerWidth > 640 && window.innerWidth <= 1280 ? 2 : 3);
+    const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
+
+    // current time
+    const date = new Date;
+    const time = date.getHours();
+
+    // redux state
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
-    const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
 
-    useEffect(function () {
+    // set window width on resize
+    useEffect( () => {
         const adjustWidth = () => {
             setWindowInnerWidth(window.innerWidth);
         }
         window.addEventListener("resize", adjustWidth);
         return () => window.removeEventListener("resize", adjustWidth);
-    })
-
-    // const [products, setProducts] = useState([]);
-    // useEffect(function () {
-    //     const fetchProducts = async () => {
-    //         const { data } = await axios.get('/api/products');
-    //         setProducts(data);
-    //
-    //     }
-    //     fetchProducts();
-    //     // eslint-disable-next-line react-hooks/exhaustive-deps
-    // }, []);
-
+    });
+    // set number of slides based on window width
     useEffect(() => {
         const adjustSlides = () => {
             if (windowInnerWidth <= 640) {
@@ -67,9 +66,8 @@ const HomePage = () => {
         adjustSlides();
     }, [windowInnerWidth]);
 
-    const scrollTo = useRef(null);
-
-    useEffect(function () {
+    // scroll to based on page number
+    useEffect( () => {
         const executeScroll = () => {
             if (scrollTo) {
                 var headerOffset = 70;
@@ -86,6 +84,33 @@ const HomePage = () => {
             executeScroll();
         }
     }, [data, pageNumber, data?.page]);
+
+
+    const scrollTo = useRef(null);
+
+
+    // helper functions
+    const imageUrl = (hr) => {
+        if (hr >= 21 || hr <= 5) {
+            return HOME_IMAGE_NIGHT;
+        } else if (hr >= 9 && hr <= 17) {
+            return HOME_IMAGE_DAY;
+        } else {
+            return HOME_IMAGE_MORNING_EVENING;
+        }
+    };
+    const greetingMessage = (hr) => {
+        if (hr >= 4 && hr <= 11) {
+            return "Good morning,";
+        } else if (hr >= 12 && hr <= 17) {
+            return "Good afternoon,";
+        } else if (hr >= 0 && hr <= 3) {
+            return <span>Hey there &#128564;, </span>;
+        } else {
+            return ("Good evening,");
+        }
+    };
+
 
     return (
         <>
@@ -106,55 +131,70 @@ const HomePage = () => {
                             className={"drop-shadow-xl bg-transparent rounded-xl"}
                         >
                             <Swiper
-                                autoplay={{
-                                    delay: 7500,
-                                    disableOnInteraction: false,
-                                }}
-                                modules={[Autoplay,]}
+                                // autoplay={{
+                                //     delay: 6500,
+                                //     disableOnInteraction: false,
+                                // }}
+                                modules={[Autoplay, EffectFade]}
                                 slidesPerView={1}
+                                effect={"fade"}
+                                // fadeEffect={{crossFade: true}}
                             >
                                 <SwiperSlide>
-                                    <div style={{background: `url(${HOME_IMAGE_1})`,  backgroundPosition: "center", backgroundSize: "cover"}}
+                                    <div
+                                        style={{backgroundImage: `url(${imageUrl(time)})`, backgroundPosition: "center", backgroundSize: "cover"}}
                                         className={"h-[25em] rounded-br-xl rounded-bl-xl"}
                                     >
                                         <div className={"absolute w-full h-full flex items-center justify-center"}>
-
-                                                <div style={{fontFamily: 'Ubuntu'}} className={"w-full px-3"}>
-
-                                                    {
-                                                        userData ? (
-                                                            <>
-                                                                <div className={"w-full flex flex-col"}>
-                                                                    <div className={"text-6xl flex flex-wrap justify-center items-center"}>
-                                                                        <span className={"font-semibold text-neutral"}>Welcome,</span>
-                                                                        <span className={"px-3 font-bold text-white"}>{userData.name.split(" ")[0]}!</span>
-                                                                    </div>
-                                                                </div>
-                                                            </>
-                                                        ) : (
+                                            <div
+                                                style={{fontFamily: 'Ubuntu'}}
+                                                className={"w-full px-3"}
+                                            >
+                                                {
+                                                    userData ? (
+                                                        <>
                                                             <div className={"w-full flex flex-col"}>
                                                                 <div className={"text-6xl flex flex-wrap justify-center items-center"}>
-                                                                    <span className={"font-bold text-neutral"}>Welcome</span>
-                                                                    <span className={"px-3 text-neutral font-bold"}>to</span>
-                                                                    <span className={"pt-2"}><Logo width={"34"} fill={"white"} height={"34"}/></span>
-                                                                    <span className={"pl-3 text-white font-bold"}>-shop!</span>
+                                                                    <span className={`text-center font-bold ${time >= 9 && time <= 17 ? "text-neutral/90" : "text-white/90"}`}
+                                                                    >
+                                                                        {greetingMessage(time)}
+                                                                    </span>
+                                                                    <span className={`px-3 font-bold ${time >= 21 || time <= 5 ? "text-white/90" : "text-neutral/90" }`}
+                                                                    >
+                                                                        {userData.name.split(" ")[0]}!
+                                                                    </span>
                                                                 </div>
-                                                                <p className={"px-3 text-center text-white font-bold"}>
-                                                                    An e-commerce site designed and developed by <a className={"link"} href={"https://oscar-ct.com"}> Oscar Castro </a>
-                                                                </p>
                                                             </div>
-                                                        )
-                                                    }
-
-                                                </div>
+                                                        </>
+                                                    ) : (
+                                                        <div className={"w-full flex flex-col"}>
+                                                            <div className={"text-6xl flex flex-wrap justify-center items-center"}>
+                                                                <span className={`font-bold pr-4 ${time >= 21 || time <= 5 ? "text-white/90" : "text-neutral/90" }`}
+                                                                >
+                                                                    Welcome to
+                                                                </span>
+                                                                <span className={"pt-2"}>
+                                                                    <Logo width={"34"} fill={"white"} height={"34"}/>
+                                                                </span>
+                                                                <span className={`pl-3 font-bold ${time >= 9 && time <= 17 ? "text-neutral/90" : "text-white/90"}`}
+                                                                >
+                                                                    -shop!
+                                                                </span>
+                                                            </div>
+                                                            <p className={`px-3 text-center ${time >= 9 && time <= 17 ? "text-neutral/90" : "text-white"}`}>
+                                                                An e-commerce site designed and developed by <a className={"link"} href={"https://oscar-ct.com"}> Oscar Castro </a>
+                                                            </p>
+                                                        </div>
+                                                    )
+                                                }
                                             </div>
-
+                                        </div>
                                     </div>
                                 </SwiperSlide>
                                 <SwiperSlide>
                                     <div
                                         className={"h-[25em] rounded-br-xl rounded-bl-xl"}
-                                         style={{background: `url(${HOME_IMAGE_2})`, backgroundPosition: "center", backgroundSize: "cover"}}
+                                         style={{backgroundImage: `url(${HOME_IMAGE_PAYPAL})`, backgroundPosition: "center", backgroundSize: "cover"}}
                                     >
                                         <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
                                             <span style={{fontFamily: 'Ubuntu'}} className={"text-5xl text-white font-bold px-3"}>
@@ -166,7 +206,7 @@ const HomePage = () => {
                                 <SwiperSlide>
                                     <div
                                         className={"h-[25em] rounded-br-xl rounded-bl-xl"}
-                                        style={{background: `url(${HOME_IMAGE_3})`, backgroundPosition: "center", backgroundSize: "cover"}}
+                                        style={{backgroundImage: `url(${HOME_IMAGE_SHIPPING})`, backgroundPosition: "center", backgroundSize: "cover"}}
                                     >
                                         <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
                                             <span style={{fontFamily: 'Ubuntu'}} className={"text-6xl text-white font-bold px-3"}>
@@ -177,21 +217,23 @@ const HomePage = () => {
                                 </SwiperSlide>
                             </Swiper>
                         </motion.div>
-                        <div className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
-                            <h2 className={"text-2xl"}>
-                                Top Rated Products
-                            </h2>
-                            <Link to={"/sort/toprated"} className={"link btn btn-sm btn-ghost normal-case text-sm"}>View All</Link>
-                        </div>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className={"m-auto w-full rounded-xl max-w-8xl px-3 pt-3"}
-                        >
-                            {/*<div className={"p-3"}>*/}
+                        <div>
+                            <div className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
+                                <h2 className={"text-2xl"}>
+                                    Top Rated Products
+                                </h2>
+                                <Link to={"/sort/toprated"} className={"link btn btn-sm btn-ghost normal-case text-sm"}>
+                                    View All
+                                </Link>
+                            </div>
+                            <motion.div
+                                initial={{ opacity: 0 }}
+                                animate={{ opacity: 1 }}
+                                exit={{ opacity: 0 }}
+                                className={"m-auto w-full rounded-xl max-w-8xl px-3 pt-3"}
+                            >
                                 <Swiper
-                                    spaceBetween={windowInnerWidth > 1280 ? 15 : 0}
+                                    spaceBetween={windowInnerWidth > 1280 ? 15 : 10}
                                     // centeredSlides={true}
                                     autoplay={{
                                         delay: 3500,
@@ -209,10 +251,13 @@ const HomePage = () => {
                                             <Link to={`/product/${data._id}`} className={"relative"}>
                                                 <motion.img
                                                     whileHover={windowInnerWidth > 640 ? { scale: 0.95} : {scale: "none"}}
-                                                    className={"bg-white/90 shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
-                                                    src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}/>
+                                                    className={"bg-white shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                    src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}
+                                                />
                                                 <div className={"flex justify-start items-end"}>
-                                                    <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>${data.price} - {data.name}</h5>
+                                                    <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>
+                                                        ${data.price} - {data.name}
+                                                    </h5>
                                                 </div>
                                             </Link>
                                             <div className={"absolute right-0 top-0 "}>
@@ -223,13 +268,15 @@ const HomePage = () => {
                                         </SwiperSlide>
                                     })}
                                 </Swiper>
-                            {/*</div>*/}
-                        </motion.div>
+                            </motion.div>
+                        </div>
                         <div ref={scrollTo} className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
                             <h2 className={"text-2xl"}>
                                 Lastest Products
                             </h2>
-                            <Link to={"/sort/latest"} className={"link btn btn-sm btn-ghost normal-case text-sm "}>View All</Link>
+                            <Link to={"/sort/latest"} className={"link btn btn-sm btn-ghost normal-case text-sm "}>
+                                View All
+                            </Link>
                         </div>
                         <div className={"pb-10"}>
                             <div className={"w-full flex flex-wrap justify-center"}>
@@ -249,7 +296,6 @@ const HomePage = () => {
                     </>
                 )
             }
-
         </>
     );
 };
