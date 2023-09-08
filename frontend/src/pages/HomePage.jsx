@@ -131,10 +131,10 @@ const HomePage = () => {
                             className={"drop-shadow-xl bg-transparent rounded-xl"}
                         >
                             <Swiper
-                                // autoplay={{
-                                //     delay: 6500,
-                                //     disableOnInteraction: false,
-                                // }}
+                                autoplay={{
+                                    delay: 5500,
+                                    disableOnInteraction: false,
+                                }}
                                 modules={[Autoplay, EffectFade]}
                                 slidesPerView={1}
                                 effect={"fade"}
