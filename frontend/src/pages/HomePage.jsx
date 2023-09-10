@@ -143,7 +143,7 @@ const HomePage = () => {
                                 <SwiperSlide>
                                     <div
                                         style={{backgroundImage: `url(${imageUrl(time)})`, backgroundPosition: "center", backgroundSize: "cover"}}
-                                        className={"h-[25em] rounded-br-xl rounded-bl-xl"}
+                                        className={"h-[24em] rounded-br-xl rounded-bl-xl"}
                                     >
                                         <div className={"absolute w-full h-full flex items-center justify-center"}>
                                             <div
@@ -193,7 +193,7 @@ const HomePage = () => {
                                 </SwiperSlide>
                                 <SwiperSlide>
                                     <div
-                                        className={"h-[25em] rounded-br-xl rounded-bl-xl"}
+                                        className={"h-[24em] rounded-br-xl rounded-bl-xl"}
                                          style={{backgroundImage: `url(${HOME_IMAGE_PAYPAL})`, backgroundPosition: "center", backgroundSize: "cover"}}
                                     >
                                         <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
@@ -205,7 +205,7 @@ const HomePage = () => {
                                 </SwiperSlide>
                                 <SwiperSlide>
                                     <div
-                                        className={"h-[25em] rounded-br-xl rounded-bl-xl"}
+                                        className={"h-[24em] rounded-br-xl rounded-bl-xl"}
                                         style={{backgroundImage: `url(${HOME_IMAGE_SHIPPING})`, backgroundPosition: "center", backgroundSize: "cover"}}
                                     >
                                         <div className={"absolute w-full text-center h-full flex items-center justify-center"}>
