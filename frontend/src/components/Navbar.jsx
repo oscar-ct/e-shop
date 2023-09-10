@@ -148,7 +148,7 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 sticky visible transition-all duration-700 ` : smallScreen ? "sticky invisible duration-700 transition-all translate-y-[-100%]": "visible sticky" } inset-0 z-10 block h-max w-full rounded-none py-4 shadow-md ${scrollY > 5 ? "backdrop-blur-md" : undefined}`}
+                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 sticky visible transition-all duration-700 ` : smallScreen ? "sticky invisible duration-700 transition-all translate-y-[-100%]": "visible sticky" } inset-0 z-10 block h-max w-full rounded-none py-4 shadow-md footer bg-neutral/80 text-white ${scrollY > 5 ? "backdrop-blur-md" : undefined}`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
@@ -160,7 +160,7 @@ const Navbar = () => {
                             whileHover={{ scale: 1.1 }}
                             whileTap={{ scale: 1.0 }}
                         >
-                            <Logo className={"w-6 mr-1"} fill={"black"}/>
+                            <Logo className={"w-6 mr-1"} fill={"white"}/>
                             {/*<button*/}
                             {/*    style={{fontFamily: 'Moirai One, cursive', fontSize: "40px"}}*/}
                             {/*>*/}
