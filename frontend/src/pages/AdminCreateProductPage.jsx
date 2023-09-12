@@ -12,6 +12,7 @@ import {toast} from "react-hot-toast";
 import {ReactComponent as Images} from "../icons/add-image.svg";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
+import CategoryOptions from "../components/CategoryOptions";
 
 
 
@@ -38,20 +39,21 @@ const AdminCreateProductPage = () => {
     // const {userData} = useSelector(function (state) {
     //     return state.auth;
     // });
-
     const initialState = {
         name: "",
         brand: "",
         model: "",
         description: "",
-        countInStock: 0,
-        price: 0,
+        countInStock: "0",
+        price: "0",
         category: "",
         color: "",
     };
     const [newProduct, setNewProduct] = useState(null);
     const [formData, setFormData] = useState(initialState);
     const [imagesUploaded, setImagesUploaded] = useState(false);
+
+    const formIsComplete = formData.name !== "" && formData.brand !== "" && formData.model !== "" && formData.description !== "" && formData.category !== "" && formData.color !== "" && formData.countInStock !== "0" && formData.price !== "0";
 
     const deleteProductImageFromDbAndFilestack = async (id, handle) => {
         const confirm = window.confirm("Are you want to delete this image?");
@@ -114,7 +116,6 @@ const AdminCreateProductPage = () => {
         // refetch(); // this is for re-fetching data upon product creation
         // setFormData(initialState);
         dispatch(setLoading(false));
-        // navigate("/admin/products");
     };
 
 
@@ -250,17 +251,17 @@ const AdminCreateProductPage = () => {
                                         <div className={"space-y-2 pb-2"}>
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">Category
                                             </label>
-                                            <input
+                                            <select
                                                 className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 ${newProduct && "border-none bg-base-100 font-semibold"}`}
                                                 autoComplete={"off"}
-                                                type={"text"}
-                                                placeholder={"e.g. Electronics"}
                                                 id={"category"}
-                                                value={formData.category}
+                                                // value={formData.category}
                                                 onChange={onMutate}
                                                 disabled={newProduct !== null}
                                                 required
-                                            />
+                                            >
+                                                <CategoryOptions bool={formData.category !== ""}/>
+                                            </select>
                                         </div>
                                     </div>
                                     <div className={"w-full flex flex-col lg:w-6/12 lg:px-2"}>
@@ -278,6 +279,7 @@ const AdminCreateProductPage = () => {
                                                     onChange={onMutate}
                                                     disabled={newProduct !== null}
                                                     required
+                                                    min={0}
                                                 />
                                             </div>
                                             <div className={"bg-white w-full pl-5 lg:pl-0 space-y-2 pb-2"}>
@@ -293,6 +295,7 @@ const AdminCreateProductPage = () => {
                                                     onChange={onMutate}
                                                     disabled={newProduct !== null}
                                                     required
+                                                    min={0}
                                                 />
                                             </div>
                                         </div>
@@ -330,7 +333,7 @@ const AdminCreateProductPage = () => {
                         </div>
                         <div className={`px-5 sm:px-0 pt-1 w-full flex flex-col lg:flex-row lg:justify-end items-center`}>
 
-                            <button disabled={newProduct !== null} type={"submit"} className={`rounded-xl ${newProduct === null && "shadow-blue"} self-end btn btn-primary w-full lg:btn-wide`}>
+                            <button disabled={newProduct !== null || !formIsComplete} type={"submit"} className={`rounded-xl ${newProduct === null && formIsComplete && "shadow-blue"} self-end btn btn-primary w-full lg:btn-wide`}>
                                Create Listing
                             </button>
 

@@ -19,6 +19,7 @@ import Paginate from "../components/Paginate";
 import AlertModal from "../components/AlertModal";
 import ConfirmModal from "../components/ConfirmModal";
 import Meta from "../components/Meta";
+import CategoryOptions from "../components/CategoryOptions";
 
 
 const AdminProductListPage = () => {
@@ -406,12 +407,13 @@ const AdminProductListPage = () => {
                                                                     />
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200"}>
-                                                                    <input
+                                                                    <select
                                                                         className="bg-white pl-1 shadow appearance-none border rounded w-[90px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                        type={"text"}
-                                                                        value={category}
                                                                         onChange={(e) => setCategory(e.target.value)}
-                                                                    />
+                                                                        defaultValue={category}
+                                                                    >
+                                                                      <CategoryOptions isPopulated={true}/>
+                                                                    </select>
                                                                 </td>
                                                                 <td className={"p-1 pt-2 bg-blue-200"}>
                                                                     <textarea
