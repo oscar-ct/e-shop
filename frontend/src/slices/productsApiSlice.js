@@ -126,8 +126,18 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                     },
                 }
             ),
+            getProductsByCategory: build.query({
+                    query: function () {
+                        return {
+                            url: `${PRODUCTS_URL}/categories`
+                        }
+                    },
+                    // 5 seconds
+                    keepUnusedDataFor: 5
+                }
+            ),
         };
     }
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation, useDeleteProductImageMutation, useCreateReviewMutation, useDeleteReviewMutation, useGetProductsByRatingQuery, useValidateDiscountCodeMutation} = productsApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation, useDeleteProductImageMutation, useCreateReviewMutation, useDeleteReviewMutation, useGetProductsByRatingQuery, useValidateDiscountCodeMutation, useGetProductsByCategoryQuery} = productsApiSlice;
