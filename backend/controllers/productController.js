@@ -207,7 +207,18 @@ const getProductsByRating = asyncHandler(async (req, res) => {
     return res.json(products);
 });
 
-export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct, deleteProductImage, createProductReview, deleteProductReview, getProductsByRating};
+const getProductCategories = asyncHandler(async (req, res) => {
+    const products = [];
+    const categories = await Product.distinct("category").sort();
+    for (let i = 0; i < categories.length; i++) {
+        const product = await Product.where("category").equals(categories[i]).sort({rating: -1}).limit(1).select("images category");
+        products.push(product[0]);
+    }
+    return res.status(201).json(products);
+});
+
+
+export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct, deleteProductImage, createProductReview, deleteProductReview, getProductsByRating, getProductCategories};
 
 
 
