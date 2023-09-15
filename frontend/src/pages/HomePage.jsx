@@ -1,5 +1,5 @@
 import ProductItem from "../components/ProductItem";
-import {useGetProductsQuery, useGetProductsByRatingQuery} from "../slices/productsApiSlice";
+import {useGetProductsQuery, useGetProductsByRatingQuery, useGetProductsByCategoryQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams, Link} from "react-router-dom";
@@ -19,6 +19,8 @@ import {useSelector} from "react-redux";
 import {motion} from "framer-motion";
 import Footer from "../components/Footer";
 import {HOME_IMAGE_DAY, HOME_IMAGE_MORNING_EVENING, HOME_IMAGE_NIGHT, HOME_IMAGE_PAYPAL, HOME_IMAGE_SHIPPING} from "../variables";
+import CategoryItem from "../components/CategoryItem";
+import charizard from "../icons/charizard.gif";
 
 
 const HomePage = () => {
@@ -28,20 +30,28 @@ const HomePage = () => {
     const { data, isLoading, error } = useGetProductsQuery({pageNumber});
     // top rated products query
     const { data: topRatedProducts, isLoading: loadingRated, error: errorRated } = useGetProductsByRatingQuery();
-
+    // products by category query
+    const { data: productCategories, isLoading: loadingCategories, error: errorCategories } = useGetProductsByCategoryQuery();
     // component state
     const [slides, setSlides] = useState(window.innerWidth <= 640 ? 1 : window.innerWidth > 640 && window.innerWidth <= 1280 ? 2 : 3);
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
-
+    const [charizardPostion, setCharizardPosition] = useState(85);
     // current time
     const date = new Date;
     const time = date.getHours();
-
     // redux state
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
-
+    useEffect(() => {
+        setTimeout(() => {
+            if (charizardPostion !== 0) {
+                setCharizardPosition(charizardPostion - 2.5);
+            } else {
+                setCharizardPosition(85);
+            }
+        }, 250);
+    }, [charizardPostion]);
     // set window width on resize
     useEffect( () => {
         const adjustWidth = () => {
@@ -115,11 +125,11 @@ const HomePage = () => {
     return (
         <>
             {
-                isLoading || loadingRated ? (
+                isLoading || loadingRated || loadingCategories ? (
                     <Spinner/>
-                ) : error || errorRated ? (
+                ) : error || errorRated || errorCategories ? (
                     <Message variant={"error"}>
-                        {error?.data?.message || error.error || errorRated.error || errorRated?.data?.message}
+                        {error?.data?.message || error.error || errorRated.error || errorRated?.data?.message || errorCategories.error || errorCategories?.data?.message}
                     </Message>
                 ) : (
                     <>
@@ -217,14 +227,44 @@ const HomePage = () => {
                                 </SwiperSlide>
                             </Swiper>
                         </motion.div>
-                        <div>
-                            <div className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
-                                <h2 className={"text-2xl"}>
+                        <div className={"bg-white pt-10 rounded-b-xl"}>
+                            <div ref={scrollTo} className={"px-3 pb-3 flex justify-between items-center w-full"}>
+                                <h2 className={"text-2xl mooli"}>
+                                    Shop Categories
+                                </h2>
+                            </div>
+                            <div className={"w-full flex flex-wrap justify-center"}>
+                                {
+                                    productCategories.slice(0, windowInnerWidth > 1024 && windowInnerWidth < 1280 ? 5 : windowInnerWidth > 1280 && windowInnerWidth < 1536 ? 7 : windowInnerWidth > 1536 ? 8 : 8).map(function (product, index) {
+                                       return <CategoryItem key={index} product={product} windowInnerWidth={windowInnerWidth}/>
+                                    })
+                                }
+                            </div>
+                            <div className={"pt-10"}>
+                                <div className={"mooli h-20 border-y-[1px] border-gray-300 flex justify-end items-center rounded-xl"}>
+                                    <span className={"pr-3 text-lg"}>
+                                        Want more categories?
+                                    </span>
+                                    <div className={"pr-5"}>
+                                        <Link to={"/sort/latest/all"} className={"btn glass bg-neutral/70 text-white"}>
+                                            View All
+                                        </Link>
+                                    </div>
+                                </div>
+
+                            </div>
+                        </div>
+                        <div className={"h-12 w-full relative"}>
+                            <img className={`w-14`} style={{position: "absolute", left: charizardPostion+"%"}} src={charizard} alt={"charizard"}/>
+                        </div>
+                        <div className={"bg-white pt-8 rounded-md"}>
+                            <div className={"px-3 pb-3 flex justify-between items-center w-full"}>
+                                <h2 className={"text-2xl mooli"}>
                                     Top Rated Products
                                 </h2>
-                                <Link to={"/sort/toprated"} className={"link btn btn-sm btn-ghost normal-case text-sm"}>
-                                    View All
-                                </Link>
+                                {/*<Link to={"/sort/toprated"} className={"link btn btn-sm btn-ghost normal-case text-sm"}>*/}
+                                {/*    View All*/}
+                                {/*</Link>*/}
                             </div>
                             <motion.div
                                 initial={{ opacity: 0 }}
@@ -269,20 +309,30 @@ const HomePage = () => {
                                     })}
                                 </Swiper>
                             </motion.div>
+                            <div className={"pt-10"}>
+                                <div className={"mooli h-20 border-y-[1px] border-gray-300 flex justify-end items-center rounded-xl"}>
+                                    <span className={"pr-3 text-lg"}>
+                                        Looking for more awesome products?
+                                    </span>
+                                    <div className={"pr-5"}>
+                                        <Link to={"/sort/toprated/all"} className={"btn glass bg-neutral/70 text-white"}>
+                                            View All
+                                        </Link>
+                                    </div>
+                                </div>
+                            </div>
                         </div>
-                        <div ref={scrollTo} className={"px-3 pt-5 pb-3 flex justify-between items-center w-full"}>
-                            <h2 className={"text-2xl"}>
+
+                        <div ref={scrollTo} className={"px-3 pt-10 pb-3 flex justify-between items-center w-full"}>
+                            <h2 className={"text-2xl mooli"}>
                                 Lastest Products
                             </h2>
-                            <Link to={"/sort/latest"} className={"link btn btn-sm btn-ghost normal-case text-sm "}>
-                                View All
-                            </Link>
                         </div>
                         <div className={"pb-10"}>
                             <div className={"w-full flex flex-wrap justify-center"}>
                                 {
                                     data.products.map(function (product) {
-                                        return <ProductItem key={product._id} product={product}/>
+                                        return <ProductItem key={product._id} product={product} windowInnerWidth={windowInnerWidth}/>
                                     })
                                 }
                             </div>
