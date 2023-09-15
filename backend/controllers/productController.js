@@ -4,6 +4,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 
 
 const getAllProducts = asyncHandler(async (req, res) => {
+    let products;
 // .find({}) - empty object will find all products
     const pageSize = req.query.searchTerm ||  req.query.sortByTerm ? 16 : 8;
     const page = Number(req.query.pageNumber) || 1;
@@ -12,7 +13,12 @@ const getAllProducts = asyncHandler(async (req, res) => {
     const sortTerm = req.query.sortByTerm === "toprated" ? {rating: -1} : req.query.sortByTerm === "latest" ? {createdAt: -1} : req.query.sortByTerm === "price-asc" ? {price: +1} : req.query.sortByTerm === "price-dsc" ? {price: -1} : {createdAt: -1};
     const searchTerm = req.query.searchTerm ? { name: {$regex: req.query.searchTerm, $options: "i"} } : req.query.sortByTerm === "toprated" ? {rating: {$gt: 0}} : {};
     const count = await Product.countDocuments({...searchTerm});
-    const products = await Product.find({...searchTerm}).sort({...sortTerm}).limit(pageSize).skip(pageSize * (page-1));
+    if (req.query.filterTerm && req.query.filterTerm !== "all") {
+        products = await Product.find({...searchTerm}).where("category").equals(req.query.filterTerm.substring(0, 1).toUpperCase() + req.query.filterTerm.substring(1, req.query.filterTerm.length)).sort({...sortTerm}).limit(pageSize).skip(pageSize * (page-1));
+        res.status(201);
+        return res.json({products, page, pages: Math.ceil(count / pageSize), keyword: keyword});
+    }
+    products = await Product.find({...searchTerm}).sort({...sortTerm}).limit(pageSize).skip(pageSize * (page-1));
     res.status(201);
     return res.json({products, page, pages: Math.ceil(count / pageSize), keyword: keyword});
 });
