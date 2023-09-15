@@ -241,12 +241,12 @@ const HomePage = () => {
                                 }
                             </div>
                             <div className={"pt-10"}>
-                                <div className={"mooli h-20 border-y-[1px] border-gray-300 flex justify-end items-center rounded-xl"}>
-                                    <span className={"pr-3 text-lg"}>
+                                <div className={"h-20 border-y-[1px] border-gray-300 flex justify-end items-center rounded-xl"}>
+                                    <span className={"mooli pr-3 text-lg"}>
                                         Want more categories?
                                     </span>
                                     <div className={"pr-5"}>
-                                        <Link to={"/sort/latest/all"} className={"btn glass bg-neutral/70 text-white"}>
+                                        <Link to={"/sort/latest/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
                                             View All
                                         </Link>
                                     </div>
@@ -310,14 +310,16 @@ const HomePage = () => {
                                 </Swiper>
                             </motion.div>
                             <div className={"pt-10"}>
-                                <div className={"mooli h-20 border-y-[1px] border-gray-300 flex justify-end items-center rounded-xl"}>
-                                    <span className={"pr-3 text-lg"}>
-                                        Looking for more awesome products?
-                                    </span>
-                                    <div className={"pr-5"}>
-                                        <Link to={"/sort/toprated/all"} className={"btn glass bg-neutral/70 text-white"}>
-                                            View All
-                                        </Link>
+                                <div className={"h-20 border-y-[1px] border-gray-300 flex justify-end rounded-xl"}>
+                                    <div className={"flex justify-between items-center"}>
+                                        <span className={"text-center mooli pr-3 text-lg"}>
+                                            Looking for more awesome products?
+                                        </span>
+                                        <div className={"pr-5"}>
+                                            <Link to={"/sort/toprated/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
+                                                View All
+                                            </Link>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
