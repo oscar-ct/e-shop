@@ -1,8 +1,12 @@
-@import url('https://fonts.googleapis.com/css2?family=Moirai+One&family=Open+Sans:wght@300;400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Moirai+One&family=Mooli&family=Open+Sans:wght@300;400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+.mooli {
+  font-family: 'Mooli', sans-serif;
+
+}
 
 body {
   color: black;

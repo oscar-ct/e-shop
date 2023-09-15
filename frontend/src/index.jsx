@@ -43,8 +43,8 @@ const router = createBrowserRouter(
             <Route path={"/page/:pageNumber"} element={<HomePage/>}/>
             <Route path={"/search/:searchTerm"} element={<SearchPage/>}/>
             <Route path={"/search/:searchTerm/page/:pageNumber"} element={<SearchPage/>}/>
-            <Route path={"/sort/:sortByTerm"} element={<CategoryPage/>}/>
-            <Route path={"/sort/:sortByTerm/page/:pageNumber"} element={<CategoryPage/>}/>
+            <Route path={"/sort/:sortByTerm/:filterTerm"} element={<CategoryPage/>}/>
+            <Route path={"/sort/:sortByTerm/:filterTerm/page/:pageNumber"} element={<CategoryPage/>}/>
             <Route path={"/product/:id"} element={<ProductPage/>}/>
             <Route path={"/cart"} element={<CartPage/>}/>
             <Route path={"/login"} element={<LoginPage/>}/>

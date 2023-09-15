@@ -10,6 +10,7 @@ import {
     createProductReview,
     deleteProductReview,
     getProductsByRating,
+    getProductCategories,
 } from "../controllers/productController.js";
 import {protect, admin} from "../middleware/authMiddleware.js";
 
@@ -19,6 +20,7 @@ const router = express.Router();
 // router.route('/').get(getAllProducts);
 router.get('/',getAllProducts);
 router.get('/top', getProductsByRating);
+router.get('/categories', getProductCategories);
 router.get('/:id', getProductById);
 
 router.post("/:id/reviews", protect, createProductReview);

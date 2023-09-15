@@ -5,13 +5,14 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     endpoints: function (build) {
         return {
             getProducts: build.query({
-                query: function ({searchTerm, pageNumber, sortByTerm}) {
+                query: function ({searchTerm, pageNumber, sortByTerm, filterTerm}) {
                     return {
                         url: PRODUCTS_URL,
                         params: {
                             searchTerm,
                             pageNumber,
                             sortByTerm,
+                            filterTerm,
                         }
                     }
                 },
@@ -126,8 +127,18 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                     },
                 }
             ),
+            getProductsByCategory: build.query({
+                    query: function () {
+                        return {
+                            url: `${PRODUCTS_URL}/categories`
+                        }
+                    },
+                    // 5 seconds
+                    keepUnusedDataFor: 5
+                }
+            ),
         };
     }
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation, useDeleteProductImageMutation, useCreateReviewMutation, useDeleteReviewMutation, useGetProductsByRatingQuery, useValidateDiscountCodeMutation} = productsApiSlice;
+export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation, useDeleteProductImageMutation, useCreateReviewMutation, useDeleteReviewMutation, useGetProductsByRatingQuery, useValidateDiscountCodeMutation, useGetProductsByCategoryQuery} = productsApiSlice;

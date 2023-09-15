@@ -1,30 +1,17 @@
 import {Link} from 'react-router-dom'
 import Rating from "./Rating";
-import {useState, useEffect} from "react";
+import {useState} from "react";
 import {motion} from "framer-motion";
 
-
-
-const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
+const ProductItem = ( {product, smallSize = false, cardWidth = "", windowInnerWidth} ) => {
     const [imgIndex, setImageIndex] = useState(0);
-    const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
-
-    useEffect(function () {
-        const setInnerWidth = () => {
-            setWindowInnerWidth(window.innerWidth);
-        };
-        window.addEventListener("resize", setInnerWidth);
-        return () => {
-            window.removeEventListener("resize", setInnerWidth)
-        }
-    }, []);
     return (
         <>
             <Link to={`/product/${product._id}`} className={"w-6/12 sm:w-72 p-1 sm:p-3"}>
                 <motion.div initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.2 }}
-                            whileHover={windowInnerWidth > 640 ? { scale: 1.1} : {scale: "none"}}
+                            whileHover={windowInnerWidth > 640 ? { scale: 1.1} : {scale: 1}}
                             whileTap={windowInnerWidth > 640 ? { scale: 0.9} : {scale: "none"}}
                             className={`${cardWidth && cardWidth} rounded-xl flex flex-col bg-white shadow-xl h-full`}
                 >
@@ -41,16 +28,13 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
                             {/*<h2 className="text-concat text-sm font-semibold">{product.name.length > 65 ? `${product.name.substring(0, 65)}` : product.name}</h2>*/}
                             {/*<h2 className="text-concat text-sm font-semibold">{product.name}</h2>*/}
                         </div>
-
-                        {/*<p>{product.description}</p>*/}
-                        {/*<div className={"w-full flex flex-col justify-end"}>*/}
                             <div className={`w-full text-xs ${!smallSize ? "sm:text-base" : " flex justify-between items-center"}`}>
                                 <Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews !== 1 ? "reviews" : "review"}`}/>
                                 {
                                     smallSize && (
-                                        // <div className={"w-full flex sm:pt-2 justify-end"}>
-                                            <span className={"text-sm font-bold text-slate-500"}>${product.price}</span>
-                                        // </div>
+                                        <span className={"text-sm font-bold text-slate-500"}>
+                                            ${product.price}
+                                        </span>
                                     )
                                 }
                             </div>
@@ -61,10 +45,6 @@ const ProductItem = ( {product, smallSize = false, cardWidth = ""} ) => {
                                         </div>
                                     )
                                 }
-                        {/*</div>*/}
-                        {/*<div className="card-actions">*/}
-                        {/*    <button className="btn btn-primary">Buy Now</button>*/}
-                        {/*</div>*/}
                     </div>
                 </motion.div>
             </Link>
