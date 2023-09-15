@@ -8,8 +8,8 @@ const CategoryItem = ({product, windowInnerWidth}) => {
                 <motion.div initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.2 }}
-                            whileHover={windowInnerWidth > 640 ? { scale: 1.1} : {scale: "none"}}
-                            whileTap={windowInnerWidth > 640 ? { scale: 0.9} : {scale: "none"}}
+                            whileHover={windowInnerWidth > 640 ? { scale: 1.1} : {scale: 1}}
+                            whileTap={windowInnerWidth > 640 ? { scale: 0.9} : {scale: 1}}
                             className={`rounded-xl flex flex-col items-center bg-white shadow-xl h-full w-full`}
                 >
                     <div className="p-2 flex justify-center">
