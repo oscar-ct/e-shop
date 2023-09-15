@@ -23,14 +23,17 @@ const CategoryOptions = ({bool, isPopulated = false}) => {
             <option value={"Footwear"}>
                 Footwear
             </option>
-            <option value={"Home Furnishings"}>
-                Home furnishings
+            <option value={"Games"}>
+                Games
             </option>
-            <option value={"Personal Care"}>
-                Personal Care
+            <option value={"Health"}>
+                Health
             </option>
-            <option value={"Pet Care"}>
-                Pet Care
+            <option value={"Home"}>
+                Home
+            </option>
+            <option value={"Pet"}>
+                Pet
             </option>
             <option value={"Other"}>
                 Other
