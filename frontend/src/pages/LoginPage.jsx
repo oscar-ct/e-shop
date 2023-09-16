@@ -209,7 +209,7 @@ const LoginPage = () => {
                             <label className="pb-2 text-sm font-medium text-gray-600 tracking-wide">
                                 Send password reset link
                             </label>
-                            <input type="email" placeholder="Enter your email" className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400 text-black" value={passwordRecoveryEmail} onChange={(e) => {
+                            <input type="email" placeholder="Enter your email" className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:border-blue-400" value={passwordRecoveryEmail} onChange={(e) => {
                                 setPasswordRecoveryEmail(e.target.value);
                             }}/>
                         </div>
