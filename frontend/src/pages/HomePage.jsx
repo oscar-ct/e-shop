@@ -21,6 +21,7 @@ import Footer from "../components/Footer";
 import {HOME_IMAGE_DAY, HOME_IMAGE_MORNING_EVENING, HOME_IMAGE_NIGHT, HOME_IMAGE_PAYPAL, HOME_IMAGE_SHIPPING} from "../variables";
 import CategoryItem from "../components/CategoryItem";
 import charizard from "../icons/charizard.gif";
+import pikachu from "../icons/pikachu.gif";
 
 
 const HomePage = () => {
@@ -35,7 +36,10 @@ const HomePage = () => {
     // component state
     const [slides, setSlides] = useState(window.innerWidth <= 640 ? 1 : window.innerWidth > 640 && window.innerWidth <= 1280 ? 2 : 3);
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
+    const [charizardActive, setCharizardActive] = useState(false);
+    const [pikachuActive, setPikachuActive] = useState(false);
     const [charizardPostion, setCharizardPosition] = useState(85);
+    const [pikachuPostion, setPikachuPosition] = useState(0);
     // current time
     const date = new Date;
     const time = date.getHours();
@@ -44,14 +48,25 @@ const HomePage = () => {
         return state.auth;
     });
     useEffect(() => {
-        setTimeout(() => {
-            if (charizardPostion !== 0) {
-                setCharizardPosition(charizardPostion - 2.5);
-            } else {
-                setCharizardPosition(85);
-            }
-        }, 250);
-    }, [charizardPostion]);
+        if (charizardActive) {
+            setTimeout(() => {
+                if (charizardPostion !== 0) {
+                    setCharizardPosition(charizardPostion - 2.5);
+                } else {
+                    setCharizardPosition(85);
+                }
+            }, 150);
+        }
+        if (pikachuActive) {
+            setTimeout(() => {
+                if (pikachuPostion !== 85) {
+                    setPikachuPosition(pikachuPostion + 2.5);
+                } else {
+                    setPikachuPosition(0);
+                }
+            }, 150);
+        }
+    }, [charizardPostion, pikachuPostion, charizardActive, pikachuActive]);
     // set window width on resize
     useEffect( () => {
         const adjustWidth = () => {
@@ -142,7 +157,7 @@ const HomePage = () => {
                         >
                             <Swiper
                                 autoplay={{
-                                    delay: 5500,
+                                    delay: 8500,
                                     disableOnInteraction: false,
                                 }}
                                 modules={[Autoplay, EffectFade]}
@@ -227,7 +242,10 @@ const HomePage = () => {
                                 </SwiperSlide>
                             </Swiper>
                         </motion.div>
-                        <div className={"bg-white pt-10 rounded-b-xl"}>
+                        <div className={"h-8 w-full relative"}>
+                            <img onMouseOver={() => !pikachuActive && setPikachuActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-10 ${!pikachuActive && "opacity-25"}`} style={{position: "absolute", left: pikachuPostion+"%"}} src={pikachu} alt={"charizard"}/>
+                        </div>
+                        <div className={"bg-white pt-8 rounded-xl"}>
                             <div ref={scrollTo} className={"px-3 pb-3 flex justify-between items-center w-full"}>
                                 <h2 className={"text-2xl mooli"}>
                                     Shop Categories
@@ -254,8 +272,8 @@ const HomePage = () => {
 
                             </div>
                         </div>
-                        <div className={"h-12 w-full relative"}>
-                            <img className={`w-14`} style={{position: "absolute", left: charizardPostion+"%"}} src={charizard} alt={"charizard"}/>
+                        <div className={"h-9 w-full relative"}>
+                            <img onMouseOver={() => !charizardActive && setCharizardActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-14 ${!charizardActive && "opacity-25"}`} style={{position: "absolute", left: charizardPostion+"%"}} src={charizard} alt={"charizard"}/>
                         </div>
                         <div className={"bg-white pt-8 rounded-md"}>
                             <div className={"px-3 pb-3 flex justify-between items-center w-full"}>
