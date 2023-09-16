@@ -295,7 +295,6 @@ const AdminCreateProductPage = () => {
                                                     onChange={onMutate}
                                                     disabled={newProduct !== null}
                                                     required
-                                                    min={0}
                                                 />
                                             </div>
                                         </div>
