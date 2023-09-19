@@ -212,7 +212,7 @@ const Navbar = () => {
                                                                                 </Link>
                                                                             </div>
                                                                             <div className={"p-1"}>
-                                                                                <Link to={"/admin/products"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                <Link to={"/admin/products/sort/latest/select/all"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
                                                                                     Product List
                                                                                 </Link>
                                                                             </div>
