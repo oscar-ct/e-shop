@@ -5,7 +5,7 @@ import asyncHandler from "../middleware/asyncHandler.js";
 // helper function
 const capitalizeFirstChar = (string) => {
     return string.substring(0, 1).toUpperCase() + string.substring(1, string.length);
-}
+};
 
 const getAllProducts = asyncHandler(async (req, res) => {
     // initialize products variable
