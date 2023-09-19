@@ -4,7 +4,7 @@ import {motion} from "framer-motion";
 const CategoryItem = ({product, windowInnerWidth}) => {
     return (
         <>
-            <Link to={`/sort/latest/${product.category.toLowerCase()}`} className={"w-6/12 sm:w-[175px] p-1 sm:py-3 sm:px-2"}>
+            <Link to={`/sort/latest/select/${product.category.toLowerCase()}`} className={"w-6/12 sm:w-[175px] p-1 sm:py-3 sm:px-2"}>
                 <motion.div initial={{ opacity: 0, scale: 0.5 }}
                             animate={{ opacity: 1, scale: 1 }}
                             transition={{ duration: 0.2 }}
