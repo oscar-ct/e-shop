@@ -43,8 +43,8 @@ const router = createBrowserRouter(
             <Route path={"/page/:pageNumber"} element={<HomePage/>}/>
             <Route path={"/search/:searchTerm"} element={<SearchPage/>}/>
             <Route path={"/search/:searchTerm/page/:pageNumber"} element={<SearchPage/>}/>
-            <Route path={"/sort/:sortByTerm/:filterTerm"} element={<CategoryPage/>}/>
-            <Route path={"/sort/:sortByTerm/:filterTerm/page/:pageNumber"} element={<CategoryPage/>}/>
+            <Route path={"/sort/:sortByTerm/select/:filterTerm"} element={<CategoryPage/>}/>
+            <Route path={"/sort/:sortByTerm/select/:filterTerm/page/:pageNumber"} element={<CategoryPage/>}/>
             <Route path={"/product/:id"} element={<ProductPage/>}/>
             <Route path={"/cart"} element={<CartPage/>}/>
             <Route path={"/login"} element={<LoginPage/>}/>
@@ -64,8 +64,8 @@ const router = createBrowserRouter(
 
             <Route path={""} element={<AdminRoute/>}>
                 <Route path={"/admin/orders"} element={<AdminOrderListPage/>}/>
-                <Route path={"/admin/products"} element={<AdminProductListPage/>}/>
-                <Route path={"/admin/products/page/:pageNumber"} element={<AdminProductListPage/>}/>
+                <Route path={"/admin/products/sort/:sortByTerm/select/:filterTerm"} element={<AdminProductListPage/>}/>
+                <Route path={"/admin/products/sort/:sortByTerm/select/:filterTerm/page/:pageNumber"} element={<AdminProductListPage/>}/>
                 <Route path={"/admin/products/create"} element={<AdminCreateProductPage/>}/>
                 <Route path={"/admin/users"} element={<AdminUserListPage/>}/>
             </Route>
