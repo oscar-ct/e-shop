@@ -18,7 +18,7 @@ const AdminTabs = () => {
                     Users
                 </Link>
                 <Link
-                    to={"/admin/products"}
+                    to={"/admin/products/sort/latest/select/all"}
                     className={`tab ${location.pathname.includes("/admin/products") ? "bg-info text-neutral" : "text-neutral-content"}`}>
                     Products
                 </Link>
