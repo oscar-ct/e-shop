@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Moirai+One&family=Mooli&family=Open+Sans:wght@300;400;500;600;700&family=Ubuntu:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Moirai+One&family=Open+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&family=Ubuntu:wght@400;500;700&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -30,7 +30,9 @@ body {
   -moz-osx-font-smoothing: grayscale;
 }
 
-
+.roboto {
+  font-family: 'Roboto', sans-serif;
+}
 
 code {
   /*font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',*/
