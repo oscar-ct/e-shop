@@ -22,7 +22,7 @@ const SelectMenuSort = ({sortByTerm, filterTerm, customStyles}) => {
         }
     };
     const handleChange = (selectedOption) => {
-        navigate(`/sort/${selectedOption.value}/${filterTerm}`)
+        navigate(`/sort/${selectedOption.value}/select/${filterTerm}`)
     };
     return (
         <Select

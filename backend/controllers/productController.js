@@ -2,29 +2,74 @@
 import Product from "../models/productModel.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 
+// helper function
+const capitalizeFirstChar = (string) => {
+    return string.substring(0, 1).toUpperCase() + string.substring(1, string.length);
+};
 
 const getAllProducts = asyncHandler(async (req, res) => {
+    // initialize products variable
     let products;
-// .find({}) - empty object will find all products
+    // set number of products per page, search or sort queries will return 16 products, else only 8 (i.e. homepage)
     const pageSize = req.query.searchTerm || req.query.sortByTerm ? 16 : 8;
+    // if page number exists from url search params, set page number, else set to 1
     const page = Number(req.query.pageNumber) || 1;
+    // if url search params includes a search or sort or category parameter, set keyword/categoryTerm to that, else leave blank, this is used to update the title of the search or category page
     const keyword = req.query.searchTerm || req.query.sortByTerm || "";
     const categoryTerm = req.query.filterTerm || "";
-    // const sortTerm = req.query.sortByTerm === "toprated" ? {rating: -1} : req.query.sortByTerm === "latest" ? {createdAt: -1} : {createdAt: -1};
+    // if url sort param exists, sort by that params, else default to sort by newest to oldest
     const sortTerm = req.query.sortByTerm === "toprated" ? {rating: -1} : req.query.sortByTerm === "latest" ? {createdAt: -1} : req.query.sortByTerm === "price-asc" ? {price: +1} : req.query.sortByTerm === "price-dsc" ? {price: -1} : {createdAt: -1};
+    // if url search param exists, filter by that search keyword param, else default to all i.e. {}
     const searchTerm = req.query.searchTerm ? { name: {$regex: req.query.searchTerm, $options: "i"} } : req.query.sortByTerm === "toprated" ? {rating: {$gt: 0}} : {};
+    // initialize count variable
     let count;
-
+    // if category exists and category term does not equal all do this
     if (req.query.filterTerm && req.query.filterTerm !== "all") {
-        count = await Product.countDocuments({...searchTerm}).where("category").equals(req.query.filterTerm.substring(0, 1).toUpperCase() + req.query.filterTerm.substring(1, req.query.filterTerm.length));
-        products = await Product.find({...searchTerm}).where("category").equals(req.query.filterTerm.substring(0, 1).toUpperCase() + req.query.filterTerm.substring(1, req.query.filterTerm.length)).sort({...sortTerm}).limit(pageSize).skip(pageSize * (page-1));
+        // set count to the numbers of results found based on category parameter
+        count = await Product
+            .countDocuments({...searchTerm})
+            .where("category")
+            .equals(capitalizeFirstChar(req.query.filterTerm));
+        // set products to query category parameter
+        products = await Product
+            .find({...searchTerm})
+            .where("category")
+            .equals(capitalizeFirstChar(req.query.filterTerm))
+            .sort({...sortTerm})
+            .limit(pageSize)
+            .skip(pageSize * (page-1));
+        // response status
         res.status(201);
-        return res.json({products, page, pages: Math.ceil(count / pageSize), keyword: keyword, categoryTerm: categoryTerm});
+        // return JSON to api call
+        return res.json(
+            {
+                products,
+                page,
+                pages: Math.ceil(count / pageSize),
+                keyword: keyword,
+                categoryTerm: categoryTerm
+            }
+        );
     }
+    // set count to the numbers of results found based on category parameter
     count = await Product.countDocuments({...searchTerm});
-    products = await Product.find({...searchTerm}).sort({...sortTerm}).limit(pageSize).skip(pageSize * (page-1));
+    // set products to query search parameter
+    products = await Product
+        .find({...searchTerm})
+        .sort({...sortTerm})
+        .limit(pageSize)
+        .skip(pageSize * (page-1));
+    // response status
     res.status(201);
-    return res.json({products, page, pages: Math.ceil(count / pageSize), keyword: keyword, categoryTerm: categoryTerm});
+    // return JSON to api call
+    return res.json(
+        {
+            products,
+            page,
+            pages: Math.ceil(count / pageSize),
+            keyword: keyword, categoryTerm: categoryTerm
+        }
+    );
 });
 
 

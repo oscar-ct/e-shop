@@ -23,8 +23,8 @@ import CategoryOptions from "../components/CategoryOptions";
 
 
 const AdminProductListPage = () => {
-    const {pageNumber} = useParams();
-    const {data, isLoading, refetch, error} = useGetProductsQuery({pageNumber});
+    const {sortByTerm, pageNumber, filterTerm} = useParams();
+    const {data, isLoading, refetch, error} = useGetProductsQuery({sortByTerm, pageNumber, filterTerm});
     const [updateProduct,
         // {error: errorUpdate}
     ] = useUpdateProductMutation();
@@ -489,7 +489,7 @@ const AdminProductListPage = () => {
 
                         <div className={"pt-4 lg:pt-0 pb-8 flex justify-center"}>
                             <div className={"join"}>
-                                <Paginate pages={data.pages} page={data.page} isAdmin={true}/>
+                                <Paginate pages={data.pages} page={data.page} isAdmin={true} filterTerm={filterTerm} sortByTerm={sortByTerm}/>
                             </div>
                         </div>
 

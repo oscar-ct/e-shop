@@ -246,8 +246,8 @@ const HomePage = () => {
                             <img onMouseOver={() => !pikachuActive && setPikachuActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-10 ${!pikachuActive && "opacity-25"}`} style={{position: "absolute", left: pikachuPostion+"%"}} src={pikachu} alt={"charizard"}/>
                         </div>
                         <div className={"bg-white pt-8 rounded-xl"}>
-                            <div ref={scrollTo} className={"px-3 pb-3 flex justify-between items-center w-full"}>
-                                <h2 className={"text-2xl mooli"}>
+                            <div ref={scrollTo} className={"px-3 pb-3 flex justify-center lg:justify-start items-center w-full"}>
+                                <h2 className={"text-2xl lg:pl-2 roboto font-light"}>
                                     Shop Categories
                                 </h2>
                             </div>
@@ -258,13 +258,13 @@ const HomePage = () => {
                                     })
                                 }
                             </div>
-                            <div className={"pt-10"}>
+                            <div className={"pt-8 shadow-sm rounded-xl"}>
                                 <div className={"h-20 border-y-[1px] border-gray-300 flex justify-end items-center rounded-xl"}>
-                                    <span className={"mooli pr-3 text-lg"}>
+                                    <span className={"pr-3 text-lg roboto font-light"}>
                                         Want more categories?
                                     </span>
                                     <div className={"pr-5"}>
-                                        <Link to={"/sort/latest/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
+                                        <Link to={"/sort/latest/select/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
                                             View All
                                         </Link>
                                     </div>
@@ -276,8 +276,8 @@ const HomePage = () => {
                             <img onMouseOver={() => !charizardActive && setCharizardActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-14 ${!charizardActive && "opacity-25"}`} style={{position: "absolute", left: charizardPostion+"%"}} src={charizard} alt={"charizard"}/>
                         </div>
                         <div className={"bg-white pt-8 rounded-md"}>
-                            <div className={"px-3 pb-3 flex justify-between items-center w-full"}>
-                                <h2 className={"text-2xl mooli"}>
+                            <div className={"px-3 pb-3 flex justify-center lg:justify-start items-center w-full"}>
+                                <h2 className={"text-2xl lg:pl-2 roboto font-light"}>
                                     Top Rated Products
                                 </h2>
                                 {/*<Link to={"/sort/toprated"} className={"link btn btn-sm btn-ghost normal-case text-sm"}>*/}
@@ -309,12 +309,12 @@ const HomePage = () => {
                                             <Link to={`/product/${data._id}`} className={"relative"}>
                                                 <motion.img
                                                     whileHover={windowInnerWidth > 640 ? { scale: 0.95} : {scale: "none"}}
-                                                    className={"bg-white shadow-xl object-scale-down w-full xl:w-[385px] h-[307px] rounded-xl"}
+                                                    className={"bg-white shadow-xl object-scale-down w-full xl:w-[385px] h-[275px] rounded-xl"}
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}
                                                 />
-                                                <div className={"flex justify-start items-end"}>
-                                                    <h5 className={"rounded-tl-md rounded-br-xl p-2 text-xs sm:text-sm font-semibold truncate"}>
-                                                        ${data.price} - {data.name}
+                                                <div className={"flex justify-center items-end"}>
+                                                    <h5 className={"rounded-tl-md rounded-br-xl pt-4 px-2 text-xs sm:text-sm truncate roboto"}>
+                                                        {data.name}
                                                     </h5>
                                                 </div>
                                             </Link>
@@ -327,14 +327,14 @@ const HomePage = () => {
                                     })}
                                 </Swiper>
                             </motion.div>
-                            <div className={"pt-10"}>
+                            <div className={"pt-5 shadow-sm rounded-xl"}>
                                 <div className={"h-20 border-y-[1px] border-gray-300 flex justify-end rounded-xl"}>
                                     <div className={"flex justify-between items-center"}>
-                                        <span className={"text-center mooli pr-3 text-lg"}>
+                                        <span className={"text-center pr-3 text-lg roboto font-light"}>
                                             Looking for more awesome products?
                                         </span>
                                         <div className={"pr-5"}>
-                                            <Link to={"/sort/toprated/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
+                                            <Link to={"/sort/toprated/select/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
                                                 View All
                                             </Link>
                                         </div>
@@ -343,8 +343,8 @@ const HomePage = () => {
                             </div>
                         </div>
 
-                        <div ref={scrollTo} className={"px-3 pt-10 pb-3 flex justify-between items-center w-full"}>
-                            <h2 className={"text-2xl mooli"}>
+                        <div ref={scrollTo} className={"px-3 pt-10 pb-3 flex justify-center lg:justify-start items-center w-full"}>
+                            <h2 className={"text-2xl lg:pl-2 roboto font-light"}>
                                 Lastest Products
                             </h2>
                         </div>
