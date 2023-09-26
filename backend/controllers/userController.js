@@ -27,7 +27,7 @@ const authUser = asyncHandler(async (req, res) => {
                 secure: process.env.NODE_ENV !== "development", // boolean
                 sameSite: "strict",
                 // milliseconds
-                maxAge: 30*24*60*60*100 // 30d
+                maxAge: 30*24*60*60*1000 // 30d
             });
 
            return res.json({
