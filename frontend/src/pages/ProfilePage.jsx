@@ -1,4 +1,4 @@
-import {Link, useParams} from "react-router-dom"
+import {Link, useNavigate, useParams} from "react-router-dom"
 import {useGetMyOrdersQuery} from "../slices/ordersApiSlice";
 import {useCancelOrderItemMutation, useCancelOrderMutation} from "../slices/ordersApiSlice";
 import Spinner from "../components/Spinner";
@@ -8,15 +8,36 @@ import ProfileAccountPassword from "../components/ProfileAccountPassword";
 import NotFoundPage from "./NotFoundPage";
 import Meta from "../components/Meta";
 import ConfirmModal from "../components/ConfirmModal";
-import {useSelector} from "react-redux";
-// import ProfileAccountSavedAddresses from "../components/ProfileAccountSavedAddresses";
+import {useDispatch, useSelector} from "react-redux";
+import BackButton from "../components/BackButton";
+import Message from "../components/Message";
+import {useEffect} from "react";
+import {clearCartItems} from "../slices/cartSlice";
+import {logout} from "../slices/authSlice";
+import {useLogoutMutation} from "../slices/usersApiSlice";
 
 
 const ProfilePage = () => {
 
+    const dispatch = useDispatch();
+    const navigate = useNavigate();
+    const [logoutApiCall] = useLogoutMutation();
     const {id: params} = useParams();
-    const {data: orders, isLoading, refetch} = useGetMyOrdersQuery();
-    // const navigate = useNavigate();
+    const {data: orders, isLoading, error, refetch} = useGetMyOrdersQuery();
+
+    useEffect(function () {
+        const logoutUser = async () => {
+            await logoutApiCall().unwrap();
+            navigate("/login");
+            dispatch(clearCartItems());
+            dispatch(logout());
+        }
+        if (error) {
+            setTimeout(() => {
+                logoutUser();
+            }, 1000);
+        }
+    }, [error, dispatch, navigate, logoutApiCall]);
 
     const {order} = useSelector(function (state) {
         return state.order;
@@ -27,14 +48,6 @@ const ProfilePage = () => {
     const [cancelOrderItem,
         // {error: errorCancelOrderItem}
     ] = useCancelOrderItemMutation();
-
-
-    // useEffect(function () {
-    //     console.log(params)
-    //     if (params && (params !== "orders" && params !== "account")) {
-    //         navigate("/notfound")
-    //     }
-    // }, [params, navigate])
 
     const submitCancel = async () => {
        if (order) {
@@ -50,14 +63,21 @@ const ProfilePage = () => {
                refetch();
            }
        }
-    }
+    };
 
     return (
 
         params === "orders" || params === "account" ? (
-            isLoading ?
+            isLoading ? (
                 <Spinner/>
-                : (
+            ) : error ? (
+                    <div className={"pt-10 px-2"}>
+                        <BackButton/>
+                        <Message variant={"error"}>
+                            {error?.data?.message || error.error}
+                        </Message>
+                    </div>
+                ) : (
                     <>
                         <Meta title={`${params === "orders" ? "My Orders" : "Account"}`}/>
                         <div className={"pt-10 flex justify-center"}>
