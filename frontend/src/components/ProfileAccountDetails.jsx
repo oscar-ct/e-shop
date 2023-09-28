@@ -1,9 +1,12 @@
 import {setLoading} from "../slices/loadingSlice";
-import {setCredentials} from "../slices/authSlice";
+import {logout, setCredentials} from "../slices/authSlice";
 import {useUpdateUserCredentialsMutation, useVerifyPasswordMutation} from "../slices/usersApiSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useState} from "react";
 import {toast} from "react-hot-toast";
+import {clearCartItems} from "../slices/cartSlice";
+import {useNavigate} from "react-router-dom";
+import {useLogoutMutation} from "../slices/usersApiSlice";
 
 
 const ProfileAccountDetails = () => {
@@ -20,11 +23,20 @@ const ProfileAccountDetails = () => {
 
     const [updateUserCredentials] = useUpdateUserCredentialsMutation();
     const [verifyPassword] = useVerifyPasswordMutation();
+    const [logoutApiCall] = useLogoutMutation();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const clearPasswordFields = () => {
         setPassword("");
-    }
+    };
+
+    const logoutUser = async () => {
+        await logoutApiCall().unwrap();
+        navigate("/login");
+        dispatch(clearCartItems());
+        dispatch(logout());
+    };
 
     const submitAccountHandler = async (e) => {
         e.preventDefault();
@@ -48,25 +60,28 @@ const ProfileAccountDetails = () => {
                         toast.error("Something went wrong, try again later");
                         // setErrorMessage("Something went wrong, try again later");
                         dispatch(setLoading(false));
+
                     }
                 } catch (e) {
                     toast.error(e.message);
                     // setErrorMessage(e.message);
                     dispatch(setLoading(false));
                 }
-
             } else {
                 toast.error("Invalid Password");
                 // setErrorMessage("Invalid Password");
                 dispatch(setLoading(false));
             }
         } catch (e) {
-            toast.error(e.message);
+            toast.error(e.data.message);
             // setErrorMessage(e.message);
             dispatch(setLoading(false));
+            setTimeout(() => {
+                logoutUser();
+            }, 1000);
         }
         clearPasswordFields();
-    }
+    };
 
 
     return (

@@ -1,8 +1,11 @@
 import {useState} from "react";
-import {useUpdateUserCredentialsMutation, useVerifyPasswordMutation} from "../slices/usersApiSlice";
+import {useLogoutMutation, useUpdateUserCredentialsMutation, useVerifyPasswordMutation} from "../slices/usersApiSlice";
 import {useDispatch} from "react-redux";
 import {setLoading} from "../slices/loadingSlice";
 import {toast} from "react-hot-toast";
+import {clearCartItems} from "../slices/cartSlice";
+import {logout} from "../slices/authSlice";
+import {useNavigate} from "react-router-dom";
 
 
 const ProfileAccountPassword = () => {
@@ -15,14 +18,16 @@ const ProfileAccountPassword = () => {
 
     const [updateUserCredentials] = useUpdateUserCredentialsMutation();
     const [verifyPassword] = useVerifyPasswordMutation();
+    const [logoutApiCall] = useLogoutMutation();
 
     const dispatch = useDispatch();
+    const navigate = useNavigate();
 
     const clearPasswordFields = () => {
         setCurrentPassword("");
         setNewPassword("");
         setConfirmPassword("");
-    }
+    };
 
     // useEffect(function() {
     //     if (errorMessage2 || successMessage2) {
@@ -33,6 +38,13 @@ const ProfileAccountPassword = () => {
     //     }
     //
     // }, [errorMessage2, successMessage2]);
+
+    const logoutUser = async () => {
+        await logoutApiCall().unwrap();
+        navigate("/login");
+        dispatch(clearCartItems());
+        dispatch(logout());
+    };
 
     const submitPasswordHandler = async (e) => {
         e.preventDefault();
@@ -71,14 +83,16 @@ const ProfileAccountPassword = () => {
                     dispatch(setLoading(false));
                 }
             } catch (e) {
-                toast.error(e);
+                toast.error(e.data.message);
                 // setErrorMessage2(e);
-                dispatch(setLoading(false))
+                dispatch(setLoading(false));
+                setTimeout(() => {
+                    logoutUser();
+                }, 1000);
             }
         }
         clearPasswordFields();
-    }
-
+    };
 
     return (
         <div className="sm:mt-10 lg:mt-0 bg-white shadow-xl p-12 mx-auto rounded-xl sm:w-96 w-full sm:border-none border-t-[1px] border-gray-300">
