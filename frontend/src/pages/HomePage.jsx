@@ -21,7 +21,7 @@ import Footer from "../components/Footer";
 import {HOME_IMAGE_DAY, HOME_IMAGE_MORNING_EVENING, HOME_IMAGE_NIGHT, HOME_IMAGE_PAYPAL, HOME_IMAGE_SHIPPING} from "../variables";
 import CategoryItem from "../components/CategoryItem";
 import charizard from "../icons/charizard.gif";
-import pikachu from "../icons/pikachu.gif";
+// import pikachu from "../icons/pikachu.gif";
 
 
 const HomePage = () => {
@@ -37,9 +37,9 @@ const HomePage = () => {
     const [slides, setSlides] = useState(window.innerWidth <= 640 ? 1 : window.innerWidth > 640 && window.innerWidth <= 1280 ? 2 : 3);
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
     const [charizardActive, setCharizardActive] = useState(false);
-    const [pikachuActive, setPikachuActive] = useState(false);
+    // const [pikachuActive, setPikachuActive] = useState(false);
     const [charizardPostion, setCharizardPosition] = useState(85);
-    const [pikachuPostion, setPikachuPosition] = useState(0);
+    // const [pikachuPostion, setPikachuPosition] = useState(0);
     // current time
     const date = new Date;
     const time = date.getHours();
@@ -57,16 +57,16 @@ const HomePage = () => {
                 }
             }, 150);
         }
-        if (pikachuActive) {
-            setTimeout(() => {
-                if (pikachuPostion !== 85) {
-                    setPikachuPosition(pikachuPostion + 2.5);
-                } else {
-                    setPikachuPosition(0);
-                }
-            }, 150);
-        }
-    }, [charizardPostion, pikachuPostion, charizardActive, pikachuActive]);
+        // if (pikachuActive) {
+        //     setTimeout(() => {
+        //         if (pikachuPostion !== 85) {
+        //             setPikachuPosition(pikachuPostion + 2.5);
+        //         } else {
+        //             setPikachuPosition(0);
+        //         }
+        //     }, 150);
+        // }
+    }, [charizardPostion, charizardActive]);
     // set window width on resize
     useEffect( () => {
         const adjustWidth = () => {
@@ -243,11 +243,11 @@ const HomePage = () => {
                             </Swiper>
                         </motion.div>
                         <div className={"h-8 w-full relative"}>
-                            <img onMouseOver={() => !pikachuActive && setPikachuActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-10 ${!pikachuActive && "opacity-25"}`} style={{position: "absolute", left: pikachuPostion+"%"}} src={pikachu} alt={"charizard"}/>
+                            {/*<img onMouseOver={() => !pikachuActive && setPikachuActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-10 ${!pikachuActive && "opacity-25"}`} style={{position: "absolute", left: pikachuPostion+"%"}} src={pikachu} alt={"charizard"}/>*/}
                         </div>
                         <div className={"bg-white pt-8 rounded-xl"}>
                             <div ref={scrollTo} className={"px-3 pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                                <h2 className={"text-2xl lg:pl-2 roboto font-light"}>
+                                <h2 className={"text-2xl lg:pl-2 roboto text-neutral"}>
                                     Shop Categories
                                 </h2>
                             </div>
@@ -260,8 +260,8 @@ const HomePage = () => {
                             </div>
                             <div className={"pt-8 shadow-sm rounded-xl"}>
                                 <div className={"h-20 border-y-[1px] border-gray-300 flex justify-end items-center rounded-xl"}>
-                                    <span className={"pr-3 text-lg roboto font-light"}>
-                                        Want more categories?
+                                    <span className={"pr-3 text-lg roboto"}>
+                                        Looking for more categories?
                                     </span>
                                     <div className={"pr-5"}>
                                         <Link to={"/sort/latest/select/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
@@ -277,7 +277,7 @@ const HomePage = () => {
                         </div>
                         <div className={"bg-white pt-8 rounded-md"}>
                             <div className={"px-3 pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                                <h2 className={"text-2xl lg:pl-2 roboto font-light"}>
+                                <h2 className={"text-2xl lg:pl-2 roboto text-neutral"}>
                                     Top Rated Products
                                 </h2>
                                 {/*<Link to={"/sort/toprated"} className={"link btn btn-sm btn-ghost normal-case text-sm"}>*/}
@@ -330,8 +330,8 @@ const HomePage = () => {
                             <div className={"pt-5 shadow-sm rounded-xl"}>
                                 <div className={"h-20 border-y-[1px] border-gray-300 flex justify-end rounded-xl"}>
                                     <div className={"flex justify-between items-center"}>
-                                        <span className={"text-center pr-3 text-lg roboto font-light"}>
-                                            Looking for more awesome products?
+                                        <span className={"text-center pr-3 text-lg roboto"}>
+                                            Checkout all our top rated products
                                         </span>
                                         <div className={"pr-5"}>
                                             <Link to={"/sort/toprated/select/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
@@ -344,7 +344,7 @@ const HomePage = () => {
                         </div>
 
                         <div ref={scrollTo} className={"px-3 pt-10 pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                            <h2 className={"text-2xl lg:pl-2 roboto font-light"}>
+                            <h2 className={"text-2xl lg:pl-2 roboto text-neutral"}>
                                 Lastest Products
                             </h2>
                         </div>
