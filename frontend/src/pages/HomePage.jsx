@@ -242,7 +242,7 @@ const HomePage = () => {
                                 </SwiperSlide>
                             </Swiper>
                         </motion.div>
-                        <div className={"h-8 w-full relative"}>
+                        <div className={"h-8 w-full relative hidden sm:flex"}>
                             {/*<img onMouseOver={() => !pikachuActive && setPikachuActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-10 ${!pikachuActive && "opacity-25"}`} style={{position: "absolute", left: pikachuPostion+"%"}} src={pikachu} alt={"charizard"}/>*/}
                         </div>
                         <div className={"bg-white pt-8 rounded-xl"}>

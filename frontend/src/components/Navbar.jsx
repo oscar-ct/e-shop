@@ -144,6 +144,12 @@ const Navbar = () => {
     //     }
     // }, [windowInnerWidth]);
 
+    const adminUsersLink = "/admin/users";
+    const adminOrdersLink = "/admin/orders";
+    const adminProductsLink = "/admin/products/sort/latest/select/all";
+    const myOrdersLink = "/profile/orders";
+    const myAccountLink = "/profile/account";
+
 
     return (
         <>
@@ -202,17 +208,17 @@ const Navbar = () => {
                                                                     userData.isAdmin && (
                                                                         <div className={"w-6/12"}>
                                                                             <div className={"p-1"}>
-                                                                                <Link to={"/admin/orders"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                <Link to={adminOrdersLink} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
                                                                                     Order List
                                                                                 </Link>
                                                                             </div>
                                                                             <div className={"p-1"}>
-                                                                                <Link to={"/admin/users"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                <Link to={adminUsersLink} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
                                                                                     User List
                                                                                 </Link>
                                                                             </div>
                                                                             <div className={"p-1"}>
-                                                                                <Link to={"/admin/products/sort/latest/select/all"} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                <Link to={adminProductsLink} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
                                                                                     Product List
                                                                                 </Link>
                                                                             </div>
@@ -221,12 +227,12 @@ const Navbar = () => {
                                                                 }
                                                                 <div className={`${userData.isAdmin ? "w-6/12" : "w-full"}`}>
                                                                     <div className={"p-1"}>
-                                                                        <Link to={"/profile/account"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                                                        <Link to={myAccountLink} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
                                                                             Account
                                                                         </Link>
                                                                     </div>
                                                                     <div className={"p-1"}>
-                                                                        <Link to={"/profile/orders"} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                                                        <Link to={myOrdersLink} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
                                                                             My Orders
                                                                         </Link>
                                                                     </div>
@@ -311,12 +317,12 @@ const Navbar = () => {
                                 userData && (
                                     <>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/profile/account"} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                            <Link to={myAccountLink} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
                                                 Account
                                             </Link>
                                         </li>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/profile/orders"} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                            <Link to={myOrdersLink} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
                                                 My Orders
                                             </Link>
                                         </li>
@@ -328,17 +334,17 @@ const Navbar = () => {
                                 userData?.isAdmin && (
                                     <>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/admin/orders"} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
+                                            <Link to={adminOrdersLink} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
                                                 Order List
                                             </Link>
                                         </li>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/admin/users"} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
+                                            <Link to={adminUsersLink} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
                                                 User List
                                             </Link>
                                         </li>
                                         <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={"/admin/products"} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
+                                            <Link to={adminProductsLink} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
                                                 Product List
                                             </Link>
                                         </li>
