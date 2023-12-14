@@ -148,7 +148,7 @@ const HomePage = () => {
                     </Message>
                 ) : (
                     <>
-                        <Meta title={"Home"}/>
+                        <Meta title={"Home"} description={'Welcome to e-shop!'}/>
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
