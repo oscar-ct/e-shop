@@ -11,7 +11,6 @@ import {PayPalScriptProvider} from "@paypal/react-paypal-js";
 import {HelmetProvider} from "react-helmet-async";
 import store from "./store";
 import './index.css';
-import './build.css';
 import App from './App';
 import HomePage from "./pages/HomePage";
 import ProductPage from "./pages/ProductPage";
