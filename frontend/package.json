@@ -24,8 +24,9 @@
   },
   "scripts": {
     "start": "vite",
-    "build": "vite build && npx tailwindcss -o src/build.css --minify",
-    "serve": "vite preview"
+    "build": "vite build",
+    "serve": "vite preview",
+    "build:css": "npx tailwindcss -o src/build.css --minify"
   },
   "browserslist": {
     "production": [
