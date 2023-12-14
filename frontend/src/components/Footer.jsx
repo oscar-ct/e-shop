@@ -13,13 +13,13 @@ const Footer = () => {
                 <div>
                     <span className="footer-title">Social</span>
                     <div className="pt-5 grid grid-flow-col gap-4 text-xl">
-                        <a href={"https://www.linkedin.com/in/oscar-ct"} target="_blank" rel="noopener noreferrer">
+                        <a aria-label="linkedin" href={"https://www.linkedin.com/in/oscar-ct"} target="_blank" rel="noopener noreferrer">
                             <FaLinkedin/>
                         </a>
-                        <a href={"https://github.com/oscar-ct"} target="_blank" rel="noopener noreferrer">
+                        <a aria-label="github" href={"https://github.com/oscar-ct"} target="_blank" rel="noopener noreferrer">
                             <FaGithub/>
                         </a>
-                        <a href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer">
+                        <a aria-label="portfolio" href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer">
                             <FaGlobe/>
                         </a>
                     </div>
