@@ -313,9 +313,9 @@ const HomePage = () => {
                                                     src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}
                                                 />
                                                 <div className={"flex justify-center items-end"}>
-                                                    <h5 className={"rounded-tl-md rounded-br-xl pt-4 px-2 text-xs sm:text-sm truncate roboto"}>
+                                                    <span className={"rounded-tl-md rounded-br-xl pt-4 px-2 text-xs sm:text-sm truncate roboto"}>
                                                         {data.name}
-                                                    </h5>
+                                                    </span>
                                                 </div>
                                             </Link>
                                             <div className={"absolute right-0 top-0 "}>
