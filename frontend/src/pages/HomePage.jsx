@@ -20,7 +20,7 @@ import {motion} from "framer-motion";
 import Footer from "../components/Footer";
 import {HOME_IMAGE_DAY, HOME_IMAGE_MORNING_EVENING, HOME_IMAGE_NIGHT, HOME_IMAGE_PAYPAL, HOME_IMAGE_SHIPPING} from "../variables";
 import CategoryItem from "../components/CategoryItem";
-import charizard from "../icons/charizard.gif";
+// import charizard from "../icons/charizard.gif";
 // import pikachu from "../icons/pikachu.gif";
 
 
@@ -36,9 +36,9 @@ const HomePage = () => {
     // component state
     const [slides, setSlides] = useState(window.innerWidth <= 640 ? 1 : window.innerWidth > 640 && window.innerWidth <= 1280 ? 2 : 3);
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
-    const [charizardActive, setCharizardActive] = useState(false);
+    // const [charizardActive, setCharizardActive] = useState(false);
     // const [pikachuActive, setPikachuActive] = useState(false);
-    const [charizardPostion, setCharizardPosition] = useState(85);
+    // const [charizardPostion, setCharizardPosition] = useState(85);
     // const [pikachuPostion, setPikachuPosition] = useState(0);
     // current time
     const date = new Date;
@@ -47,16 +47,18 @@ const HomePage = () => {
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
-    useEffect(() => {
-        if (charizardActive) {
-            setTimeout(() => {
-                if (charizardPostion !== 0) {
-                    setCharizardPosition(charizardPostion - 2.5);
-                } else {
-                    setCharizardPosition(85);
-                }
-            }, 150);
-        }
+
+    // pokemon animation *******
+    // useEffect(() => {
+    //     if (charizardActive) {
+    //         setTimeout(() => {
+    //             if (charizardPostion !== 0) {
+    //                 setCharizardPosition(charizardPostion - 2.5);
+    //             } else {
+    //                 setCharizardPosition(85);
+    //             }
+    //         }, 150);
+    //     }
         // if (pikachuActive) {
         //     setTimeout(() => {
         //         if (pikachuPostion !== 85) {
@@ -66,7 +68,9 @@ const HomePage = () => {
         //         }
         //     }, 150);
         // }
-    }, [charizardPostion, charizardActive]);
+    // }, [charizardPostion, charizardActive]);
+
+
     // set window width on resize
     useEffect( () => {
         const adjustWidth = () => {
@@ -242,114 +246,46 @@ const HomePage = () => {
                                 </SwiperSlide>
                             </Swiper>
                         </motion.div>
-                        <div className={"h-8 w-full relative hidden sm:flex"}>
-                            {/*<img onMouseOver={() => !pikachuActive && setPikachuActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-10 ${!pikachuActive && "opacity-25"}`} style={{position: "absolute", left: pikachuPostion+"%"}} src={pikachu} alt={"charizard"}/>*/}
-                        </div>
-                        <div className={"bg-white pt-8 rounded-xl"}>
-                            <div ref={scrollTo} className={"px-3 pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                                <h2 className={"text-2xl lg:pl-2 roboto text-neutral"}>
+
+                        {/*CATEGORIES*/}
+
+                        <div className={"pt-20"}>
+                            <div ref={scrollTo} className={"pb-3 flex justify-center lg:justify-start items-center w-full"}>
+                                <h2 className={"text-2xl font-bold roboto text-neutral"}>
                                     Shop Categories
                                 </h2>
                             </div>
-                            <div className={"w-full flex flex-wrap justify-center"}>
+                            <div className={"w-full flex flex-wrap justify-center border-[1px] py-8"}>
                                 {
-                                    productCategories.slice(0, windowInnerWidth > 1024 && windowInnerWidth < 1280 ? 5 : windowInnerWidth > 1280 && windowInnerWidth < 1536 ? 7 : windowInnerWidth > 1536 ? 8 : 8).map(function (product, index) {
+                                    productCategories.slice(0, windowInnerWidth > 1024 && windowInnerWidth < 1280 ? 5 : windowInnerWidth >= 1280 && windowInnerWidth < 1536 ? 7 : windowInnerWidth > 1536 ? 8 : 8).map(function (product, index) {
                                        return <CategoryItem key={index} product={product} windowInnerWidth={windowInnerWidth}/>
                                     })
                                 }
                             </div>
-                            <div className={"pt-8 shadow-sm rounded-xl"}>
-                                <div className={"h-20 border-y-[1px] border-gray-300 flex justify-end items-center rounded-xl"}>
-                                    <span className={"pr-3 text-lg roboto"}>
-                                        Looking for more categories?
-                                    </span>
-                                    <div className={"pr-5"}>
-                                        <Link to={"/sort/latest/select/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
-                                            View All
+                            <div className={"pt-5"}>
+                                <div className={"pb-10 flex justify-end items-center rounded-xl"}>
+                                    <div>
+                                        {/*<Link to={"/sort/latest/select/all"} className={"btn glass bg-neutral/70 text-white"}>*/}
+                                        {/*    View All Categories*/}
+                                        {/*</Link>*/}
+                                        <Link to={"/sort/latest/select/all"} className={"text-2xl font-bold roboto text-neutral link"}>
+                                            View All Categories
                                         </Link>
                                     </div>
                                 </div>
-
-                            </div>
-                        </div>
-                        <div className={"h-9 w-full relative"}>
-                            <img onMouseOver={() => !charizardActive && setCharizardActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-14 ${!charizardActive && "opacity-25"}`} style={{position: "absolute", left: charizardPostion+"%"}} src={charizard} alt={"charizard"}/>
-                        </div>
-                        <div className={"bg-white pt-8 rounded-md"}>
-                            <div className={"px-3 pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                                <h2 className={"text-2xl lg:pl-2 roboto text-neutral"}>
-                                    Top Rated Products
-                                </h2>
-                                {/*<Link to={"/sort/toprated"} className={"link btn btn-sm btn-ghost normal-case text-sm"}>*/}
-                                {/*    View All*/}
-                                {/*</Link>*/}
-                            </div>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                                className={"m-auto w-full rounded-xl max-w-8xl px-3 pt-3"}
-                            >
-                                <Swiper
-                                    spaceBetween={windowInnerWidth > 1280 ? 15 : 10}
-                                    // centeredSlides={true}
-                                    autoplay={{
-                                        delay: 3500,
-                                        disableOnInteraction : false,
-                                    }}
-                                    modules={[Autoplay, Navigation]}
-                                    slidesPerView={slides}
-                                    navigation
-                                    // effect={"coverflow"}
-                                    // coverflowEffect={{slideShadows: false,
-                                    // rotate: 30}}
-                                >
-                                    {topRatedProducts.map(function (data, index) {
-                                        return <SwiperSlide key={index}>
-                                            <Link to={`/product/${data._id}`} className={"relative"}>
-                                                <motion.img
-                                                    whileHover={windowInnerWidth > 640 ? { scale: 0.95} : {scale: "none"}}
-                                                    className={"bg-white shadow-xl object-scale-down w-full xl:w-[385px] h-[275px] rounded-xl"}
-                                                    src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}
-                                                />
-                                                <div className={"flex justify-center items-end"}>
-                                                    <span className={"rounded-tl-md rounded-br-xl pt-4 px-2 text-xs sm:text-sm truncate roboto"}>
-                                                        {data.name}
-                                                    </span>
-                                                </div>
-                                            </Link>
-                                            <div className={"absolute right-0 top-0 "}>
-                                                <div className={"p-2 rounded-bl-md rounded-tr-xl"}>
-                                                    <Rating rating={data.rating}/>
-                                                </div>
-                                            </div>
-                                        </SwiperSlide>
-                                    })}
-                                </Swiper>
-                            </motion.div>
-                            <div className={"pt-5 shadow-sm rounded-xl"}>
-                                <div className={"h-20 border-y-[1px] border-gray-300 flex justify-end rounded-xl"}>
-                                    <div className={"flex justify-between items-center"}>
-                                        <span className={"text-center pr-3 text-lg roboto"}>
-                                            Checkout all our top rated products
-                                        </span>
-                                        <div className={"pr-5"}>
-                                            <Link to={"/sort/toprated/select/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>
-                                                View All
-                                            </Link>
-                                        </div>
-                                    </div>
-                                </div>
+                                <div className={"h-10 bg-black border-b-[1px] border-grey-300"}/>
                             </div>
                         </div>
 
-                        <div ref={scrollTo} className={"px-3 pt-10 pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                            <h2 className={"text-2xl lg:pl-2 roboto text-neutral"}>
+                        {/*LATEST PRODUCTS*/}
+
+                        <div ref={scrollTo} className={"pt-20 pb-3 flex justify-center lg:justify-start items-center w-full"}>
+                            <h2 className={"text-2xl font-bold roboto text-neutral"}>
                                 Lastest Products
                             </h2>
                         </div>
-                        <div className={"pb-10"}>
-                            <div className={"w-full flex flex-wrap justify-center"}>
+                        <div className={"pb-10 "}>
+                            <div className={"border-[1px] py-8 w-full flex flex-wrap justify-center"}>
                                 {
                                     data.products.map(function (product) {
                                         return <ProductItem key={product._id} product={product} windowInnerWidth={windowInnerWidth}/>
@@ -361,11 +297,103 @@ const HomePage = () => {
                                     <Paginate pages={data.pages} page={data.page} isHomePage={true}/>
                                 </div>
                             </div>
+                            {/*<div className={"pb-10"}>*/}
+                            {/*    <div className={"pb-10 flex justify-end items-center rounded-xl"}>*/}
+                            {/*        <Link to={"/sort/latest/select/all"} className={"text-2xl font-bold roboto text-neutral link"}>*/}
+                            {/*            View All Products*/}
+                            {/*        </Link>*/}
+                            {/*    </div>*/}
+                            {/*    <div className={"h-10 bg-black border-b-[1px] border-grey-300"}/>*/}
+                            {/*</div>*/}
                         </div>
+
                         <Footer/>
                     </>
                 )
             }
+
+            {/*POKEMON */}
+
+            {/*<div className={"h-10 w-full relative hidden sm:flex"}>*/}
+            {/*<img onMouseOver={() => !pikachuActive && setPikachuActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-10 ${!pikachuActive && "opacity-25"}`} style={{position: "absolute", left: pikachuPostion+"%"}} src={pikachu} alt={"charizard"}/>*/}
+            {/*</div>*/}
+            {/*<div className={"h-9 w-full relative"}>*/}
+            {/*    <img onMouseOver={() => !charizardActive && setCharizardActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-14 ${!charizardActive && "opacity-25"}`} style={{position: "absolute", left: charizardPostion+"%"}} src={charizard} alt={"charizard"}/>*/}
+            {/*</div>*/}
+
+            {/*TOP RATED PRODUCTS*/}
+
+            {/*<div className={"pt-8"}>*/}
+            {/*    <div className={"px-3 pb-3 flex justify-center lg:justify-start items-center w-full"}>*/}
+            {/*        <h2 className={"text-2xl lg:pl-2 roboto text-neutral"}>*/}
+            {/*            Top Rated Products*/}
+            {/*        </h2>*/}
+            {/*        /!*<Link to={"/sort/toprated"} className={"link btn btn-sm btn-ghost normal-case text-sm"}>*!/*/}
+            {/*        /!*    View All*!/*/}
+            {/*        /!*</Link>*!/*/}
+            {/*    </div>*/}
+            {/*    <motion.div*/}
+            {/*        initial={{ opacity: 0 }}*/}
+            {/*        animate={{ opacity: 1 }}*/}
+            {/*        exit={{ opacity: 0 }}*/}
+            {/*        className={"m-auto w-full rounded-xl max-w-8xl px-3 pt-3"}*/}
+            {/*    >*/}
+            {/*        <Swiper*/}
+            {/*            spaceBetween={windowInnerWidth > 1280 ? 15 : 10}*/}
+            {/*            // centeredSlides={true}*/}
+            {/*            autoplay={{*/}
+            {/*                delay: 3500,*/}
+            {/*                disableOnInteraction : false,*/}
+            {/*            }}*/}
+            {/*            modules={[Autoplay, Navigation]}*/}
+            {/*            slidesPerView={slides}*/}
+            {/*            navigation*/}
+            {/*            // effect={"coverflow"}*/}
+            {/*            // coverflowEffect={{slideShadows: false,*/}
+            {/*            // rotate: 30}}*/}
+            {/*        >*/}
+            {/*            {topRatedProducts.map(function (data, index) {*/}
+            {/*                return <SwiperSlide key={index}>*/}
+            {/*                    <Link to={`/product/${data._id}`} className={"relative"}>*/}
+            {/*                        <motion.img*/}
+            {/*                            whileHover={windowInnerWidth > 640 ? { scale: 0.95} : {scale: "none"}}*/}
+            {/*                            className={"bg-white shadow-xl object-scale-down w-full xl:w-[385px] h-[275px] rounded-xl"}*/}
+            {/*                            src={data.images.length !== 0 ? data.images[0].url : "/images/sample.jpg"} alt={"products"}*/}
+            {/*                        />*/}
+            {/*                        <div className={"flex justify-center items-end"}>*/}
+            {/*                            <span className={"rounded-tl-md rounded-br-xl pt-4 px-2 text-xs sm:text-sm truncate roboto"}>*/}
+            {/*                                {data.name}*/}
+            {/*                            </span>*/}
+            {/*                        </div>*/}
+            {/*                    </Link>*/}
+            {/*                    <div className={"absolute right-0 top-0 "}>*/}
+            {/*                        <div className={"p-2 rounded-bl-md rounded-tr-xl"}>*/}
+            {/*                            <Rating rating={data.rating}/>*/}
+            {/*                        </div>*/}
+            {/*                    </div>*/}
+            {/*                </SwiperSlide>*/}
+            {/*            })}*/}
+            {/*        </Swiper>*/}
+            {/*    </motion.div>*/}
+            {/*    <div className={"py-5"}>*/}
+            {/*        <div className={"h-20 flex justify-end rounded-xl"}>*/}
+            {/*            <div className={"flex justify-between items-center"}>*/}
+            {/*                <span className={"text-center pr-3 text-lg roboto"}>*/}
+            {/*                    Checkout all our top rated products*/}
+            {/*                </span>*/}
+            {/*                <div className={"pr-5"}>*/}
+            {/*                    <Link to={"/sort/toprated/select/all"} className={"w-24 btn glass bg-neutral/70 text-white"}>*/}
+            {/*                        View All*/}
+            {/*                    </Link>*/}
+            {/*                </div>*/}
+            {/*            </div>*/}
+            {/*        </div>*/}
+            {/*    </div>*/}
+            {/*    <div className={"bg-black border-b-[1px] border-grey-300"}/>*/}
+            {/*</div>*/}
+
+
+
         </>
     );
 };
