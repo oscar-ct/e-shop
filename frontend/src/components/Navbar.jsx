@@ -202,7 +202,7 @@ const Navbar = () => {
                                             {
                                                 dropdownActive && (
                                                     <div className="absolute right-0 z-10 mt-2 origin-top-right">
-                                                        <div className="menu bg-neutral/70 rounded-box text-white font-bold flex flex-col justify-between w-full">
+                                                        <div className="menu bg-neutral/70 rounded-md text-white font-bold flex flex-col justify-between w-full">
                                                             <div className={"flex w-full"}>
                                                                 {
                                                                     userData.isAdmin && (
