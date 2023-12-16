@@ -60,8 +60,8 @@ const CartIcon = ({cartItems, totalCartItems, subtotalPrice}) => {
                                         </span>
                                     </span>
                                             <div className="card-actions">
-                                                <Link to={"/cart"} className="btn btn-primary btn-block">
-                                                    View cart
+                                                <Link to={"/cart"} className="btn btn-primary btn-block text whitespace-nowrap normal-case">
+                                                    View Cart
                                                 </Link>
                                             </div>
                                         </>
