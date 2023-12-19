@@ -2,7 +2,7 @@ import ProductItem from "../components/ProductItem";
 import {useGetProductsQuery, useGetProductsByCategoryQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
-import {useParams} from "react-router-dom";
+import {useParams, Link} from "react-router-dom";
 import Paginate from "../components/Paginate";
 // import {Autoplay, Navigation, EffectFade} from "swiper/modules";
 // import { Swiper, SwiperSlide} from "swiper/react";
@@ -21,7 +21,7 @@ import Footer from "../components/Footer";
 // import {HOME_IMAGE_DAY, HOME_IMAGE_MORNING_EVENING, HOME_IMAGE_NIGHT, HOME_IMAGE_PAYPAL, HOME_IMAGE_SHIPPING} from "../variables";
 import CategoryItem from "../components/CategoryItem";
 import {FaChevronDown} from "react-icons/fa";
-import charizard from "../icons/charizard.gif";
+// import charizard from "../icons/charizard.gif";
 
 
 const HomePage = () => {
@@ -37,8 +37,8 @@ const HomePage = () => {
     // const [slides, setSlides] = useState(window.innerWidth <= 640 ? 1 : window.innerWidth > 640 && window.innerWidth <= 1280 ? 2 : 3);
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
     const [categoryDropdownActive, setCategoryDropdownActive] = useState(false);
-    const [charizardActive, setCharizardActive] = useState(false);
-    const [charizardPostion, setCharizardPosition] = useState(85);
+    // const [charizardActive, setCharizardActive] = useState(false);
+    // const [charizardPostion, setCharizardPosition] = useState(85);
 
     // current time
     // const date = new Date;
@@ -49,17 +49,17 @@ const HomePage = () => {
     // });
 
     // pokemon animation *******
-    useEffect(() => {
-        if (charizardActive) {
-            setTimeout(() => {
-                if (charizardPostion !== 5) {
-                    setCharizardPosition(charizardPostion - 2.5);
-                } else {
-                    setCharizardPosition(85);
-                }
-            }, 150);
-        }
-    }, [charizardPostion, charizardActive]);
+    // useEffect(() => {
+    //     if (charizardActive) {
+    //         setTimeout(() => {
+    //             if (charizardPostion !== 5) {
+    //                 setCharizardPosition(charizardPostion - 2.5);
+    //             } else {
+    //                 setCharizardPosition(85);
+    //             }
+    //         }, 150);
+    //     }
+    // }, [charizardPostion, charizardActive]);
 
 
     // set window width on resize
@@ -157,7 +157,8 @@ const HomePage = () => {
                                 <div className={"absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
                                     <Logo className={"pt-28 w-5/12"}/>
                                     <span className={"pt-12 text-3xl font-semibold z-10"}>Click, Ship, & Enjoy.</span>
-                                    <span className={"pt-3 pb-40 text-2xl"}>Happy Holidays!</span>
+                                    <span className={"pt-3 font-light pb-40 text-2xl"}>Happy Holidays!</span>
+                                    <Link to={"/sort/latest/select/all"} className={"btn btn-neutral normal-case rounded-full"}>Shop Now</Link>
                                 </div>
                                 <img className={"object-cover w-full"} src={"/images/markus-spiske-E7qI_Jqv4Dw-unsplash.jpg"}/>
                             </div>
@@ -233,15 +234,15 @@ const HomePage = () => {
                         {/*CATEGORIES*/}
 
                         <div className={"md:pt-20 pt-14 bg-neutral md:bg-white"}>
-                            <div className={"h-12 footer bg-neutral border-none md:border-b-[1px] md:border-grey-300"}>
+                            <div className={"h-12 bg-neutral border-none md:border-b-[1px] md:border-grey-300"}>
                                 <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
                                     <h2 className={"lg:pl-3 text-3xl md:text-2xl font-semibold text-white ibmplex"}>
-                                        Our Categories
+                                        Categories
                                     </h2>
                                 </div>
                             </div>
 
-                            <div className={"w-full flex flex-wrap justify-center border-none md:border-[1px] py-8"}>
+                            <div className={"w-full flex flex-wrap justify-center md:border py-8"}>
                                 {
                                     productCategories.slice(0, !categoryDropdownActive && windowInnerWidth < 768 ? 6 : !categoryDropdownActive && windowInnerWidth < 1024 && windowInnerWidth >= 768 ? 4 : !categoryDropdownActive && windowInnerWidth > 1024 && windowInnerWidth < 1280 ? 5 : !categoryDropdownActive && windowInnerWidth >= 1280 && windowInnerWidth < 1282 ? 6 :
                                         !categoryDropdownActive && windowInnerWidth >= 1282 && windowInnerWidth < 1536 ? 7 :
@@ -251,15 +252,15 @@ const HomePage = () => {
                                 }
                             </div>
                             <div className={"pt-5"}>
-                                <div className={"pb-10 flex justify-end items-center"}>
+                                <div className={"pb-10 flex justify-end items-center px-2"}>
                                     <div>
                                         {/*<Link to={"/sort/latest/select/all"} className={"btn glass bg-neutral/70 text-white"}>*/}
                                         {/*    View All Categories*/}
                                         {/*</Link>*/}
-                                        <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-lg text-neutral link"}>
+                                        <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-lg font-semibold text-white md:text-black link"}>
                                             <span className={"pr-2"}>
                                                 {
-                                                    categoryDropdownActive ? "Show Less Categories" : "Show More Categories"
+                                                    categoryDropdownActive ? "Less Categories" : "More Categories"
                                                 }
                                             </span>
                                              <div className={`${rotateChevron(categoryDropdownActive)}`}>
@@ -275,11 +276,11 @@ const HomePage = () => {
                         </div>
 
                         {/*LATEST PRODUCTS*/}
-                        <div className={"pt-14 pb-10"}>
-                            <div className={"h-12 footer md:bg-neutral"}>
+                        <div className={"pt-14 pb-10 md:pb-0"}>
+                            <div className={"h-12 md:bg-neutral"}>
                                 <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
                                     <h2 className={"lg:pl-3 text-3xl md:text-2xl font-semibold md:text-white ibmplex"}>
-                                        Our Lastest Products
+                                        Lastest Products
                                     </h2>
                                 </div>
                             </div>

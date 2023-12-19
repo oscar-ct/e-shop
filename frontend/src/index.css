@@ -157,8 +157,8 @@ textarea {
   .step-primary:after { background-color: #570df8!important;}
   .step-primary:before { background-color: #570df8!important;}
 
-  .footer {
-    background-image: none;
-  }
+  /*.footer {*/
+  /*  background-image: none;*/
+  /*}*/
 
 }
