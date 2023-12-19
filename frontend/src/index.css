@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Moirai+One&family=Open+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&family=Ubuntu:wght@400;500;700&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;500;600;700&family=Mochiy+Pop+One&family=Open+Sans:wght@300;400;500;600;700&family=Roboto:wght@300;400;500&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -32,6 +32,12 @@ body {
 
 .roboto {
   font-family: 'Roboto', sans-serif;
+}
+.ibmplex {
+  font-family: 'IBM Plex Sans', sans-serif;
+}
+.mochiy {
+  font-family: 'Mochiy Pop One', sans-serif;
 }
 
 code {

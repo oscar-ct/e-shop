@@ -153,11 +153,17 @@ const HomePage = () => {
                             exit={{ opacity: 0 }}
                             className={"drop-shadow-xl bg-transparent rounded-xl w-full"}
                         >
-                            <div className={"md:hidden w-full h-full relative flex justify-center items-end"}>
-                                    <span className={"absolute pb-8 text-3xl font-bold text-white z-10"}>
-                                        We sell stuff online
-                                    </span>
-                                <img className={"object-scale-down h-full w-full"} src={"/images/the-halal-design-studio-gxDwmj6R3f4-unsplash.jpg"}/>
+                            <div className={"md:hidden w-full h-max relative"}>
+                                <div className={"absolute h-full w-full flex flex-col items-center justify-around text-5xl mochiy"}>
+                                    <div className={"pt-16 flex"}>
+                                        <span className={"font-bold text-white z-10"}>Click,</span>
+                                        <span className={"pl-3 font-bold text-white z-10"}>Ship,</span>
+                                    </div>
+                                    <div className={"pb-20 font-bold text-white z-10"}>
+                                        & Enjoy!
+                                    </div>
+                                </div>
+                                <img className={"object-scale-down h-full w-full"} src={"/images/ian-dooley-hpTH5b6mo2s-unsplash.jpg"}/>
                             </div>
 
 
@@ -176,7 +182,7 @@ const HomePage = () => {
                             {/*</div>*/}
 
 
-                            <div className={"hidden md:flex h-[35em] w-full"}>
+                            <div className={"hidden md:flex h-[35em] w-full mochiy"}>
                                 <div
                                     style={{backgroundImage: `url(/images/sincerely-media-HL3EOgFiy0k-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover"}}
                                     className={"h-full w-1/3"}
@@ -203,7 +209,7 @@ const HomePage = () => {
                                 >
                                     <div className={"w-full h-full flex items-center justify-center"}>
                                         <span className={"pt-14 font-bold text-white text-3xl"}>
-                                           Enjoy!
+                                           & Enjoy!
                                         </span>
                                     </div>
                                 </div>
@@ -230,12 +236,15 @@ const HomePage = () => {
 
                         {/*CATEGORIES*/}
 
-                        <div className={"pt-20"}>
-                            <div ref={scrollTo} className={"pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                                <h2 className={"text-3xl md:text-2xl font-bold text-neutral"}>
-                                    Our Categories
-                                </h2>
+                        <div className={"md:pt-20 pt-14"}>
+                            <div className={"h-12 footer md:bg-neutral border-b-[1px] border-grey-300"}>
+                                <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
+                                    <h2 className={"lg:pl-3 text-3xl md:text-2xl font-bold md:text-white ibmplex"}>
+                                        Shop Categories
+                                    </h2>
+                                </div>
                             </div>
+
                             <div className={"w-full flex flex-wrap justify-center border-[1px] py-8"}>
                                 {
                                     productCategories.slice(0, !categoryDropdownActive && windowInnerWidth < 768 ? 6 : !categoryDropdownActive && windowInnerWidth < 1024 && windowInnerWidth >= 768 ? 4 : !categoryDropdownActive && windowInnerWidth > 1024 && windowInnerWidth < 1280 ? 5 : !categoryDropdownActive && windowInnerWidth >= 1280 && windowInnerWidth < 1282 ? 6 :
@@ -246,12 +255,12 @@ const HomePage = () => {
                                 }
                             </div>
                             <div className={"pt-5"}>
-                                <div className={"pb-10 flex justify-end items-center rounded-xl"}>
+                                <div className={"pb-10 flex justify-end items-center"}>
                                     <div>
                                         {/*<Link to={"/sort/latest/select/all"} className={"btn glass bg-neutral/70 text-white"}>*/}
                                         {/*    View All Categories*/}
                                         {/*</Link>*/}
-                                        <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-xl font-bold text-neutral link"}>
+                                        <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-lg text-neutral link"}>
                                             <span className={"pr-2"}>
                                                 {
                                                     categoryDropdownActive ? "Show Less Categories" : "Show More Categories"
@@ -263,19 +272,26 @@ const HomePage = () => {
                                         </button>
                                     </div>
                                 </div>
-                                <div className={"h-10 footer bg-neutral border-b-[1px] border-grey-300"}>
-                                    <img onMouseOver={() => !charizardActive && setCharizardActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-14 ${!charizardActive && "opacity-50"}`} style={{position: "absolute", left: charizardPostion+"%", cursor: "pointer"}} src={charizard} alt={"charizard"}/>
-                                </div>
+                                {/*<div className={"h-10 footer bg-neutral border-b-[1px] border-grey-300"}>*/}
+                                    {/*<img onMouseOver={() => !charizardActive && setCharizardActive(true)} onClick={() => window.location.href = "https://oscar-ct.github.io/pok-mon/"} className={`w-14 ${!charizardActive && "opacity-50"}`} style={{position: "absolute", left: charizardPostion+"%", cursor: "pointer"}} src={charizard} alt={"charizard"}/>*/}
+                                {/*</div>*/}
                             </div>
                         </div>
 
                         {/*LATEST PRODUCTS*/}
 
-                        <div ref={scrollTo} className={"pt-20 pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                            <h2 className={"text-3xl md:text-2xl font-bold text-neutral"}>
-                                Lastest Products
-                            </h2>
+                        <div className={"h-12 footer md:bg-neutral border-b-[1px] border-grey-300"}>
+                            <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
+                                <h2 className={"lg:pl-3 text-3xl md:text-2xl font-bold md:text-white ibmplex"}>
+                                    Our Lastest Products
+                                </h2>
+                            </div>
                         </div>
+                        {/*<div ref={scrollTo} className={"pt-20 pb-3 flex justify-center lg:justify-start items-center w-full"}>*/}
+                        {/*    <h2 className={"text-3xl md:text-2xl font-bold text-neutral"}>*/}
+                        {/*        Lastest Products*/}
+                        {/*    </h2>*/}
+                        {/*</div>*/}
                         <div className={"pb-10 "}>
                             <div className={"border-[1px] py-8 w-full flex flex-wrap justify-center"}>
                                 {
