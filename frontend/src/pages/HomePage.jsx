@@ -151,28 +151,38 @@ const HomePage = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className={"drop-shadow-xl bg-transparent rounded-xl"}
+                            className={"drop-shadow-xl bg-transparent rounded-xl w-full"}
                         >
-                            <div className={"md:hidden h-[25em]"}>
-                                <div
-                                    style={{backgroundImage: `url(/images/the-halal-design-studio-gxDwmj6R3f4-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat"}}
-                                    className={"h-full w-full"}
-                                >
-                                    <div className={"w-full h-full flex items-end justify-center"}>
-
-                                        <span className={"pb-10 font-bold text-white text-3xl roboto"}>
-                                            We sell stuff online
-                                        </span>
-                                    </div>
-                                </div>
+                            <div className={"md:hidden w-full h-full relative flex justify-center items-end"}>
+                                    <span className={"absolute pb-8 text-3xl font-bold text-white z-10"}>
+                                        We sell stuff online
+                                    </span>
+                                <img className={"object-scale-down h-full w-full"} src={"/images/the-halal-design-studio-gxDwmj6R3f4-unsplash.jpg"}/>
                             </div>
+
+
+                            {/*<div className={"md:hidden h-[25em]"}>*/}
+                            {/*    <div*/}
+                            {/*        style={{backgroundImage: `url(/images/the-halal-design-studio-gxDwmj6R3f4-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover", backgroundRepeat: "no-repeat"}}*/}
+                            {/*        className={"h-full w-full"}*/}
+                            {/*    >*/}
+                            {/*        <div className={"w-full h-full flex items-end justify-center"}>*/}
+
+                            {/*            <span className={"pb-10 font-bold text-white text-3xl roboto"}>*/}
+                            {/*                We sell stuff online*/}
+                            {/*            </span>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+
+
                             <div className={"hidden md:flex h-[35em] w-full"}>
                                 <div
                                     style={{backgroundImage: `url(/images/sincerely-media-HL3EOgFiy0k-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover"}}
                                     className={"h-full w-1/3"}
                                 >
                                     <div className={"w-full h-full flex items-end justify-center"}>
-                                        <span className={"pb-10 font-bold text-3xl roboto"}>
+                                        <span className={"pb-10 font-bold text-3xl"}>
                                             Shop Online
                                         </span>
                                     </div>
@@ -182,7 +192,7 @@ const HomePage = () => {
                                     className={"h-full w-1/3"}
                                 >
                                     <div className={"w-full h-full flex items-start justify-center"}>
-                                        <span className={"pt-20 px-10 font-bold text-white text-3xl roboto"}>
+                                        <span className={"pt-20 px-10 font-bold text-white text-3xl"}>
                                             Deliver To Your Doorstep
                                         </span>
                                     </div>
@@ -192,7 +202,7 @@ const HomePage = () => {
                                     className={"h-full w-1/3"}
                                 >
                                     <div className={"w-full h-full flex items-center justify-center"}>
-                                        <span className={"pt-14 font-bold text-white text-3xl roboto"}>
+                                        <span className={"pt-14 font-bold text-white text-3xl"}>
                                            Enjoy!
                                         </span>
                                     </div>
@@ -222,7 +232,7 @@ const HomePage = () => {
 
                         <div className={"pt-20"}>
                             <div ref={scrollTo} className={"pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                                <h2 className={"text-3xl md:text-2xl font-bold roboto text-neutral"}>
+                                <h2 className={"text-3xl md:text-2xl font-bold text-neutral"}>
                                     Our Categories
                                 </h2>
                             </div>
@@ -241,7 +251,7 @@ const HomePage = () => {
                                         {/*<Link to={"/sort/latest/select/all"} className={"btn glass bg-neutral/70 text-white"}>*/}
                                         {/*    View All Categories*/}
                                         {/*</Link>*/}
-                                        <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-xl font-bold roboto text-neutral link"}>
+                                        <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-xl font-bold text-neutral link"}>
                                             <span className={"pr-2"}>
                                                 {
                                                     categoryDropdownActive ? "Show Less Categories" : "Show More Categories"
@@ -262,7 +272,7 @@ const HomePage = () => {
                         {/*LATEST PRODUCTS*/}
 
                         <div ref={scrollTo} className={"pt-20 pb-3 flex justify-center lg:justify-start items-center w-full"}>
-                            <h2 className={"text-3xl md:text-2xl font-bold roboto text-neutral"}>
+                            <h2 className={"text-3xl md:text-2xl font-bold text-neutral"}>
                                 Lastest Products
                             </h2>
                         </div>
