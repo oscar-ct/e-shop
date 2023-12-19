@@ -29,7 +29,7 @@ const CartIcon = ({cartItems, totalCartItems, subtotalPrice}) => {
                             }
 
                         </div>
-                        <span className={"normal-case"}>Cart</span>
+                        <span className={"hidden md:flex normal-case"}>Cart</span>
                     </Link>
                 ) : (
                     <div className="dropdown dropdown-end">
