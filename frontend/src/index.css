@@ -104,33 +104,6 @@ code {
 .card {
   border-radius: 5px !important;
 }
-
-@media screen and (max-width: 500px) {
-  .shadow-xl {
-    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)!important;
-  }
-  /*.rounded-br-xl, .rounded-bl-xl, .rounded-tr-xl, .rounded-tl-xl, .rounded-xl {*/
-  /*  border-radius: 0!important;*/
-  /*}*/
-  /*.rounded-xl {*/
-  /*  border-radius: 5px!important;*/
-  /*}*/
-  /*.card {*/
-  /*  border-radius: 5px!important;*/
-  /*}*/
-  .table-zebra tbody tr:nth-child(2n) {
-    background-color: #f1f1f1 !important;
-  }
-  .table :where(thead, tbody) :where(tr:not(:last-child)) {
-    background-color: #f1f1f1 !important;
-  }
-  .step:after { background-color: lightgrey!important;}
-  .step:before { background-color: lightgrey!important;}
-  .step-primary:after { background-color: #570df8!important;}
-  .step-primary:before { background-color: #570df8!important;}
-
-}
-
 .shadow-blue {
   box-shadow: 0 20px 25px -5px rgba(28, 45, 243, 0.1), 0 8px 10px -6px rgba(41, 84, 243, 0.1);
   /*color: rgba(50, 205, 136, 0.35);*/
@@ -158,4 +131,34 @@ input {
 }
 textarea {
   color: black;
+}
+
+@media screen and (max-width: 500px) {
+  .shadow-xl {
+    box-shadow: 0 1px 2px 0 rgb(0 0 0 / 0.05)!important;
+  }
+  /*.rounded-br-xl, .rounded-bl-xl, .rounded-tr-xl, .rounded-tl-xl, .rounded-xl {*/
+  /*  border-radius: 0!important;*/
+  /*}*/
+  /*.rounded-xl {*/
+  /*  border-radius: 5px!important;*/
+  /*}*/
+  /*.card {*/
+  /*  border-radius: 5px!important;*/
+  /*}*/
+  .table-zebra tbody tr:nth-child(2n) {
+    background-color: #f1f1f1 !important;
+  }
+  .table :where(thead, tbody) :where(tr:not(:last-child)) {
+    background-color: #f1f1f1 !important;
+  }
+  .step:after { background-color: lightgrey!important;}
+  .step:before { background-color: lightgrey!important;}
+  .step-primary:after { background-color: #570df8!important;}
+  .step-primary:before { background-color: #570df8!important;}
+
+  .footer {
+    background-image: none;
+  }
+
 }

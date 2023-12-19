@@ -13,7 +13,7 @@ import Paginate from "../components/Paginate";
 // import 'swiper/css/effect-fade';
 import {useEffect, useRef, useState} from "react";
 // import Rating from "../components/Rating";
-// import {ReactComponent as Logo} from "../icons/e.svg"
+import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
 // import {useSelector} from "react-redux";
 import {motion} from "framer-motion";
@@ -153,17 +153,13 @@ const HomePage = () => {
                             exit={{ opacity: 0 }}
                             className={"drop-shadow-xl bg-transparent rounded-xl w-full"}
                         >
-                            <div className={"md:hidden w-full h-max relative"}>
-                                <div className={"absolute h-full w-full flex flex-col items-center justify-around text-5xl mochiy"}>
-                                    <div className={"pt-16 flex"}>
-                                        <span className={"font-bold text-white z-10"}>Click,</span>
-                                        <span className={"pl-3 font-bold text-white z-10"}>Ship,</span>
-                                    </div>
-                                    <div className={"pb-20 font-bold text-white z-10"}>
-                                        & Enjoy!
-                                    </div>
+                            <div className={"md:hidden w-full h-full relative"}>
+                                <div className={"absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
+                                    <Logo className={"pt-28 w-5/12"}/>
+                                    <span className={"pt-12 text-3xl font-semibold z-10"}>Click, Ship, & Enjoy.</span>
+                                    <span className={"pt-3 pb-40 text-2xl"}>Happy Holidays!</span>
                                 </div>
-                                <img className={"object-scale-down h-full w-full"} src={"/images/ian-dooley-hpTH5b6mo2s-unsplash.jpg"}/>
+                                <img className={"object-cover w-full"} src={"/images/markus-spiske-E7qI_Jqv4Dw-unsplash.jpg"}/>
                             </div>
 
 
@@ -182,7 +178,7 @@ const HomePage = () => {
                             {/*</div>*/}
 
 
-                            <div className={"hidden md:flex h-[35em] w-full mochiy"}>
+                            <div className={"hidden md:flex h-[35em] w-full ibmplex"}>
                                 <div
                                     style={{backgroundImage: `url(/images/sincerely-media-HL3EOgFiy0k-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover"}}
                                     className={"h-full w-1/3"}
@@ -236,16 +232,16 @@ const HomePage = () => {
 
                         {/*CATEGORIES*/}
 
-                        <div className={"md:pt-20 pt-14"}>
-                            <div className={"h-12 footer md:bg-neutral border-b-[1px] border-grey-300"}>
+                        <div className={"md:pt-20 pt-14 bg-neutral md:bg-white"}>
+                            <div className={"h-12 footer bg-neutral border-none md:border-b-[1px] md:border-grey-300"}>
                                 <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
-                                    <h2 className={"lg:pl-3 text-3xl md:text-2xl font-bold md:text-white ibmplex"}>
-                                        Shop Categories
+                                    <h2 className={"lg:pl-3 text-3xl md:text-2xl font-semibold text-white ibmplex"}>
+                                        Our Categories
                                     </h2>
                                 </div>
                             </div>
 
-                            <div className={"w-full flex flex-wrap justify-center border-[1px] py-8"}>
+                            <div className={"w-full flex flex-wrap justify-center border-none md:border-[1px] py-8"}>
                                 {
                                     productCategories.slice(0, !categoryDropdownActive && windowInnerWidth < 768 ? 6 : !categoryDropdownActive && windowInnerWidth < 1024 && windowInnerWidth >= 768 ? 4 : !categoryDropdownActive && windowInnerWidth > 1024 && windowInnerWidth < 1280 ? 5 : !categoryDropdownActive && windowInnerWidth >= 1280 && windowInnerWidth < 1282 ? 6 :
                                         !categoryDropdownActive && windowInnerWidth >= 1282 && windowInnerWidth < 1536 ? 7 :
@@ -279,12 +275,13 @@ const HomePage = () => {
                         </div>
 
                         {/*LATEST PRODUCTS*/}
-
-                        <div className={"h-12 footer md:bg-neutral border-b-[1px] border-grey-300"}>
-                            <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
-                                <h2 className={"lg:pl-3 text-3xl md:text-2xl font-bold md:text-white ibmplex"}>
-                                    Our Lastest Products
-                                </h2>
+                        <div className={"pt-14 pb-10"}>
+                            <div className={"h-12 footer md:bg-neutral"}>
+                                <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
+                                    <h2 className={"lg:pl-3 text-3xl md:text-2xl font-semibold md:text-white ibmplex"}>
+                                        Our Lastest Products
+                                    </h2>
+                                </div>
                             </div>
                         </div>
                         {/*<div ref={scrollTo} className={"pt-20 pb-3 flex justify-center lg:justify-start items-center w-full"}>*/}
