@@ -157,8 +157,10 @@ const HomePage = () => {
                                 <div className={"absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
                                     <Logo className={"pt-28 w-5/12"}/>
                                     <span className={"pt-12 text-3xl font-semibold z-10"}>Click, Ship, & Enjoy.</span>
-                                    <span className={"pt-3 font-light pb-40 text-2xl"}>Happy Holidays!</span>
-                                    <Link to={"/sort/latest/select/all"} className={"btn btn-neutral normal-case rounded-full"}>Shop Now</Link>
+                                    <span className={"pt-3 font-light pb-24 text-2xl"}>Happy Holidays!</span>
+                                    <div className={"pb-20"}>
+                                        <Link to={"/sort/latest/select/all"} className={"btn btn-neutral normal-case rounded-full"}>Shop Now</Link>
+                                    </div>
                                 </div>
                                 <img className={"object-cover w-full"} src={"/images/markus-spiske-E7qI_Jqv4Dw-unsplash.jpg"}/>
                             </div>
@@ -233,8 +235,8 @@ const HomePage = () => {
 
                         {/*CATEGORIES*/}
 
-                        <div className={"md:pt-20 pt-14 bg-neutral md:bg-white"}>
-                            <div className={"h-12 bg-neutral border-none md:border-b-[1px] md:border-grey-300"}>
+                        <div className={"md:pt-20 pt-14 bg-black md:bg-neutral md:bg-white"}>
+                            <div className={"h-12 bg-black md:bg-neutral border-none md:border-b-[1px] md:border-grey-300"}>
                                 <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
                                     <h2 className={"lg:pl-3 text-3xl md:text-2xl font-semibold text-white ibmplex"}>
                                         Categories
@@ -257,7 +259,7 @@ const HomePage = () => {
                                         {/*<Link to={"/sort/latest/select/all"} className={"btn glass bg-neutral/70 text-white"}>*/}
                                         {/*    View All Categories*/}
                                         {/*</Link>*/}
-                                        <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-lg font-semibold text-white md:text-black link"}>
+                                        <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-lg font-semibold text-white md:text-black"}>
                                             <span className={"pr-2"}>
                                                 {
                                                     categoryDropdownActive ? "Less Categories" : "More Categories"
