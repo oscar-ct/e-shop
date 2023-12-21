@@ -155,14 +155,14 @@ const HomePage = () => {
                         >
                             <div className={"md:hidden w-full h-full relative"}>
                                 <div className={"absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
-                                    <Logo className={"pt-28 w-[10em]"}/>
+                                    <Logo className={"opacity-50 pt-28 w-[10em]"}/>
                                     <span className={"pt-12 text-3xl font-semibold z-10"}>Shop, Ship, & Enjoy.</span>
                                     <span className={"pt-3 font-light pb-20 text-2xl"}>Happy Holidays!</span>
                                     <div className={"pb-20"}>
                                         <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>Shop Now</Link>
                                     </div>
                                 </div>
-                                <img className={"object-cover w-full opacity-50"} src={"/images/markus-spiske-E7qI_Jqv4Dw-unsplash.jpg"}/>
+                                <img className={"animate-pulsee object-cover w-full"} src={"/images/markus-spiske-E7qI_Jqv4Dw-unsplash.jpg"}/>
                             </div>
 
 
