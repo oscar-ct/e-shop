@@ -159,6 +159,18 @@ const Navbar = () => {
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
                 <div className="px-2 sm:px-5 flex justify-between items-center">
+                    <button aria-label="menu" ref={documentRef2} className="middle none relative mr-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center uppercase transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden" onClick={() => setOpenNav(!openNav)}>
+
+                        {openNav ? (
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-7" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                        ) : (
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16"/>
+                            </svg>
+                        )}
+                    </button>
                     <div className={"hidden lg:flex lg:items-center cursor-pointer rounded-xl py-2 px-3"}>
                         <motion.div
                             onClick={() => navigate("/")}
@@ -266,18 +278,7 @@ const Navbar = () => {
                             </div>
                         </div>
                     </div>
-                    <button aria-label="menu" ref={documentRef2} className="middle none relative mr-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center uppercase transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden" onClick={() => setOpenNav(!openNav)}>
 
-                        {openNav ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-7" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
-                                <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                        ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16"/>
-                            </svg>
-                        )}
-                    </button>
                     <div className={"lg:hidden flex items-center"}>
                         <div className={"py-1"}>
                             <SearchBox/>
@@ -294,35 +295,40 @@ const Navbar = () => {
                 <div ref={documentRef3} className={`z-10 backdrop-blur-md shadow-2xl fixed left-0 w-full py-6  lg:hidden h-[calc(100vh-80px)]`} style={openNav ? styles.active : styles.hidden2}>
                     <div className={"flex flex-col justify-start h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
-                            <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                <Link to={"/"} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
-                                    <Logo className={"w-5"} fill={"white"}/>
+                            <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
+                                   Home
                                 </Link>
                             </li>
-                            <li onClick={() => setOpenNav(!openNav)} className="sm:hidden flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                <Link to={"/cart"} className="rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap">
-                                    <div className="indicator">
-                                        <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
-                                        {
-                                            cartItems.length !== 0 && (
-                                                <span className="badge text-white bg-primary badge-sm indicator-item">{totalCartItems}</span>
-                                            )
-                                        }
+                            <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                <Link onClick={() => setOpenNav(!openNav)} to={"/cart"} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
+                                    My Cart
+                                </Link>
+                            </li>
+                            {/*<li onClick={() => setOpenNav(!openNav)} className="sm:hidden flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">*/}
+                            {/*    <Link to={"/cart"} className="rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap">*/}
+                            {/*        <div className="indicator">*/}
+                            {/*            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>*/}
+                            {/*            {*/}
+                            {/*                cartItems.length !== 0 && (*/}
+                            {/*                    <span className="badge text-white bg-primary badge-sm indicator-item">{totalCartItems}</span>*/}
+                            {/*                )*/}
+                            {/*            }*/}
 
-                                    </div>
-                                    <span className={"normal-case"}/>
-                                </Link>
-                            </li>
+                            {/*        </div>*/}
+                            {/*        <span className={"normal-case"}/>*/}
+                            {/*    </Link>*/}
+                            {/*</li>*/}
                             {
                                 userData && (
                                     <>
-                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={myAccountLink} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
-                                                Account
+                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                            <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
+                                                My Account
                                             </Link>
                                         </li>
-                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={myOrdersLink} className={"rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                            <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 My Orders
                                             </Link>
                                         </li>
@@ -333,18 +339,18 @@ const Navbar = () => {
                             {
                                 userData?.isAdmin && (
                                     <>
-                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={adminOrdersLink} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
+                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                            <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 Order List
                                             </Link>
                                         </li>
-                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={adminUsersLink} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
+                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased  px-8">
+                                            <Link onClick={() => setOpenNav(!openNav)} to={adminUsersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 User List
                                             </Link>
                                         </li>
-                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Link to={adminProductsLink} className={"rounded-xl btn btn-info normal-case w-full whitespace-nowrap"}>
+                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                            <Link onClick={() => setOpenNav(!openNav)} to={adminProductsLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 Product List
                                             </Link>
                                         </li>
@@ -354,18 +360,15 @@ const Navbar = () => {
 
                             {
                                 userData ? (
-                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                        <button className={"rounded-xl btn btn-error normal-case w-full"} onClick={logoutHandler}>
+                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                        <button className={"cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case"} onClick={logoutHandler}>
                                             Logout
                                         </button>
                                     </li>
                                 ) : (
-                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                        <Link to={"/login"} className="w-full flex items-center cursor-pointer btn btn-primary normal-case rounded-xl">
-                                            <FaUser/>
-                                            <span>
-                                                Login
-                                            </span>
+                                    <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased  px-8">
+                                        <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
+                                            Login
                                         </Link>
                                     </li>
                                 )
