@@ -155,14 +155,19 @@ const HomePage = () => {
                         >
                             <div className={"md:hidden w-full h-full relative"}>
                                 <div className={"absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
-                                    <Logo className={"opacity-50 pt-28 w-[10em]"}/>
+                                    <Logo className={"pt-28 w-[10em]"}/>
                                     <span className={"pt-12 text-3xl font-semibold z-10"}>Shop, Ship, & Enjoy.</span>
-                                    <span className={"pt-3 font-light pb-20 text-2xl"}>Happy Holidays!</span>
-                                    <div className={"pb-20"}>
-                                        <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>Shop Now</Link>
+                                    {/*<span className={"pt-3 font-light pb-20 text-2xl"}>Happy Holidays!</span>*/}
+                                    <div className={"pt-20"}>
+                                        <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>
+                                            Get Started
+                                        </Link>
+                                        {/*<Link to={"/sort/latest/select/all"} className={"rounded-full text-lg btn btn-secondary normal-case"}>*/}
+                                        {/*    Get Started*/}
+                                        {/*</Link>*/}
                                     </div>
                                 </div>
-                                <img className={"animate-pulsee object-cover w-full"} src={"/images/markus-spiske-E7qI_Jqv4Dw-unsplash.jpg"}/>
+                                <img className={"object-cover h-[40em] w-full"} src={"/images/bg.png"}/>
                             </div>
 
 
@@ -187,8 +192,8 @@ const HomePage = () => {
                                     className={"h-full w-1/3"}
                                 >
                                     <div className={"w-full h-full flex items-end justify-center"}>
-                                        <span className={"pb-10 font-bold text-3xl"}>
-                                            Shop Online
+                                        <span className={"pb-10 text-3xl font-bold flex items-center"}>
+                                            <Logo width={"20px"} className={"pt-1 mr-1"}/> -shop.com
                                         </span>
                                     </div>
                                 </div>
@@ -198,7 +203,7 @@ const HomePage = () => {
                                 >
                                     <div className={"w-full h-full flex items-start justify-center"}>
                                         <span className={"pt-20 px-10 font-bold text-white text-3xl"}>
-                                            Deliver To Your Doorstep
+                                            Shop, Ship, & Enjoy.
                                         </span>
                                     </div>
                                 </div>
@@ -207,9 +212,12 @@ const HomePage = () => {
                                     className={"h-full w-1/3"}
                                 >
                                     <div className={"w-full h-full flex items-center justify-center"}>
-                                        <span className={"pt-14 font-bold text-white text-3xl"}>
-                                           & Enjoy!
-                                        </span>
+                                        {/*<span className={"pt-14 font-bold text-white text-3xl"}>*/}
+                                        {/*   & Enjoy!*/}
+                                        {/*</span>*/}
+                                        <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>
+                                            Get Started
+                                        </Link>
                                     </div>
                                 </div>
                                 {/*<div className={"h-full w-1/3 flex items-end justify-center relative"}>*/}
