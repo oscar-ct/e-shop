@@ -81,7 +81,7 @@ const HomePage = () => {
                             exit={{ opacity: 0 }}
                         >
                             <HomePageIntro/>
-                            <HomePageCategorySection scrollTo={scrollTo} windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
+                            <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
                             <HomePageLatestProducts scrollTo={scrollTo} data={data} windowInnerWidth={windowInnerWidth}/>
                             <Footer/>
                         </motion.div>

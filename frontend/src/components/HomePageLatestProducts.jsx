@@ -5,8 +5,8 @@ const HomePageLatestProducts = ({data, windowInnerWidth, scrollTo}) => {
     return (
         <>
             <div className={"pt-14 pb-10 md:pb-0"}>
-                <div className={"h-12 md:bg-neutral"}>
-                    <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
+                <div ref={scrollTo} className={"h-12 md:bg-neutral"}>
+                    <div className={"flex justify-center lg:justify-start items-center h-full w-full"}>
                         <h2 className={"lg:pl-3 text-3xl md:text-2xl font-semibold md:text-white ibmplex"}>
                             Lastest Products
                         </h2>

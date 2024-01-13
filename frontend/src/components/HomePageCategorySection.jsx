@@ -2,7 +2,7 @@ import CategoryItem from "./CategoryItem";
 import {FaChevronDown} from "react-icons/fa";
 import {useState} from "react";
 
-const HomePageCategorySection = ({productCategories, windowInnerWidth, scrollTo}) => {
+const HomePageCategorySection = ({productCategories, windowInnerWidth}) => {
 
     const [categoryDropdownActive, setCategoryDropdownActive] = useState(false);
 
@@ -14,14 +14,14 @@ const HomePageCategorySection = ({productCategories, windowInnerWidth, scrollTo}
         <>
             <div className={"md:pt-20 pt-14 bg-neutral md:bg-white liner-gradient w-full"}>
                 <div className={"h-12 md:bg-neutral border-none md:border-b-[1px] md:border-grey-300"}>
-                    <div ref={scrollTo} className={"flex justify-center lg:justify-start items-center h-full w-full"}>
+                    <div  className={"flex justify-center lg:justify-start items-center h-full w-full"}>
                         <h2 className={"lg:pl-3 text-3xl md:text-2xl font-semibold text-white ibmplex"}>
                             Categories
                         </h2>
                     </div>
                 </div>
 
-                <div className={"w-full flex flex-wrap justify-center md:border py-8"}>
+                <div className={"w-full flex flex-wrap justify-center md:border py-10"}>
                     {
                         productCategories.slice(0, !categoryDropdownActive && windowInnerWidth < 768 ? 6 : !categoryDropdownActive && windowInnerWidth < 1024 && windowInnerWidth >= 768 ? 4 : !categoryDropdownActive && windowInnerWidth > 1024 && windowInnerWidth < 1280 ? 5 : !categoryDropdownActive && windowInnerWidth >= 1280 && windowInnerWidth < 1282 ? 6 :
                             !categoryDropdownActive && windowInnerWidth >= 1282 && windowInnerWidth < 1536 ? 7 :
@@ -31,7 +31,7 @@ const HomePageCategorySection = ({productCategories, windowInnerWidth, scrollTo}
                     }
                 </div>
                 <div className={"lg:pt-5"}>
-                    <div className={"pb-20 lg:pb-0 flex justify-end items-center px-2"}>
+                    <div className={"pb-10 lg:pb-0 flex justify-end items-center px-2"}>
                         <div>
                             {/*<Link to={"/sort/latest/select/all"} className={"btn glass bg-neutral/70 text-white"}>*/}
                             {/*    View All Categories*/}
