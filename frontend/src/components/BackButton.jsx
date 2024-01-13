@@ -3,12 +3,13 @@ import {Link} from "react-router-dom";
 
 const BackButton = () => {
     return (
-        <Link className={"px-2 md:px-0 py-5 flex items-center w-min"} to={-1}>
-            <Arrow fill={"currentColor"} className={"w-5 h-5"}/>
-            <span className={"pl-1 font-base"}>
-                BACK
-            </span>
-        </Link>
+        <div className={"fixed lg:relative z-10 lg:z-0 pt-3 pl-3"}>
+            <Link className={"p-3 bg-black/50 rounded-full flex items-center w-min"} to={-1}>
+                <Arrow fill={"white"} className={"w-6 h-6"}/>
+                <span className={"pl-1 font-base"}>
+                </span>
+            </Link>
+        </div>
     );
 };
 
