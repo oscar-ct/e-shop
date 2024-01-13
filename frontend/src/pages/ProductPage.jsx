@@ -18,6 +18,7 @@ import ReviewModal from "../components/ReviewModal";
 import {Zoom, Navigation, Pagination} from "swiper/modules";
 import {Swiper, SwiperSlide} from "swiper/react";
 import 'swiper/css/zoom';
+import 'swiper/css';
 import {toast} from "react-hot-toast";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
@@ -112,7 +113,7 @@ const ProductPage = () => {
                                 centeredSlides={true}
                                 modules={[Zoom, Navigation, Pagination]}
                                 slidesPerView={1}
-                                pagination={{clickable: true}}
+                                pagination
                                 navigation>
                                 {product.images.map(function (data, index) {
                                     return (
@@ -136,9 +137,9 @@ const ProductPage = () => {
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
-                            className={"pb-10 flex flex-col"}
+                            className={"flex flex-col"}
                         >
-                            <div className={"flex flex-col lg:flex-row"}>
+                            <div className={"pt-14 lg:pt-0 flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col lg:pr-3"}>
                                     <div className={"sm:hidden px-3 py-3 border-b-[1px] border-gray-300 flex flex-col"}>
                                         <span className={"text-2xl lg:text-xl font-semibold"}>

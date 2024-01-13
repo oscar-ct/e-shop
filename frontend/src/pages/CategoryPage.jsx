@@ -8,6 +8,7 @@ import {ReactComponent as Arrow} from "../icons/arrow_back.svg";
 import SelectMenuSort from "../components/SelectMenuSort";
 import SelectMenuCategory from "../components/SelectMenuCategory";
 import {useEffect, useState} from "react";
+import BackButton from "../components/BackButton";
 
 const CategoryPage = () => {
 
@@ -69,13 +70,15 @@ const CategoryPage = () => {
                 {
                     data.products.length !== 0 && (
                         <div className={"pb-10"}>
-                            <div className={"flex justify-between"}>
-                                <Link className={"px-2 md:px-0 my-5 flex items-center w-min"} to={"/"}>
-                                    <Arrow className={"w-5 h-5"}/>
-                                    <span className={"pl-1 font-base"}>
-                                        HOME
-                                    </span>
-                                </Link>
+                            <BackButton/>
+                            <div className={"pt-14 lg:pt-0 flex justify-between"}>
+                                {/*<Link className={"px-2 md:px-0 my-5 flex items-center w-min"} to={"/"}>*/}
+                                {/*    <Arrow className={"w-5 h-5"}/>*/}
+                                    {/*<span className={"pl-1 font-base"}>*/}
+                                    {/*    HOME*/}
+                                    {/*</span>*/}
+
+                                {/*</Link>*/}
                                 <div className={"w-max m-2 flex items-center"}>
                                     <div className={"flex flex-col lg:flex-row"}>
                                         <div className={"lg:pr-5 flex justify-between items-center"}>
