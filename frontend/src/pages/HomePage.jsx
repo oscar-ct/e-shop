@@ -7,7 +7,7 @@ import Paginate from "../components/Paginate";
 import {useEffect, useRef, useState} from "react";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
-import {motion} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import Footer from "../components/Footer";
 import CategoryItem from "../components/CategoryItem";
 import {FaChevronDown} from "react-icons/fa";
@@ -75,6 +75,7 @@ const HomePage = () => {
                 ) : (
                     <>
                         <Meta title={"Home"} description={'Welcome to e-shop!'}/>
+                        <AnimatePresence>
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -85,6 +86,7 @@ const HomePage = () => {
                             <HomePageLatestProducts scrollTo={scrollTo} data={data} windowInnerWidth={windowInnerWidth}/>
                             <Footer/>
                         </motion.div>
+                        </AnimatePresence>
                     </>
                 )
             }

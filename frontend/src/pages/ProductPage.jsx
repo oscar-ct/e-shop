@@ -23,7 +23,7 @@ import {toast} from "react-hot-toast";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import ProductItem from "../components/ProductItem";
-import {motion} from "framer-motion";
+import {AnimatePresence, motion} from "framer-motion";
 import {FaTrash} from "react-icons/fa";
 import ConfirmModal from "../components/ConfirmModal";
 
@@ -133,6 +133,7 @@ const ProductPage = () => {
                     <>
                         <Meta title={product.name}/>
                         <BackButton/>
+                        <AnimatePresence>
                         <motion.div
                             initial={{ opacity: 0 }}
                             animate={{ opacity: 1 }}
@@ -442,6 +443,7 @@ const ProductPage = () => {
                                 </div>
                             </div>
                         </motion.div>
+                        </AnimatePresence>
                     </>
                 )
             }
