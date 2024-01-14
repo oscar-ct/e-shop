@@ -23,7 +23,7 @@ import {toast} from "react-hot-toast";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import ProductItem from "../components/ProductItem";
-import {AnimatePresence, motion} from "framer-motion";
+// import {AnimatePresence, motion} from "framer-motion";
 import {FaTrash} from "react-icons/fa";
 import ConfirmModal from "../components/ConfirmModal";
 
@@ -133,13 +133,12 @@ const ProductPage = () => {
                     <>
                         <Meta title={product.name}/>
                         <BackButton/>
-                        <AnimatePresence>
-                        <motion.div
-                            initial={{ opacity: 0 }}
-                            animate={{ opacity: 1 }}
-                            exit={{ opacity: 0 }}
-                            className={"flex flex-col"}
-                        >
+                        {/*<motion.div*/}
+                        {/*    initial={{ opacity: 0 }}*/}
+                        {/*    animate={{ opacity: 1 }}*/}
+                        {/*    exit={{ opacity: 0 }}*/}
+                        {/*    className={"flex flex-col"}*/}
+                        {/*>*/}
                             <div className={"pt-14 lg:pt-0 flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col lg:pr-3"}>
                                     <div className={"sm:hidden px-3 py-3 border-b-[1px] border-gray-300 flex flex-col"}>
@@ -442,8 +441,7 @@ const ProductPage = () => {
                                     </div>
                                 </div>
                             </div>
-                        </motion.div>
-                        </AnimatePresence>
+                        {/*</motion.div>*/}
                     </>
                 )
             }
