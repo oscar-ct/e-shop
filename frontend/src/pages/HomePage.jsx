@@ -7,7 +7,6 @@ import Paginate from "../components/Paginate";
 import {useEffect, useRef, useState} from "react";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
-import {motion} from "framer-motion";
 import Footer from "../components/Footer";
 import CategoryItem from "../components/CategoryItem";
 import {FaChevronDown} from "react-icons/fa";
@@ -22,9 +21,6 @@ const HomePage = () => {
 
     // products query
     const { data, isLoading, error } = useGetProductsQuery({pageNumber});
-    console.log(data);
-    // console.log(pageNumber);
-    // console.log(error)
 
     // products by category query
     const { data: productCategories, isLoading: loadingCategories, error: errorCategories } = useGetProductsByCategoryQuery();
@@ -75,16 +71,10 @@ const HomePage = () => {
                 ) : (
                     <>
                         <Meta title={"Home"} description={'Welcome to e-shop!'}/>
-                            <motion.div
-                                initial={{ opacity: 0 }}
-                                animate={{ opacity: 1 }}
-                                exit={{ opacity: 0 }}
-                            >
-                                <HomePageIntro/>
-                            </motion.div>
-                            <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
-                            <HomePageLatestProducts scrollTo={scrollTo} data={data} windowInnerWidth={windowInnerWidth}/>
-                            <Footer/>
+                        <HomePageIntro/>
+                        <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
+                        <HomePageLatestProducts scrollTo={scrollTo} data={data} windowInnerWidth={windowInnerWidth}/>
+                        <Footer/>
                     </>
                 )
             }
