@@ -44,7 +44,7 @@ const HomePage = () => {
     useEffect( () => {
         const executeScroll = () => {
             if (scrollTo) {
-                var headerOffset = 70;
+                var headerOffset = 80;
                 var elementPosition = scrollTo.current.getBoundingClientRect().top;
                 var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
                 window.scrollTo({
