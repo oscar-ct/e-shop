@@ -115,6 +115,19 @@ code {
   animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1);
 }
 
+.fadeInEffect {
+  animation: fadeIn 350ms ease-in forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 100%;
+  }
+}
+
 @keyframes pulse {
   0%, 100% {
     opacity: 1;
