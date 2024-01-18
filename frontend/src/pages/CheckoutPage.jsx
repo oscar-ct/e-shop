@@ -107,8 +107,8 @@ const CheckoutPage = () => {
                                 <div className={"pb-5"}>
                                     <h1
                                         // style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"border-b-[1px] border-gray-300 py-2 rounded-xl text-2xl text-center font-semibold"}>
-                                        Order Review (
+                                        className={"border-b-[1px] border-gray-300 py-2 text-2xl text-center font-semibold"}>
+                                         Order Review (
                                         <span className={"text-xl text-gray-500 font-bold"}>
                                             {totalNumberOfItems}
                                         {
@@ -174,7 +174,7 @@ const CheckoutPage = () => {
 
                                 <div className={"py-5"}>
                                     <h3 className={"font-semibold"}>
-                                        Review Item(s):
+                                        Order Item(s):
                                     </h3>
                                     <div>
                                         {
@@ -192,6 +192,9 @@ const CheckoutPage = () => {
                             <div className={"p-3 pt-5 lg:pl-10 lg:w-5/12"}>
                                 <div className="card bg-white shadow-xl">
                                     <div className="pt-8 px-8">
+                                        <div className={"italic text-xs pb-5"}>
+                                            Please note: once the order is submitted; order items, address, and payment method cannot be modified.
+                                        </div>
                                         <div className="card-actions justify-center">
                                             <button
                                                 onClick={checkoutHandler}
