@@ -19,7 +19,7 @@ const HomePageIntro = () => {
                 <div className={"absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
                     <Logo className={"pt-28 w-[10em]"}/>
                     <span className={"pt-12 text-3xl font-semibold"}>Shop, Ship, & Enjoy.</span>
-                    <div className={"pt-20"}>
+                    <div className={"pt-20 z-10"}>
                         <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>
                             Get Started
                         </Link>
