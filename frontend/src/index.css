@@ -116,7 +116,7 @@ code {
 }
 
 .fadeInEffect {
-  animation: fadeIn 350ms ease-in forwards;
+  animation: fadeIn 650ms ease-in forwards;
 }
 
 @keyframes fadeIn {
