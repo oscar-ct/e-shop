@@ -292,7 +292,7 @@ const Navbar = () => {
             </nav>
             {/*/////// mobile nav ///////*/}
             <nav>
-                <div ref={documentRef3} className={`z-10 backdrop-blur-md shadow-2xl fixed left-0 w-full py-6  lg:hidden h-[calc(100vh-80px)]`} style={openNav ? styles.active : styles.hidden2}>
+                <div ref={documentRef3} className={`z-10 backdrop-blur-2xl fixed left-0 w-full py-6  lg:hidden h-screen`} style={openNav ? styles.active : styles.hidden2}>
                     <div className={"flex flex-col justify-start h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
                             <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
@@ -303,6 +303,7 @@ const Navbar = () => {
                             <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                 <Link onClick={() => setOpenNav(!openNav)} to={"/cart"} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                     My Cart
+
                                 </Link>
                             </li>
                             {/*<li onClick={() => setOpenNav(!openNav)} className="sm:hidden flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">*/}
@@ -319,6 +320,7 @@ const Navbar = () => {
                             {/*        <span className={"normal-case"}/>*/}
                             {/*    </Link>*/}
                             {/*</li>*/}
+
                             {
                                 userData && (
                                     <>
