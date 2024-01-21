@@ -72,10 +72,15 @@ const HomePageIntro = () => {
                             >
                                 <SwiperSlide>
                                     <div
-                                        style={{backgroundImage: `url(/images/ian-dooley-hpTH5b6mo2s-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover",}}
+                                        style={{backgroundImage: `url(/images/bg.png)`, backgroundPosition: "center", backgroundSize: "cover",}}
                                         className={"h-[32em]"}
                                     >
-                                        <div className={"w-full h-full flex items-center justify-center"}>
+                                    {/*<div*/}
+                                    {/*    style={{backgroundImage: `url(/images/ian-dooley-hpTH5b6mo2s-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover",}}*/}
+                                    {/*    className={"h-[32em]"}*/}
+                                    {/*>*/}
+                                        <div className={"w-full h-full flex flex-col items-center justify-center"}>
+                                            <Logo className={"py-20 w-[10em]"}/>
                                             <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-sm"}>
                                                 Get Started
                                             </Link>
