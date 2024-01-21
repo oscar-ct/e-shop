@@ -7,7 +7,7 @@ const Footer = () => {
         <footer className="footer p-10 bg-neutral text-neutral-content rounded-tr-xl rounded-tl-xl">
             <div>
                 <Link to={"/"}><Logo fill={"white"} width={36}/></Link>
-                <p>Designed and developed by Oscar Castro</p>
+                <p>Designed and developed by <a aria-label="portfolio" href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer" className={"link"}>Oscar Castro</a></p>
             </div>
             <div className={"w-full flex justify-between"}>
                 <div>
