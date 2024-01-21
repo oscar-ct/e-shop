@@ -36,9 +36,11 @@ const CartPage = () => {
                 cartItems.length === 0 ? (
                     <div className={"px-2"}>
                         <BackButton/>
-                        <Message variant={"info"}>
-                            You have no items in your cart.  Click <Link to={"/"} className={"link link-primary"}>here</Link> to continue shopping.
-                        </Message>
+                        <div className={"lg:pt-4 pt-20 px-2"}>
+                            <Message variant={"info"}>
+                                You have no items in your cart.  Click <Link to={"/"} className={"link link-primary"}>here</Link> to continue shopping.
+                            </Message>
+                        </div>
                     </div>
                 ) : (
                     <>
