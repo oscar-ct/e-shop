@@ -89,7 +89,7 @@ const RegisterPage = () => {
                     <div className="sm:mt-10 mb-10 w-full flex justify-center self-center">
                         <div className="bg-white shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
                             <div className="mb-4">
-                                <h3 className="font-semibold text-2xl">Create an account
+                                <h3 className="font-bold text-2xl">Create an account
                                 </h3>
                                 <p className="text-gray-500">It&apos;s quick and easy
                                 </p>
@@ -102,8 +102,8 @@ const RegisterPage = () => {
                                         className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"name"}
                                         type={"name"}
-                                        placeholder={"John Doe"}
                                         id={"name"}
+                                        placeholder={"John Doe"}
                                         value={name}
                                         onChange={onCredentialChange}
                                         required
@@ -116,7 +116,7 @@ const RegisterPage = () => {
                                         className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
                                         autoComplete={"email"}
                                         type={"email"}
-                                        placeholder={"mail@hotmail.com"}
+                                        placeholder={"mail@gmail.com"}
                                         id={"email"}
                                         value={email}
                                         onChange={onCredentialChange}
@@ -181,7 +181,7 @@ const RegisterPage = () => {
 
                                 <div className={"flex justify-center"}>
                                     <button type="submit" className="btn rounded-xl btn-wide">
-                                       Sign up
+                                       Create Account
                                     </button>
                                 </div>
                             </form>
