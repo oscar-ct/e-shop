@@ -99,9 +99,9 @@ const ProductPage = () => {
                         </Message>
                     </div>
                 ) : !isLoading && fullScreen ? (
-                    <div className={"z-10 h-max bg-black absolute top-0 right-0 left-0 bottom-0"}>
+                    <div className={"z-30 h-max bg-black absolute top-0 right-0 left-0 bottom-0"}>
                         <div className={"relative"}>
-                            <button onClick={() => setFullScreen(false)} className={"z-10 hover:text-blue-500 btn-glass btn-lg text-2xl text-white absolute top-5 right-5"}>
+                            <button onClick={() => setFullScreen(false)} className={"z-10 hover:text-blue-500 rounded-full bg-black/50 p-3 text-2xl text-white absolute top-5 right-5"}>
                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-7" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                     <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                 </svg>
