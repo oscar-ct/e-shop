@@ -6,8 +6,6 @@ const BackButton = () => {
         <div className={"fixed lg:relative z-10 lg:z-0 pt-3 pl-3"}>
             <Link className={"p-3 bg-black/50 rounded-full flex items-center w-min"} to={-1}>
                 <Arrow fill={"white"} className={"w-6 h-6"}/>
-                <span className={"pl-1 font-base"}>
-                </span>
             </Link>
         </div>
     );
