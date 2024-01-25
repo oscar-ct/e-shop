@@ -95,11 +95,11 @@ const ShippingPage = () => {
             <Meta title={"Shipping Address"}/>
             <CheckoutSteps step2 />
             <div className={"pt-3 sm:pt-0 w-full flex justify-center"}>
-                <div className={"mb-10 card p-10 w-[35em] bg-white shadow-xl"}>
-                    <div className={"w-full pb-5 flex justify-center"}>
-                        <h1 className={"text-2xl font-semibold"}>Shipping Address</h1>
+                <div className={"mb-10 pt-7 w-[35em]"}>
+                    <div className={"py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
+                        <h1>Shipping Address</h1>
                     </div>
-
+                    <div className={"px-10 pb-10 pt-5 border"}>
                     {
                         useNewAddress ? (
                             <form onSubmit={submitShippingData} className="space-y-5">
@@ -107,7 +107,7 @@ const ShippingPage = () => {
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Address
                                     </label>
                                     <input
-                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
                                         autoComplete={"address"}
                                         type={"text"}
                                         placeholder={"600 Navarro St #300"}
@@ -121,7 +121,7 @@ const ShippingPage = () => {
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">City
                                     </label>
                                     <input
-                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
                                         autoComplete={"city"}
                                         type={"text"}
                                         placeholder={"San Antonio"}
@@ -137,7 +137,7 @@ const ShippingPage = () => {
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">State
                                             </label>
                                             <input
-                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
                                                 autoComplete={"state"}
                                                 type={"text"}
                                                 placeholder={"Texas"}
@@ -151,7 +151,7 @@ const ShippingPage = () => {
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">Postal Code
                                             </label>
                                             <input
-                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
                                                 autoComplete={"postalCode"}
                                                 type={"text"}
                                                 placeholder={"78205"}
@@ -167,7 +167,7 @@ const ShippingPage = () => {
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Country
                                     </label>
                                     <input
-                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
                                         autoComplete={"country"}
                                         type={"text"}
                                         placeholder={"United States"}
@@ -181,13 +181,13 @@ const ShippingPage = () => {
                                     {
                                         userData.shippingAddresses?.length !== 0 && (
                                             <div className={"py-3 w-6/12 flex items-center"}>
-                                                <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-start link link-primary"}>Use Saved Address</span>
+                                                <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-start link link-primary"}>Use Saved Address</span>
                                             </div>
                                         )
                                     }
 
                                     <label className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
-                                        <span className="label-text pr-1 ">Save this address</span>
+                                        <span className="text-sm pr-2">Save this address</span>
                                         <input type="checkbox" checked={savePaymentData} onChange={() => setSavePaymentData(prevState => !prevState)} className="checkbox checkbox-primary" />
                                     </label>
                                 </div>
@@ -228,7 +228,7 @@ const ShippingPage = () => {
                                     })
                                 }
                                 <div className={"py-3"}>
-                                    <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-end link link-primary"}>Use New Address</span>
+                                    <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-end link link-primary"}>Use New Address</span>
                                 </div>
                                 <div className={"pt-5 w-full flex justify-end"}>
                                     <button
@@ -240,6 +240,7 @@ const ShippingPage = () => {
                             </form>
                         )
                     }
+                    </div>
                 </div>
             </div>
         </>

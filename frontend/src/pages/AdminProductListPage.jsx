@@ -312,21 +312,28 @@ const AdminProductListPage = () => {
             <>
                 <Meta title={"Product List"}/>
                 <div className={"py-10"}>
-                    <AdminTabs/>
-                    <div className={"mt-5 card bg-white shadow-xl"}>
-                        <div className={"w-full px-5 flex justify-center py-5"}>
-                            <div className={"text-2xl"}>
+                    <div className={"flex justify-center"}>
+                        <div className={"flex justify-end"}>
+                        <AdminTabs/>
+                        <button
+                            onClick={() => navigate("/admin/products/create")}
+                            className={"absolute translate-x-24 bg-black/50 p-3 rounded-full text-white text-sm"}
+                        >
+                            <FaPlus/>
+                        </button>
+                        </div>
+                    </div>
+
+
+                    <div className={"mt-5 bg-white"}>
+                        <div className={"w-full py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
+                            <div>
                                 Products ({localData.length})
-                                <button
-                                    onClick={() => navigate("/admin/products/create")}
-                                    className={"absolute right-6 self-end btn btn-info btn-sm"}
-                                >
-                                    <FaPlus/>
-                                </button>
+
                             </div>
 
                         </div>
-                        <div className="overflow-x-auto p-5">
+                        <div className="overflow-x-auto p-5 border">
                             <table className="table table-zebra table-xs lg:w-full w-[984px]">
                                 <thead>
                                 <tr>
@@ -487,7 +494,7 @@ const AdminProductListPage = () => {
                         </div>
 
 
-                        <div className={"pt-4 lg:pt-0 pb-8 flex justify-center"}>
+                        <div className={"pt-4 pb-8 flex justify-center"}>
                             <div className={"join"}>
                                 <Paginate pages={data.pages} page={data.page} isAdmin={true} filterTerm={filterTerm} sortByTerm={sortByTerm}/>
                             </div>

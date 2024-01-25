@@ -211,14 +211,14 @@ const AdminOrderListPage = () => {
                 <Meta title={"Order List"}/>
                 <div className={"py-10"}>
                     <AdminTabs/>
-                    <div className={"mt-5 card bg-white shadow-xl"}>
-                        <div className={"w-full px-5 flex justify-center pt-5"}>
-                            <div className={" text-2xl text-center"}>
+                    <div className={"mt-5 bg-white"}>
+                        <div className={"w-full py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
+                            <div>
                                 Orders ({localData.length})
                             </div>
 
                         </div>
-                        <div className="overflow-x-auto px-5 py-10">
+                        <div className="overflow-x-auto px-5 py-10 border">
                             <table className="table table-zebra w-fit lg:w-full table-xs">
                                 <thead>
                                 <tr>

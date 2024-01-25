@@ -185,7 +185,7 @@ const OrderPage = () => {
 
                         </div>
                         <div className={"md:pb-10 lg:pt-5 flex-col flex lg:flex-row w-full"}>
-                            <div className={"lg:w-7/12 card bg-white shadow-xl h-min p-4 sm:p-7"}>
+                            <div className={"lg:w-7/12 bg-white border h-min p-4 sm:p-7"}>
                                 <div className={"pb-7"}>
                                     <h1 className={"text-2xl font-semibold text-center"}>
                                         Order # {order._id}
@@ -412,7 +412,7 @@ const OrderPage = () => {
                                 </div>
                             </div>
 
-                            <div className={"p-3 lg:pl-10 lg:w-5/12"}>
+                            <div className={"px-3 pb-5 lg:pl-10 lg:w-5/12"}>
 
                             {
                                 !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
@@ -447,7 +447,7 @@ const OrderPage = () => {
                                 <div className={"flex flex-col"}>
                                     {
                                         totalNumberOfItems - totalNumberOfCanceledItems !== 0 && (
-                                            <div className="card bg-white shadow-xl">
+                                            <div className="bg-white border">
                                                 <div className="pt-8 px-8">
                                                     <div className={"flex flex-col"}>
                                                         <h3 className={"text-xl font-bold"}>

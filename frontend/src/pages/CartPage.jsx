@@ -67,13 +67,13 @@ const CartPage = () => {
                                 )
                             }
                             </div>
-                            <div className={"lg:mb-10 lg:w-8/12 card bg-white shadow-xl h-min p-4 sm:p-7"}>
-                                <div className={"pb-10"}>
+                            <div className={"lg:mb-10 lg:w-8/12 bg-white h-min"}>
+                                <div className={"pt-4 sm:pt-7"}>
                                     <h1
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"border-b-[1px] border-gray-300 py-2 rounded-xl text-2xl text-center font-semibold"}>
+                                        className={"py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
                                          Shopping Cart (
-                                        <span className={"text-xl text-gray-500 font-bold"}>
+                                        <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
                                             {totalNumberOfItems}
                                             {
                                                 totalNumberOfItems === 1 ? (
@@ -86,16 +86,17 @@ const CartPage = () => {
                                         )
                                     </h1>
                                 </div>
-                                {
-                                    cartItems.map(function (item) {
-                                        return (
-                                            <CartItem item={item} key={item._id}/>
-                                        )
-                                    })
-                                }
-
+                                <div className={"border pt-10 px-4 sm:px-7 pb-4 sm:pb-7"}>
+                                    {
+                                        cartItems.map(function (item) {
+                                            return (
+                                                <CartItem item={item} key={item._id}/>
+                                            )
+                                        })
+                                    }
+                                </div>
                             </div>
-                            <div className={"px-3 lg:pl-10 lg:w-4/12"}>
+                            <div className={"lg:pt-7 px-4 w-96 place-self-end lg:place-self-start lg:pl-10 lg:w-4/12"}>
                                 <div className={"hidden lg:flex"}>
                                     {
                                         totalPrice > 100 ? (
@@ -117,14 +118,15 @@ const CartPage = () => {
                                         )
                                     }
                                 </div>
-                                <div className="mt-5 mb-10 lg:my-0 card lg:w-full shadow-xl bg-white self-end">
+                                <div className="my-10 lg:my-0 lg:w-full border bg-white self-end">
                                     <div className="px-8 py-5">
                                         <div className={"flex flex-col"}>
                                             <h3 className={"text-lg"}>
-                                                Subtotal ({totalNumberOfItems})
+                                                Subtotal ({totalNumberOfItems}
                                                 {
-                                                    totalNumberOfItems > 1 ? (" items:") : (" item:")
+                                                    totalNumberOfItems > 1 ? (" Items") : (" Item")
                                                 }
+                                                )
                                             </h3>
                                             <div className={"border-b-[1px] border-gray-300 my-2"}/>
                                             <div className={"flex justify-end"}>

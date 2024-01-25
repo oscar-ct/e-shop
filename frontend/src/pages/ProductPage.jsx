@@ -139,7 +139,7 @@ const ProductPage = () => {
                             exit={{ opacity: 0 }}
                             className={"flex flex-col"}
                         >
-                            <div className={"pt-14 lg:pt-0 flex flex-col lg:flex-row"}>
+                            <div className={"pt-14 sm:pt-20 lg:pt-4 flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col lg:pr-3"}>
                                     <div className={"sm:hidden px-3 py-3 border-b-[1px] border-gray-300 flex flex-col"}>
                                         <span className={"text-2xl lg:text-xl font-semibold"}>
@@ -150,7 +150,7 @@ const ProductPage = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-white shadow-xl rounded-xl px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
+                                    <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-white border px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
                                         <div className={"flex flex-col lg:w-6/12"}>
                                             <div className={"w-full flex justify-center rounded-xl bg-zinc-100/20 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
                                                 <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl cursor-pointer rounded-sm object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
@@ -225,7 +225,7 @@ const ProductPage = () => {
 
                                 <div className={"pt-10 lg:pt-0 lg:w-3/12 lg:pl-3"}>
                                     <div
-                                        className={"rounded-xl h-full p-7 text-lg lg:text-sm bg-white shadow-xl border-[1px] border-gray-300 mx-6 sm:mx-0 sm:border-none"}
+                                        className={"h-full p-7 text-lg lg:text-sm bg-white border mx-6 sm:mx-0"}
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,228,253,1) 175%)"}}
                                     >
                                         <div className={"py-2 sm:hidden"}>Buy Now</div>
@@ -256,7 +256,7 @@ const ProductPage = () => {
                                         </div>
                                         <div className={"flex py-3 text-sm text-gray-500"}>
                                             <span className={"w-4/12  font-semibold text-start"}>Sold By:</span>
-                                            <span className={"w-8/12 text-start"}>Admin</span>
+                                            <span className={"w-8/12 text-start"}>Oscar</span>
                                         </div>
                                         <div className={"w-full flex flex-col justify-between pt-3"} >
                                             <div className={"flex pb-5"}>
@@ -297,7 +297,7 @@ const ProductPage = () => {
                             <div ref={scrollTo} className={"w-full"}>
                                 <div id="reviews" className={"pt-10 lg:pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start h-[27em]"}>
                                     <div className={"w-full lg:w-6/12 lg:pr-3"}>
-                                        <div className={"h-full bg-white shadow-xl rounded-xl overflow-x-auto"}>
+                                        <div className={"h-full bg-white border overflow-x-auto"}>
                                             <div className={"p-5 lg:p-8 h-full"}>
                                                 <div className={`${product.reviews.length !== 0 ? "pb-6 border-b-[1px] border-gray-300" : "pb-0"} flex justify-between items-center`}>
                                                     {
@@ -310,11 +310,11 @@ const ProductPage = () => {
 
                                                     {
                                                         userData ? (
-                                                            <button onClick={() =>  window.review_modal.showModal()} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase hover:bg-neutral/20 text-center"}>
+                                                            <button onClick={() =>  window.review_modal.showModal()} className={"p-3 rounded-md bg-neutral/10 text-xs uppercase hover:bg-neutral/20 text-center"}>
                                                                 Write a review
                                                             </button>
                                                         ) : (
-                                                            <Link to={"/login"} className={"p-3 rounded-lg bg-neutral/10 text-xs uppercase hover:bg-neutral/20 text-center"}>
+                                                            <Link to={"/login"} className={"p-3 rounded-md bg-neutral/10 text-xs uppercase hover:bg-neutral/20 text-center"}>
                                                                 Write a review
                                                             </Link>
                                                         )
@@ -424,7 +424,7 @@ const ProductPage = () => {
 
 
                                     <div className={"w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3"}>
-                                        <div className={"h-full bg-white shadow-xl rounded-xl flex flex-col"}>
+                                        <div className={"h-full bg-white border flex flex-col"}>
                                             <div className={"sticky pt-5 lg:pt-8 px-5 lg:px-8"}>
                                                 <h2 className={"text-xl font-semibold"}>You might also like</h2>
                                             </div>

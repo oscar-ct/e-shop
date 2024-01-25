@@ -17,7 +17,7 @@ const CheckoutSteps = ({ step1, step2, step3 }) => {
             {
                 step1 ? (
                     <div className={"steps w-full"}>
-                        <Link to={"/cart"} className="step step-primary">{step1name}</Link>
+                        <Link to={"/cart"} className="step step-primary md:step-neutral">{step1name}</Link>
                         {
                             cartItems.length !== 0 ? (
                                 <Link to={"/shipping"} className="step">{step2name}</Link>
@@ -42,12 +42,12 @@ const CheckoutSteps = ({ step1, step2, step3 }) => {
                     </div>
                 ) : step2 ? (
                     <div className={"steps w-full"}>
-                        <Link to={"/cart"} className="step step-primary">{step1name}</Link>
+                        <Link to={"/cart"} className="step step-primary md:step-neutral">{step1name}</Link>
                         {
                             cartItems.length !== 0 ? (
-                                <Link to={"/shipping"} className="step step-primary">{step2name}</Link>
+                                <Link to={"/shipping"} className="step step-primary md:step-neutral">{step2name}</Link>
                             ) : (
-                                <button className="step step-primary">{step2name}</button>
+                                <button className="step step-primary md:step-neutral">{step2name}</button>
                             )
                         }
                         {
@@ -67,9 +67,9 @@ const CheckoutSteps = ({ step1, step2, step3 }) => {
                     </div>
                 ) : step3 ?  (
                     <div className={"steps w-full"}>
-                        <Link to={"/cart"} className="step step-primary">{step1name}</Link>
-                        <Link to={"/shipping"} className="step step-primary">{step2name}</Link>
-                        <Link to={"/payment"} className="step step-primary">{step3name}</Link>
+                        <Link to={"/cart"} className="step step-primary md:step-neutral">{step1name}</Link>
+                        <Link to={"/shipping"} className="step step-primary md:step-neutral">{step2name}</Link>
+                        <Link to={"/payment"} className="step step-primary md:step-neutral">{step3name}</Link>
                         {
                             paymentMethod ? (
                                 <Link to={"/submitorder"} className="step">{step4name}</Link>
@@ -80,10 +80,10 @@ const CheckoutSteps = ({ step1, step2, step3 }) => {
                     </div>
                 ) : (
                     <div className={"steps w-full"}>
-                        <Link to={"/cart"} className="step step-primary">{step1name}</Link>
-                        <Link to={"/shipping"} className="step step-primary">{step2name}</Link>
-                        <Link to={"/payment"} className="step step-primary">{step3name}</Link>
-                        <Link to={"/submitorder"} className="step step-primary">{step4name}</Link>
+                        <Link to={"/cart"} className="step step-primary md:step-neutral">{step1name}</Link>
+                        <Link to={"/shipping"} className="step step-primary md:step-neutral">{step2name}</Link>
+                        <Link to={"/payment"} className="step step-primary md:step-neutral">{step3name}</Link>
+                        <Link to={"/submitorder"} className="step step-primary md:step-neutral">{step4name}</Link>
                     </div>
                 )
             }

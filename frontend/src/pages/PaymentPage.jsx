@@ -41,73 +41,75 @@ const PaymentPage = () => {
             <Meta title={"Payment Method"}/>
             <CheckoutSteps step3 />
             <div className={"pt-3 sm:pt-0 w-full flex justify-center"}>
-                <div className={"mb-10 card p-10 w-[35em] bg-white shadow-xl"}>
-                    <div className={"w-full pb-5 flex justify-center"}>
-                        <h1 className={"text-2xl font-semibold"}>Payment Methods</h1>
+                <div className={"mb-10 pt-7 w-[35em]"}>
+                    <div className={"py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
+                        <h1>Payment Methods</h1>
                     </div>
-                    <form onSubmit={submitPaymentMethod}>
-                        <div className="my-5">
-                            <div
-                                className={"w-full card bg-zinc-100 cursor-pointer"}
-                                onClick={() => setPaymentMeth("PayPal")}
-                            >
-                                <div className={"w-full flex p-6"}>
-                                    <div className={"w-2/12"}>
-                                      <PayPal width={"30"} height={"38"}/>
-                                    </div>
-                                    <div className={"w-8/12 flex  items-center"}>
-                                        <span className={"text-lg"}>
-                                            PayPal / Credit Card
-                                        </span>
-                                    </div>
-                                    <div className={"w-2/12 flex items-center"}>
-                                        <input
-                                            onChange={(e) => setPaymentMeth(e.target.value)}
-                                            type="radio"
-                                            name="paymentMethod"
-                                            id={"PayPal"}
-                                            value={"PayPal"}
-                                            className="radio radio-primary"
-                                            checked={paymentMeth === "PayPal"}
-                                        />
+                    <div className={"px-10 pb-10 pt-5 border"}>
+                        <form onSubmit={submitPaymentMethod}>
+                            <div className="my-5">
+                                <div
+                                    className={"w-full card bg-zinc-100 cursor-pointer"}
+                                    onClick={() => setPaymentMeth("PayPal")}
+                                >
+                                    <div className={"w-full flex p-6"}>
+                                        <div className={"w-2/12"}>
+                                          <PayPal width={"30"} height={"38"}/>
+                                        </div>
+                                        <div className={"w-8/12 flex  items-center"}>
+                                            <span className={"text-lg"}>
+                                                PayPal / Credit Card
+                                            </span>
+                                        </div>
+                                        <div className={"w-2/12 flex items-center"}>
+                                            <input
+                                                onChange={(e) => setPaymentMeth(e.target.value)}
+                                                type="radio"
+                                                name="paymentMethod"
+                                                id={"PayPal"}
+                                                value={"PayPal"}
+                                                className="radio radio-primary"
+                                                checked={paymentMeth === "PayPal"}
+                                            />
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                        {/*<div className="my-5">*/}
-                        {/*    <div*/}
-                        {/*        className={"w-full card bg-base-200 cursor-pointer"}*/}
-                        {/*        onClick={() => setPaymentMeth("CreditCard")}*/}
-                        {/*    >*/}
-                        {/*        <div className={"w-full flex p-6"}>*/}
-                        {/*            <div className={"w-2/12"}>*/}
-                        {/*                <FaCreditCard className={"text-3xl"}/>*/}
-                        {/*            </div>*/}
-                        {/*            <div className={"w-8/12 flex  items-center"}>*/}
-                        {/*                <span className={"text-lg"}>*/}
-                        {/*                    Credit Card*/}
-                        {/*                </span>*/}
-                        {/*            </div>*/}
-                        {/*            <div className={"w-2/12 flex items-center"}>*/}
-                        {/*                <input*/}
-                        {/*                    onChange={(e) => setPaymentMeth(e.target.value)}*/}
-                        {/*                    type="radio"*/}
-                        {/*                    name="paymentMethod"*/}
-                        {/*                    id={"CreditCard"}*/}
-                        {/*                    value={"CreditCard"}*/}
-                        {/*                    className="radio radio-primary"*/}
-                        {/*                    checked={paymentMeth === "CreditCard"}*/}
-                        {/*                />*/}
-                        {/*            </div>*/}
-                        {/*        </div>*/}
-                        {/*    </div>*/}
-                        {/*</div>*/}
-                        <div className={"pt-5 w-full flex justify-end"}>
-                            <button className={`${paymentMeth && "shadow-blue"} btn btn-primary btn-wide rounded-xl`} disabled={paymentMeth === null}>
-                                Continue To Order Review
-                            </button>
-                        </div>
-                    </form>
+                            {/*<div className="my-5">*/}
+                            {/*    <div*/}
+                            {/*        className={"w-full card bg-base-200 cursor-pointer"}*/}
+                            {/*        onClick={() => setPaymentMeth("CreditCard")}*/}
+                            {/*    >*/}
+                            {/*        <div className={"w-full flex p-6"}>*/}
+                            {/*            <div className={"w-2/12"}>*/}
+                            {/*                <FaCreditCard className={"text-3xl"}/>*/}
+                            {/*            </div>*/}
+                            {/*            <div className={"w-8/12 flex  items-center"}>*/}
+                            {/*                <span className={"text-lg"}>*/}
+                            {/*                    Credit Card*/}
+                            {/*                </span>*/}
+                            {/*            </div>*/}
+                            {/*            <div className={"w-2/12 flex items-center"}>*/}
+                            {/*                <input*/}
+                            {/*                    onChange={(e) => setPaymentMeth(e.target.value)}*/}
+                            {/*                    type="radio"*/}
+                            {/*                    name="paymentMethod"*/}
+                            {/*                    id={"CreditCard"}*/}
+                            {/*                    value={"CreditCard"}*/}
+                            {/*                    className="radio radio-primary"*/}
+                            {/*                    checked={paymentMeth === "CreditCard"}*/}
+                            {/*                />*/}
+                            {/*            </div>*/}
+                            {/*        </div>*/}
+                            {/*    </div>*/}
+                            {/*</div>*/}
+                            <div className={"pt-5 w-full flex justify-end"}>
+                                <button className={`${paymentMeth && "shadow-blue"} btn btn-primary btn-wide rounded-xl`} disabled={paymentMeth === null}>
+                                    Continue To Order Review
+                                </button>
+                            </div>
+                        </form>
+                    </div>
                 </div>
             </div>
         </>

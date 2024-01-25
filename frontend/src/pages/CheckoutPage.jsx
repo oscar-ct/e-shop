@@ -103,13 +103,13 @@ const CheckoutPage = () => {
                     <div>
                         <CheckoutSteps/>
                         <div className={"pt-3 sm:pt-0 mb-10 flex-col flex lg:flex-row w-full"}>
-                            <div className={"lg:w-7/12 card bg-white shadow-xl h-min p-4 sm:p-7"}>
-                                <div className={"pb-5"}>
+                            <div className={"lg:w-7/12 card bg-white h-min"}>
+                                <div className={"pt-7"}>
                                     <h1
                                         // style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"border-b-[1px] border-gray-300 py-2 text-2xl text-center font-semibold"}>
-                                         Order Review (
-                                        <span className={"text-xl text-gray-500 font-bold"}>
+                                        className={"py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
+                                         Order (
+                                        <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
                                             {totalNumberOfItems}
                                         {
                                             totalNumberOfItems === 1 ? (
@@ -121,76 +121,78 @@ const CheckoutPage = () => {
                                         </span>)
                                     </h1>
                                 </div>
-                                <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-5/12 lg:w-4/12"}>
-                                        <h3 className={"font-semibold"}>
-                                            Ship To:
-                                        </h3>
-                                    </div>
-                                    <div className={"w-7/12 lg:w-8/12"}>
-                                        <div className={"flex flex-col text-sm"}>
-                                        <span>
-                                            {userData.name}
-                                        </span>
-                                            <span>
-                                            {shippingAddress.address}
-                                        </span>
-                                            <span>
-                                            {shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}
-                                        </span>
-                                            <span>
-                                            {shippingAddress.country}
-                                        </span>
+                                <div className={"border px-4 sm:px-7 py-4"}>
+                                    <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                        <div className={"w-5/12 lg:w-4/12"}>
+                                            <h3 className={"font-semibold"}>
+                                                Ship To:
+                                            </h3>
                                         </div>
-                                    </div>
-                                </div>
-
-
-                                <div className={"flex border-b-[1px] border-gray-300 py-5"}>
-                                    <div className={"w-5/12 lg:w-4/12"}>
-                                        <h3 className={"font-semibold"}>
-                                            Payment Method:
-                                        </h3>
-                                    </div>
-                                    <div className={"w-7/12 lg:w-8/12"}>
-                                        <div className={"flex items-center text-sm"}>
-                                            <div>
-                                                {
-                                                    paymentMethod === "PayPal" ? (
-                                                        <PayPal width={"22"} height={"26"}/>
-                                                    ) : (
-                                                        <FaCreditCard className={"text-2xl"}/>
-                                                    )
-                                                }
-
+                                        <div className={"w-7/12 lg:w-8/12"}>
+                                            <div className={"flex flex-col text-sm"}>
+                                            <span>
+                                                {userData.name}
+                                            </span>
+                                                <span>
+                                                {shippingAddress.address}
+                                            </span>
+                                                <span>
+                                                {shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}
+                                            </span>
+                                                <span>
+                                                {shippingAddress.country}
+                                            </span>
                                             </div>
-                                            <span className={"pl-2"}>
-                                            {paymentMethod}
-                                        </span>
                                         </div>
                                     </div>
-                                </div>
 
 
-                                <div className={"py-5"}>
-                                    <h3 className={"font-semibold"}>
-                                        Order Item(s):
-                                    </h3>
-                                    <div>
-                                        {
-                                            cartItems.map(function (item) {
-                                                return (
-                                                    <CheckoutItem item={item} key={item._id}/>
-                                                )
-                                            })
-                                        }
+                                    <div className={"flex border-b-[1px] border-gray-300 py-5"}>
+                                        <div className={"w-5/12 lg:w-4/12"}>
+                                            <h3 className={"font-semibold"}>
+                                                Payment Method:
+                                            </h3>
+                                        </div>
+                                        <div className={"w-7/12 lg:w-8/12"}>
+                                            <div className={"flex items-center text-sm"}>
+                                                <div>
+                                                    {
+                                                        paymentMethod === "PayPal" ? (
+                                                            <PayPal width={"22"} height={"26"}/>
+                                                        ) : (
+                                                            <FaCreditCard className={"text-2xl"}/>
+                                                        )
+                                                    }
+
+                                                </div>
+                                                <span className={"pl-2"}>
+                                                {paymentMethod}
+                                            </span>
+                                            </div>
+                                        </div>
+                                    </div>
+
+
+                                    <div className={"py-5"}>
+                                        <h3 className={"font-semibold"}>
+                                            Order Item(s):
+                                        </h3>
+                                        <div>
+                                            {
+                                                cartItems.map(function (item) {
+                                                    return (
+                                                        <CheckoutItem item={item} key={item._id}/>
+                                                    )
+                                                })
+                                            }
+                                        </div>
                                     </div>
                                 </div>
                             </div>
 
 
-                            <div className={"p-3 pt-5 lg:pl-10 lg:w-5/12"}>
-                                <div className="card bg-white shadow-xl">
+                            <div className={"p-3 pt-10 md:pt-7 lg:pl-10 lg:w-5/12"}>
+                                <div className="bg-white border">
                                     <div className="pt-8 px-8">
                                         <div className={"italic text-xs pb-5"}>
                                             Please note: once the order is submitted; order items, address, and payment method cannot be modified.
@@ -289,7 +291,7 @@ const CheckoutPage = () => {
                                                 </label>
                                                 <div className={"flex justify-between"}>
                                                     <input
-                                                        className={"bg-white text-[16px] input input-bordered input-sm w-full max-w-xs border border-gray-300 rounded-xl focus:outline-none focus:border-blue-400"}
+                                                        className={"bg-white text-[16px] input input-bordered input-sm w-full max-w-xs border border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"}
                                                         placeholder={"Enter code"}
                                                         value={discountCode} onChange={(e) => setDiscountCode(e.target.value)} type={"text"}
                                                     />
