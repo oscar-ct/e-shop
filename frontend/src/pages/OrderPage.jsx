@@ -14,10 +14,11 @@ import Message from "../components/Message";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
 // import {FaCreditCard} from "react-icons/fa";
 import OrderItem from "../components/OrderItem";
-import BackButton from "../components/BackButton";
+// import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import ConfirmModal from "../components/ConfirmModal";
 import {toast} from "react-hot-toast";
+import NotFoundPage from "./NotFoundPage";
 
 
 const OrderPage = () => {
@@ -141,12 +142,13 @@ const OrderPage = () => {
                 isLoading ? (
                     <Spinner/>
                 ) : error ? (
-                    <div className={"pt-10 px-2"}>
-                        <BackButton/>
-                        <Message variant={"error"}>
-                            {error?.data?.message || error.error}
-                        </Message>
-                    </div>
+                    <NotFoundPage/>
+                    // <div className={"pt-10 px-2"}>
+                    //     <BackButton/>
+                    //     <Message variant={"error"}>
+                    //         {error?.data?.message || error.error}
+                    //     </Message>
+                    // </div>
                 ) : (
                     <>
                         <Meta title={`Order # ${order._id}`}/>

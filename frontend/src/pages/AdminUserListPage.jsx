@@ -163,7 +163,7 @@ const AdminUserListPage = () => {
                 <div className={"py-10"}>
                     <AdminTabs/>
                     <div className={"mt-5 bg-white"}>
-                        <div className={"w-full py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
+                        <div className={"w-full py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white"}>
                                 Users ({localData.length})
                         </div>
                         <div className="overflow-x-auto px-5 py-10 border">

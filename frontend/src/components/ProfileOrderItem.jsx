@@ -32,8 +32,8 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
 
     return (
         <>
-        <div className={`mb-5 sm:mb-0 sm:border-none border-b-[3px] border-gray-300 px-3 sm:px-8 lg:px-14 xl:px-24 ${index+1 !== orderLength && "pb-16"}`}>
-            <div className={"rounded-xl bg-white shadow-xl w-full flex flex-col"}>
+        <div className={`mb-5 sm:mb-0 px-3 sm:px-8 lg:px-14 xl:px-24 ${index+1 !== orderLength && "pb-16"}`}>
+            <div className={"bg-white w-full flex flex-col"}>
                 <div className={"p-6 rounded-tr-xl rounded-tl-xl flex flex-row bg-neutral-100"}>
                     <div className={"w-full flex justify-between"}>
                         <div className={"flex"}>
@@ -74,23 +74,24 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
                         </div>
                     </div>
                 </div>
-        {
-            !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
-                <div className={"pt-3 px-10"}>
-                    <div className={"w-full"}>
-                        <Message variant={"warning"}>
-                            Awaiting payment, please
-                            <Link
-                                to={`/order/${order._id}`}
-                                className={"pl-1 link link-primary"}
-                            >
-                                pay now.
-                            </Link>
-                        </Message>
+                <div className={"border"}>
+            {
+                !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
+                    <div className={"pt-3 px-10"}>
+                        <div className={"w-full"}>
+                            <Message variant={"warning"}>
+                                Awaiting payment, please
+                                <Link
+                                    to={`/order/${order._id}`}
+                                    className={"pl-1 link link-primary"}
+                                >
+                                    pay now.
+                                </Link>
+                            </Message>
+                        </div>
                     </div>
-                </div>
-            )
-        }
+                )
+            }
 
         {
             order.orderItems.map(function (product, index) {
@@ -133,7 +134,7 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
                             <ProfileOrderItemProduct product={product} index={index} orderSize={order.orderItems.length}/>
                         </div>
 
-                        <div className={`px-4 w-full lg:w-4/12 flex items-start py-5 ${index+1 !== order.orderItems.length && "border-b-[1px] border-gray-300"}`}>
+                        <div className={`px-4 w-full lg:w-4/12 flex items-start py-5 ${index+1 !== order.orderItems.length && "border-b-[1px] border-gray-300 mr-4"}`}>
 
                             <div className={"w-full flex flex-col md:flex-row lg:flex-col"}>
 
@@ -179,7 +180,7 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
                 )
             })
         }
-
+                </div>
             </div>
         </div>
 

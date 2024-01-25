@@ -220,17 +220,17 @@ const Navbar = () => {
                                                                     userData.isAdmin && (
                                                                         <div className={"w-6/12"}>
                                                                             <div className={"p-1"}>
-                                                                                <Link to={adminOrdersLink} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                <Link to={adminOrdersLink} className={"btn btn-info normal-case w-full rounded-md whitespace-nowrap"}>
                                                                                     Order List
                                                                                 </Link>
                                                                             </div>
                                                                             <div className={"p-1"}>
-                                                                                <Link to={adminUsersLink} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                <Link to={adminUsersLink} className={"btn btn-info normal-case w-full rounded-md whitespace-nowrap"}>
                                                                                     User List
                                                                                 </Link>
                                                                             </div>
                                                                             <div className={"p-1"}>
-                                                                                <Link to={adminProductsLink} className={"btn btn-info normal-case w-full whitespace-nowrap"}>
+                                                                                <Link to={adminProductsLink} className={"btn btn-info normal-case w-full rounded-md whitespace-nowrap"}>
                                                                                     Product List
                                                                                 </Link>
                                                                             </div>
@@ -239,17 +239,17 @@ const Navbar = () => {
                                                                 }
                                                                 <div className={`${userData.isAdmin ? "w-6/12" : "w-full"}`}>
                                                                     <div className={"p-1"}>
-                                                                        <Link to={myAccountLink} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                                                        <Link to={myAccountLink} className={"btn rounded-md btn-neutral normal-case w-full whitespace-nowrap"}>
                                                                             Account
                                                                         </Link>
                                                                     </div>
                                                                     <div className={"p-1"}>
-                                                                        <Link to={myOrdersLink} className={"btn btn-neutral normal-case w-full whitespace-nowrap"}>
+                                                                        <Link to={myOrdersLink} className={"btn rounded-md btn-neutral normal-case w-full whitespace-nowrap"}>
                                                                             My Orders
                                                                         </Link>
                                                                     </div>
                                                                     <div className={"p-1"}>
-                                                                        <button className={"btn btn-error normal-case w-full"} onClick={logoutHandler}>
+                                                                        <button className={"btn btn-error rounded-md normal-case w-full"} onClick={logoutHandler}>
                                                                             Logout
                                                                         </button>
                                                                     </div>

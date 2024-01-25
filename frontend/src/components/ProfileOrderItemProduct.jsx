@@ -40,7 +40,7 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
                                     </span>
                                 </div>
                                 <div className={"pt-4"}>
-                                    <button onClick={() => addToCartHandler()} className={"btn btn-sm btn-primary shadow-blue w-36"}>
+                                    <button onClick={() => addToCartHandler()} className={"btn btn-sm btn-primary rounded-md shadow-blue"}>
                                         Buy it again
                                     </button>
                                 </div>
@@ -51,7 +51,7 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
             </div>
             {
                 index+1 !== orderSize && (
-                    <div className={"lg:border-b-[1px] lg:border-gray-300 px-5"}/>
+                    <div className={"lg:border-b-[1px] lg:border-gray-300 mx-4"}/>
                 )
             }
         </>

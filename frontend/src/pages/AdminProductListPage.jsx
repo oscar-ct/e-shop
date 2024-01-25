@@ -317,7 +317,7 @@ const AdminProductListPage = () => {
                         <AdminTabs/>
                         <button
                             onClick={() => navigate("/admin/products/create")}
-                            className={"absolute translate-x-24 bg-black/50 p-3 rounded-full text-white text-sm"}
+                            className={"absolute translate-x-12 bg-black/50 p-3 rounded-full text-white text-sm"}
                         >
                             <FaPlus/>
                         </button>
@@ -326,12 +326,10 @@ const AdminProductListPage = () => {
 
 
                     <div className={"mt-5 bg-white"}>
-                        <div className={"w-full py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
+                        <div className={"w-full py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white"}>
                             <div>
                                 Products ({localData.length})
-
                             </div>
-
                         </div>
                         <div className="overflow-x-auto p-5 border">
                             <table className="table table-zebra table-xs lg:w-full w-[984px]">

@@ -81,7 +81,7 @@ const HomePageIntro = () => {
                                     {/*>*/}
                                         <div className={"w-full h-full flex flex-col items-center justify-center"}>
                                             <Logo className={"py-20 w-[10em]"}/>
-                                            <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-sm"}>
+                                            <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>
                                                 Get Started
                                             </Link>
                                         </div>
