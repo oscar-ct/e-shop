@@ -10,7 +10,7 @@ import {applyDiscountCode, clearCartItems, removeDiscountCode} from "../slices/c
 import Message from "../components/Message";
 import CheckoutItem from "../components/CheckoutItem";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
-import {FaCreditCard, FaTimes} from "react-icons/fa";
+import {FaCreditCard} from "react-icons/fa";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import {toast} from "react-hot-toast";
@@ -54,7 +54,7 @@ const CheckoutPage = () => {
         if (!res.validCode) {
             toast.error("Invalid discount code");
         } else {
-            toast.success("Discount applied!");
+            toast.success("You are now receiving free shipping!");
             dispatch(applyDiscountCode());
         }
     };
@@ -214,7 +214,7 @@ const CheckoutPage = () => {
                                                 ({totalNumberOfItems}):
                                             </span>
                                                 <span className="pl-2">
-                                            ${itemsPrice.toFixed(2)}
+                                            ${itemsPrice}
                                             </span>
                                             </div>
                                             <div className={"flex justify-between font-semibold text-sm my-1"}>
@@ -222,7 +222,7 @@ const CheckoutPage = () => {
                                                 Shipping flat rate:
                                             </span>
                                                 <span className="pl-2">
-                                            ${shippingPrice.toFixed(2)}
+                                            ${shippingPrice}
                                             </span>
                                             </div>
                                             <span className={"self-end w-16 my-1 border-b-2 border-grey-500"}/>
@@ -231,7 +231,7 @@ const CheckoutPage = () => {
                                                 Total before tax:
                                             </span>
                                                 <span className="pl-2">
-                                            ${(itemsPrice + shippingPrice).toFixed(2)}
+                                            ${Number(itemsPrice + shippingPrice).toFixed(2)}
                                             </span>
                                             </div>
                                             <div className={"flex justify-between font-semibold text-sm my-1"}>
@@ -239,7 +239,7 @@ const CheckoutPage = () => {
                                                 Estimated tax to be collected:
                                             </span>
                                                 <span className="pl-2">
-                                            ${taxPrice.toFixed(2)}
+                                            ${taxPrice}
                                             </span>
                                             </div>
                                             {/*<span className={"my-3 border-b-2 border-grey-500"}>*/}
@@ -253,14 +253,14 @@ const CheckoutPage = () => {
                                             Order Total:
                                         </span>
                                         <span className="text-red-600">
-                                        ${(taxPrice + shippingPrice + itemsPrice).toFixed(2)}
+                                        ${totalPrice}
                                         </span>
                                     </div>
 
                                     <div className={"px-8 py-8"}>
                                     {
                                         discount && (
-                                            <div className={"w-full font-semibold flex items-center justify-between"}>
+                                            <div className={"w-full flex items-center justify-between"}>
                                                 <span className={"text-sm"}>Discount code applied!</span>
 
                                                 <button onClick={() => submitRemoveDiscountCode()} className={"text-xs text-red-500 hover:link"}>
@@ -273,7 +273,7 @@ const CheckoutPage = () => {
 
                                     {
                                         !discount && !discountCodeInput && (
-                                            <div onClick={() => setDiscountCodeInput(true)} className={"text-sm font-semibold link"}>
+                                            <div onClick={() => setDiscountCodeInput(true)} className={"text-sm link"}>
                                                 Have a discount code?
                                             </div>
                                         )
@@ -284,11 +284,15 @@ const CheckoutPage = () => {
                                     {
                                         !discount && discountCodeInput && (
                                             <>
-                                                <label className={"text-sm font-semibold flex flex-wrap items-center pb-3"}>
+                                                <label className={"text-sm flex flex-wrap items-center pb-3"}>
                                                     Have a discount code?
                                                 </label>
                                                 <div className={"flex justify-between"}>
-                                                    <input className={"bg-white text-[16px] input input-bordered input-sm w-full max-w-xs border border-gray-300 rounded-xl focus:outline-none focus:border-blue-400"} value={discountCode} onChange={(e) => setDiscountCode(e.target.value)} type={"text"}/>
+                                                    <input
+                                                        className={"bg-white text-[16px] input input-bordered input-sm w-full max-w-xs border border-gray-300 rounded-xl focus:outline-none focus:border-blue-400"}
+                                                        placeholder={"Enter code"}
+                                                        value={discountCode} onChange={(e) => setDiscountCode(e.target.value)} type={"text"}
+                                                    />
                                                     <div className={"pl-10"}>
                                                         <button onClick={submitApplyDiscountCode} className={"btn btn-sm rounded-xl btn-neutral"}>
                                                             Apply
