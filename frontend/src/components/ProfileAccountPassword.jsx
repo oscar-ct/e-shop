@@ -95,7 +95,7 @@ const ProfileAccountPassword = () => {
     };
 
     return (
-        <div className="md:pt-4 bg-white mx-auto sm:w-96 w-full">
+        <div className="pt-12 md:pt-4 bg-white mx-auto sm:w-96 w-full">
             <div className="py-2 md:bg-neutral">
                 <h3 className="lg:pl-3 text-3xl md:text-2xl md:text-white ibmplex text-center">Change Password
                 </h3>
