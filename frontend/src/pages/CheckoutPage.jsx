@@ -195,7 +195,7 @@ const CheckoutPage = () => {
                                 <div className="bg-white border">
                                     <div className="pt-8 px-8">
                                         <div className={"italic text-xs pb-5"}>
-                                            Please note: once the order is submitted; order items, address, and payment method cannot be modified.
+                                            Please note: once the order is submitted, all order items, ship to address, and/or payment method cannot be modified.
                                         </div>
                                         <div className="card-actions justify-center">
                                             <button

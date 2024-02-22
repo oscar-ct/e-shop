@@ -400,7 +400,7 @@ const OrderPage = () => {
 
                                 <div className={"py-3"}>
                                     <h3 className={"font-semibold"}>
-                                        Order Items:
+                                        Order Item(s):
                                     </h3>
                                     <div>
                                         {
@@ -510,7 +510,7 @@ const OrderPage = () => {
                                                                     <div className={"w-full"}>
                                                                         <div>
                                                                             <p className={"text-xs font-normal px-3 pb-5 italic"}>
-                                                                                *Please note payment data you enter using PayPal Services does not get seen or saved by e-shop-us.com
+                                                                                Please note: payment data you enter using PayPal Services does not get seen or saved by e-shop-us.com
                                                                             </p>
                                                                         </div>
                                                                         <PayPalButtons
