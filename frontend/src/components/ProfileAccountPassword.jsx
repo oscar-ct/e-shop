@@ -102,7 +102,7 @@ const ProfileAccountPassword = () => {
             </div>
             <div className={"border"}>
                 <div>
-                    <p className="text-gray-500 text-xs font-semibold pl-3 pt-1 text-center md:text-start">New password must be at least 6 characters
+                    <p className="text-gray-500 text-xs font-semibold pl-3 pt-3 text-center md:text-start">*New password must be at least 6 characters
                     </p>
                 </div>
                 <div className={"px-12 pb-12 pt-4"}>

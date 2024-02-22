@@ -92,7 +92,7 @@ const ProfileAccountDetails = () => {
             </div>
             <div className={"border"}>
                 <div>
-                    <p className="text-gray-500 text-xs font-semibold pl-3 pt-1 text-center md:text-start">Password is required to update account details
+                    <p className="text-gray-500 text-xs font-semibold pl-3 pt-3 text-center md:text-start">*Password is required to update account details
                     </p>
                 </div>
                 <div className={"px-12 pb-12 pt-4"}>
