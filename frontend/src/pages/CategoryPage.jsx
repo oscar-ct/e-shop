@@ -1,10 +1,9 @@
-import {Link, useParams} from "react-router-dom";
+import {useParams} from "react-router-dom";
 import {useGetProductsQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Meta from "../components/Meta";
 import ProductItem from "../components/ProductItem";
 import Paginate from "../components/Paginate";
-import {ReactComponent as Arrow} from "../icons/arrow_back.svg";
 import SelectMenuSort from "../components/SelectMenuSort";
 import SelectMenuCategory from "../components/SelectMenuCategory";
 import {useEffect, useState} from "react";

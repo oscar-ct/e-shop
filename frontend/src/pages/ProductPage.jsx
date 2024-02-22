@@ -10,7 +10,7 @@ import {
     useGetProductsByRatingQuery
 } from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
-import Message from "../components/Message";
+// import Message from "../components/Message";
 import {addToCart} from "../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {formatPrice} from "../utils/formatPriceUtilis"

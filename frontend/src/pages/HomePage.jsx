@@ -1,15 +1,10 @@
-import ProductItem from "../components/ProductItem";
 import {useGetProductsQuery, useGetProductsByCategoryQuery} from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
-import {useParams, Link} from "react-router-dom";
-import Paginate from "../components/Paginate";
+import {useParams} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
-import {ReactComponent as Logo} from "../icons/e.svg"
 import Meta from "../components/Meta";
 import Footer from "../components/Footer";
-import CategoryItem from "../components/CategoryItem";
-import {FaChevronDown} from "react-icons/fa";
 import HomePageCategorySection from "../components/HomePageCategorySection";
 import HomePageLatestProducts from "../components/HomePageLatestProducts";
 import HomePageIntro from "../components/HomePageIntro";
