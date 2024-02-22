@@ -133,7 +133,7 @@ const ProductPage = () => {
                     </div>
                     ) : !isLoading && (
                     <>
-                        <Meta title={product.name}/>
+                        <Meta title={product.name} description={product.description}/>
                         <BackButton/>
                         <motion.div
                             initial={{ opacity: 0 }}
