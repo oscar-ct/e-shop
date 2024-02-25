@@ -5,6 +5,15 @@ import {apiSlice} from "./apiSlice";
 export const ordersApiSlice = apiSlice.injectEndpoints({
     endpoints: function (build) {
         return {
+            verifyAmount: build.mutation({
+                query: function (data) {
+                    return {
+                        url:`${ORDERS_URL}/verifyamount`,
+                        method: "POST",
+                        body: {...data},
+                    }
+                },
+            }),
             createOrder: build.mutation({
                 query: function (data) {
                     return {
@@ -35,11 +44,11 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                 }
             ),
             payOrder: build.mutation({
-                query: function ({orderId, details}) {
+                query: function (data) {
                     return {
-                        url: ORDERS_URL + "/" + orderId + "/payment",
+                        url: `${ORDERS_URL}/${data.orderId}/payment`,
                         method: "PUT",
-                        body: {...details},
+                        body: data,
                     }
                 },
             }),
@@ -100,4 +109,4 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
     }
 });
 
-export const { useCreateOrderMutation, useGetMyOrdersQuery, useGetOrderByIdQuery, usePayOrderMutation, useGetPayPalClientIdQuery, useGetOrdersQuery, useUpdateOrderMutation, useCancelOrderMutation, useCancelOrderItemMutation } = ordersApiSlice;
+export const { useVerifyAmountMutation, useCreateOrderMutation, useGetMyOrdersQuery, useGetOrderByIdQuery, usePayOrderMutation, useGetPayPalClientIdQuery, useGetOrdersQuery, useUpdateOrderMutation, useCancelOrderMutation, useCancelOrderItemMutation } = ordersApiSlice;
