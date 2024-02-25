@@ -4,6 +4,33 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/productModel.js";
 import {calculatePrices} from "../utils/calculatePrices.js";
 
+const confirmPrices =  asyncHandler(async (req, res) => {
+    const {orderItems, validCode} = req.body;
+    if (orderItems && orderItems.length === 0) {
+        res.status(400);
+        throw new Error("No items found");
+    } else {
+        const itemsFromDB = await Product.find({
+            _id: { $in: orderItems.map((x) => x._id) },
+        });
+        const orderItemsFromDB = orderItems.map((itemFromBody) => {
+            delete itemFromBody.images
+            // delete itemFromBody._id
+            delete itemFromBody.price
+            const matchingItemFromDB = itemsFromDB.find(
+                (item) => item._id.toString() === itemFromBody._id
+            );
+            return {
+                ...itemFromBody,
+                price: matchingItemFromDB.price,
+            };
+        });
+        const { totalPrice } =
+            calculatePrices(orderItemsFromDB, validCode);
+        res.status(201);
+        return res.json(totalPrice);
+    }
+});
 
 const createOrder = asyncHandler(async (req, res) => {
     const { orderItems, shippingAddress, paymentMethod, validCode } = req.body;
@@ -66,17 +93,18 @@ const getUserOrders = asyncHandler(async (req, res) => {
 });
 
 const updateOrderToPaid = asyncHandler(async (req, res) => {
-    const order = await Order.findById(req.params.id);
+    const {orderId, details} = req.body;
+    const order = await Order.findById(orderId);
      if (order) {
          const {totalPrice} = order;
          order.paidAmount = totalPrice;
          order.isPaid = true;
          order.paidAt = Date.now();
          order.paymentResult = {
-             id: req.body.id,
-             status: req.body.status,
-             update_time: req.body.update_time,
-             email_address: req.body.payer.email_address,
+             id: details.id,
+             status: details.status,
+             update_time: details.update_time,
+             email_address: details.payer.email_address,
          };
          const updatedOrder = await order.save();
          res.status(200);
@@ -258,6 +286,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
 
 
 export {
+    confirmPrices,
     createOrder,
     getUserOrders,
     getOrderById,
