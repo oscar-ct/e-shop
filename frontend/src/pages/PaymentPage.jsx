@@ -9,7 +9,6 @@ import Meta from "../components/Meta";
 
 const PaymentPage = () => {
 
-
     const cartItems = useSelector(function (state) {
         return state.cart;
     });
@@ -105,7 +104,7 @@ const PaymentPage = () => {
                             {/*</div>*/}
                             <div className={"pt-5 w-full flex justify-end"}>
                                 <button className={`${paymentMeth && "shadow-blue"} btn btn-primary btn-wide rounded-xl`} disabled={paymentMeth === null}>
-                                    Continue To Order Review
+                                    Continue To Checkout
                                 </button>
                             </div>
                         </form>
