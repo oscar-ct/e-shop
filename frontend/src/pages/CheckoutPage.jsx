@@ -114,14 +114,13 @@ const CheckoutPage = () => {
                 totalPrice: totalPrice,
                 validCode : res.validCode,
             }).unwrap();
-            dispatch(setLoading(false));
             dispatch(clearCartItems());
             // window.location.href = `/order/${order._id}`;
             navigate(`/order/${order._id}`);
-
-        } catch (e) {
-            console.log(e || error);
             dispatch(setLoading(false));
+        } catch (e) {
+            dispatch(setLoading(false));
+            console.log(e || error);
         }
     };
 
@@ -150,6 +149,7 @@ const CheckoutPage = () => {
 
     const onApprove = (data, actions) => {
         setOrderSubmitted(true);
+        dispatch(setLoading(true));
         try {
             return actions.order.capture().then(async function (details) {
                 const res = await validateDiscountCode({code: discountCode}).unwrap();
@@ -164,12 +164,14 @@ const CheckoutPage = () => {
                     validCode : res.validCode,
                 }).unwrap();
                 const newOrder = await payOrder({orderId: order._id, details}).unwrap();
+                navigate(`/order/${newOrder._id}`);
                 dispatch(clearCartItems());
                 // window.location.href = `/order/${newOrder._id}`;
-                navigate(`/order/${newOrder._id}`);
+                dispatch(setLoading(false));
             });
         } catch (e) {
             console.log(e);
+            dispatch(setLoading(false));
         }
     };
 
@@ -245,7 +247,7 @@ const CheckoutPage = () => {
                                             <div className={"flex items-center text-sm"}>
                                                 <div>
                                                     {
-                                                        paymentMethod === "PayPal" ? (
+                                                        paymentMethod === "PayPal / Credit Card" ? (
                                                             <PayPal width={"22"} height={"26"}/>
                                                         ) : (
                                                             <FaCreditCard className={"text-2xl"}/>
