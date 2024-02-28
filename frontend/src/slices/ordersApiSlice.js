@@ -40,7 +40,8 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                         }
                     },
                     // 5 seconds
-                    keepUnusedDataFor: 5
+                    keepUnusedDataFor: 5,
+                    providesTags: ["Order"],
                 }
             ),
             payOrder: build.mutation({
