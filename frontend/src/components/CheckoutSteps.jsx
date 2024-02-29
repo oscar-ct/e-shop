@@ -13,7 +13,7 @@ const CheckoutSteps = ({ step1, step2, step3 }) => {
     const step4name = "Checkout"
 
     return (
-        <div className={"flex justify-center pt-5 sm:pb-5 lg:py-10 text-xs sm:text-sm"}>
+        <div className={"flex justify-center pt-5 lg:pt-8 text-xs sm:text-sm"}>
             {
                 step1 ? (
                     <div className={"steps w-full"}>
