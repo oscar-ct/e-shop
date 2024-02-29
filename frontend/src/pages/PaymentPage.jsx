@@ -9,7 +9,6 @@ import Meta from "../components/Meta";
 
 const PaymentPage = () => {
 
-
     const cartItems = useSelector(function (state) {
         return state.cart;
     });
@@ -50,7 +49,7 @@ const PaymentPage = () => {
                             <div className="my-5">
                                 <div
                                     className={"w-full card bg-zinc-100 cursor-pointer"}
-                                    onClick={() => setPaymentMeth("PayPal")}
+                                    onClick={() => setPaymentMeth("PayPal / Credit Card")}
                                 >
                                     <div className={"w-full flex p-6"}>
                                         <div className={"w-2/12"}>
@@ -66,10 +65,10 @@ const PaymentPage = () => {
                                                 onChange={(e) => setPaymentMeth(e.target.value)}
                                                 type="radio"
                                                 name="paymentMethod"
-                                                id={"PayPal"}
-                                                value={"PayPal"}
+                                                id={"PayPal / Credit Card"}
+                                                value={"PayPal / Credit Card"}
                                                 className="radio radio-primary"
-                                                checked={paymentMeth === "PayPal"}
+                                                checked={paymentMeth === "PayPal / Credit Card"}
                                             />
                                         </div>
                                     </div>
@@ -105,7 +104,7 @@ const PaymentPage = () => {
                             {/*</div>*/}
                             <div className={"pt-5 w-full flex justify-end"}>
                                 <button className={`${paymentMeth && "shadow-blue"} btn btn-primary btn-wide rounded-xl`} disabled={paymentMeth === null}>
-                                    Continue To Order Review
+                                    Continue To Checkout
                                 </button>
                             </div>
                         </form>

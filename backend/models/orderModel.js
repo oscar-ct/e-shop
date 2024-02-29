@@ -44,6 +44,14 @@ const orderSchema = new mongoose.Schema({
                 type: Number,
                 required: true,
             },
+            isPaid: {
+                type: Boolean,
+                default: false,
+            },
+            isCanceled: {
+                type: Boolean,
+                default: false,
+            },
             productId: {
                 type: mongoose.Schema.Types.ObjectId,
                 required: true,

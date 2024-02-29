@@ -10,7 +10,7 @@ const CheckoutSteps = ({ step1, step2, step3 }) => {
     const step1name = "Cart"
     const step2name = "Shipping"
     const step3name = "Payment"
-    const step4name = "Submit Order"
+    const step4name = "Checkout"
 
     return (
         <div className={"flex justify-center pt-5 sm:pb-5 lg:py-10 text-xs sm:text-sm"}>

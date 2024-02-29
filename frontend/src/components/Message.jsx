@@ -36,7 +36,7 @@ const Message = ({variant, children, border}) => {
             case "info" :
                 return `alert flex alert-info bg-[#32B0F559] ${border}`;
             default :
-                return "alert flex"
+                return `alert flex ${border}`;
         }
 
     }
