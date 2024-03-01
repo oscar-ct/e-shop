@@ -24,22 +24,38 @@ const Navbar = () => {
     const documentRef1 = useRef();
     const documentRef2 = useRef();
     const documentRef3 = useRef();
+    const documentRef4 = useRef();
     const [openNav, setOpenNav] = useState(false);
-    const [dropdownActive, setDropdownActive] = useState(false);
+    const [productsDropdownActive, setProductsDropdownActive] = useState(false);
+    const [userDropdownActive, setUserDropdownActive] = useState(false);
     const { scrollDirection, scrollY } = useScroll();
 
 
     useEffect(function () {
-        const closeOpenDropdown = (e) => {
+        const closeUserOpenDropdown = (e) => {
             if (!documentRef1?.current?.contains(e.target)) {
-                setDropdownActive(false);
+                setUserDropdownActive(false);
             }
         }
-        if (dropdownActive) {
-            window.addEventListener('mousedown', closeOpenDropdown);
+        if (userDropdownActive) {
+            window.addEventListener('mouseout', closeUserOpenDropdown);
         }
-        return () => window.removeEventListener("mousedown", closeOpenDropdown);
-    }, [dropdownActive]);
+        return () => window.removeEventListener("mouseout", closeUserOpenDropdown);
+
+    }, [userDropdownActive]);
+
+    useEffect(() => {
+        const closeProductsOpenDropdown = (e) => {
+            if (!documentRef4?.current?.contains(e.target)) {
+                setProductsDropdownActive(false);
+            }
+        }
+        if (productsDropdownActive) {
+            window.addEventListener('mouseout', closeProductsOpenDropdown);
+        }
+        return () => window.removeEventListener("mouseout", closeProductsOpenDropdown);
+    }, [productsDropdownActive]);
+
     useEffect(() => {
         const closeMobileNavOnScroll = () => {
             setOpenNav(false);
@@ -102,7 +118,7 @@ const Navbar = () => {
             navigate("/login");
             dispatch(clearCartItems());
             dispatch(logout());
-            setDropdownActive(false);
+            setUserDropdownActive(false);
         } catch (e) {
             console.log(e)
         }
@@ -149,12 +165,13 @@ const Navbar = () => {
     const adminProductsLink = "/admin/products/sort/latest/select/all";
     const myOrdersLink = "/profile/orders";
     const myAccountLink = "/profile/account";
-
+    const topRatedLink = "/sort/toprated/select/all";
+    const latestProductsLink = "/sort/latest/select/all";
 
     return (
         <>
             <nav
-                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 sticky visible transition-all duration-700 ` : smallScreen ? "sticky invisible duration-700 transition-all translate-y-[-100%]": "visible sticky" } inset-0 z-20 block h-max w-full rounded-none py-2 md:py-4 shadow-md liner-gradient bg-neutral/80 text-white ${scrollY > 5 ? "backdrop-blur-md" : undefined}`}
+                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 sticky visible transition-all duration-700 ` : smallScreen ? "sticky invisible duration-700 transition-all translate-y-[-100%]": "visible sticky" } inset-0 z-20 block h-max w-full rounded-none py-0 shadow-md liner-gradient bg-neutral/80 text-white ${scrollY > 5 ? "backdrop-blur-md" : undefined}`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
@@ -182,7 +199,7 @@ const Navbar = () => {
                             {/*<button*/}
                             {/*    style={{fontFamily: 'Moirai One, cursive', fontSize: "40px"}}*/}
                             {/*>*/}
-                            {/*    shop*/}
+                            {/*    -shop*/}
                             {/*</button>*/}
                         </motion.div>
                     </div>
@@ -193,70 +210,66 @@ const Navbar = () => {
                                 <div className="flex-none">
                                     <CartIcon cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice}/>
                                 </div>
-                                {
-                                    userData ? (
-                                        <div ref={documentRef1} className="relative inline-block text-left">
-                                            <div>
-                                                <div
-                                                    onClick={() => setDropdownActive(prevState => !prevState)}
-                                                    className={"cursor-pointer btn btn-ghost normal-case flex items-center"}
-                                                    >
-                                                        <span>
-                                                            {userData.name}
-                                                        </span>
-                                                        <div className={`${rotateChevron(dropdownActive)}`}>
-                                                            <FaChevronDown/>
-                                                        </div>
 
+                                <div ref={documentRef4} className="relative inline-block text-left py-4">
+                                    <div
+                                        onMouseEnter={() => setProductsDropdownActive(prevState => !prevState)}
+                                        className={"cursor-pointer btn btn-ghost normal-case flex items-center"}
+                                    >
+                                        <span>Shop</span>
+                                        <div className={`${rotateChevron(productsDropdownActive)}`}>
+                                            <FaChevronDown/>
+                                        </div>
+
+                                    </div>
+                                    {
+                                        productsDropdownActive && (
+                                            <div className="absolute right-0 z-10 mt-4 origin-top-right">
+                                                <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
+                                                    <div className={"flex-col w-full"}>
+                                                        <Link to={latestProductsLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
+                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>Latest Products</span>
+                                                        </Link>
+                                                        <Link to={topRatedLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
+                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>Top Rated</span>
+                                                        </Link>
+                                                        <Link to={latestProductsLink} className={"block px-10 py-5 rounded-b-md  hover:bg-neutral/70"}>
+                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>All Categories</span>
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
-
+                                        )
+                                    }
+                                </div>
+                                {
+                                    userData ? (
+                                        <div ref={documentRef1} className="relative inline-block text-left py-4">
+                                            <div
+                                                onMouseEnter={() => setUserDropdownActive(prevState => !prevState)}
+                                                className={"cursor-pointer btn btn-ghost normal-case flex items-center"}
+                                                >
+                                                    <span>{userData.name}</span>
+                                                    <div className={`${rotateChevron(userDropdownActive)}`}>
+                                                        <FaChevronDown/>
+                                                    </div>
+                                            </div>
                                             {
-                                                dropdownActive && (
-                                                    <div className="absolute right-0 z-10 mt-2 origin-top-right">
-                                                        <div className="menu bg-neutral/70 rounded-md text-white font-bold flex flex-col justify-between w-full">
-                                                            <div className={"flex w-full"}>
-                                                                {
-                                                                    userData.isAdmin && (
-                                                                        <div className={"w-6/12"}>
-                                                                            <div className={"p-1"}>
-                                                                                <Link to={adminOrdersLink} className={"btn btn-info normal-case w-full rounded-md whitespace-nowrap"}>
-                                                                                    Order List
-                                                                                </Link>
-                                                                            </div>
-                                                                            <div className={"p-1"}>
-                                                                                <Link to={adminUsersLink} className={"btn btn-info normal-case w-full rounded-md whitespace-nowrap"}>
-                                                                                    User List
-                                                                                </Link>
-                                                                            </div>
-                                                                            <div className={"p-1"}>
-                                                                                <Link to={adminProductsLink} className={"btn btn-info normal-case w-full rounded-md whitespace-nowrap"}>
-                                                                                    Product List
-                                                                                </Link>
-                                                                            </div>
-                                                                        </div>
-                                                                    )
-                                                                }
-                                                                <div className={`${userData.isAdmin ? "w-6/12" : "w-full"}`}>
-                                                                    <div className={"p-1"}>
-                                                                        <Link to={myAccountLink} className={"btn rounded-md btn-neutral normal-case w-full whitespace-nowrap"}>
-                                                                            Account
-                                                                        </Link>
-                                                                    </div>
-                                                                    <div className={"p-1"}>
-                                                                        <Link to={myOrdersLink} className={"btn rounded-md btn-neutral normal-case w-full whitespace-nowrap"}>
-                                                                            My Orders
-                                                                        </Link>
-                                                                    </div>
-                                                                    <div className={"p-1"}>
-                                                                        <button className={"btn btn-error rounded-md normal-case w-full"} onClick={logoutHandler}>
-                                                                            Logout
-                                                                        </button>
-                                                                    </div>
+                                                userDropdownActive && (
+                                                    <div className="absolute right-0 z-10 mt-4 origin-top-right">
+                                                        <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
+                                                            <div className={"flex-col w-full"}>
+                                                                <Link to={myAccountLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
+                                                                    <span className={"w-full text-xl text-white whitespace-nowrap"}>Account</span>
+                                                                </Link>
+                                                                <Link to={myOrdersLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
+                                                                    <span className={"w-full text-xl text-white whitespace-nowrap"}>My Orders</span>
+                                                                </Link>
+                                                                <button onClick={logoutHandler} className={"w-full text-start block px-10 py-5 rounded-b-md hover:bg-neutral/70"}>
+                                                                    <span className={"w-full text-xl text-white whitespace-nowrap"} >Logout</span>
+                                                                </button>
 
-                                                                </div>
                                                             </div>
-
                                                         </div>
                                                     </div>
                                                 )
@@ -275,12 +288,25 @@ const Navbar = () => {
                                         </Link>
                                     )
                                 }
+                                {
+                                    userData?.isAdmin && (
+
+                                        <div className="relative inline-block text-left">
+                                            <div
+                                                onClick={() => navigate(adminOrdersLink)}
+                                                className={"cursor-pointer btn btn-ghost normal-case flex items-center"}
+                                            >
+                                                <span>Dashboard</span>
+                                            </div>
+                                        </div>
+                                    )
+                                }
                             </div>
                         </div>
                     </div>
 
-                    <div className={"lg:hidden flex items-center"}>
-                        <div className={"py-1"}>
+                    <div className={"lg:hidden flex items-center gap-2"}>
+                        <div className={"py-2"}>
                             <SearchBox/>
                         </div>
                         <div>
