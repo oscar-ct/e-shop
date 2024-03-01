@@ -306,7 +306,7 @@ const Navbar = () => {
                     </div>
 
                     <div className={"lg:hidden flex items-center gap-2"}>
-                        <div className={"py-2"}>
+                        <div className={"py-4"}>
                             <SearchBox/>
                         </div>
                         <div>
@@ -321,15 +321,19 @@ const Navbar = () => {
                 <div ref={documentRef3} className={`z-20 backdrop-blur-2xl fixed left-0 w-full py-6  lg:hidden h-screen`} style={openNav ? styles.active : styles.hidden2}>
                     <div className={"flex flex-col justify-start h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
-                            <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                            <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                 <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                    Home
                                 </Link>
                             </li>
-                            <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                <Link onClick={() => setOpenNav(!openNav)} to={"/cart"} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                    My Cart
-
+                            <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
+                                    Latest Products
+                                </Link>
+                            </li>
+                            <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
+                                    Top Rated Products
                                 </Link>
                             </li>
                             {/*<li onClick={() => setOpenNav(!openNav)} className="sm:hidden flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">*/}
@@ -350,12 +354,12 @@ const Navbar = () => {
                             {
                                 userData && (
                                     <>
-                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                        <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                             <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
-                                                My Account
+                                                Account Details
                                             </Link>
                                         </li>
-                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                        <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                             <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 My Orders
                                             </Link>
@@ -367,19 +371,9 @@ const Navbar = () => {
                             {
                                 userData?.isAdmin && (
                                     <>
-                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                        <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
                                             <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                                Order List
-                                            </Link>
-                                        </li>
-                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased  px-8">
-                                            <Link onClick={() => setOpenNav(!openNav)} to={adminUsersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                                User List
-                                            </Link>
-                                        </li>
-                                        <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                            <Link onClick={() => setOpenNav(!openNav)} to={adminProductsLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                                Product List
+                                                Admin Dashboard
                                             </Link>
                                         </li>
                                     </>
@@ -388,13 +382,13 @@ const Navbar = () => {
 
                             {
                                 userData ? (
-                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
                                         <button className={"cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case"} onClick={logoutHandler}>
                                             Logout
                                         </button>
                                     </li>
                                 ) : (
-                                    <li className="flex items-center p-2 font-normal antialiased hover:subpixel-antialiased  px-8">
+                                    <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased  px-8">
                                         <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
                                             Login
                                         </Link>
