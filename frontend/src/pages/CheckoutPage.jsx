@@ -325,7 +325,7 @@ const CheckoutPage = () => {
                                         <span className="text-red-600">Order Total:</span>
                                         <span className="text-red-600">${totalPrice}</span>
                                     </div>
-                                    <div className={"px-8 py-8"}>
+                                    <div className={"px-8 pt-8 pb-6"}>
                                     {
                                         discount && (
                                             <div className={"w-full flex items-center justify-between"}>
