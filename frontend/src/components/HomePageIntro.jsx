@@ -95,7 +95,7 @@ const HomePageIntro = () => {
                                         <div className={"w-full h-full flex items-end justify-end"}>
 
                                             <div className={"p-10 w-full flex flex-col items-center justify-center"}>
-                                                <span className={"p-2 text-3xl text-white font-bold"}>Shop worry-free with</span>
+                                                <span className={"p-2 text-3xl text-white font-bold"}>Shop with confidence</span>
                                                 <FaCcPaypal color={"white"} size={"3em"}/>
                                             </div>
                                         </div>
