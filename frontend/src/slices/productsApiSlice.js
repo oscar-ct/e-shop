@@ -27,7 +27,7 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                     }
                 },
                 // 5 seconds
-                keepUnusedDataFor: 5
+                // keepUnusedDataFor: 5
                 }
             ),
             createProduct: build.mutation({
