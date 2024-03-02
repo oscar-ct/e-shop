@@ -160,9 +160,9 @@ const Navbar = () => {
     //     }
     // }, [windowInnerWidth]);
 
-    const adminUsersLink = "/admin/users";
+    // const adminUsersLink = "/admin/users";
     const adminOrdersLink = "/admin/orders";
-    const adminProductsLink = "/admin/products/sort/latest/select/all";
+    // const adminProductsLink = "/admin/products/sort/latest/select/all";
     const myOrdersLink = "/profile/orders";
     const myAccountLink = "/profile/account";
     const topRatedLink = "/sort/toprated/select/all";
@@ -279,11 +279,9 @@ const Navbar = () => {
                                         <Link to={"/login"}>
                                             <div
                                                 className="flex items-center cursor-pointer btn btn-ghost normal-case"
-                                           >
+                                            >
                                                 <FaUser/>
-                                                <span>
-                                                    Login
-                                                </span>
+                                                <span>Login</span>
                                             </div>
                                         </Link>
                                     )
@@ -296,7 +294,10 @@ const Navbar = () => {
                                                 onClick={() => navigate(adminOrdersLink)}
                                                 className={"cursor-pointer btn btn-ghost normal-case flex items-center"}
                                             >
-                                                <span>Dashboard</span>
+                                                <div className={"text-blue-300 font-bold flex flex-col"}>
+                                                    <span>Admin</span>
+                                                    <span>Dashboard</span>
+                                                </div>
                                             </div>
                                         </div>
                                     )
@@ -321,7 +322,7 @@ const Navbar = () => {
                 <div ref={documentRef3} className={`z-20 backdrop-blur-2xl fixed left-0 w-full py-6  lg:hidden h-screen`} style={openNav ? styles.active : styles.hidden2}>
                     <div className={"flex flex-col justify-start h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
-                            <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                 <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                    Home
                                 </Link>
@@ -331,7 +332,7 @@ const Navbar = () => {
                                     Latest Products
                                 </Link>
                             </li>
-                            <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                 <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                     Top Rated Products
                                 </Link>
@@ -354,12 +355,12 @@ const Navbar = () => {
                             {
                                 userData && (
                                     <>
-                                        <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                             <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
                                                 Account Details
                                             </Link>
                                         </li>
-                                        <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                             <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 My Orders
                                             </Link>
@@ -371,7 +372,7 @@ const Navbar = () => {
                             {
                                 userData?.isAdmin && (
                                     <>
-                                        <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
                                             <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 Admin Dashboard
                                             </Link>
@@ -382,13 +383,13 @@ const Navbar = () => {
 
                             {
                                 userData ? (
-                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
                                         <button className={"cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case"} onClick={logoutHandler}>
                                             Logout
                                         </button>
                                     </li>
                                 ) : (
-                                    <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased  px-8">
+                                    <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                         <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
                                             Login
                                         </Link>

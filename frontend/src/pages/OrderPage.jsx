@@ -225,22 +225,25 @@ const OrderPage = () => {
                                     </div>
                                 </div>
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
+                                    <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-start"}>
                                         <h3 className={"font-semibold pr-2"}>
-                                            Order Status:
+                                            Order Position:
                                         </h3>
                                     </div>
+
                                     <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
-                                        <div className={"flex flex-col text-sm"}>
+                                        {/*ORDER STATUS*/}
+                                        <div className={"flex flex-col text-sm pb-3"}>
                                         {
                                             order.isPaid && !order.isShipped && !order.isCanceled && order.orderItems.length !== order.canceledItems?.length ? (
                                                 <Message variant={"info"}>
-                                                   <span className={"text-start"}>Order is being processed</span>
+                                                   <span className={"text-start"}>Processing order</span>
                                                 </Message>
                                             ) : order.isPaid && order.isShipped && order.isDelivered && !order.isCanceled && order.orderItems.length !== order.canceledItems?.length ? (
                                                 <Message variant={"success"}>
-                                                    <div className={"flex flex-col"}>
-                                                        <span className={"text-start truncate"}>Delivered on {order.deliveredAt.substring(0, 10)}</span>
+                                                    <div className={"flex"}>
+                                                        <span className={"text-start truncate"}>Delivered on</span>
+                                                        <span className={"font-bold pl-1"}>{order.deliveredAt.substring(0, 10)}</span>
                                                     </div>
                                                 </Message>
                                             ) : order.isPaid && order.isShipped && !order.isCanceled && order.orderItems.length !== order.canceledItems?.length ? (
@@ -251,7 +254,10 @@ const OrderPage = () => {
                                                 </Message>
                                             ) : order.isCanceled || order.orderItems.length === order.canceledItems?.length ? (
                                                     <Message variant={"error"}>
-                                                        <span className={"text-start"}>Order Canceled</span>
+                                                        <div className={"flex"}>
+                                                            <span className={"text-start"}>Canceled on</span>
+                                                            <span className={"font-bold pl-1"}>{order.canceledAt.substring(0, 10)}</span>
+                                                        </div>
                                                     </Message>
                                             ) : (
                                                 <Message variant={"warning"}>
@@ -260,60 +266,35 @@ const OrderPage = () => {
                                             )
                                         }
                                         </div>
-                                    </div>
-                                </div>
-                                {
-                                    order.isShipped && (
-                                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                            <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
-                                                <h3 className={"font-semibold pr-2"}>
-                                                    Tracking Number:
-                                                </h3>
-                                            </div>
-                                            <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
-                                                <span className={"text-sm"}>{order.trackingNumber}</span>
-                                            </div>
+                                        {/*ORDER STATUS*/}
+
+                                        {/*PAYMENT STATUS*/}
+                                        <div className={"flex items-center text-sm pb-3"}>
+                                            {
+                                                order.isPaid ? (
+                                                    <Message variant={"success"}>
+                                                        <div className={"flex flex-wrap items-center"}>
+                                                            <span className={"pr-1"}>Paid</span>
+                                                            <span className={"pr-1 font-bold"}>${order.paidAmount.toFixed(2)}</span>
+                                                            <span className={"pr-1"}>on </span>
+                                                            <span className={"font-bold"}>{order.paidAt.substring(0, 10)}</span>
+                                                        </div>
+                                                    </Message>
+                                                ) : (
+                                                    <Message variant={"error"}>
+                                                        <span className={"text-start"}>Not Paid</span>
+                                                    </Message>
+                                                )
+                                            }
                                         </div>
-                                    )
-                                }
-                                <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
-                                        <h3 className={"font-semibold pr-2"}>
-                                            Payment Status:
-                                        </h3>
-                                    </div>
-                                    <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
-                                        <div className={"flex items-center text-sm"}>
+                                        {/*PAYMENT STATUS*/}
+
+
+                                        {/*REFUND STATUS*/}
                                         {
-                                            order.isPaid ? (
-                                                <Message variant={"success"}>
-                                                    <div className={"flex flex-wrap items-center"}>
-                                                        <span className={"pr-1"}>Paid</span>
-                                                        <span className={"pr-1 font-bold"}>${order.paidAmount.toFixed(2)}</span>
-                                                        <span className={"pr-1"}>on </span>
-                                                        <span className={"font-bold"}>{order.paidAt.substring(0, 10)}</span>
-                                                    </div>
-                                                </Message>
-                                            ) : (
-                                                <Message variant={"error"}>
-                                                    <span className={"text-start"}>Not Paid</span>
-                                                </Message>
-                                            )
-                                        }
-                                        </div>
-                                    </div>
-                                </div>
-                                {
-                                    // (order.isCanceled || (order.orderItems.length === order.canceledItems?.length || booleanOrderHasCanceledItems())) && order.isPaid &&
-                                    order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) &&
-                                    (
-                                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                            <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
-                                                <h3 className={"font-semibold pr-2"}>
-                                                    Refund Status:
-                                                </h3>
-                                            </div>
-                                            <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
+                                            // (order.isCanceled || (order.orderItems.length === order.canceledItems?.length || booleanOrderHasCanceledItems())) && order.isPaid &&
+                                            order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) &&
+                                            (
                                                 <div className={"flex items-center text-sm"}>
                                                     {
                                                         order.isReimbursed ? (
@@ -327,11 +308,27 @@ const OrderPage = () => {
                                                             </Message>
                                                         ) : (
                                                             <Message variant={"info"}>
-                                                                <span className={"text-start"}>Refund In Progress</span>
+                                                                <span className={"text-start"}>Processing refund</span>
                                                             </Message>
                                                         )
                                                     }
                                                 </div>
+
+                                            )
+                                        }
+                                        {/*REFUND STATUS*/}
+                                    </div>
+                                </div>
+                                {
+                                    order.isShipped && (
+                                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                            <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
+                                                <h3 className={"font-semibold pr-2"}>
+                                                    Tracking Number:
+                                                </h3>
+                                            </div>
+                                            <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
+                                                <span className={"text-sm"}>{order.trackingNumber}</span>
                                             </div>
                                         </div>
                                     )
@@ -361,15 +358,15 @@ const OrderPage = () => {
                                             Cancel Order
                                         </button>
                                     </div>
-                                ) : (order.isCanceled || order.canceledItems?.length > 0) && order.isPaid && !order.isReimbursed ? (
+                                ) : (order.isCanceled || totalNumberOfCanceledItemsThatRequireRefund > 0) && order.isPaid && !order.isReimbursed ? (
                                         <h5 className={"text-center py-5"}>
                                             Refunds can take up 5-7 business to process.
                                         </h5>
-                                ) : (order.isCanceled || order.canceledItems?.length > 0) && (!order.isPaid || order.isReimbursed)  ? (
+                                ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) || order.isDelivered  ? (
                                         ""
                                 ) : (
                                     <h5 className={"text-center py-5"}>
-                                        This order can no longer be canceled.
+                                        This order has shipped and can no longer be canceled.
                                     </h5>
                                 )
                             }
@@ -437,7 +434,7 @@ const OrderPage = () => {
                                     {
                                         order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) && (
 
-                                            <div className={"mt-5 bg-white border"}>
+                                            <div className={`${totalNumberOfCanceledItemsThatRequireRefund === orderItemsPaidAndNotCanceled.length && "mt-5"} bg-white border`}>
                                                 <div className="pt-8 px-8">
                                                     <div className={"flex flex-col"}>
                                                         <h3 className={"text-xl font-bold"}>

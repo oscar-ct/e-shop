@@ -297,7 +297,8 @@ const ProductPage = () => {
 
 
                             <div ref={scrollTo} className={"w-full"}>
-                                <div id="reviews" className={"pt-10 lg:pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start h-[27em]"}>
+                                {/*//////////////*/}
+                                <div id="reviews" className={"pt-10 lg:pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start pb-10"}>
                                     <div className={"w-full lg:w-6/12 lg:pr-3"}>
                                         <div className={"h-full bg-white overflow-x-auto"}>
                                             <div className={"h-full"}>
@@ -439,7 +440,7 @@ const ProductPage = () => {
                                     </div>
 
 
-                                    <div className={"hidden lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3"}>
+                                    <div className={"hidden lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
                                         <div className={"h-full bg-white flex flex-col"}>
                                             <div className={"sticky py-2 px-5 pl-3 bg-neutral"}>
                                                 <h2 className={"text-2xl ibmplex text-white"}>You might also like</h2>
