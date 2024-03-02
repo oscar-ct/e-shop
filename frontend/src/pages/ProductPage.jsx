@@ -61,7 +61,9 @@ const ProductPage = () => {
         dispatch(addToCart({
             ...product, quantity
         }));
-        toast.success("Added To Cart");
+        toast.success(() => {
+            return <Link to={"/cart"}>Added To Cart</Link>
+        });
         // navigate("/cart");
     }
     useEffect(function () {
