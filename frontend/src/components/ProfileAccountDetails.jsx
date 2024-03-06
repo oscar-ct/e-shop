@@ -7,6 +7,7 @@ import {toast} from "react-hot-toast";
 import {clearCartItems} from "../slices/cartSlice";
 import {useNavigate} from "react-router-dom";
 import {useLogoutMutation} from "../slices/usersApiSlice";
+import CustomBtn from "./CustomBtn";
 
 
 const ProfileAccountDetails = () => {
@@ -157,9 +158,9 @@ const ProfileAccountDetails = () => {
                         {/*    }*/}
                         {/*</div>*/}
                         <div className={"pt-8 flex justify-center"}>
-                            <button disabled={(userData.name === name.trim() && userData.email === email.trim())} type="submit" className={`${(userData.name !== name.trim() || userData.email !== email.trim()) && "shadow-blue"} btn btn-wide btn-primary`}>
+                            <CustomBtn isDisabled={(userData.name === name.trim() && userData.email === email.trim())} type={"submit"} customClass={"btn-wide"}>
                                 Update
-                            </button>
+                            </CustomBtn>
                         </div>
                     </form>
                 </div>

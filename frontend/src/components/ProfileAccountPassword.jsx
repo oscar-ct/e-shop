@@ -6,6 +6,7 @@ import {toast} from "react-hot-toast";
 import {clearCartItems} from "../slices/cartSlice";
 import {logout} from "../slices/authSlice";
 import {useNavigate} from "react-router-dom";
+import CustomBtn from "./CustomBtn";
 
 
 const ProfileAccountPassword = () => {
@@ -97,7 +98,7 @@ const ProfileAccountPassword = () => {
     return (
         <div className="pt-12 md:pt-4 bg-white mx-auto sm:w-96 w-full">
             <div className="py-2 md:bg-neutral">
-                <h3 className="lg:pl-3 text-3xl md:text-2xl md:text-white ibmplex text-center">Change Password
+                <h3 className="lg:pl-3 text-3xl md:text-2xl md:text-white ibmplex text-center">Update Password
                 </h3>
             </div>
             <div className={"border"}>
@@ -170,9 +171,9 @@ const ProfileAccountPassword = () => {
                         {/*    }*/}
                         {/*</div>*/}
                         <div className={"pt-8 flex justify-center"}>
-                            <button disabled={newPassword.length < 6 || confirmPassword.length < 6} type="submit" className={`${(newPassword.length >= 6 && confirmPassword.length >= 6) && "shadow-blue"} btn-primary btn btn-wide`}>
+                            <CustomBtn isDisabled={newPassword.length < 6 || confirmPassword.length < 6} type={"submit"} customClass={"btn-wide"}>
                                 Update
-                            </button>
+                            </CustomBtn>
                         </div>
                     </form>
                 </div>
