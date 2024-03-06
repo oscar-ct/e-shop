@@ -20,6 +20,7 @@ import AlertModal from "../components/AlertModal";
 import ConfirmModal from "../components/ConfirmModal";
 import Meta from "../components/Meta";
 import CategoryOptions from "../components/CategoryOptions";
+import CustomBtn from "../components/CustomBtn";
 
 
 const AdminProductListPage = () => {
@@ -551,8 +552,10 @@ const AdminProductListPage = () => {
                                         }
                                     </div>
                                     <div className="modal-action">
-                                        <button className={"btn btn-neutral rounded-xl"} onClick={closeImagesModal}>Cancel</button>
-                                        <button onClick={openPicker} className={"btn rounded-xl"}>Add Image</button>
+                                        <button className={"btn btn-neutral rounded-full normal-case"} onClick={closeImagesModal}>Cancel</button>
+                                        <CustomBtn onClick={openPicker} customClass={"text-sm"} type={"submit"}>
+                                            Add Image
+                                        </CustomBtn>
                                     </div>
                                 </form>
 

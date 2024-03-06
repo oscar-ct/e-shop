@@ -9,6 +9,7 @@ import {useDispatch} from "react-redux";
 import {toast} from "react-hot-toast";
 import ConfirmModal from "../components/ConfirmModal";
 import Meta from "../components/Meta";
+import CustomBtn from "../components/CustomBtn";
 
 const AdminOrderListPage = () => {
 
@@ -27,7 +28,6 @@ const AdminOrderListPage = () => {
     const [isReimbursed, setIsReimbursed] = useState(null);
     const [trackingNumber, setTrackingNumber] = useState("");
     const [modalMessage, setModalMessage] = useState("");
-    // const [trackingNumberModalIsOpen, setTrackingNumberModalIsOpen] = useState(false);
 
     const confirmUpdateModal = () => {
         let updated = confirmChanges();
@@ -159,7 +159,6 @@ const AdminOrderListPage = () => {
         }
         setOrderId(orderId);
         setIsShipped(isShipped);
-        // setTrackingNumberModalIsOpen(true);
         window.tracking_modal.showModal();
     }
 
@@ -186,18 +185,13 @@ const AdminOrderListPage = () => {
             console.log(e);
         }
         window.tracking_modal.close();
-        // setTrackingNumberModalIsOpen(false);
         setTrackingNumber("");
         setIsShipped(null);
         setOrderId(null);
-        // closeTrackingNumberModal();
     }
 
     const closeTrackingNumberModal = () => {
-        // e && e.preventDefault();
-        // window.tracking_modal.close();
         setTimeout(function () {
-            // setTrackingNumberModalIsOpen(false);
             setTrackingNumber("");
             setIsShipped(null);
             setOrderId(null);
@@ -227,7 +221,6 @@ const AdminOrderListPage = () => {
                                     <th className={"p-1"}>User</th>
                                     <th className={"p-1"}>Order date</th>
                                     <th className={"p-1"}>Total (USD)</th>
-
                                     <th className={"p-1"}>Status</th>
                                     <th className={"p-1"}>Refund</th>
                                     <th className={"p-1"}>Paid</th>
@@ -271,9 +264,6 @@ const AdminOrderListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1 bg-blue-200 truncate"}>{order.isPaid ? order.paidAt.substring(0,10) : <FaTimes fill={"red"}/>}
                                                                 </td>
-                                                                {/*<td className={"p-1 bg-blue-200"}>*/}
-                                                                {/*    {order.isCanceled ? order.canceledAt.substring(0, 10) : "Active"}*/}
-                                                                {/*</td>*/}
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <select
                                                                         className="bg-white pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
@@ -288,14 +278,6 @@ const AdminOrderListPage = () => {
                                                                         </option>
                                                                     </select>
                                                                 </td>
-                                                                {/*<td className={"p-1 bg-blue-200"}>*/}
-                                                                {/*    <input*/}
-                                                                {/*        className="pl-1 shadow appearance-none border rounded w-full py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"*/}
-                                                                {/*        type={"text"}*/}
-                                                                {/*        value={trackingNumber}*/}
-                                                                {/*        onChange={(e) => setTrackingNumber(e.target.value)}*/}
-                                                                {/*    />*/}
-                                                                {/*</td>*/}
                                                                 <td className={"p-1 bg-blue-200"}>
                                                                     <select
                                                                         className="bg-white pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
@@ -345,8 +327,6 @@ const AdminOrderListPage = () => {
                                                                 </td>
                                                                 <td className={"p-1"}>{order.isShipped ? <FaCheck className={"text-green-500"}/> : <FaTimes fill={"red"}/>}
                                                                 </td>
-                                                                {/*<td className={"p-1"}>{order.isShipped && order.trackingNumber ? order.trackingNumber : <FaTimes fill={"red"}/>}*/}
-                                                                {/*</td>*/}
                                                                 <td className={"p-1 truncate"}>{order.isDelivered ? order.deliveredAt.substring(0,10) : <FaTimes fill={"red"}/>}
                                                                 </td>
                                                                 <td className={"p-1 w-20"}>
@@ -370,8 +350,6 @@ const AdminOrderListPage = () => {
 
                                 }
                                 </tbody>
-                                <tfoot>
-                                </tfoot>
                             </table>
                         </div>
                     </div>
@@ -393,70 +371,61 @@ const AdminOrderListPage = () => {
                 </ConfirmModal>
 
                 <dialog id="tracking_modal" className="modal modal-bottom sm:modal-middle">
-                    {/*{*/}
-                    {/*    trackingNumberModalIsOpen && (*/}
-                            <form method="dialog" className="modal-box bg-white">
-                                <div className="p-3">
-                                    {
-                                        isShipped ? (
-                                            <div className="form-control w-full">
-                                                <div className={"flex justify-between items-center"}>
-                                                    <h3 className="pb-3 font-bold text-xl">
-                                                        Tracking Number
-                                                    </h3>
-                                                </div>
-                                                <input
-                                                    type="text"
-                                                    placeholder={"Enter a tracking number"}
-                                                    className="bg-white input input-bordered w-full"
-                                                    value={trackingNumber}
-                                                    onChange={(e) => setTrackingNumber((e.target.value))}
-                                                />
-                                            </div>
-                                        ) : (
-                                            <div className="form-control w-full">
-                                                <h3 className="pb-3 font-bold text-xl">
-                                                    Tracking Number
-                                                </h3>
-                                                <h5 className={"pb-3 text-lg text-red-500"}>
-                                                    This order has not been marked as shipped, please mark as shipped to continue.
-                                                </h5>
-                                                <input
-                                                    disabled={true}
-                                                    type="text"
-                                                    placeholder="Enter tacking number"
-                                                    className="bg-white input input-bordered w-full"
-                                                    value={trackingNumber}
-                                                    onChange={(e) => setTrackingNumber((e.target.value))}
-                                                />
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                                <div className="modal-action">
-                                    <button
-                                        onClick={closeTrackingNumberModal}
-                                        className={"btn btn-neutral rounded-xl"}
-                                    >
-                                        Cancel
-                                    </button>
-                                    <button
-                                        disabled={!isShipped}
-                                        onClick={submitTrackingNumber}
-                                        className="btn rounded-xl"
-                                    >
-                                        Submit
-                                    </button>
-                                </div>
-                            </form>
-                            <form method="dialog" className="modal-backdrop">
-                                <button>close</button>
-                            </form>
-                    {/*    )*/}
-                    {/*}*/}
+                    <form method="dialog" className="modal-box bg-white">
+                        <div className="p-3">
+                            {
+                                isShipped ? (
+                                    <div className="form-control w-full">
+                                        <div className={"flex justify-between items-center"}>
+                                            <h3 className="pb-3 font-bold text-xl">
+                                                Tracking Number
+                                            </h3>
+                                        </div>
+                                        <input
+                                            type="text"
+                                            placeholder={"Enter a tracking number"}
+                                            className="bg-white input input-bordered w-full"
+                                            value={trackingNumber}
+                                            onChange={(e) => setTrackingNumber((e.target.value))}
+                                        />
+                                    </div>
+                                ) : (
+                                    <div className="form-control w-full">
+                                        <h3 className="pb-3 font-bold text-xl">
+                                            Tracking Number
+                                        </h3>
+                                        <h5 className={"pb-3 text-lg text-red-500"}>
+                                            This order has not been marked as shipped, please mark as shipped to continue.
+                                        </h5>
+                                        <input
+                                            disabled={true}
+                                            type="text"
+                                            placeholder="Enter tacking number"
+                                            className="bg-white input input-bordered w-full"
+                                            value={trackingNumber}
+                                            onChange={(e) => setTrackingNumber((e.target.value))}
+                                        />
+                                    </div>
+                                )
+                            }
+                        </div>
+                        <div className="modal-action">
+                            <button
+                                onClick={closeTrackingNumberModal}
+                                className={"btn btn-neutral rounded-full normal-case"}
+                            >
+                                Cancel
+                            </button>
+                            <CustomBtn onClick={submitTrackingNumber} isDisabled={!isShipped} type={"submit"} customClass={"text-sm"}>
+                                Submit
+                            </CustomBtn>
+                        </div>
+                    </form>
+                    <form method="dialog" className="modal-backdrop">
+                        <button>close</button>
+                    </form>
                 </dialog>
             </>
-
        )
     );
 };
