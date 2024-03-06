@@ -141,7 +141,7 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
 
                                 <div className={"py-2 px-1 w-full"}>
                                     <div className={`w-full ${order.trackingNumber && order.isShipped && "tooltip tooltip-top"}`} data-tip={copyMessage}>
-                                        <button onClick={copyToClipboard} disabled={(!order.isShipped || order.canceledItems.some(e => e.productId === product.productId))} className={"btn h-fit normal-case text-xs btn-sm w-full"}>
+                                        <button onClick={copyToClipboard} disabled={(!order.isShipped || order.canceledItems.some(e => e.productId === product.productId))} className={"btn h-fit normal-case text-xs btn-sm w-full rounded-full"}>
                                             <FaRegCopy/>
                                             Tracking Number
                                         </button>
@@ -156,7 +156,7 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
                                 {/*</div>*/}
 
                                 <div className={"py-2 px-1 w-full"}>
-                                    <button onClick={() => navigate(`/product/${product.productId}?review=true`)} disabled={!order.isDelivered} className={"btn normal-case text-xs btn-sm w-full"}>
+                                    <button onClick={() => navigate(`/product/${product.productId}?review=true`)} disabled={!order.isDelivered} className={"btn normal-case text-xs btn-sm w-full rounded-full"}>
                                         Write a product review
                                     </button>
                                 </div>
@@ -164,7 +164,7 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
                                 {
                                     !order.isShipped && !order.isDelivered && !order.isCanceled && !order.canceledItems.some(e => e.productId === product.productId) && (
                                         <div className={"py-2 px-1 w-full"}>
-                                            <button onClick={() => cancelOrderItemHandler(product.productId)} className={"btn normal-case text-xs btn-sm w-full"}>
+                                            <button onClick={() => cancelOrderItemHandler(product.productId)} className={"btn normal-case text-xs btn-sm w-full rounded-full"}>
                                                 Cancel Item
                                             </button>
                                         </div>
