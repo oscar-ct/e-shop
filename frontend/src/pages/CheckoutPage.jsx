@@ -31,16 +31,13 @@ const CheckoutPage = () => {
         return state.cart;
     });
 
-    const { discount, shippingAddress, paymentMethod, cartItems, taxPrice, shippingPrice, itemsPrice, totalPrice } = cartState;
+    const { discount, discountKey, shippingAddress, paymentMethod, cartItems, taxPrice, shippingPrice, itemsPrice, totalPrice } = cartState;
 
-    const [discountCodeInput, setDiscountCodeInput] = useState(false);
     const [discountCode, setDiscountCode] = useState("");
     const [orderSubmitted, setOrderSubmitted] = useState(false);
 
-
     const dispatch = useDispatch();
     const navigate = useNavigate();
-
 
     const [payOrder,
         // {isLoading: loadingPay}
@@ -51,6 +48,10 @@ const CheckoutPage = () => {
 
     const {data: paypal, isLoading: loadingPayPal, error: errorPayPal} = useGetPayPalClientIdQuery();
     const [{isPending}, paypalDispatch] = usePayPalScriptReducer();
+
+    const totalNumberOfItems = cartItems.reduce(function (acc, product) {
+        return (acc + product.quantity);
+    }, 0);
 
     useEffect(function () {
         if (!errorPayPal && !loadingPayPal && paypal.clientId) {
@@ -80,30 +81,25 @@ const CheckoutPage = () => {
         }
     }, [navigate, shippingAddress, paymentMethod, orderSubmitted]);
 
-    const totalNumberOfItems = cartItems.reduce(function (acc, product) {
-        return (acc + product.quantity);
-    }, 0);
-
-
     const submitApplyDiscountCode = async () => {
         const res = await validateDiscountCode({code: discountCode}).unwrap();
         if (!res.validCode) {
             toast.error("Invalid discount code :(");
         } else {
             toast.success("You are now receiving FREE SHIPPING!");
-            dispatch(applyDiscountCode());
+            dispatch(applyDiscountCode(discountCode));
         }
     };
 
     const submitRemoveDiscountCode = () => {
-        setDiscountCodeInput(false);
+        setDiscountCode("");
         dispatch(removeDiscountCode());
     };
 
     const checkoutHandler = async () => {
         setOrderSubmitted(true);
         dispatch(setLoading(true));
-        const res = await validateDiscountCode({code: discountCode}).unwrap();
+        const res = await validateDiscountCode({code: discountKey}).unwrap();
         try {
             const order = await createOrder({
                 orderItems: cartItems,
@@ -127,7 +123,7 @@ const CheckoutPage = () => {
 
     const createNewOrder = async (data, actions) => {
         try {
-            const discount = await validateDiscountCode({code: discountCode}).unwrap();
+            const discount = await validateDiscountCode({code: discountKey}).unwrap();
             const totalPriceFromBackend = await verifyAmount({orderItems: cartItems, validCode : discount.validCode}).unwrap();
             if (totalPriceFromBackend !== totalPrice) {
                 // console.log("Prices DO NOT match!!");
