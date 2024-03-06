@@ -12,7 +12,7 @@ import SearchBox from "./SearchBox";
 import CartIcon from "./CartIcon";
 
 const Navbar = () => {
-    const {cartItems} = useSelector(function (state) {
+    const {cartItems, shippingAddress, paymentMethod} = useSelector(function (state) {
         return state.cart;
     });
     const {userData} = useSelector(function (state) {
@@ -208,7 +208,7 @@ const Navbar = () => {
                             <div className="ml-auto hidden items-center gap-2 lg:flex">
                                 <SearchBox/>
                                 <div className="flex-none">
-                                    <CartIcon cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice}/>
+                                    <CartIcon isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice}/>
                                 </div>
 
                                 <div ref={documentRef4} className="relative inline-block text-left py-4">
