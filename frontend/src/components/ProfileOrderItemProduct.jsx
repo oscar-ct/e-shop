@@ -3,6 +3,7 @@ import {useDispatch} from "react-redux";
 import axios from "axios";
 import {Link} from "react-router-dom";
 import {toast} from "react-hot-toast"
+import CustomBtn from "./CustomBtn";
 
 
 const ProfileOrderItemProduct = ({product, index, orderSize}) => {
@@ -40,9 +41,9 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
                                     </span>
                                 </div>
                                 <div className={"pt-4"}>
-                                    <button onClick={() => addToCartHandler()} className={"btn btn-sm btn-primary rounded-md shadow-blue"}>
-                                        Buy it again
-                                    </button>
+                                    <CustomBtn customClass={"!text-[14px] !px-6"} onClick={addToCartHandler}>
+                                        Buy It Again
+                                    </CustomBtn>
                                 </div>
                             </div>
                         </div>
