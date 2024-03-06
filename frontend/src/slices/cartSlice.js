@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {updateCart} from "../utils/cartUtils";
 
 
-const initialState = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {cartItems: [], shippingAddress: {}, paymentMethod: null, discount: false};
+const initialState = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {cartItems: [], shippingAddress: {}, paymentMethod: null, discount: false, discountKey: ""};
 
 const cartSlice = createSlice({
    name: "cart",
@@ -55,12 +55,14 @@ const cartSlice = createSlice({
          state.discount = false;
          return updateCart(state);
       },
-      applyDiscountCode: function (state) {
+      applyDiscountCode: function (state, action) {
          state.discount = true;
+         state.discountKey = action.payload
          return updateCart(state);
       },
       removeDiscountCode: function (state) {
          state.discount = false;
+         state.discountKey = "";
          return updateCart(state);
       },
    },
