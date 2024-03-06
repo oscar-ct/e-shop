@@ -1,10 +1,6 @@
+import CustomBtn from "./CustomBtn";
+
 const AlertModal = ({title, children, initiateFunction}) => {
-
-    // const closeModal = (e) => {
-    //     e.preventDefault();
-    //     window.alert_modal.close();
-    // }
-
 
     return (
             <dialog id="alert_modal" className="modal modal-bottom sm:modal-middle">
@@ -16,14 +12,12 @@ const AlertModal = ({title, children, initiateFunction}) => {
                         {children}
                         <div className="modal-action">
                             <button
-                                // onClick={closeModal}
-                                className={"btn btn-neutral rounded-xl"}>Cancel</button>
-                            <button
-                                onClick={initiateFunction}
-                                className="btn rounded-xl"
-                            >
-                                Confirm
+                                className={"btn btn-neutral rounded-full normal-case"}>
+                                Cancel
                             </button>
+                            <CustomBtn type={"submit"} onClick={initiateFunction} customClass={"text-sm"}>
+                                Approve
+                            </CustomBtn>
                         </div>
                     </div>
                 </form>

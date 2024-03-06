@@ -1,11 +1,6 @@
-const AlertModal = ({title, children, initiateFunction}) => {
+import CustomBtn from "./CustomBtn";
 
-    // const closeModal = (e) => {
-    //     e.preventDefault();
-    //     window.confirm_modal.close();
-    // }
-
-
+const ConfirmModal = ({title, children, initiateFunction}) => {
     return (
         <dialog id="confirm_modal" className="modal modal-bottom sm:modal-middle">
             <form method="dialog" className="modal-box bg-white">
@@ -16,14 +11,12 @@ const AlertModal = ({title, children, initiateFunction}) => {
                     {children}
                     <div className="modal-action">
                         <button
-                            // onClick={closeModal}
-                            className={"btn btn-neutral rounded-xl"}>Cancel</button>
-                        <button
-                            onClick={initiateFunction}
-                            className="btn rounded-xl"
-                        >
-                            Confirm
+                            className={"btn btn-neutral rounded-full normal-case"}>
+                            Cancel
                         </button>
+                        <CustomBtn type={"submit"} onClick={initiateFunction} customClass={"text-sm"}>
+                            Confirm
+                        </CustomBtn>
                     </div>
                 </div>
             </form>
@@ -34,4 +27,4 @@ const AlertModal = ({title, children, initiateFunction}) => {
     );
 };
 
-export default AlertModal;
+export default ConfirmModal;
