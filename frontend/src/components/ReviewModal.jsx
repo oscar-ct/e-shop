@@ -1,6 +1,7 @@
 import {useState} from "react";
 import {useCreateReviewMutation} from "../slices/productsApiSlice";
 import {toast} from "react-hot-toast";
+import CustomBtn from "./CustomBtn";
 
 const ReviewModal = ({productId, refetch, onPage}) => {
 
@@ -97,13 +98,10 @@ const ReviewModal = ({productId, refetch, onPage}) => {
 
                 </div>
                 <div className="modal-action">
-                    <button onClick={closeReviewModal} className={"btn btn-neutral"}>Cancel</button>
-                    <button
-                        onClick={submitReview}
-                        className="btn rounded-cl"
-                    >
+                    <button onClick={closeReviewModal} className={"btn btn-neutral rounded-full normal-case"}>Cancel</button>
+                    <CustomBtn type={"submit"} onClick={submitReview} customClass={"text-sm"}>
                         Submit
-                    </button>
+                    </CustomBtn>
                 </div>
             </form>
             <form method="dialog" className="modal-backdrop">
