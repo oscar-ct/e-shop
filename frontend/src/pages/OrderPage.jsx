@@ -65,7 +65,8 @@ const OrderPage = () => {
                     type: "resetOptions",
                     value: {
                         "client-id": paypal.clientId,
-                        currency: "USD"
+                        currency: "USD",
+                        enableFunding: "venmo"
                     }
                 });
                 paypalDispatch({type: "setLoadingStatus", value: "pending"});
@@ -119,16 +120,6 @@ const OrderPage = () => {
         refetch();
     }
 
-    // const booleanOrderHasCanceledItems = () => {
-    //     let bool = false;
-    //     order?.orderItems.forEach(function (item) {
-    //         if (order.canceledItems.some(e => e.productId === item.productId)) {
-    //             bool = true;
-    //         }
-    //     });
-    //
-    //     return bool;
-    // }
 
     return (
         <>
@@ -137,12 +128,6 @@ const OrderPage = () => {
                     <Spinner/>
                 ) : error ? (
                     <NotFoundPage/>
-                    // <div className={"pt-10 px-2"}>
-                    //     <BackButton/>
-                    //     <Message variant={"error"}>
-                    //         {error?.data?.message || error.error}
-                    //     </Message>
-                    // </div>
                 ) : (
                     <>
                         <Meta title={`Order # ${order._id}`}/>
@@ -353,7 +338,7 @@ const OrderPage = () => {
                                 !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
                                     <div className={"w-full pt-5 lg:pt-0 pb-5"}>
                                         <button onClick={() => window.confirm_modal.showModal()}
-                                                className={"btn text-xs btn-neutral btn-sm w-full rounded-xl"}
+                                                className={"btn text-xs btn-neutral btn-sm w-full rounded-full"}
                                         >
                                             Cancel Order
                                         </button>
@@ -414,6 +399,7 @@ const OrderPage = () => {
                                                                             createOrder={createOrder}
                                                                             onApprove={onApprove}
                                                                             onError={onError}
+                                                                            style={{shape: "pill", height: 40}}
                                                                         >
                                                                         </PayPalButtons>
                                                                         {/*<button*/}
