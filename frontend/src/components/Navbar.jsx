@@ -311,7 +311,7 @@ const Navbar = () => {
                             <SearchBox/>
                         </div>
                         <div>
-                            <CartIcon cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice} />
+                            <CartIcon isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice} />
                         </div>
                     </div>
                 </div>
