@@ -5,6 +5,7 @@ import CartItem from "../components/CartItem";
 import CheckoutSteps from "../components/CheckoutSteps";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
+import CustomBtn from "../components/CustomBtn";
 
 const CartPage = () => {
 
@@ -140,12 +141,9 @@ const CartPage = () => {
                                         </div>
                                     </div>
                                     <div className="card-actions justify-end px-5 pb-5">
-                                        <button
-                                            onClick={checkoutHandler}
-                                            className="shadow-blue btn btn-primary rounded-xl"
-                                        >
+                                        <CustomBtn onClick={checkoutHandler}>
                                             Proceed To Checkout
-                                        </button>
+                                        </CustomBtn>
                                     </div>
                                 </div>
                             </div>

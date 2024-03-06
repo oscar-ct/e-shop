@@ -5,7 +5,8 @@ import {savePaymentMethod} from "../slices/cartSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
 import Meta from "../components/Meta";
-// import {FaCreditCard} from "react-icons/fa";
+import CustomBtn from "../components/CustomBtn";
+
 
 const PaymentPage = () => {
 
@@ -74,38 +75,10 @@ const PaymentPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            {/*<div className="my-5">*/}
-                            {/*    <div*/}
-                            {/*        className={"w-full card bg-base-200 cursor-pointer"}*/}
-                            {/*        onClick={() => setPaymentMeth("CreditCard")}*/}
-                            {/*    >*/}
-                            {/*        <div className={"w-full flex p-6"}>*/}
-                            {/*            <div className={"w-2/12"}>*/}
-                            {/*                <FaCreditCard className={"text-3xl"}/>*/}
-                            {/*            </div>*/}
-                            {/*            <div className={"w-8/12 flex  items-center"}>*/}
-                            {/*                <span className={"text-lg"}>*/}
-                            {/*                    Credit Card*/}
-                            {/*                </span>*/}
-                            {/*            </div>*/}
-                            {/*            <div className={"w-2/12 flex items-center"}>*/}
-                            {/*                <input*/}
-                            {/*                    onChange={(e) => setPaymentMeth(e.target.value)}*/}
-                            {/*                    type="radio"*/}
-                            {/*                    name="paymentMethod"*/}
-                            {/*                    id={"CreditCard"}*/}
-                            {/*                    value={"CreditCard"}*/}
-                            {/*                    className="radio radio-primary"*/}
-                            {/*                    checked={paymentMeth === "CreditCard"}*/}
-                            {/*                />*/}
-                            {/*            </div>*/}
-                            {/*        </div>*/}
-                            {/*    </div>*/}
-                            {/*</div>*/}
                             <div className={"pt-5 w-full flex justify-end"}>
-                                <button className={`${paymentMeth && "shadow-blue"} btn btn-primary btn-wide rounded-xl`} disabled={paymentMeth === null}>
+                                <CustomBtn isDisabled={paymentMeth === null} type={"submit"}>
                                     Continue To Checkout
-                                </button>
+                                </CustomBtn>
                             </div>
                         </form>
                     </div>

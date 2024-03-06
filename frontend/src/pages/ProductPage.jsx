@@ -27,6 +27,7 @@ import {motion} from "framer-motion";
 import {FaTrash} from "react-icons/fa";
 import ConfirmModal from "../components/ConfirmModal";
 import NotFoundPage from "./NotFoundPage";
+import CustomBtn from "../components/CustomBtn";
 
 
 const ProductPage = () => {
@@ -186,7 +187,7 @@ const ProductPage = () => {
                                                     }
                                                 </div>
                                                 <div>
-                                                    <h6 className={"text-lg lg:text-sm text-center pt-5 pb-5 font-semibold lg:pb-2"}>Product Details</h6>
+                                                    <h6 className={"text-lg lg:text-sm text-center pt-5 pb-5 font-semibold lg:pb-2"}>Specifications</h6>
                                                 </div>
                                                 <div className={"text-lg lg:text-sm py-1"}>
                                                     <span className={"font-semibold pr-3"}>
@@ -289,9 +290,9 @@ const ProductPage = () => {
                                                     )
                                                 }
                                             </div>
-                                            <button className={`rounded-xl btn-md btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary shadow-blue"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>
+                                            <CustomBtn isDisabled={product.countInStock === 0} onClick={addToCartHandler}>
                                                 Add To Cart
-                                            </button>
+                                            </CustomBtn>
                                         </div>
                                     </div>
                                 </div>

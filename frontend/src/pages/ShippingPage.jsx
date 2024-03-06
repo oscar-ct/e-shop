@@ -6,6 +6,7 @@ import CheckoutSteps from "../components/CheckoutSteps";
 import {useUpdateUserAddressMutation} from "../slices/usersApiSlice";
 import {setCredentials} from "../slices/authSlice";
 import Meta from "../components/Meta";
+import CustomBtn from "../components/CustomBtn";
 
 const ShippingPage = () => {
 
@@ -192,9 +193,9 @@ const ShippingPage = () => {
                                     </label>
                                 </div>
                                 <div className={"pt-5 w-full flex justify-end"}>
-                                    <button disabled={shippingData.address.length === 0 || shippingData.city.length === 0 || shippingData.postalCode.length === 0 || shippingData.state.length === 0 || shippingData.country.length === 0} className={`${(shippingData.address.length !== 0 && shippingData.city.length !== 0 && shippingData.postalCode.length !== 0 && shippingData.country.length !== 0) && "shadow-blue"} btn btn-primary btn-wide`}>
+                                    <CustomBtn isDisabled={shippingData.address.length === 0 || shippingData.city.length === 0 || shippingData.postalCode.length === 0 || shippingData.state.length === 0 || shippingData.country.length === 0} type={"submit"}>
                                         Continue To Payment
-                                    </button>
+                                    </CustomBtn>
                                 </div>
                             </form>
                         ) : (
@@ -231,11 +232,9 @@ const ShippingPage = () => {
                                     <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-end link link-primary"}>Use New Address</span>
                                 </div>
                                 <div className={"pt-5 w-full flex justify-end"}>
-                                    <button
-                                        disabled={radioId === ""}
-                                        className={`${radioId !== "" && "shadow-blue"} btn btn-primary btn-wide rounded-xl`}>
+                                    <CustomBtn isDisabled={radioId === ""} type={"submit"}>
                                         Continue To Payment
-                                    </button>
+                                    </CustomBtn>
                                 </div>
                             </form>
                         )
