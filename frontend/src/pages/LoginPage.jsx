@@ -8,6 +8,7 @@ import {setLoading} from "../slices/loadingSlice";
 import axios from "axios";
 import {toast} from "react-hot-toast";
 import Meta from "../components/Meta";
+import CustomBtn from "../components/CustomBtn";
 
 const LoginPage = () => {
     const [showPassword, setShowPassword] = useState(false);
@@ -105,7 +106,7 @@ const LoginPage = () => {
             <div className="h-max relative">
                 <div className="h-full flex flex-row justify-center">
                     <div className="sm:mt-10 mb-10 w-full flex justify-center self-center">
-                        <div className="bg-white shadow-xl p-12 mx-auto rounded-2xl sm:w-96 w-full">
+                        <div className="bg-white border p-12 mx-auto rounded-2xl sm:w-96 w-full">
                             <div className="mb-4">
                                 <h3 className="font-bold text-2xl">Login
                                 </h3>
@@ -117,7 +118,7 @@ const LoginPage = () => {
                                     <label className="text-sm font-medium text-gray-600 tracking-wide">Email
                                     </label>
                                     <input
-                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
                                         autoComplete={"email"}
                                         type={"email"}
                                         placeholder={"mail@gmail.com"}
@@ -133,7 +134,7 @@ const LoginPage = () => {
                                     </label>
 
                                     <input
-                                        className="bg-white w-full content-center text-base px-4 py-2 border  border-gray-300 rounded-lg focus:outline-none focus:border-blue-400"
+                                        className="bg-white w-full content-center text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
                                         autoComplete={"current-password"}
                                         type={ showPassword ? "text" : "password"}
                                         placeholder={"Enter your password"}
@@ -182,7 +183,7 @@ const LoginPage = () => {
                                 {/*}*/}
 
                                 <div className={"flex justify-center"}>
-                                    <button type="submit" className="rounded-xl btn btn-wide">
+                                    <button type="submit" className="rounded-full btn btn-neutral btn-wide normal-case">
                                         Login
                                     </button>
                                 </div>
@@ -219,14 +220,10 @@ const LoginPage = () => {
                                     e.preventDefault();
                                     window.password_modal.close();
                                 }}
-                                className={"btn btn-neutral rounded-xl"}>Cancel</button>
-                            <button
-                                disabled={!isValidEmail}
-                                onClick={submitResetPassword}
-                                className={`btn rounded-xl`}
-                            >
-                                SEND LINK
-                            </button>
+                                className={"btn btn-neutral rounded-full normal-case"}>Cancel</button>
+                            <CustomBtn type={"submit"} isDisabled={!isValidEmail} onClick={submitResetPassword} customClass={"text-sm"}>
+                                Send Link
+                            </CustomBtn>
                         </div>
                     </div>
                 </form>
