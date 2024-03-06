@@ -14,11 +14,12 @@ import {applyDiscountCode, clearCartItems, removeDiscountCode} from "../slices/c
 import Message from "../components/Message";
 import CheckoutItem from "../components/CheckoutItem";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
-import {FaCreditCard} from "react-icons/fa";
+import {FaCreditCard, FaEdit} from "react-icons/fa";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import {toast} from "react-hot-toast";
 import {PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
+import NotFoundPage from "./NotFoundPage";
 
 
 const CheckoutPage = () => {
@@ -58,10 +59,11 @@ const CheckoutPage = () => {
                     type: "resetOptions",
                     value: {
                         "client-id": paypal.clientId,
-                        currency: "USD"
+                        currency: "USD",
+                        enableFunding: "venmo"
                     }
                 });
-                // paypalDispatch({type: "setLoadingStatus", value: "pending"});
+                paypalDispatch({type: "setLoadingStatus", value: "pending"});
             }
             if (!window.paypal) {
                 loadPayPalScript();
@@ -69,7 +71,6 @@ const CheckoutPage = () => {
 
         }
     }, [paypal, paypalDispatch, loadingPayPal, errorPayPal]);
-
 
     useEffect(function () {
         if (Object.keys(shippingAddress).length === 0 && !orderSubmitted) {
@@ -87,7 +88,7 @@ const CheckoutPage = () => {
     const submitApplyDiscountCode = async () => {
         const res = await validateDiscountCode({code: discountCode}).unwrap();
         if (!res.validCode) {
-            toast.error("Invalid discount code");
+            toast.error("Invalid discount code :(");
         } else {
             toast.success("You are now receiving FREE SHIPPING!");
             dispatch(applyDiscountCode());
@@ -187,10 +188,14 @@ const CheckoutPage = () => {
                 cartItems.length === 0 ? (
                     <div className={"px-2"}>
                         <BackButton/>
-                        <Message variant={"info"}>
-                            You have no items in your cart.  Click <Link to={"/"} className={"link link-primary"}>here</Link> to continue shopping.
-                        </Message>
+                        <div className={"lg:pt-4 pt-20 px-2"}>
+                            <Message variant={"info"}>
+                                You have no items in your cart.  Click <Link to={"/"} className={"link link-primary"}>here</Link> to continue shopping.
+                            </Message>
+                        </div>
                     </div>
+                ) : cartItems.length !== 0 && Object.keys(shippingAddress).length === 0 && paymentMethod === null ? (
+                    <NotFoundPage/>
                 ) : (
                     <div>
                         <CheckoutSteps/>
@@ -221,19 +226,18 @@ const CheckoutPage = () => {
                                             </h3>
                                         </div>
                                         <div className={"w-7/12 lg:w-8/12"}>
-                                            <div className={"flex flex-col text-sm"}>
-                                            <span>
-                                                {userData.name}
-                                            </span>
-                                                <span>
-                                                {shippingAddress.address}
-                                            </span>
-                                                <span>
-                                                {shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}
-                                            </span>
-                                                <span>
-                                                {shippingAddress.country}
-                                            </span>
+                                            <div className={"flex justify-between"}>
+                                                <div className={"flex flex-col text-sm"}>
+                                                    <span>{userData.name}</span>
+                                                    <span>{shippingAddress.address}</span>
+                                                    <span>{shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}</span>
+                                                    <span>{shippingAddress.country}</span>
+                                                </div>
+                                                <div>
+                                                    <Link to={"/shipping"}>
+                                                        <FaEdit/>
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -244,19 +248,24 @@ const CheckoutPage = () => {
                                             </h3>
                                         </div>
                                         <div className={"w-7/12 lg:w-8/12"}>
-                                            <div className={"flex items-center text-sm"}>
-                                                <div>
-                                                    {
-                                                        paymentMethod === "PayPal / Credit Card" ? (
-                                                            <PayPal width={"22"} height={"26"}/>
-                                                        ) : (
-                                                            <FaCreditCard className={"text-2xl"}/>
-                                                        )
-                                                    }
+                                            <div className={"flex justify-between"}>
+                                                <div className={"flex items-center text-sm"}>
+                                                    <div>
+                                                        {
+                                                            paymentMethod === "PayPal / Credit Card" ? (
+                                                                <PayPal width={"22"} height={"26"}/>
+                                                            ) : (
+                                                                <FaCreditCard className={"text-2xl"}/>
+                                                            )
+                                                        }
+                                                    </div>
+                                                    <span className={"pl-2"}>{paymentMethod}</span>
                                                 </div>
-                                                <span className={"pl-2"}>
-                                                {paymentMethod}
-                                            </span>
+                                                <div>
+                                                    <Link to={"/payment"}>
+                                                        <FaEdit/>
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
@@ -327,34 +336,26 @@ const CheckoutPage = () => {
                                     </div>
                                     <div className={"px-8 pt-8 pb-6"}>
                                     {
-                                        discount && (
+                                        discount ? (
                                             <div className={"w-full flex items-center justify-between"}>
-                                                <span className={"text-sm"}>Discount code applied!</span>
-                                                <button onClick={() => submitRemoveDiscountCode()} className={"text-xs text-red-500 link"}>
-                                                    remove
-                                                </button>
+                                                <span className={"text-sm"}>Congrats! Discount code applied!</span>
+                                                <div className={"pl-10"}>
+                                                    <button onClick={() => submitRemoveDiscountCode()} className={"btn btn-xs rounded-full btn-error px-4"}>
+                                                        remove
+                                                    </button>
+                                                </div>
                                             </div>
-                                        )
-                                    }
-                                    {
-                                        !discount && !discountCodeInput && (
-                                            <div onClick={() => setDiscountCodeInput(true)} className={"text-sm link"}>
-                                                Have a discount code?
-                                            </div>
-                                        )
-                                    }
-                                    {
-                                        !discount && discountCodeInput && (
+                                        ) : (
                                             <>
-                                                <div className={"flex justify-between"}>
+                                                <div className={"flex flex-col items-end md:items-center md:flex-row md:justify-between lg:flex-col lg:items-end xl:items-center xl:flex-row xl:justify-between"}>
                                                     <input
                                                         className={"bg-white text-[16px] input input-bordered input-sm w-full max-w-xs border border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"}
-                                                        placeholder={"Enter discount code"}
+                                                        placeholder={"Have a discount code?"}
                                                         value={discountCode} onChange={(e) => setDiscountCode(e.target.value)} type={"text"}
                                                     />
-                                                    <div className={"pl-10"}>
-                                                        <button onClick={submitApplyDiscountCode} className={"btn btn-sm rounded-xl btn-neutral"}>
-                                                            Apply
+                                                    <div className={"pt-3 md:pt-0 lg:pt-3 xl:pt-0 xl:pl-10"}>
+                                                        <button onClick={submitApplyDiscountCode} className={"btn btn-xs rounded-full btn-neutral px-4 truncate"}>
+                                                            Apply code
                                                         </button>
                                                     </div>
                                                 </div>
@@ -369,6 +370,7 @@ const CheckoutPage = () => {
                                                     createOrder={createNewOrder}
                                                     onApprove={onApprove}
                                                     onError={onError}
+                                                    style={{shape: "pill", height: 40}}
                                                 >
                                                 </PayPalButtons>
                                             )
@@ -386,8 +388,8 @@ const CheckoutPage = () => {
                                                 <button
                                                     onClick={checkoutHandler}
                                                     disabled={cartItems.length === 0}
-                                                    className={"btn btn-xs btn-primary rounded-xl"}
-                                                >Save now</button>
+                                                    className={"btn btn-xs btn-neutral rounded-full !px-4"}
+                                                >Save</button>
                                             </div>
                                         </div>
                                     </div>
