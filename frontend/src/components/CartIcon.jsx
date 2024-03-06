@@ -76,17 +76,13 @@ const CartIcon = ({isValidShippingAddress, isValidPaymentMethod, cartItems, tota
                                                     </CustomBtn>
                                                 </>
                                             ) : (
-                                                <span className={"font-bold text-white text-center text-xl"}>
-                                    Your cart is empty...
-                                </span>
+                                                <span className={"font-bold text-white text-center text-xl"}>Your cart is empty...</span>
                                             )
                                         }
-
                                     </div>
                                 </div>
                             )
                         }
-
                     </div>
                 )
             }
