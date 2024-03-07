@@ -195,7 +195,7 @@ const CheckoutPage = () => {
                 ) : (
                     <div>
                         <CheckoutSteps/>
-                        <div className={"pt-3 sm:pt-0 mb-10 flex-col flex lg:flex-row w-full"}>
+                        <div className={"pt-0 mb-10 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-white h-min"}>
                                 <div className={"pt-7"}>
                                     <h1
@@ -216,12 +216,12 @@ const CheckoutPage = () => {
                                 </div>
                                 <div className={"border px-4 sm:px-7 py-4"}>
                                     <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                        <div className={"w-5/12 lg:w-4/12"}>
+                                        <div className={"w-3/12 sm:w-4/12"}>
                                             <h3 className={"font-semibold"}>
                                                 Ship To:
                                             </h3>
                                         </div>
-                                        <div className={"w-7/12 lg:w-8/12"}>
+                                        <div className={"w-9/12 sm:w-8/12"}>
                                             <div className={"flex justify-between"}>
                                                 <div className={"flex flex-col text-sm"}>
                                                     <span>{userData.name}</span>
@@ -238,12 +238,12 @@ const CheckoutPage = () => {
                                         </div>
                                     </div>
                                     <div className={"flex border-b-[1px] border-gray-300 py-5"}>
-                                        <div className={"w-5/12 lg:w-4/12"}>
+                                        <div className={"w-3/12 sm:w-4/12"}>
                                             <h3 className={"font-semibold"}>
-                                                Payment Method:
+                                                Payment:
                                             </h3>
                                         </div>
-                                        <div className={"w-7/12 lg:w-8/12"}>
+                                        <div className={"w-9/12 sm:w-8/12"}>
                                             <div className={"flex justify-between"}>
                                                 <div className={"flex items-center text-sm"}>
                                                     <div>
