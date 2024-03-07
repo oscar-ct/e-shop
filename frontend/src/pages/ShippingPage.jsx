@@ -112,12 +112,12 @@ const ShippingPage = () => {
         <>
             <Meta title={"Shipping Address"}/>
             <CheckoutSteps step2 />
-            <div className={"pt-3 sm:pt-0 w-full flex justify-center"}>
-                <div className={"mb-10 pt-7 w-[35em]"}>
+            <div className={"pt-0 w-full flex justify-center"}>
+                <div className={"mb-10 pt-7 w-full sm:w-[35em]"}>
                     <div className={"py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
                         <h1>Shipping Address</h1>
                     </div>
-                    <div className={"px-10 pb-10 pt-5 border"}>
+                    <div className={"px-10 pb-10 pt-5 w-full border"}>
                     {
                         useNewAddress ? (
                             <form onSubmit={submitShippingData} className="space-y-5">
@@ -213,9 +213,15 @@ const ShippingPage = () => {
                                             <div key={index} className="my-5">
                                                 <div className={"w-full card bg-zinc-100 cursor-pointer"}>
                                                     <div className={"w-full flex p-6"}>
-                                                        <div className={"w-10/12 flex  items-center"}>
-                                                            <span className={"text-md text-ellipsis overflow-hidden"}>
-                                                                {`${item.address} ${item.city}, ${item.state} ${item.postalCode} ${item.country}`}
+                                                        <div className={"w-10/12 flex flex-col justify-center"}>
+                                                            <span className={"truncate"}>
+                                                                {item.address}
+                                                            </span>
+                                                            <span className={"truncate"}>
+                                                                {`${item.city}, ${item.state} ${item.postalCode} `}
+                                                            </span>
+                                                            <span className={"truncate"}>
+                                                                {item.country}
                                                             </span>
                                                         </div>
                                                         <div className={"w-2/12 flex items-center"}>
