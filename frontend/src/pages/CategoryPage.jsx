@@ -8,6 +8,7 @@ import SelectMenuSort from "../components/SelectMenuSort";
 import SelectMenuCategory from "../components/SelectMenuCategory";
 import {useEffect, useState} from "react";
 import BackButton from "../components/BackButton";
+import {customStyles} from "../utils/selectCustomStyles";
 
 const CategoryPage = () => {
 
@@ -21,44 +22,6 @@ const CategoryPage = () => {
         window.addEventListener("resize", adjustWidth);
         return () => window.removeEventListener("resize", adjustWidth);
     });
-    const customStyles = {
-        control: (base) => ({
-            ...base,
-            cursor: "pointer",
-            fontSize: "14px"
-        }),
-        option: (base, {isDisabled, isFocused, isSelected}) => {
-            return {
-                ...base,
-                cursor: "pointer",
-                borderRadius: 1,
-                color: "black",
-                backgroundColor: isFocused
-                    ? "rgba(132,170,252,0.3)"
-                    : isSelected
-                        ? "rgb(132,166,252)"
-                        : "rgb(245,245,245)",
-                ':active': {
-                    ...base[':active'],
-                    backgroundColor: !isDisabled
-                        && isSelected
-                        && "rgb(245,245,245)",
-
-                },
-            };
-        },
-        menu: base => ({
-            ...base,
-            cursor: "pointer",
-            borderRadius: 5,
-        }),
-        menuList: base => ({
-            ...base,
-            padding: 0,
-            cursor: "pointer",
-            fontSize: "14px"
-        })
-    };
 
     return (
         isLoading ? (
@@ -71,13 +34,6 @@ const CategoryPage = () => {
                         <div className={"pb-10"}>
                             <BackButton/>
                             <div className={"pt-14 lg:pt-0 flex justify-between"}>
-                                {/*<Link className={"px-2 md:px-0 my-5 flex items-center w-min"} to={"/"}>*/}
-                                {/*    <Arrow className={"w-5 h-5"}/>*/}
-                                    {/*<span className={"pl-1 font-base"}>*/}
-                                    {/*    HOME*/}
-                                    {/*</span>*/}
-
-                                {/*</Link>*/}
                                 <div className={"w-max m-2 flex items-center"}>
                                     <div className={"flex flex-col lg:flex-row"}>
                                         <div className={"lg:pr-5 flex justify-between items-center"}>
