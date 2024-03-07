@@ -4,7 +4,7 @@ export const customStyles = {
         padding: "2px",
         borderRadius: 0,
         cursor: "pointer",
-        fontSize: "14px",
+        fontSize: "16px",
     }),
     option: (base, {isDisabled, isFocused, isSelected}) => {
         return {
@@ -35,6 +35,6 @@ export const customStyles = {
         ...base,
         padding: 0,
         cursor: "pointer",
-        fontSize: "14px"
+        fontSize: "16px"
     })
 };
