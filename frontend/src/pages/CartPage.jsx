@@ -73,7 +73,7 @@ const CartPage = () => {
                                     <h1
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
                                         className={"py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white font-semibold"}>
-                                         Shopping Cart (
+                                         Cart (
                                         <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
                                             {totalNumberOfItems}
                                             {
@@ -123,11 +123,11 @@ const CartPage = () => {
                                     <div className="px-8 py-5">
                                         <div className={"flex flex-col"}>
                                             <h3 className={"text-lg"}>
-                                                Subtotal ({totalNumberOfItems}
-                                                {
-                                                    totalNumberOfItems > 1 ? (" Items") : (" Item")
-                                                }
-                                                )
+                                                Subtotal (
+                                                <span className={"text-[16px] font-semibold"}>
+                                                    {totalNumberOfItems}
+                                                    {totalNumberOfItems > 1 ? (" Items") : (" Item")}
+                                                </span>)
                                             </h3>
                                             <div className={"border-b-[1px] border-gray-300 my-2"}/>
                                             <div className={"flex justify-end"}>
