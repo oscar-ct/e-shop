@@ -7,6 +7,10 @@ import {useUpdateUserAddressMutation} from "../slices/usersApiSlice";
 import {setCredentials} from "../slices/authSlice";
 import Meta from "../components/Meta";
 import CustomBtn from "../components/CustomBtn";
+import Select from "react-select";
+import {countries, states} from "../utils/locationData";
+import {customStyles} from "../utils/selectCustomStyles";
+
 
 const ShippingPage = () => {
 
@@ -42,10 +46,18 @@ const ShippingPage = () => {
         country: Object.hasOwnProperty.call(shippingAddress,"_id") ? "" : shippingAddress?.country ? shippingAddress.country : "",
     });
     const {address, city, postalCode, state, country} = shippingData;
+    const [isValidShippingData, setIsValidShippingData] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    useEffect(() => {
+       if (shippingData.address.length !== 0 && shippingData.address.length < 64 && shippingData.city.length !== 0 && shippingData.city.length < 64 && (shippingData.postalCode.length === 5 && !isNaN(parseFloat(shippingData.postalCode)) && isFinite(shippingData.postalCode)) && shippingData.state.length !== 0 && shippingData.country.length !== 0) {
+          setIsValidShippingData(true);
+       } else {
+           setIsValidShippingData(false);
+       }
+    });
     useEffect(function () {
         if (cartItems.length === 0) {
             navigate("/");
@@ -58,6 +70,12 @@ const ShippingPage = () => {
             [e.target.id]: e.target.value,
         }));
     };
+    const onChangeSelect = (e) => {
+        setShippingData(prevState => ({
+            ...prevState,
+            [e.id]: e.value,
+        }));
+    }
 
     const radioSelectAddress = userData.shippingAddresses?.filter(function (x) {
         return x._id === radioId;
@@ -72,7 +90,6 @@ const ShippingPage = () => {
                     const mongodbShippingDataWithObjectId = updatedUser.shippingAddresses.filter(function (x) {
                         return x.address === address && x.city === city && x.postalCode === postalCode && x.country === country;
                     });
-                    console.log(mongodbShippingDataWithObjectId)
                     dispatch(saveShippingAddress(mongodbShippingDataWithObjectId[0]));
                     navigate("/payment");
                     dispatch(setCredentials(updatedUser));
@@ -105,7 +122,8 @@ const ShippingPage = () => {
                         useNewAddress ? (
                             <form onSubmit={submitShippingData} className="space-y-5">
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Address
+                                    <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                        Address
                                     </label>
                                     <input
                                         className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
@@ -119,11 +137,12 @@ const ShippingPage = () => {
                                     />
                                 </div>
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">City
+                                    <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                        City
                                     </label>
                                     <input
                                         className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
-                                        autoComplete={"city"}
+                                        autoComplete={"home city"}
                                         type={"text"}
                                         placeholder={"San Antonio"}
                                         id={"city"}
@@ -135,21 +154,14 @@ const ShippingPage = () => {
                                 <div className="space-y-2">
                                     <div className={"flex w-full"}>
                                         <div className={"w-6/12 pr-2"}>
-                                            <label className="text-sm font-medium text-gray-700 tracking-wide">State
+                                            <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                                State
                                             </label>
-                                            <input
-                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
-                                                autoComplete={"state"}
-                                                type={"text"}
-                                                placeholder={"Texas"}
-                                                id={"state"}
-                                                value={state}
-                                                onChange={onChange}
-                                                required
-                                            />
+                                            <Select placeholder={"Select State"} options={states} styles={customStyles} id={state} value={states.filter(obj => obj.value === shippingData.state)} onChange={onChangeSelect}/>
                                         </div>
                                         <div className={"w-6/12 pl-2"}>
-                                            <label className="text-sm font-medium text-gray-700 tracking-wide">Postal Code
+                                            <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                                Postal Code
                                             </label>
                                             <input
                                                 className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
@@ -164,19 +176,11 @@ const ShippingPage = () => {
                                         </div>
                                     </div>
                                 </div>
+
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Country
                                     </label>
-                                    <input
-                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
-                                        autoComplete={"country"}
-                                        type={"text"}
-                                        placeholder={"United States"}
-                                        id={"country"}
-                                        value={country}
-                                        onChange={onChange}
-                                        required
-                                    />
+                                    <Select placeholder={"Select Country"} options={countries} styles={customStyles} id={state} value={countries.filter(obj => obj.value === shippingData.country)} onChange={onChangeSelect}/>
                                 </div>
                                 <div className="w-full flex justify-end">
                                     {
@@ -193,7 +197,10 @@ const ShippingPage = () => {
                                     </label>
                                 </div>
                                 <div className={"pt-5 w-full flex justify-end"}>
-                                    <CustomBtn isDisabled={shippingData.address.length === 0 || shippingData.city.length === 0 || shippingData.postalCode.length === 0 || shippingData.state.length === 0 || shippingData.country.length === 0} type={"submit"}>
+                                    <CustomBtn
+                                        isDisabled={!isValidShippingData}
+                                        type={"submit"}
+                                    >
                                         Continue To Payment
                                     </CustomBtn>
                                 </div>
@@ -207,7 +214,7 @@ const ShippingPage = () => {
                                                 <div className={"w-full card bg-zinc-100 cursor-pointer"}>
                                                     <div className={"w-full flex p-6"}>
                                                         <div className={"w-10/12 flex  items-center"}>
-                                                            <span className={"text-md"}>
+                                                            <span className={"text-md text-ellipsis overflow-hidden"}>
                                                                 {`${item.address} ${item.city}, ${item.state} ${item.postalCode} ${item.country}`}
                                                             </span>
                                                         </div>
