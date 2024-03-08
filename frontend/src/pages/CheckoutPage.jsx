@@ -197,7 +197,7 @@ const CheckoutPage = () => {
                         <CheckoutSteps/>
                         <div className={"pt-0 mb-10 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-white h-min"}>
-                                <div className={"pt-7"}>
+                                <div className={"pt-3 sm:pt-7"}>
                                     <h1
                                         // style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
                                         className={"py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>

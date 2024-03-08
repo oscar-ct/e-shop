@@ -41,7 +41,7 @@ const PaymentPage = () => {
             <Meta title={"Payment Method"}/>
             <CheckoutSteps step3 />
             <div className={"pt-0 w-full flex justify-center"}>
-                <div className={"mb-10 pt-7 w-full sm:w-[35em]"}>
+                <div className={"mb-10 pt-3 sm:pt-7 w-full sm:w-[35em]"}>
                     <div className={"py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
                         <h1>Payment Method(s)</h1>
                     </div>
