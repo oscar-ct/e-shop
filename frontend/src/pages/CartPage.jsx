@@ -47,29 +47,8 @@ const CartPage = () => {
                     <>
                         <CheckoutSteps step1 />
                         <div className={"flex-col flex lg:flex-row w-full"}>
-                            <div className={"lg:hidden"}>
-                            {
-                                totalPrice > 100 ? (
-                                    <div className={"py-3 px-2 sm:px-0"}>
-                                        <Message variant={"success"}>
-                                                <span className={"text-sm"}>
-                                                    Your order qualifies for FREE shipping!
-                                                </span>
-                                        </Message>
-                                    </div>
-                                ) : (
-                                    <div className={"py-3 px-2 sm:px-0"}>
-                                        <Message variant={"info"}>
-                                                <span className={"text-sm"}>
-                                                    Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
-                                                </span>
-                                        </Message>
-                                    </div>
-                                )
-                            }
-                            </div>
                             <div className={"lg:mb-10 lg:w-8/12 bg-white h-min"}>
-                                <div className={"pt-4 sm:pt-7"}>
+                                <div className={"pt-3 sm:pt-7"}>
                                     <h1
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
                                         className={"py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white font-semibold"}>
@@ -97,6 +76,27 @@ const CartPage = () => {
                                     }
                                 </div>
                             </div>
+                            <div className={"lg:hidden"}>
+                                {
+                                    totalPrice > 100 ? (
+                                        <div className={"py-3 px-2 sm:px-0"}>
+                                            <Message variant={"success"}>
+                                                <span className={"text-sm"}>
+                                                    Your order qualifies for FREE shipping!
+                                                </span>
+                                            </Message>
+                                        </div>
+                                    ) : (
+                                        <div className={"py-3 px-2 sm:px-0"}>
+                                            <Message variant={"info"}>
+                                                <span className={"text-sm"}>
+                                                    Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
+                                                </span>
+                                            </Message>
+                                        </div>
+                                    )
+                                }
+                            </div>
                             <div className={"lg:pt-7 px-4 w-96 place-self-end lg:place-self-start lg:pl-10 lg:w-4/12"}>
                                 <div className={"hidden lg:flex"}>
                                     {
@@ -119,7 +119,7 @@ const CartPage = () => {
                                         )
                                     }
                                 </div>
-                                <div className="my-10 lg:my-0 lg:w-full border bg-white self-end">
+                                <div className="lg:my-0 lg:w-full border bg-white self-end">
                                     <div className="px-8 py-5">
                                         <div className={"flex flex-col"}>
                                             <h3 className={"text-lg"}>
