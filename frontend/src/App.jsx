@@ -2,7 +2,7 @@ import {Outlet} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import {useSelector} from "react-redux";
 import { Toaster } from 'react-hot-toast';
-import { ScrollRestoration } from "react-router-dom";
+// import { ScrollRestoration } from "react-router-dom";
 
 function App() {
 
@@ -11,12 +11,12 @@ function App() {
     });
     return (
         <>
-            <ScrollRestoration
-              // getKey={(location, matches) => {
-              //     const paths = ["/product/:id"];
-              //     return paths.includes(location.pathname) ? location.pathname : location.key;
-              // }}
-            />
+            {/*<ScrollRestoration*/}
+            {/*  getKey={(location, matches) => {*/}
+            {/*      const paths = ["/product/:id"];*/}
+            {/*      return paths.includes(location.pathname) ? location.pathname : location.key;*/}
+            {/*  }}*/}
+            {/*/>*/}
             <Toaster />
             {
                 loading.loading && (
@@ -28,7 +28,7 @@ function App() {
             <div className={loading.loading ? "opacity-30" : undefined}>
                 <Navbar/>
                 {/*<div className={"min-h-[calc(100vh-80px)]"}>*/}
-                    <div className={"bg-white container md:px-5 m-auto min-h-[calc(100vh-80px)]"}>
+                    <div className={"bg-white container m-auto min-h-[calc(100vh-80px)]"}>
                       <Outlet/>
                     </div>
                 {/*</div>*/}
