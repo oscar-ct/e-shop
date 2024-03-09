@@ -12,7 +12,7 @@ const HomePageCategorySection = ({productCategories, windowInnerWidth}) => {
 
     return (
         <>
-            <div className={"md:pt-20 pt-14 bg-neutral md:bg-white liner-gradient w-full"}>
+            <div className={"md:pt-20 pt-14 bg-black/90 md:bg-white liner-gradient w-full"}>
                 <div className={"h-12 md:bg-neutral border-none md:border-b-[1px] md:border-grey-300"}>
                     <div  className={"flex justify-center lg:justify-start items-center h-full w-full"}>
                         <h2 className={"lg:pl-3 text-3xl md:text-2xl text-white ibmplex"}>
@@ -36,7 +36,7 @@ const HomePageCategorySection = ({productCategories, windowInnerWidth}) => {
                             {/*<Link to={"/sort/latest/select/all"} className={"btn glass bg-neutral/70 text-white"}>*/}
                             {/*    View All Categories*/}
                             {/*</Link>*/}
-                            <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-lg font-light text-white md:text-black"}>
+                            <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-lg text-white md:text-black"}>
                                 {categoryDropdownActive ? "Less Categories" : "More Categories"}
                                 <div className={`px-2 ${rotateChevron(categoryDropdownActive)}`}>
                                     <FaChevronDown/>
