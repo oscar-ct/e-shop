@@ -1,5 +1,5 @@
 import {useEffect, useRef} from 'react';
-import {useParams, useLocation} from "react-router-dom";
+import {useParams, useLocation, useNavigate} from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
 import {useState} from "react";
@@ -44,6 +44,7 @@ const ProductPage = () => {
     const [imageIndex, setImageIndex] = useState(0);
     const [fullScreen, setFullScreen] =  useState(false);
     const [reviewData, setReviewData] = useState({});
+    const [detailsActive, setDetailsActive] = useState(false);
     // useEffect(function () {
     //     const fetchProduct = async () => {
     //         const { data } = await axios.get(`/api/products/${productId}`);
@@ -56,6 +57,7 @@ const ProductPage = () => {
     const location = useLocation();
     // const navigate = useNavigate();
     const dispatch = useDispatch();
+    const navigate = useNavigate();
     const [quantity, setQuantity] = useState(1);
 
     const addToCartHandler = () => {
@@ -155,7 +157,7 @@ const ProductPage = () => {
                                             </button>
                                         </div>
                                     </div>
-                                    <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-white border px-5 xl:px-7 pt-3 md:pt-10 sm:pb-10"}>
+                                    <div className={"w-full flex flex-col lg:flex-row flex-wrap bg-white md:border px-5 xl:px-7 pt-3 md:pt-10 sm:pb-5"}>
                                         <div className={"flex flex-col lg:w-6/12"}>
                                             <div className={"w-full flex justify-center rounded-xl bg-zinc-100/20 sm:border-none rounded-sm"} onClick={() => setFullScreen(true)}>
                                                 <img src={product.images.length !== 0 ? product.images[imageIndex].url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl cursor-pointer rounded-sm object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
@@ -181,45 +183,50 @@ const ProductPage = () => {
                                                     <button onClick={executeScroll} className={"block text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
                                                     </button>
                                                 </div>
-                                                <div className={"pb-4 sm:pt-4 border-b-[1px] sm:text-3xl text-4xl border-gray-300 flex items-start"}>
-                                                    {
-                                                        formatPrice(product.price)
+                                                <div className={"pb-4 sm:pt-4 border-b-[1px]  border-gray-300 flex justify-between"}>
+                                                    <span className={"sm:text-3xl text-4xl"}>{formatPrice(product.price)}</span>
+                                                    <CustomBtn customClass={"sm:hidden"} isDisabled={product.countInStock === 0} onClick={() => {
+                                                        addToCartHandler();
+                                                        navigate("/cart");
                                                     }
+                                                    }>
+                                                        Buy Now
+                                                    </CustomBtn>
+                                                </div>
+
+                                                <div>
+                                                    <h6 className={"text-lg lg:text-sm text-start pt-5 pb-5 font-bold lg:pb-2"}>Specifications</h6>
+                                                </div>
+                                                <div className={"text-lg lg:text-sm py-1 w-full flex"}>
+                                                    <div className={"w-4/12"}>
+                                                        <span className={"font-semibold pr-3"}>Brand</span>
+                                                    </div>
+                                                    <div className={"w-8/12"}>
+                                                        <span className={"font-normal w-8/12"}>{product.brand}</span>
+                                                    </div>
+                                                </div>
+                                                <div className={"text-lg lg:text-sm py-1 flex"}>
+                                                    <div className={"w-4/12"}>
+                                                        <span className={"font-semibold pr-2"}>Model</span>
+                                                    </div>
+                                                    <div className={"w-8/12"}>
+                                                        <span className={"font-normal"}>{product.model}</span>
+                                                    </div>
+                                                </div>
+                                                <div className={"text-lg lg:text-sm py-1 flex"}>
+                                                    <div className={"w-4/12"}>
+                                                        <span className={"font-semibold pr-2"}>Color</span>
+                                                    </div>
+                                                    <div className={"w-8/12"}>
+                                                        <span className={"font-normal"}>{product.color}</span>
+                                                    </div>
                                                 </div>
                                                 <div>
-                                                    <h6 className={"text-lg lg:text-sm text-center pt-5 pb-5 font-semibold lg:pb-2"}>Specifications</h6>
+                                                    <h6 className={"text-lg lg:text-sm text-start pt-5 pb-5 font-bold lg:pb-2"}>About this product</h6>
                                                 </div>
-                                                <div className={"text-lg lg:text-sm py-1"}>
-                                                    <span className={"font-semibold pr-3"}>
-                                                        Brand:
-                                                    </span>
-                                                    <span className={"font-normal"}>
-                                                        {product.brand}
-                                                    </span>
-                                                </div>
-                                                <div className={"text-lg lg:text-sm py-1"}>
-                                                    <span className={"font-semibold pr-2"}>
-                                                        Model:
-                                                    </span>
-                                                    <span className={"font-normal"}>
-                                                        {product.model}
-                                                    </span>
-                                                </div>
-                                                <div className={"text-lg lg:text-sm py-1"}>
-                                                    <span className={"font-semibold pr-3"}>
-                                                        Color:
-                                                    </span>
-                                                    <span className={"font-normal"}>
-                                                        {product.color}
-                                                    </span>
-                                                </div>
-                                                <div className={"text-lg lg:text-sm pt-1 pb-5"}>
-                                                    <span className={"font-semibold pr-3"}>
-                                                        Description:
-                                                    </span>
-                                                    <span className={"font-normal"}>
-                                                        {product.description}
-                                                    </span>
+                                                <div className={"text-lg lg:text-sm pt-1 pb-5 flex flex-col"}>
+                                                    <p className={"font-normal"}>{detailsActive ? product.description : product.description.substring(0, 138) + "..."}</p>
+                                                    <span className={"self-end link link-primary"} onClick={() => setDetailsActive(prevState => !prevState)}>{detailsActive ? "show less" : "show more"}</span>
                                                 </div>
                                             </div>
                                             {/*<div className={"lg:hidden border-b-[1px] border-gray-300"}/>*/}
@@ -228,7 +235,7 @@ const ProductPage = () => {
 
                                 </div>
 
-                                <div className={"pt-10 lg:pt-0 lg:w-3/12 lg:pl-3"}>
+                                <div className={"pt-0 lg:w-3/12 lg:pl-3"}>
                                     <div
                                         className={"h-full p-7 text-lg lg:text-sm bg-white border mx-6 sm:mx-0"}
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(222,228,253,1) 175%)"}}
@@ -290,6 +297,9 @@ const ProductPage = () => {
                                                     )
                                                 }
                                             </div>
+                                            {/*<button className={`rounded-full btn-md btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary shadow-blue"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>*/}
+                                            {/*    Add To Cart*/}
+                                            {/*</button>*/}
                                             <CustomBtn isDisabled={product.countInStock === 0} onClick={addToCartHandler}>
                                                 Add To Cart
                                             </CustomBtn>
@@ -305,43 +315,48 @@ const ProductPage = () => {
                                     <div className={"w-full lg:w-6/12 lg:pr-3"}>
                                         <div className={"h-full bg-white overflow-x-auto"}>
                                             <div className={"h-full"}>
-                                                <div className={`py-2 lg:pl-3 pl-5 flex ${product.reviews.length !== 0 ? "justify-between " : "justify-center md:justify-start"} items-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white`}>
-                                                    {
-                                                        product.reviews.length !== 0 && (
-                                                            <h2>Customer Reviews (
+                                                <div className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white`}>
 
-                                                                <span className={"text-2xl md:text-xl md:text-white md:font-light"}>{product.numReviews}</span>
-                                                                )
-                                                            </h2>
-                                                        )
-                                                    }
+                                                    <h2>Customer Reviews
+                                                        <span className={"text-2xl md:text-xl md:text-white pl-2"}>{product.reviews.length !== 0 ? `(${product.numReviews})` : "(0)"}</span>
+
+                                                    </h2>
                                                     {
-                                                        product.reviews.length !== 0 && userData && (
-                                                            <button onClick={() =>  window.review_modal.showModal()} className={"text-xs text-center link pr-3"}>
+                                                        userData ? (
+                                                            <button onClick={() =>  window.review_modal.showModal()} className={"hidden md:block text-xs text-center link pr-3"}>
                                                                 Write a review
                                                             </button>
-                                                        )
-                                                    }
-                                                    {
-                                                        product.reviews.length === 0 && userData && (
-                                                            <button onClick={() => window.review_modal.showModal()}
-                                                            className={"link text-2xl"}>
-                                                                Be the first to write a review!
-                                                            </button>
-                                                        )
-                                                    }
-                                                    {
-                                                        product.reviews.length === 0 && !userData && (
-                                                            <Link to={"/login"} lassName={"link text-2xl"}>
-                                                                Be the first to write a review!
+                                                        ) : (
+                                                            <Link to={"/login"}
+                                                                  className={"hidden md:block text-xs text-center link pr-3"}>
+                                                                Write a review
                                                             </Link>
                                                         )
                                                     }
                                                 </div>
-                                                <div className={"px-5 lg:px-8 lg:pb-8 py-8 border"}>
+                                                    {
+                                                        userData ? (
+                                                            <div className={"md:hidden w-full flex justify-center pb-6 pt-2"}>
+                                                                <button onClick={() =>  window.review_modal.showModal()} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
+                                                                    Write a review
+                                                                </button>
+                                                            </div>
+                                                        ) : (
+                                                            <div className={"md:hidden w-full flex justify-center pb-6 pt-2"}>
+                                                                <Link to={"/login"} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
+                                                                    Write a review
+                                                                </Link>
+                                                            </div>
+                                                        )
+
+                                                    }
+                                                <div className={"px-5 lg:px-8 lg:pb-8 py-4 lg:py-6 border"}>
                                                     {
                                                         product.reviews.length === 0 && (
-                                                            <div className={"w-full px-4 pt-5 flex flex-col gap-6 justify-center items-center"}>
+                                                            <div className={"w-full px-4 flex flex-col gap-6 justify-center items-center"}>
+                                                                <div>
+                                                                    <span>This product does not have any reviews yet</span>
+                                                                </div>
                                                                 <div className={"flex items-center"}>
                                                                     <div className="rating rating-sm pr-5">
                                                                         <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
