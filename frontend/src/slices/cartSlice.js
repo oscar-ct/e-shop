@@ -35,9 +35,17 @@ const cartSlice = createSlice({
          return updateCart(state);
       },
       removeFromCart: function (state, action) {
-         state.cartItems = state.cartItems.filter(function (item) {
-            return item._id !== action.payload;
-         });
+         if (state.cartItems.length !== 1) {
+            state.cartItems = state.cartItems.filter(function (item) {
+               return item._id !== action.payload;
+            });
+         } else {
+            state.cartItems = [];
+            state.shippingAddress = {};
+            state.paymentMethod = null;
+            state.discount = false;
+         }
+
          return updateCart(state);
       },
       saveShippingAddress: function (state, action) {
