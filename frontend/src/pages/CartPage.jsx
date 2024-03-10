@@ -3,7 +3,7 @@ import Message from "../components/Message";
 import {useSelector} from "react-redux";
 import CartItem from "../components/CartItem";
 import CheckoutSteps from "../components/CheckoutSteps";
-import BackButton from "../components/BackButton";
+// import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import CustomBtn from "../components/CustomBtn";
 
@@ -36,7 +36,7 @@ const CartPage = () => {
             {
                 cartItems.length === 0 ? (
                     <div className={"px-2"}>
-                        <BackButton/>
+                        {/*<BackButton/>*/}
                         <div className={"lg:pt-4 pt-20 px-2"}>
                             <Message variant={"info"}>
                                 You have no items in your cart.  Click <Link to={"/"} className={"link link-primary"}>here</Link> to continue shopping.
