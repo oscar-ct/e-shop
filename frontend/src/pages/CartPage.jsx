@@ -45,7 +45,7 @@ const CartPage = () => {
                     </div>
                 ) : (
                     <>
-                        <CheckoutSteps step1 />
+                        <CheckoutSteps/>
                         <div className={"flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:mb-10 lg:w-8/12 bg-white h-min"}>
                                 <div className={"pt-3 sm:pt-7"}>

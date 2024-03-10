@@ -1,7 +1,7 @@
 import {Link, useLocation} from "react-router-dom";
 import {useSelector} from "react-redux";
 
-const CheckoutSteps = ({ step1, step2, step3 }) => {
+const CheckoutSteps = () => {
 
     const {shippingAddress, paymentMethod} = useSelector(function (state) {
        return state.cart;
