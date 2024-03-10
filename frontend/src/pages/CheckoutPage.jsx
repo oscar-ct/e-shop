@@ -74,10 +74,12 @@ const CheckoutPage = () => {
     }, [paypal, paypalDispatch, loadingPayPal, errorPayPal]);
 
     useEffect(function () {
-        if (Object.keys(shippingAddress).length === 0 && !orderSubmitted) {
-            navigate("/shipping");
+        if (cartItems.length === 0 && !orderSubmitted) {
+            navigate("/cart");
         } else if (!paymentMethod && !orderSubmitted) {
             navigate("/payment");
+        } else if (Object.keys(shippingAddress).length === 0 && !orderSubmitted) {
+            navigate("/shipping");
         }
     }, [navigate, shippingAddress, paymentMethod, orderSubmitted]);
 
@@ -200,7 +202,7 @@ const CheckoutPage = () => {
                                 <div className={"pt-3 sm:pt-7"}>
                                     <h1
                                         // style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
+                                        className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
                                          Checkout (
                                         <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
                                             {totalNumberOfItems}
