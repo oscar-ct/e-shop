@@ -51,7 +51,7 @@ const CartPage = () => {
                                 <div className={"pt-3 sm:pt-7"}>
                                     <h1
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white font-semibold"}>
+                                        className={"hidden md:block py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white font-semibold"}>
                                          Cart (
                                         <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
                                             {totalNumberOfItems}
@@ -142,7 +142,7 @@ const CartPage = () => {
                                     </div>
                                     <div className="card-actions justify-end px-5 pb-5">
                                         <CustomBtn onClick={checkoutHandler}>
-                                            Proceed To Checkout
+                                            Proceed To Shipping
                                         </CustomBtn>
                                     </div>
                                 </div>
