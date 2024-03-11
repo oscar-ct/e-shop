@@ -2,7 +2,7 @@ import {Outlet} from 'react-router-dom';
 import Navbar from "./components/Navbar";
 import {useSelector} from "react-redux";
 import { Toaster } from 'react-hot-toast';
-// import { ScrollRestoration } from "react-router-dom";
+import { ScrollRestoration } from "react-router-dom";
 
 function App() {
 
@@ -11,12 +11,12 @@ function App() {
     });
     return (
         <>
-            {/*<ScrollRestoration*/}
-            {/*  getKey={(location, matches) => {*/}
-            {/*      const paths = ["/product/:id"];*/}
-            {/*      return paths.includes(location.pathname) ? location.pathname : location.key;*/}
-            {/*  }}*/}
-            {/*/>*/}
+            <ScrollRestoration
+              // getKey={(location, matches) => {
+              //     const paths = ["/product/:id"];
+              //     return paths.includes(location.pathname) ? location.pathname : location.key;
+              // }}
+            />
             <Toaster />
             {
                 loading.loading && (
