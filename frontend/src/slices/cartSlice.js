@@ -2,7 +2,7 @@ import {createSlice} from "@reduxjs/toolkit";
 import {updateCart} from "../utils/cartUtils";
 
 
-const initialState = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {cartItems: [], shippingAddress: {}, paymentMethod: null, discount: false, discountKey: ""};
+const initialState = localStorage.getItem("cart") ? JSON.parse(localStorage.getItem("cart")) : {cartItems: [], shippingAddress: {}, paymentMethod: null, discount: false, discountKey: "", publishableKey: ""};
 
 const cartSlice = createSlice({
    name: "cart",
@@ -44,6 +44,7 @@ const cartSlice = createSlice({
             state.shippingAddress = {};
             state.paymentMethod = null;
             state.discount = false;
+            state.publishableKey = "";
          }
 
          return updateCart(state);
@@ -61,11 +62,12 @@ const cartSlice = createSlice({
          state.shippingAddress = {};
          state.paymentMethod = null;
          state.discount = false;
+         state.publishableKey = "";
          return updateCart(state);
       },
       applyDiscountCode: function (state, action) {
          state.discount = true;
-         state.discountKey = action.payload
+         state.discountKey = action.payload;
          return updateCart(state);
       },
       removeDiscountCode: function (state) {
@@ -73,9 +75,13 @@ const cartSlice = createSlice({
          state.discountKey = "";
          return updateCart(state);
       },
+      applyPublishableKey: function (state, action) {
+         state.publishableKey = action.payload;
+         return updateCart(state);
+      }
    },
 });
 
-export const { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod, clearCartItems, applyDiscountCode, removeDiscountCode } = cartSlice.actions;
+export const { addToCart, removeFromCart, saveShippingAddress, savePaymentMethod, clearCartItems, applyDiscountCode, removeDiscountCode, applyPublishableKey} = cartSlice.actions;
 
 export default cartSlice.reducer;

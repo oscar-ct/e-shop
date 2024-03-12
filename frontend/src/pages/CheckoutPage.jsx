@@ -10,7 +10,7 @@ import {
 } from "../slices/ordersApiSlice";
 import {useValidateDiscountCodeMutation} from "../slices/productsApiSlice";
 import {setLoading} from "../slices/loadingSlice";
-import {applyDiscountCode, clearCartItems, removeDiscountCode} from "../slices/cartSlice";
+import {applyDiscountCode, applyPublishableKey, clearCartItems, removeDiscountCode} from "../slices/cartSlice";
 import Message from "../components/Message";
 import CheckoutItem from "../components/CheckoutItem";
 import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
@@ -20,6 +20,11 @@ import Meta from "../components/Meta";
 import {toast} from "react-hot-toast";
 import {PayPalButtons, usePayPalScriptReducer} from "@paypal/react-paypal-js";
 import NotFoundPage from "./NotFoundPage";
+import {useGetStripeClientIdQuery} from "../slices/stripeApiSlice";
+import {loadStripe} from "@stripe/stripe-js";
+import {Elements} from "@stripe/react-stripe-js";
+import CheckoutForm from "../components/CheckoutForm";
+
 
 
 const CheckoutPage = () => {
@@ -31,10 +36,7 @@ const CheckoutPage = () => {
         return state.cart;
     });
 
-    const { discount, discountKey, shippingAddress, paymentMethod, cartItems, taxPrice, shippingPrice, itemsPrice, totalPrice } = cartState;
-
-    const [discountCode, setDiscountCode] = useState("");
-    const [orderSubmitted, setOrderSubmitted] = useState(false);
+    const { discount, discountKey, shippingAddress, paymentMethod, cartItems, taxPrice, shippingPrice, itemsPrice, totalPrice, publishableKey } = cartState;
 
     const dispatch = useDispatch();
     const navigate = useNavigate();
@@ -46,15 +48,35 @@ const CheckoutPage = () => {
     const [validateDiscountCode] = useValidateDiscountCodeMutation();
     const [verifyAmount] = useVerifyAmountMutation();
 
+    const {data: stripe} = useGetStripeClientIdQuery();
     const {data: paypal, isLoading: loadingPayPal, error: errorPayPal} = useGetPayPalClientIdQuery();
+
     const [{isPending}, paypalDispatch] = usePayPalScriptReducer();
 
-    const totalNumberOfItems = cartItems.reduce(function (acc, product) {
-        return (acc + product.quantity);
-    }, 0);
+    const [discountCode, setDiscountCode] = useState("");
+    const [orderSubmitted, setOrderSubmitted] = useState(false);
+    const [stripePromise] = useState(() => publishableKey ? loadStripe(publishableKey) : null);
+
+    const [loadPayPal] = useState(false);
+
+    useEffect(() => {
+        const clientSecret = new URLSearchParams(window.location.search).get(
+            "payment_intent_client_secret"
+        );
+        if (clientSecret) {
+            return;
+        }
+        setOrderSubmitted(true);
+    }, [])
+
+    useEffect(() => {
+        if (!publishableKey && stripe) {
+            dispatch(applyPublishableKey(stripe.clientId));
+        }
+    }, [publishableKey, stripe, dispatch]);
 
     useEffect(function () {
-        if (!errorPayPal && !loadingPayPal && paypal.clientId) {
+        if (!errorPayPal && !loadingPayPal && paypal.clientId && loadPayPal) {
             const loadPayPalScript = async () => {
                 paypalDispatch({
                     type: "resetOptions",
@@ -71,7 +93,7 @@ const CheckoutPage = () => {
             }
 
         }
-    }, [paypal, paypalDispatch, loadingPayPal, errorPayPal]);
+    }, [paypal, paypalDispatch, loadingPayPal, errorPayPal, loadPayPal]);
 
     useEffect(function () {
         if (cartItems.length === 0 && !orderSubmitted) {
@@ -81,7 +103,7 @@ const CheckoutPage = () => {
         } else if (Object.keys(shippingAddress).length === 0 && !orderSubmitted) {
             navigate("/shipping");
         }
-    }, [navigate, shippingAddress, paymentMethod, orderSubmitted]);
+    }, [navigate, shippingAddress, paymentMethod, orderSubmitted, cartItems.length]);
 
     const submitApplyDiscountCode = async () => {
         const res = await validateDiscountCode({code: discountCode}).unwrap();
@@ -151,7 +173,7 @@ const CheckoutPage = () => {
         dispatch(setLoading(true));
         try {
             return actions.order.capture().then(async function (details) {
-                const res = await validateDiscountCode({code: discountCode}).unwrap();
+                const res = await validateDiscountCode({code: discountKey}).unwrap();
                 const order = await createOrder({
                     orderItems: cartItems,
                     shippingAddress: shippingAddress,
@@ -177,6 +199,20 @@ const CheckoutPage = () => {
     const onError = (error) => {
         console.log(error);
         // toast.error(error);
+    };
+
+    const totalNumberOfItems = cartItems.reduce(function (acc, product) {
+        return (acc + product.quantity);
+    }, 0);
+
+    const appearance = {
+        theme: 'stripe',
+    };
+    const options = {
+        mode: 'payment',
+        amount: 100,
+        currency: 'usd',
+        appearance,
     };
 
     return (
@@ -217,7 +253,7 @@ const CheckoutPage = () => {
                                     </h1>
                                 </div>
                                 <div className={"border px-4 sm:px-7 py-4"}>
-                                    <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                    <div className={"flex border-b-[1px] border-gray-300 py-3 text-sm sm:text-base"}>
                                         <div className={"w-3/12 sm:w-4/12"}>
                                             <h3 className={"font-semibold"}>
                                                 Ship To:
@@ -225,7 +261,7 @@ const CheckoutPage = () => {
                                         </div>
                                         <div className={"w-9/12 sm:w-8/12"}>
                                             <div className={"flex justify-between"}>
-                                                <div className={"flex flex-col text-sm"}>
+                                                <div className={"flex flex-col"}>
                                                     <span>{userData.name}</span>
                                                     <span>{shippingAddress.address}</span>
                                                     <span>{shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}</span>
@@ -239,7 +275,7 @@ const CheckoutPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={"flex border-b-[1px] border-gray-300 py-5"}>
+                                    <div className={"flex border-b-[1px] border-gray-300 py-5 text-sm sm:text-base"}>
                                         <div className={"w-3/12 sm:w-4/12"}>
                                             <h3 className={"font-semibold"}>
                                                 Payment:
@@ -247,7 +283,7 @@ const CheckoutPage = () => {
                                         </div>
                                         <div className={"w-9/12 sm:w-8/12"}>
                                             <div className={"flex justify-between"}>
-                                                <div className={"flex items-center text-sm"}>
+                                                <div className={"flex items-center"}>
                                                     <div>
                                                         {
                                                             paymentMethod === "PayPal / Credit Card" ? (
@@ -362,7 +398,7 @@ const CheckoutPage = () => {
                                     }
                                         <div className={"border-b-[1px] border-gray-300 my-8"}/>
                                         {
-                                            !isPending && (
+                                            !isPending && loadPayPal && (
                                                 <PayPalButtons
                                                     forceReRender={[totalPrice]}
                                                     createOrder={createNewOrder}
@@ -373,6 +409,13 @@ const CheckoutPage = () => {
                                                 </PayPalButtons>
                                             )
                                         }
+                                        {/*{*/}
+                                        {/*    stripePromise && (*/}
+                                        {/*        <Elements stripe={stripePromise} options={options}>*/}
+                                        {/*            <CheckoutForm/>*/}
+                                        {/*        </Elements>*/}
+                                        {/*    )*/}
+                                        {/*}*/}
                                     </div>
                                 </div>
                                 <div className={"pt-3 px-2 sm:px-0"}>

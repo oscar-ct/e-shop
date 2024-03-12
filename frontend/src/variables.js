@@ -5,6 +5,7 @@ export const ORDERS_URL = "/api/orders";
 export const PAYPAL_URL = "/api/config/paypal";
 export const DISCOUNT_URL = "/api/config/discountcode";
 export const FILESTACK_URL = "/api/filestack";
+export const STRIPE_URL = "/api/stripe";
 
 // home page images here:
 // export const HOME_IMAGE_NIGHT = "https://images.unsplash.com/photo-1441237990380-b6f17f0c3f4e?ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D&auto=format&fit=crop&w=1470&q=80";

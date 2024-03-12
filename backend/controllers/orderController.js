@@ -103,12 +103,14 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
          order.paidAmount = totalPrice;
          order.isPaid = true;
          order.paidAt = Date.now();
-         order.paymentResult = {
-             id: details.id,
-             status: details.status,
-             update_time: details.update_time,
-             email_address: details.payer.email_address,
-         };
+         if (details) {
+             order.paymentResult = {
+                 id: details.id,
+                 status: details.status,
+                 update_time: details.update_time,
+                 email_address: details.payer.email_address,
+             };
+         }
          orderItems.forEach((item) => {
              if (!item.isCanceled) {
                  item.isPaid = true;
