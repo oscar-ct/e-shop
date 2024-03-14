@@ -28,7 +28,7 @@ const SelectMenuSort = ({sortByTerm, filterTerm, customStyles}) => {
         <Select
             styles={customStyles}
             isSearchable={false}
-            className={"text-black w-[12em]"}
+            className={"text-black w-full"}
             placeholder={placeHolder()}
             options={options}
             onChange={handleChange}

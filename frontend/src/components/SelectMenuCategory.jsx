@@ -12,9 +12,9 @@ const SelectMenuCategory = ({sortByTerm, filterTerm, customStyles}) => {
         {value: "food", label: "Food"},
         {value: "footwear", label: "Footwear"},
         {value: "games", label: "Games"},
-        {value: "health", label: "Health"},
+        // {value: "health", label: "Health"},
         {value: "home", label: "Home"},
-        {value: "pet", label: "Pet"},
+        // {value: "pet", label: "Pet"},
         {value: "other", label: "Other"},
     ];
     const placeHolder = (category) => {
@@ -48,7 +48,7 @@ const SelectMenuCategory = ({sortByTerm, filterTerm, customStyles}) => {
         <Select
             styles={customStyles}
             isSearchable={false}
-            className={"text-black w-[12em]"}
+            className={"text-black w-full"}
             placeholder={placeHolder(filterTerm)}
             options={options}
             onChange={handleChange}
