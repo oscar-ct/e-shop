@@ -4,7 +4,7 @@ import {useDispatch, useSelector} from "react-redux";
 import {savePaymentMethod} from "../slices/cartSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
 import {ReactComponent as PayPal} from "../icons/paypal-logo.svg";
-import {ReactComponent as Stripe} from "../icons/stripe-logo.svg";
+import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
 import Meta from "../components/Meta";
 import CustomBtn from "../components/CustomBtn";
 
@@ -83,7 +83,7 @@ const PaymentPage = () => {
                                 >
                                     <div className={"w-full flex px-6 py-6"}>
                                         <div className={"w-2/12 flex justify-center"}>
-                                            <Stripe/>
+                                            <StripeLogo width={"70"}/>
                                         </div>
                                         <div className={"w-9/12 flex  items-center"}>
                                             <span className={"px-3"}>
