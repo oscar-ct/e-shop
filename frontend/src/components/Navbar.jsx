@@ -1,7 +1,7 @@
 import {useEffect, useState, useRef} from "react";
 import {useScroll} from "../hooks/useScroll";
 import {motion} from "framer-motion";
-import {FaUser, FaChevronDown} from "react-icons/fa";
+import {FaUser, FaChevronDown, FaSearch} from "react-icons/fa";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import {Link, useNavigate} from 'react-router-dom'
 import {useSelector, useDispatch} from "react-redux";
@@ -147,6 +147,17 @@ const Navbar = () => {
             window.removeEventListener("resize", setInnerWidth)
         }
     }, []);
+
+
+    const [keyword, setKeyword] = useState("");
+    const [searchIsActive, setSearchIsActive] = useState(false);
+    const submitSearch = () => {
+        if (keyword.trim()) {
+            navigate(`/search/${keyword}`);
+            setKeyword("");
+        }
+    }
+
     //
     // useEffect(function () {
     //     const setScrollY = () => {
@@ -175,20 +186,20 @@ const Navbar = () => {
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
-                <div className="px-2 sm:px-5 flex justify-between items-center">
-                    <button aria-label="menu" ref={documentRef2} className="middle none relative mr-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center uppercase transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none lg:hidden" onClick={() => setOpenNav(!openNav)}>
+                <div className="px-2 flex justify-between items-center">
+                    <button aria-label="menu" ref={documentRef2} className="middle none relative mr-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center uppercase transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none md:hidden" onClick={() => setOpenNav(!openNav)}>
 
                         {openNav ? (
-                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-7" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-8" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                 <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                             </svg>
                         ) : (
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-7" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                            <svg xmlns="http://www.w3.org/2000/svg" className="h-7 w-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16"/>
                             </svg>
                         )}
                     </button>
-                    <div className={"hidden lg:flex lg:items-center cursor-pointer rounded-xl py-2 px-3"}>
+                    <div className={"hidden md:flex md:items-center cursor-pointer rounded-xl py-2 px-3"}>
                         <motion.div
                             onClick={() => navigate("/")}
                             className={"text-xl flex items-center"}
@@ -205,7 +216,7 @@ const Navbar = () => {
                     </div>
                     <div className={"justify-end flex"}>
                         <div className={"flex justify-end"}>
-                            <div className="ml-auto hidden items-center gap-2 lg:flex">
+                            <div className="ml-auto hidden items-center gap-1 lg:gap-2 md:flex">
                                 <SearchBox/>
                                 <div className="flex-none">
                                     <CartIcon isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice}/>
@@ -306,20 +317,49 @@ const Navbar = () => {
                         </div>
                     </div>
 
-                    <div className={"lg:hidden flex items-center gap-2"}>
-                        <div className={"py-2"}>
-                            <SearchBox/>
-                        </div>
-                        <div>
+                    <div className={"md:hidden flex justify-center items-center w-full"}>
+                        {
+                            searchIsActive ? (
+                                <div className={"w-full flex justify-end animate-slide-in-right"}>
+                                    <div className={"py-2 w-min "}>
+                                        <input
+                                            autoComplete={"off"} className="px-4 bg-white/90 h-10 rounded-full text-[16px] md:text-sm focus:outline-none"
+                                            type="search" name="search" placeholder="Search all products" value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyPress={(e) => {
+                                            if (e.key === "Enter") {
+                                            submitSearch();
+                                            setSearchIsActive(prevState => !prevState)
+                                            }
+                                        }}
+                                        />
+                                    </div>
+                                </div>
+                            ) : (
+                                <button onClick={() => navigate("/")} className={"animate-slide-in-left py-3 flex w-full justify-center"}>
+                                    <Logo className={"w-8 "} fill={"white"}/>
+                                </button>
+                            )
+                        }
+
+                        <div className={"flex items-center"}>
+                            <button
+                                className={"btn btn-ghost pr-2"}
+                                onClick={() => {
+                                    submitSearch();
+                                    setSearchIsActive(prevState => !prevState)
+                                }}
+                            >
+                                <FaSearch className={searchIsActive && "animate-bounce"} />
+                            </button>
                             <CartIcon isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice} />
                         </div>
                     </div>
                 </div>
 
+
             </nav>
             {/*/////// mobile nav ///////*/}
             <nav>
-                <div ref={documentRef3} className={`z-20 bg-white/50 backdrop-blur-2xl fixed left-0 w-full py-6 lg:hidden h-screen`} style={openNav ? styles.active : styles.hidden2}>
+                <div ref={documentRef3} className={`z-20 bg-white/50 backdrop-blur-2xl fixed left-0 w-full py-6 md:hidden h-screen`} style={openNav ? styles.active : styles.hidden2}>
                     <div className={"flex flex-col justify-start h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
                             <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
@@ -337,27 +377,12 @@ const Navbar = () => {
                                     Top Rated Products
                                 </Link>
                             </li>
-                            {/*<li onClick={() => setOpenNav(!openNav)} className="sm:hidden flex items-center p-1 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">*/}
-                            {/*    <Link to={"/cart"} className="rounded-xl btn btn-neutral normal-case w-full whitespace-nowrap">*/}
-                            {/*        <div className="indicator">*/}
-                            {/*            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>*/}
-                            {/*            {*/}
-                            {/*                cartItems.length !== 0 && (*/}
-                            {/*                    <span className="badge text-white bg-primary badge-sm indicator-item">{totalCartItems}</span>*/}
-                            {/*                )*/}
-                            {/*            }*/}
-
-                            {/*        </div>*/}
-                            {/*        <span className={"normal-case"}/>*/}
-                            {/*    </Link>*/}
-                            {/*</li>*/}
-
                             {
                                 userData && (
                                     <>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                             <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
-                                                Account Details
+                                                My Account
                                             </Link>
                                         </li>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
@@ -368,7 +393,6 @@ const Navbar = () => {
                                     </>
                                 )
                             }
-
                             {
                                 userData?.isAdmin && (
                                     <>
@@ -380,7 +404,6 @@ const Navbar = () => {
                                     </>
                                 )
                             }
-
                             {
                                 userData ? (
                                     <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
@@ -396,7 +419,6 @@ const Navbar = () => {
                                     </li>
                                 )
                             }
-
                         </ul>
                     </div>
                 </div>

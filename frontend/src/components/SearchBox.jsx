@@ -19,18 +19,17 @@ const SearchBox = () => {
             }
 
         }
-
     }
     return (
-        <div className="relative mx-auto text-gray-600" style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}}>
+        <div className="relative mx-auto" style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}}>
             <input
-                autoComplete={"off"} className="bg-white/90 h-10 px-5 sm:pl-5 sm:pr-10 rounded-full text-[16px] sm:text-sm focus:outline-none"
+                autoComplete={"off"} className="bg-white/90 h-10 pl-5 pr-10 rounded-full text-[16px] md:text-sm focus:outline-none"
                 type="search" name="search" placeholder="Search all products" value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyPress={(e) => {
                     e.key === "Enter" && submitSearch()
             }}
             />
             <button aria-label="search" onClick={submitSearch} type="button" className="absolute right-0 top-0 mt-3 mr-4">
-                <svg className="text-gray-600 h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
+                <svg className="text-black h-4 w-4 fill-current" xmlns="http://www.w3.org/2000/svg"
                       version="1.1" id="SearchTerm" x="0px" y="0px"
                      viewBox="0 0 56.966 56.966"
                      width="512px" height="512px">

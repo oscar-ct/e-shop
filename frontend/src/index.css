@@ -114,6 +114,12 @@ code {
 .animate-pulsee {
   animation: pulse 3s cubic-bezier(0.4, 0, 0.6, 1);
 }
+.animate-slide-in-right {
+  animation: slide-in-right 500ms;
+}
+.animate-slide-in-left {
+  animation: slide-in-left 500ms;
+}
 
 .fadeInEffect {
   animation: fadeIn 650ms ease-in forwards;
@@ -136,6 +142,27 @@ code {
     opacity: .5;
   }
 }
+@keyframes slide-in-right {
+  0% {
+    transform: translateX(20%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes slide-in-left {
+  0% {
+    transform: translateX(-25%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateX(0%);
+    opacity: 1;
+  }
+}
+
 .text-concat {
   position: relative;
   display: inline-block;

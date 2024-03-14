@@ -58,7 +58,7 @@ const CartIcon = ({isValidShippingAddress, isValidPaymentMethod, cartItems, tota
                                 }
 
                             </div>
-                            <span className={"normal-case"}>Cart</span>
+                            <span className={"hidden md:block normal-case"}>Cart</span>
                         </label>
                         {
                             cartDropdownActive && (
