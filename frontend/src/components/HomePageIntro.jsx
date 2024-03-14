@@ -8,6 +8,7 @@ import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
 import {FaCcPaypal} from "react-icons/fa";
 import {motion} from "framer-motion";
+import CustomBtn from "./CustomBtn";
 
 
 const HomePageIntro = () => {
@@ -20,8 +21,10 @@ const HomePageIntro = () => {
                     <Logo className={"pt-28 w-[10em]"}/>
                     <span className={"pt-12 text-3xl font-semibold text-netural"}>Shop, Ship, & Enjoy.</span>
                     <div className={"pt-20 z-10"}>
-                        <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>
-                            Shop Now
+                        <Link to={"/sort/latest/select/all"}>
+                            <CustomBtn customClass={"ring-offset-2 ring-1 hover:ring-2 ring-violet-600"}>
+                                Shop Now
+                            </CustomBtn>
                         </Link>
                     </div>
                 </div>
@@ -81,8 +84,10 @@ const HomePageIntro = () => {
                                     {/*>*/}
                                         <div className={"w-full h-full flex flex-col items-center justify-center"}>
                                             <Logo className={"py-20 w-[10em]"}/>
-                                            <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>
-                                                Shop Now
+                                            <Link to={"/sort/latest/select/all"}>
+                                                <CustomBtn customClass={"ring-offset-2 ring-1 ring-violet-600"}>
+                                                    Shop Now
+                                                </CustomBtn>
                                             </Link>
                                         </div>
                                     </div>
