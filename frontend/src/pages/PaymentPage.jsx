@@ -3,7 +3,8 @@ import {useNavigate} from "react-router-dom";
 import {useDispatch, useSelector} from "react-redux";
 import {savePaymentMethod} from "../slices/cartSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
-import {ReactComponent as PayPal} from "../icons/paypal-icon.svg";
+import {ReactComponent as PayPal} from "../icons/paypal-logo.svg";
+import {ReactComponent as Stripe} from "../icons/stripe-logo.svg";
 import Meta from "../components/Meta";
 import CustomBtn from "../components/CustomBtn";
 
@@ -52,16 +53,16 @@ const PaymentPage = () => {
                                     className={"w-full card bg-zinc-100 cursor-pointer"}
                                     onClick={() => setPaymentMeth("PayPal / Credit Card")}
                                 >
-                                    <div className={"w-full flex p-6"}>
-                                        <div className={"w-2/12"}>
-                                          <PayPal width={"30"} height={"38"}/>
+                                    <div className={"w-full flex px-6 py-5"}>
+                                        <div className={"w-2/12 flex justify-center"}>
+                                          <PayPal width={"50"} height={"50"}/>
                                         </div>
-                                        <div className={"w-8/12 flex  items-center"}>
-                                            <span className={"text-lg"}>
-                                                PayPal / Credit Card
+                                        <div className={"w-9/12 flex items-center"}>
+                                             <span className={"px-3"}>
+                                                PayPal, Venmo, and Credit Card.
                                             </span>
                                         </div>
-                                        <div className={"w-2/12 flex items-center"}>
+                                        <div className={"w-1/12 flex items-center"}>
                                             <input
                                                 onChange={(e) => setPaymentMeth(e.target.value)}
                                                 type="radio"
@@ -75,9 +76,37 @@ const PaymentPage = () => {
                                     </div>
                                 </div>
                             </div>
+                            <div className="my-5">
+                                <div
+                                    className={"w-full card bg-zinc-100 cursor-pointer"}
+                                    onClick={() => setPaymentMeth("Stripe / Credit Card")}
+                                >
+                                    <div className={"w-full flex px-6 py-6"}>
+                                        <div className={"w-2/12 flex justify-center"}>
+                                            <Stripe/>
+                                        </div>
+                                        <div className={"w-9/12 flex  items-center"}>
+                                            <span className={"px-3"}>
+                                               Credit Card, Google Pay, Cash App, After Pay, and more.
+                                            </span>
+                                        </div>
+                                        <div className={"w-1/12 flex items-center"}>
+                                            <input
+                                                onChange={(e) => setPaymentMeth(e.target.value)}
+                                                type="radio"
+                                                name="paymentMethod"
+                                                id={"Stripe / Credit Card"}
+                                                value={"Stripe / Credit Card"}
+                                                className="radio radio-primary"
+                                                checked={paymentMeth === "Stripe / Credit Card"}
+                                            />
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <div className={"pt-5 w-full flex justify-end"}>
                                 <CustomBtn isDisabled={paymentMeth === null} type={"submit"}>
-                                    Proceed To Checkout
+                                    Save and Continue
                                 </CustomBtn>
                             </div>
                         </form>
