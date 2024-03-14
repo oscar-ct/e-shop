@@ -20,16 +20,23 @@ const Navbar = () => {
     });
     const dispatch = useDispatch();
     const navigate = useNavigate();
+
     const [logoutApiCall] = useLogoutMutation();
+
     const documentRef1 = useRef();
     const documentRef2 = useRef();
     const documentRef3 = useRef();
     const documentRef4 = useRef();
+
+    const [searchIsActive, setSearchIsActive] = useState(false);
+    const [keyword, setKeyword] = useState("");
     const [openNav, setOpenNav] = useState(false);
     const [productsDropdownActive, setProductsDropdownActive] = useState(false);
     const [userDropdownActive, setUserDropdownActive] = useState(false);
-    const { scrollDirection, scrollY } = useScroll();
+    const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
+    const [smallScreen, setSmallScreen] = useState(window.innerWidth < 500);
 
+    const { scrollDirection, scrollY } = useScroll();
 
     useEffect(function () {
         const closeUserOpenDropdown = (e) => {
@@ -85,7 +92,58 @@ const Navbar = () => {
         }
         return () => window.removeEventListener("click", handleClickOutside);
     }, [openNav]);
+    useEffect(function () {
+        const adjustSmallScreen = () => {
+            if (windowInnerWidth > 500) {
+                setSmallScreen(false);
+            } else {
+                setSmallScreen(true);
+            }
+        }
+        adjustSmallScreen();
+    }, [windowInnerWidth])
+    useEffect(function () {
+        const setInnerWidth = () => {
+            setWindowInnerWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", setInnerWidth);
+        return () => {
+            window.removeEventListener("resize", setInnerWidth)
+        }
+    }, []);
 
+
+    const rotateChevron = (action) => {
+       return action ? "open" : "closed";
+    };
+    const logoutHandler = async () => {
+        try {
+            await logoutApiCall().unwrap();
+            navigate("/login");
+            dispatch(clearCartItems());
+            dispatch(logout());
+            setUserDropdownActive(false);
+        } catch (e) {
+            console.log(e)
+        }
+    };
+    const submitSearch = () => {
+        if (keyword.trim()) {
+            navigate(`/search/${keyword}`);
+            setKeyword("");
+        }
+    }
+    const totalCartItems = cartItems?.reduce(function (acc, item) {
+        return acc + item.quantity
+    }, 0);
+    const subtotalPrice =  cartItems?.reduce(function (acc, product) {
+        return acc + product.quantity * product.price;
+    }, 0).toFixed(2);
+    const adminOrdersLink = "/admin/orders";
+    const myOrdersLink = "/profile/orders";
+    const myAccountLink = "/profile/account";
+    const topRatedLink = "/sort/toprated/select/all";
+    const latestProductsLink = "/sort/latest/select/all";
     const styles = {
         active: {
             // visibility: "visible",
@@ -102,82 +160,6 @@ const Navbar = () => {
             transform: "translateX(-100%)"
         }
     };
-
-    const rotateChevron = (action) => {
-       return action ? "open" : "closed";
-    };
-    const totalCartItems = cartItems?.reduce(function (acc, item) {
-            return acc + item.quantity
-        }, 0);
-    const subtotalPrice =  cartItems?.reduce(function (acc, product) {
-        return acc + product.quantity * product.price;
-    }, 0).toFixed(2);
-    const logoutHandler = async () => {
-        try {
-            await logoutApiCall().unwrap();
-            navigate("/login");
-            dispatch(clearCartItems());
-            dispatch(logout());
-            setUserDropdownActive(false);
-        } catch (e) {
-            console.log(e)
-        }
-    };
-    const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
-    const [smallScreen, setSmallScreen] = useState(window.innerWidth < 500);
-    useEffect(function () {
-        const adjustSmallScreen = () => {
-            if (windowInnerWidth > 500) {
-                setSmallScreen(false);
-            } else {
-                setSmallScreen(true);
-            }
-        }
-        adjustSmallScreen();
-    }, [windowInnerWidth])
-
-    // const [windowScrollY, setWindowScrollY] = useState(window.scrollY);
-
-    useEffect(function () {
-        const setInnerWidth = () => {
-           setWindowInnerWidth(window.innerWidth);
-        };
-        window.addEventListener("resize", setInnerWidth);
-        return () => {
-            window.removeEventListener("resize", setInnerWidth)
-        }
-    }, []);
-
-
-    const [keyword, setKeyword] = useState("");
-    const [searchIsActive, setSearchIsActive] = useState(false);
-    const submitSearch = () => {
-        if (keyword.trim()) {
-            navigate(`/search/${keyword}`);
-            setKeyword("");
-        }
-    }
-
-    //
-    // useEffect(function () {
-    //     const setScrollY = () => {
-    //         if (windowInnerWidth <= 500) {
-    //             setWindowScrollY(window.scrollY);
-    //         }
-    //     };
-    //     window.addEventListener("scroll", setScrollY);
-    //     return () => {
-    //         window.removeEventListener("scroll", setScrollY)
-    //     }
-    // }, [windowInnerWidth]);
-
-    // const adminUsersLink = "/admin/users";
-    const adminOrdersLink = "/admin/orders";
-    // const adminProductsLink = "/admin/products/sort/latest/select/all";
-    const myOrdersLink = "/profile/orders";
-    const myAccountLink = "/profile/account";
-    const topRatedLink = "/sort/toprated/select/all";
-    const latestProductsLink = "/sort/latest/select/all";
 
     return (
         <>
@@ -207,11 +189,6 @@ const Navbar = () => {
                             whileTap={{ scale: 1.0 }}
                         >
                             <Logo className={"w-6 mr-1"} fill={"white"}/>
-                            {/*<button*/}
-                            {/*    style={{fontFamily: 'Moirai One, cursive', fontSize: "40px"}}*/}
-                            {/*>*/}
-                            {/*    -shop*/}
-                            {/*</button>*/}
                         </motion.div>
                     </div>
                     <div className={"justify-end flex"}>
@@ -323,6 +300,7 @@ const Navbar = () => {
                                 <div className={"w-full flex justify-end animate-slide-in-right"}>
                                     <div className={"py-2 w-min "}>
                                         <input
+                                            autoFocus
                                             autoComplete={"off"} className="px-4 bg-white/90 h-10 rounded-full text-[16px] md:text-sm focus:outline-none"
                                             type="search" name="search" placeholder="Search all products" value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyPress={(e) => {
                                             if (e.key === "Enter") {
@@ -334,7 +312,7 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <button onClick={() => navigate("/")} className={"animate-slide-in-left py-3 flex w-full justify-center"}>
+                                <button onClick={() => navigate("/")} className={"pl-12 animate-slide-in-left py-3 flex w-full justify-center items-end"}>
                                     <Logo className={"w-8 "} fill={"white"}/>
                                 </button>
                             )
@@ -345,7 +323,7 @@ const Navbar = () => {
                                 className={"btn btn-ghost pr-2"}
                                 onClick={() => {
                                     submitSearch();
-                                    setSearchIsActive(prevState => !prevState)
+                                    setSearchIsActive(prevState => !prevState);
                                 }}
                             >
                                 <FaSearch className={searchIsActive && "animate-bounce"} />
