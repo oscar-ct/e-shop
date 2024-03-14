@@ -37,7 +37,7 @@ const CartPage = () => {
                 cartItems.length === 0 ? (
                     <div className={"px-2"}>
                         {/*<BackButton/>*/}
-                        <div className={"pt-20 px-2"}>
+                        <div className={"pt-12 md:pt-20 px-2"}>
                             <div className={"text-4xl pb-10 flex justify-center"}>
                                 Shopping Cart (0)
                             </div>
