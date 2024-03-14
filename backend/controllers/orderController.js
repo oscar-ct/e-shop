@@ -14,14 +14,16 @@ const confirmPrices =  asyncHandler(async (req, res) => {
         throw new Error("No items found");
     } else {
         const itemsFromDB = await Product.find({
-            _id: { $in: orderItems.map((x) => x._id) },
+            _id: { $in: orderItems.map((x) => x._id || x.productId) },
         });
         const orderItemsFromDB = orderItems.map((itemFromBody) => {
             delete itemFromBody.images
             // delete itemFromBody._id
             delete itemFromBody.price
-            const matchingItemFromDB = itemsFromDB.find(
-                (item) => item._id.toString() === itemFromBody._id
+            const matchingItemFromDB = itemsFromDB.find((item) => {
+                const productId = itemFromBody._id || itemFromBody.productId
+                return item._id.toString() === productId;
+                }
             );
             return {
                 ...itemFromBody,
