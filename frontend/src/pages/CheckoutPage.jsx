@@ -123,7 +123,7 @@ const CheckoutPage = () => {
                                     </h1>
                                 </div>
                                 <div className={"border px-4 sm:px-7 py-4"}>
-                                    <div className={"flex border-b-[1px] border-gray-300 py-3 text-sm sm:text-base"}>
+                                    <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                         <div className={"w-3/12 sm:w-4/12"}>
                                             <h3 className={"font-semibold"}>
                                                 Ship To:
@@ -145,8 +145,8 @@ const CheckoutPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={"flex border-b-[1px] border-gray-300 py-3 text-sm sm:text-base"}>
-                                        <div className={"w-3/12 sm:w-4/12 flex items-center"}>
+                                    <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                        <div className={"w-5/12 sm:w-4/12 flex items-center"}>
                                             <h3 className={"font-semibold"}>
                                                 Payment Service:
                                             </h3>
