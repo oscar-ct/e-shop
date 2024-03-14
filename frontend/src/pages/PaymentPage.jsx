@@ -81,9 +81,9 @@ const PaymentPage = () => {
                                     className={"w-full card bg-zinc-100 cursor-pointer"}
                                     onClick={() => setPaymentMeth("Stripe / Credit Card")}
                                 >
-                                    <div className={"w-full flex px-6 py-6"}>
+                                    <div className={"w-full flex pr-6 pl-3 py-5"}>
                                         <div className={"w-2/12 flex justify-center"}>
-                                            <StripeLogo width={"70"}/>
+                                            <StripeLogo className={"w-full"}/>
                                         </div>
                                         <div className={"w-9/12 flex  items-center"}>
                                             <span className={"px-3"}>
