@@ -153,13 +153,13 @@ const ShippingPage = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <div className={"flex w-full"}>
-                                        <div className={"w-6/12 pr-2"}>
+                                        <div className={"w-8/12 md:w-6/12 pr-2"}>
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">
                                                 State
                                             </label>
                                             <Select placeholder={"Select State"} options={states} styles={customStyles} id={state} value={states.filter(obj => obj.value === shippingData.state)} onChange={onChangeSelect}/>
                                         </div>
-                                        <div className={"w-6/12 pl-2"}>
+                                        <div className={"w-4/12 md:w-6/12 pl-2"}>
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">
                                                 Postal Code
                                             </label>
@@ -201,7 +201,7 @@ const ShippingPage = () => {
                                         isDisabled={!isValidShippingData}
                                         type={"submit"}
                                     >
-                                        Continue To Payment
+                                        Save and Continue
                                     </CustomBtn>
                                 </div>
                             </form>
@@ -246,7 +246,7 @@ const ShippingPage = () => {
                                 </div>
                                 <div className={"pt-5 w-full flex justify-end"}>
                                     <CustomBtn isDisabled={radioId === ""} type={"submit"}>
-                                        Proceed To Payment
+                                        Save and Continue
                                     </CustomBtn>
                                 </div>
                             </form>
