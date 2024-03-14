@@ -33,31 +33,37 @@ const CategoryPage = () => {
                     data.products.length !== 0 && (
                         <div className={"pb-10"}>
                             <BackButton/>
-                            <div className={"pt-14 lg:pt-0 flex justify-between"}>
-                                <div className={"w-max m-2 flex items-center"}>
-                                    <div className={"flex flex-col lg:flex-row"}>
-                                        <div className={"lg:pr-5 flex justify-between items-center"}>
-                                            <p className={"pr-2 text-xs sm:text-sm"}>Category:</p>
-                                            <SelectMenuCategory sortByTerm={sortByTerm} filterTerm={filterTerm} customStyles={customStyles}/>
-                                        </div>
-                                        <div className={"pt-5 lg:pt-0 flex justify-between items-center"}>
-                                            <p className={"pr-2 text-xs sm:text-sm"}>Sort By:</p>
-                                            <SelectMenuSort sortByTerm={sortByTerm} filterTerm={filterTerm} customStyles={customStyles}/>
+                            <div className={"pt-14 lg:pt-0"}>
+                                <div className={"flex justify-between"}>
+                                    <div className={"w-full p-1 flex items-center"}>
+                                        <div className={"flex w-full"}>
+                                            <div className={"flex flex-col justify-between items-center w-6/12"}>
+                                                <p className={"p-1 pr-2 text-sm"}>Category</p>
+                                                <div className={"px-2 w-full lg:w-96"}>
+                                                    <SelectMenuCategory sortByTerm={sortByTerm} filterTerm={filterTerm} customStyles={customStyles}/>
+                                                </div>
+                                            </div>
+                                            <div className={"flex flex-col justify-between items-center w-6/12"}>
+                                                <p className={"p-1 pr-2 text-sm"}>Sort By</p>
+                                                <div className={"px-2 w-full lg:w-96"}>
+                                                    <SelectMenuSort sortByTerm={sortByTerm} filterTerm={filterTerm} customStyles={customStyles}/>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
-                            <div className={"flex justify-center items-end"}>
-                                <h2 className={"text-xl lg:text-2xl text-center px-2 pb-5"}>
-                                    {data.categoryTerm.substring(0, 1).toUpperCase() + data.categoryTerm.substring(1, data.categoryTerm.length)},
-                                </h2>
-                                <h2 className={"text-xl lg:text-2xl text-center px-2 pb-5"}>
-                                    {
-                                        data.keyword === "latest" ? "Most Recent" : data.keyword === "toprated" ? "Top Rated" : data.keyword === "price-asc" ? "Price: Low To High" : "Price: High To Low"
-                                    }
-                                </h2>
-                            </div>
-                            <div className={"w-full flex flex-wrap justify-center"}>
+                            {/*<div className={"flex justify-center items-end"}>*/}
+                            {/*    <h2 className={"text-xl lg:text-2xl text-center px-2 pb-5"}>*/}
+                            {/*        {data.categoryTerm.substring(0, 1).toUpperCase() + data.categoryTerm.substring(1, data.categoryTerm.length)},*/}
+                            {/*    </h2>*/}
+                            {/*    <h2 className={"text-xl lg:text-2xl text-center px-2 pb-5"}>*/}
+                            {/*        {*/}
+                            {/*            data.keyword === "latest" ? "Most Recent" : data.keyword === "toprated" ? "Top Rated" : data.keyword === "price-asc" ? "Price: Low To High" : "Price: High To Low"*/}
+                            {/*        }*/}
+                            {/*    </h2>*/}
+                            {/*</div>*/}
+                            <div className={"w-full flex flex-wrap justify-center pt-3"}>
                                 {
                                     data.products.map(function (product) {
                                         return <ProductItem key={product._id} product={product} windowInnerWidth={windowInnerWidth}/>
