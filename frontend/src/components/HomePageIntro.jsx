@@ -21,7 +21,7 @@ const HomePageIntro = () => {
                     <span className={"pt-12 text-3xl font-semibold text-netural"}>Shop, Ship, & Enjoy.</span>
                     <div className={"pt-20 z-10"}>
                         <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>
-                            Get Started
+                            Shop Now
                         </Link>
                     </div>
                 </div>
@@ -82,7 +82,7 @@ const HomePageIntro = () => {
                                         <div className={"w-full h-full flex flex-col items-center justify-center"}>
                                             <Logo className={"py-20 w-[10em]"}/>
                                             <Link to={"/sort/latest/select/all"} className={"btn text-lg btn-neutral normal-case rounded-full"}>
-                                                Get Started
+                                                Shop Now
                                             </Link>
                                         </div>
                                     </div>
