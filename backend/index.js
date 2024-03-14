@@ -9,6 +9,7 @@ import {notFoundError, errorHandler} from "./middleware/errorMiddleware.js";
 import orderRoutes from "./routes/orderRoutes.js";
 import filestackRoutes from "./routes/filestackRoutes.js";
 import * as path from "path";
+import stripeRoutes from "./routes/stripeRoutes.js";
 
 const port = process.env.PORT || 8080;
 
@@ -33,6 +34,7 @@ app.use('/api/products', productRoutes);
 app.use('/api/users', userRoutes);
 app.use('/api/orders', orderRoutes);
 app.use('/api/filestack', filestackRoutes);
+app.use('/api/stripe', stripeRoutes);
 
 app.post('/api/config/discountcode', ((req, res) => {
     if (req.body.code === process.env.DISCOUNT_CODE) {
