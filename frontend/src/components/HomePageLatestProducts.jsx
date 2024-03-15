@@ -4,11 +4,11 @@ import Paginate from "./Paginate";
 const HomePageLatestProducts = ({data, windowInnerWidth, scrollTo}) => {
     return (
         <>
-            <div className={"pt-14 pb-10 md:pb-0 bg-white"}>
+            <div className={"pt-14 pb-10 md:pb-0 bg-slate-50 sm:bg-white"}>
                 <div ref={scrollTo} className={"h-12 md:bg-neutral"}>
                     <div className={"flex justify-center lg:justify-start items-center h-full w-full"}>
                         <h2 className={"lg:pl-3 text-3xl md:text-2xl md:text-white ibmplex"}>
-                            Lastest Products
+                            Latest Products
                         </h2>
                     </div>
                 </div>
@@ -18,7 +18,7 @@ const HomePageLatestProducts = ({data, windowInnerWidth, scrollTo}) => {
             {/*        Lastest Products*/}
             {/*    </h2>*/}
             {/*</div>*/}
-            <div className={"pb-10 bg-white"}>
+            <div className={"pb-10 bg-slate-50 sm:bg-white"}>
                 <div className={"border-[1px] py-8 w-full flex flex-wrap justify-center"}>
                     {
                         data.products.map(function (product) {

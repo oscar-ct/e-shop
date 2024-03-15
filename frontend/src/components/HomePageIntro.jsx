@@ -16,20 +16,25 @@ const HomePageIntro = () => {
         <div className={"lg:drop-shadow-xl bg-transparent"}>
 
             {/*MOBILE*/}
-            <div className={"md:hidden w-full h-full relative"}>
+            <motion.div
+                className={"md:hidden w-full h-full relative"}
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                exit={{ opacity: 0 }}
+                    >
                 <div className={"absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
                     <Logo className={"pt-28 w-[10em]"}/>
                     <span className={"pt-12 text-3xl font-semibold text-netural"}>Shop, Ship, & Enjoy.</span>
                     <div className={"pt-20 z-10"}>
                         <Link to={"/sort/latest/select/all"}>
-                            <CustomBtn customClass={"ring-offset-2 ring-1 hover:ring-2 ring-violet-600"}>
+                            <CustomBtn customClass={"!px-14 fadeInEffect text-lg"}>
                                 Shop Now
                             </CustomBtn>
                         </Link>
                     </div>
                 </div>
-                <img className={"fadeInEffect object-cover h-[40em] w-full"} src={"/images/bg.png"}/>
-            </div>
+                <img className={"fadeInEffect object-cover h-[40em] w-full"} src={"/images/bg.png"} alt="colorful-art"/>
+            </motion.div>
             {/*MOBILE*/}
 
             {/*DESKTOP*/}
