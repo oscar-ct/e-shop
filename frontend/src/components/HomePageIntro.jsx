@@ -90,7 +90,7 @@ const HomePageIntro = () => {
                                         <div className={"w-full h-full flex flex-col items-center justify-center"}>
                                             <Logo className={"py-20 w-[10em]"}/>
                                             <Link to={"/sort/latest/select/all"}>
-                                                <CustomBtn customClass={"ring-offset-2 ring-1 ring-violet-600"}>
+                                                <CustomBtn customClass={"!px-8"}>
                                                     Shop Now
                                                 </CustomBtn>
                                             </Link>

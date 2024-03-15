@@ -145,7 +145,7 @@ const CartPage = () => {
                                     </div>
                                     <div className="card-actions justify-end px-5 pb-5">
                                         <CustomBtn onClick={checkoutHandler}>
-                                            Proceed To Shipping
+                                            Proceed To Checkout
                                         </CustomBtn>
                                     </div>
                                 </div>
