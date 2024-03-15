@@ -12,7 +12,7 @@ const CheckoutSteps = () => {
     const step1name = "Cart"
     const step2name = "Shipping"
     const step3name = "Payment"
-    const step4name = window.innerWidth > 768 ? "Place Order" : "Checkout";
+    const step4name = "Checkout";
 
     const isCartPage = pathname.includes(step1name.toLowerCase());
     const isShippingPage = pathname.includes(step2name.toLowerCase());
