@@ -51,13 +51,20 @@ const ShippingPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const validAddressCharLimit = 48;
+    const validCityCharLimit = 48;
+    const isValidPostalCode = (zipCode) => {
+        return zipCode.length === 5 && !isNaN(parseFloat(zipCode)) && isFinite(zipCode)
+    };
+
+
     useEffect(() => {
-       if (shippingData.address.length !== 0 && shippingData.address.length < 64 && shippingData.city.length !== 0 && shippingData.city.length < 64 && (shippingData.postalCode.length === 5 && !isNaN(parseFloat(shippingData.postalCode)) && isFinite(shippingData.postalCode)) && shippingData.state.length !== 0 && shippingData.country.length !== 0) {
+       if (shippingData.address.length !== 0 && shippingData.address.length < validAddressCharLimit && shippingData.city.length !== 0 && shippingData.city.length < validCityCharLimit && isValidPostalCode(shippingData.postalCode) && shippingData.state.length !== 0 && shippingData.length !== 0) {
           setIsValidShippingData(true);
        } else {
            setIsValidShippingData(false);
        }
-    });
+    }, [shippingData.address.length, shippingData.city.length, shippingData.postalCode.length, shippingData.postalCode, shippingData.state.length, shippingData.country.length]);
     useEffect(function () {
         if (cartItems.length === 0) {
             navigate("/");
@@ -105,8 +112,14 @@ const ShippingPage = () => {
             dispatch(saveShippingAddress(radioSelectAddress[0]));
             navigate("/payment");
         }
-
     };
+
+    const dynamicBorder = (boolean, string) => {
+        if (string.length === 0) {
+            return "";
+        }
+        return boolean ? "!border-green-500" : "!border-red-500";
+    }
 
     return (
         <>
@@ -115,7 +128,7 @@ const ShippingPage = () => {
             <div className={"pt-0 w-full flex justify-center"}>
                 <div className={"mb-10 pt-3 sm:pt-7 w-full sm:w-[35em]"}>
                     <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
-                        <h1>Shipping Address</h1>
+                        <h1>Shipping Information</h1>
                     </div>
                     <div className={"px-10 pb-10 pt-5 w-full border"}>
                     {
@@ -126,7 +139,7 @@ const ShippingPage = () => {
                                         Address
                                     </label>
                                     <input
-                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
+                                        className={`${dynamicBorder(address.length < validAddressCharLimit, address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
                                         autoComplete={"address"}
                                         type={"text"}
                                         placeholder={"600 Navarro St #300"}
@@ -141,7 +154,7 @@ const ShippingPage = () => {
                                         City
                                     </label>
                                     <input
-                                        className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
+                                        className={`${dynamicBorder(city.length < validCityCharLimit, city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
                                         autoComplete={"home city"}
                                         type={"text"}
                                         placeholder={"San Antonio"}
@@ -164,7 +177,7 @@ const ShippingPage = () => {
                                                 Postal Code
                                             </label>
                                             <input
-                                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"
+                                                className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
                                                 autoComplete={"postalCode"}
                                                 type={"text"}
                                                 placeholder={"78205"}
