@@ -27,7 +27,7 @@ const HomePageIntro = () => {
                     <span className={"pt-12 text-3xl font-semibold text-netural"}>Shop, Ship, & Enjoy.</span>
                     <div className={"pt-20 z-10"}>
                         <Link to={"/sort/latest/select/all"}>
-                            <CustomBtn customClass={"!px-12 bg-zinc-700 shadow-lg !shadow-zinc-600 text-lg"}>
+                            <CustomBtn customClass={"!px-12 bg-zinc-700 text-lg"}>
                                 Shop Now
                             </CustomBtn>
                         </Link>
