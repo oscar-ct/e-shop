@@ -165,7 +165,7 @@ const CartPage = () => {
                         <div className="form-control w-full">
                             <div className={"flex justify-between items-center"}>
                                 <div className="pb-3 font text-lg">
-                                    You are not currently logged in, we<span className={"px-1 font-bold"}>recommend</span> logging in prior to placing any orders.  This will allow you to seamlessly view and manage all your orders.
+                                    You are currently not logged in, we<span className={"px-1 font-bold"}>recommend</span>you login prior to placing any orders.  This will allow you to seamlessly view and manage all your orders.
                                 </div>
                             </div>
                         </div>
