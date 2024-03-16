@@ -20,8 +20,9 @@ const StripeCheckoutForm = ({existingOrder}) => {
     const cartState = useSelector(function (state) {
         return state.cart;
     });
+    const {userData} = useSelector( (state) => state.auth);
 
-    const { discountKey, cartItems, totalPrice, shippingAddress, paymentMethod, itemsPrice, shippingPrice, taxPrice} = cartState;
+    const { discountKey, cartItems, totalPrice, shippingAddress, paymentMethod, itemsPrice, shippingPrice, taxPrice, guestData} = cartState;
 
     const [message, setMessage] = useState(null);
     const [errorMessage, setErrorMessage] = useState();
@@ -40,7 +41,21 @@ const StripeCheckoutForm = ({existingOrder}) => {
 
     const placeNewOrder = useCallback(async () => {
         const res = await validateDiscountCode({code: discountKey}).unwrap();
+        let user;
+        if (userData) {
+            user = {
+                id: userData._id,
+                name: userData.name,
+                email: userData.email,
+            };
+        } else {
+            user = {
+                name: shippingAddress.name,
+                email: guestData,
+            };
+        }
         const order = await createOrder({
+            user,
             orderItems: cartItems,
             shippingAddress,
             paymentMethod,
@@ -50,9 +65,8 @@ const StripeCheckoutForm = ({existingOrder}) => {
             totalPrice,
             validCode: res.validCode,
         }).unwrap();
-        await payOrder({orderId: order._id}).unwrap();
         return order._id;
-    }, [cartItems, createOrder, discountKey, itemsPrice, payOrder, paymentMethod, shippingAddress, shippingPrice, taxPrice, totalPrice, validateDiscountCode]);
+    }, [cartItems, createOrder, discountKey, itemsPrice, paymentMethod, shippingAddress, shippingPrice, taxPrice, totalPrice, validateDiscountCode, userData, guestData]);
 
     useEffect(() => {
         const clientSecret = new URLSearchParams(window.location.search).get(
@@ -72,17 +86,28 @@ const StripeCheckoutForm = ({existingOrder}) => {
                 switch (paymentIntent.status) {
                     case "succeeded": {
                         setMessage("Payment succeeded!");
+                        const details = {
+                            id: paymentIntent.id,
+                            status: paymentIntent.status,
+                            update_time: paymentIntent.created.toString()
+                        };
+                        if (!existingOrder) {
+                            const orderId = await placeNewOrder();
+                            if (orderId) {
+                                const order = await payOrder({orderId: orderId, details}).unwrap();
+                                if (order) {
+                                    navigate(`/order/${order._id}/payment?stripe=successful`);
+                                    // window.location.href = `/order/${data}/payment?stripe=successful`;
+                                }
+                            }
+                        } else {
+                            await payOrder({orderId: existingOrder._id, details}).unwrap();
+                            // if (order) {
+                            //     window.location.href = `/order/${order._id}`;
+                            // }
+                        }
                         dispatch(setLoading(false));
                         dispatch(removeDiscountCode());
-                        if (!existingOrder) {
-                            placeNewOrder().then((data) => {
-                                // navigate(`/order/${data}`);
-                                window.location.href = `/order/${data}/payment?stripe=successful`;
-                            });
-                        } else {
-                            await payOrder({orderId: existingOrder._id});
-                            window.location.href = `/order/${existingOrder._id}`;
-                        }
                         break;
                     }
                     case "processing": {
@@ -104,13 +129,19 @@ const StripeCheckoutForm = ({existingOrder}) => {
                 }
             });
         }
-    }, [stripe, dispatch, navigate, placeNewOrder]);
+    }, [stripe, dispatch, navigate, placeNewOrder, existingOrder, payOrder]);
 
     const handleError = (error) => {
         dispatch(setLoading(false));
         setLoadingBtn(false);
         setErrorMessage(error.message);
-    }
+    };
+
+    const handlePriceError = () => {
+        toast.error("Something went wrong, please try again later.");
+        setLoadingBtn(false);
+        dispatch(setLoading(false));
+    };
 
     const handleSubmit = async (event) => {
         // We don't want to let default form submission happen here,
@@ -143,16 +174,12 @@ const StripeCheckoutForm = ({existingOrder}) => {
 
         if (!existingOrder) {
             if (totalPriceFromBackend !== Number(totalPrice)) {
-                toast.error("Something went wrong, please try again later.");
-                setLoadingBtn(false);
-                dispatch(setLoading(false));
+                handlePriceError();
                 return;
             }
         } else {
             if (totalPriceFromBackend !== existingOrder.totalPrice) {
-                toast.error("Something went wrong, please try again later.");
-                setLoadingBtn(false);
-                dispatch(setLoading(false));
+                handlePriceError();
                 return;
             }
         }
@@ -179,10 +206,9 @@ const StripeCheckoutForm = ({existingOrder}) => {
         }
     };
 
-
     const paymentElementOptions = {
         layout: "tabs"
-    }
+    };
 
     return (
         <form onSubmit={handleSubmit}>
