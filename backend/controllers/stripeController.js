@@ -27,10 +27,14 @@ const stripePaymentIntent = asyncHandler(async (req, res) => {
     });
 });
 
+const confirmStripeIntent = async (id) => {
+    return await stripe.paymentIntents.retrieve(id);
+};
+
 const getStripeClientId = asyncHandler(async (req, res) => {
     res.send({
         clientId: process.env.STRIPE_API_PUBLISHABLE_KEY,
     });
 });
 
-export {stripePaymentIntent, getStripeClientId};
+export {stripePaymentIntent, getStripeClientId, confirmStripeIntent};
