@@ -1,7 +1,7 @@
 import {useState, useEffect} from 'react';
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
-import {saveShippingAddress} from "../slices/cartSlice";
+import {saveShippingAddress, saveGuestData} from "../slices/cartSlice";
 import CheckoutSteps from "../components/CheckoutSteps";
 import {useUpdateUserAddressMutation} from "../slices/usersApiSlice";
 import {setCredentials} from "../slices/authSlice";
@@ -17,54 +17,81 @@ const ShippingPage = () => {
     const cartState = useSelector(function (state) {
         return state.cart;
     });
-    const {shippingAddress, cartItems} = cartState;
+    const {shippingAddress, cartItems, guestData} = cartState;
 
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
     const [updateUserAddress] = useUpdateUserAddressMutation();
 
-    const userId = userData.shippingAddresses.filter(function (x) {
+    const userId = userData?.shippingAddresses.filter(function (x) {
         return x._id === cartState.shippingAddress._id;
     });
-
-    const shipStatus = () => {
-        if (Object.keys(shippingAddress).length !== 0) {
-            // return Object.hasOwn(shippingAddress, "_id");
-            return !Object.hasOwnProperty.call(shippingAddress, "_id");
-        }
-        return userData.shippingAddresses.length === 0;
-    }
-    const [radioId, setRadioId] = useState(Object.hasOwnProperty.call(shippingAddress, "_id") ? userId[0]._id : "");
-    const [useNewAddress, setUseNewAddress] = useState(shipStatus());
-    const [savePaymentData, setSavePaymentData] = useState(false);
-    const [shippingData, setShippingData] = useState({
-        address: Object.hasOwnProperty.call(shippingAddress,"_id") ? "" : shippingAddress?.address ? shippingAddress.address : "",
-        city: Object.hasOwnProperty.call(shippingAddress, "_id") ? "" : shippingAddress?.city ? shippingAddress.city : "",
-        postalCode: Object.hasOwnProperty.call(shippingAddress,"_id") ? "" : shippingAddress?.postalCode ? shippingAddress.postalCode : "",
-        state: Object.hasOwnProperty.call(shippingAddress,"_id") ? "" : shippingAddress?.state ? shippingAddress.state : "",
-        country: Object.hasOwnProperty.call(shippingAddress,"_id") ? "" : shippingAddress?.country ? shippingAddress.country : "",
-    });
-    const {address, city, postalCode, state, country} = shippingData;
-    const [isValidShippingData, setIsValidShippingData] = useState(false);
 
     const navigate = useNavigate();
     const dispatch = useDispatch();
 
+    const shipStatus = () => {
+        if (userData) {
+            if (Object.keys(shippingAddress).length !== 0) {
+                // return Object.hasOwn(shippingAddress, "_id");
+                return !Object.hasOwnProperty.call(shippingAddress, "_id");
+            }
+            return userData.shippingAddresses.length === 0;
+        }
+        else {
+            return true;
+        }
+    };
+
+    const [radioId, setRadioId] = useState(Object.hasOwnProperty.call(shippingAddress, "_id") ? userId[0]._id : "");
+    const [savePaymentData, setSavePaymentData] = useState(false);
+    const [useNewAddress, setUseNewAddress] = useState(shipStatus());
+    const [guestEmail, setGuestEmail] = useState(guestData ? guestData : "");
+    const [isValidShippingData, setIsValidShippingData] = useState(false);
+    const [shippingData, setShippingData] = useState({
+        name: "",
+        address: "",
+        city: "",
+        postalCode: "",
+        state: "",
+        country: "",
+    });
+    const {address, city, postalCode, state, country, name} = shippingData;
+
+    useEffect(() => {
+        if (Object.keys(shippingAddress).length !== 0 && Object.hasOwnProperty.call(shippingAddress,"_id")) {
+            return;
+        }
+        if (Object.keys(shippingAddress).length !== 0) {
+            setShippingData({
+                name: shippingAddress.name,
+                address: shippingAddress.address,
+                city: shippingAddress.city,
+                postalCode: shippingAddress.postalCode,
+                state:  shippingAddress.state,
+                country: shippingAddress.country,
+            });
+        }
+    }, [shippingAddress, userData]);
+
     const validAddressCharLimit = 48;
     const validCityCharLimit = 48;
+    const validEmailCharLimit = 48;
+    const validNameCharLimit = 48;
+
     const isValidPostalCode = (zipCode) => {
         return zipCode.length === 5 && !isNaN(parseFloat(zipCode)) && isFinite(zipCode)
     };
 
-
     useEffect(() => {
-       if (shippingData.address.length !== 0 && shippingData.address.length < validAddressCharLimit && shippingData.city.length !== 0 && shippingData.city.length < validCityCharLimit && isValidPostalCode(shippingData.postalCode) && shippingData.state.length !== 0 && shippingData.length !== 0) {
+       if (shippingData.address.length !== 0 && shippingData.address.length < validAddressCharLimit && shippingData.city.length !== 0 && shippingData.city.length < validCityCharLimit && isValidPostalCode(shippingData.postalCode) && shippingData.state.length !== 0 && shippingData.country.length !== 0 && shippingData.name.length !== 0 && shippingData.name.length < validNameCharLimit) {
           setIsValidShippingData(true);
        } else {
            setIsValidShippingData(false);
        }
-    }, [shippingData.address.length, shippingData.city.length, shippingData.postalCode.length, shippingData.postalCode, shippingData.state.length, shippingData.country.length]);
+    }, [shippingData.address.length, shippingData.city.length, shippingData.postalCode.length, shippingData.postalCode, shippingData.state.length, shippingData.country.length, shippingData.name.length]);
+
     useEffect(function () {
         if (cartItems.length === 0) {
             navigate("/");
@@ -84,7 +111,7 @@ const ShippingPage = () => {
         }));
     }
 
-    const radioSelectAddress = userData.shippingAddresses?.filter(function (x) {
+    const radioSelectAddress = userData?.shippingAddresses?.filter(function (x) {
         return x._id === radioId;
     });
 
@@ -95,7 +122,7 @@ const ShippingPage = () => {
                 try {
                     const updatedUser = await updateUserAddress(shippingData).unwrap();
                     const mongodbShippingDataWithObjectId = updatedUser.shippingAddresses.filter(function (x) {
-                        return x.address === address && x.city === city && x.postalCode === postalCode && x.country === country;
+                        return x.name === name && x.address === address && x.city === city && x.postalCode === postalCode && x.country === country;
                     });
                     dispatch(saveShippingAddress(mongodbShippingDataWithObjectId[0]));
                     navigate("/payment");
@@ -105,7 +132,8 @@ const ShippingPage = () => {
                     console.log(e);
                 }
             } else {
-                dispatch(saveShippingAddress({address: address, city: city, state: state, postalCode: postalCode, country: country}));
+                dispatch(saveGuestData(guestEmail));
+                dispatch(saveShippingAddress({name: name, address: address, city: city, state: state, postalCode: postalCode, country: country}));
                 navigate("/payment");
             }
         } else {
@@ -119,7 +147,7 @@ const ShippingPage = () => {
             return "";
         }
         return boolean ? "!border-green-500" : "!border-red-500";
-    }
+    };
 
     return (
         <>
@@ -134,9 +162,43 @@ const ShippingPage = () => {
                     {
                         useNewAddress ? (
                             <form onSubmit={submitShippingData} className="space-y-5">
+                                {
+                                    !userData && (
+                                        <div className="space-y-2">
+                                            <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                                Email* <span className={"pl-2 text-xs text-red-500 font-semibold"}>email will be used for order related purposes only</span>
+                                            </label>
+                                            <input
+                                                className={`${dynamicBorder(guestEmail.length < validEmailCharLimit, guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                                autoComplete={"email"}
+                                                type={"email"}
+                                                placeholder={"example@email.com"}
+                                                id={"email"}
+                                                value={guestEmail}
+                                                onChange={(e) => setGuestEmail(e.target.value)}
+                                                required
+                                            />
+                                        </div>
+                                    )
+                                }
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                        Address
+                                        Name*
+                                    </label>
+                                    <input
+                                        className={`${dynamicBorder(name.length < validNameCharLimit, name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                        autoComplete={"name"}
+                                        type={"text"}
+                                        placeholder={"John Doe"}
+                                        id={"name"}
+                                        value={name}
+                                        onChange={onChange}
+                                        required
+                                    />
+                                </div>
+                                <div className="space-y-2">
+                                    <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                        Address*
                                     </label>
                                     <input
                                         className={`${dynamicBorder(address.length < validAddressCharLimit, address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
@@ -151,7 +213,7 @@ const ShippingPage = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                        City
+                                        City*
                                     </label>
                                     <input
                                         className={`${dynamicBorder(city.length < validCityCharLimit, city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
@@ -168,17 +230,17 @@ const ShippingPage = () => {
                                     <div className={"flex w-full"}>
                                         <div className={"w-8/12 md:w-6/12 pr-2"}>
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                                State
+                                                State*
                                             </label>
                                             <Select placeholder={"Select State"} options={states} styles={customStyles} id={state} value={states.filter(obj => obj.value === shippingData.state)} onChange={onChangeSelect}/>
                                         </div>
                                         <div className={"w-4/12 md:w-6/12 pl-2"}>
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                                Postal Code
+                                                Postal Code*
                                             </label>
                                             <input
                                                 className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
-                                                autoComplete={"postalCode"}
+                                                autoComplete={"locality"}
                                                 type={"text"}
                                                 placeholder={"78205"}
                                                 id={"postalCode"}
@@ -191,27 +253,31 @@ const ShippingPage = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Country
+                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Country*
                                     </label>
                                     <Select placeholder={"Select Country"} options={countries} styles={customStyles} id={state} value={countries.filter(obj => obj.value === shippingData.country)} onChange={onChangeSelect}/>
                                 </div>
-                                <div className="w-full flex justify-end">
-                                    {
-                                        userData.shippingAddresses?.length !== 0 && (
-                                            <div className={"py-3 w-6/12 flex items-center"}>
-                                                <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-start link link-primary"}>Use Saved Address</span>
-                                            </div>
-                                        )
-                                    }
+                                {
+                                    userData && (
+                                        <div className="w-full flex justify-end">
+                                        {
+                                            userData.shippingAddresses?.length !== 0 && (
+                                                <div className={"py-3 w-6/12 flex items-center"}>
+                                                    <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-start link link-primary"}>Use Saved Address</span>
+                                                </div>
+                                            )
+                                        }
 
-                                    <label className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
-                                        <span className="text-sm pr-2">Save this address</span>
-                                        <input type="checkbox" checked={savePaymentData} onChange={() => setSavePaymentData(prevState => !prevState)} className="checkbox checkbox-primary" />
-                                    </label>
-                                </div>
+                                        <label className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
+                                            <span className="text-sm pr-2">Save this address</span>
+                                            <input type="checkbox" checked={savePaymentData} onChange={() => setSavePaymentData(prevState => !prevState)} className="checkbox checkbox-primary" />
+                                        </label>
+                                    </div>
+                                    )
+                                }
                                 <div className={"pt-5 w-full flex justify-end"}>
                                     <CustomBtn
-                                        isDisabled={!isValidShippingData}
+                                        isDisabled={!isValidShippingData || ( userData ? false : guestEmail.length === 0)}
                                         type={"submit"}
                                     >
                                         Save and Continue
@@ -221,12 +287,15 @@ const ShippingPage = () => {
                         ) : (
                             <form onSubmit={submitShippingData}>
                                 {
-                                    userData.shippingAddresses.map(function(item, index) {
+                                    userData?.shippingAddresses.map(function(item, index) {
                                         return (
                                             <div key={index} className="my-5" onClick={() => setRadioId(item._id)}>
                                                 <div className={"w-full card bg-zinc-100 cursor-pointer"}>
                                                     <div className={"w-full flex p-6"}>
                                                         <div className={"w-10/12 flex flex-col justify-center"}>
+                                                             <span className={"truncate"}>
+                                                                {item.name}
+                                                            </span>
                                                             <span className={"truncate"}>
                                                                 {item.address}
                                                             </span>
