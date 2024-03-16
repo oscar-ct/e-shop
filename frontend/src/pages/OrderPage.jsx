@@ -1,10 +1,9 @@
 import {useEffect} from 'react';
-import {useParams, useSearchParams} from "react-router-dom";
+import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {
     useCancelOrderMutation,
     useGetOrderByIdQuery,
-
 } from "../slices/ordersApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
@@ -21,6 +20,7 @@ import StripeCheckout from "../components/StripeCheckout";
 
 const OrderPage = () => {
     const [searchParams] = useSearchParams();
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id: orderId } = useParams();
 
@@ -56,8 +56,9 @@ const OrderPage = () => {
     useEffect(() => {
         if (searchParams.get("stripe") || searchParams.get("paypal")) {
             dispatch(clearCartItems());
+            navigate(`/order/${orderId}`);
         }
-    }, [dispatch, searchParams]);
+    }, [dispatch, searchParams, navigate, orderId]);
 
     // const onApproveTest = async  () => {
     //     dispatch(setLoading(true));
@@ -86,7 +87,7 @@ const OrderPage = () => {
                             {
                                 order.isPaid && !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
                                     <h1 className={"text-4xl font-bold"}>
-                                        Payment successful! Order is now being processed.
+                                        Payment successful! Order is now being processed. You can come back to this page to view future order updates.
                                     </h1>
                                 ) : order.isPaid && order.isShipped && !order.isDelivered ? (
                                     <h1 className={"text-4xl font-bold"}>
@@ -122,10 +123,27 @@ const OrderPage = () => {
 
                             {/*ORDER DETAILS*/}
                             <div className={"lg:w-7/12 bg-white border h-min p-4 sm:p-7"}>
-                                <div className={"pb-7"}>
+                                <div className={"pb-5"}>
                                     <h1 className={"text-2xl font-semibold text-center"}>
                                         Order # {order._id}
                                     </h1>
+                                </div>
+                                <div className={"pb-3"}>
+                                    <Message variant={"warning"}>
+                                        Please save this order number, you can use it to locate and track your order using our order locator<span className={"link link-primary pl-1"} onClick={() => window.alert("This feature is coming soon")}>tool.</span>
+                                    </Message>
+                                </div>
+                                <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                    <div className={"w-4/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
+                                        <h3 className={"font-semibold"}>
+                                            Customer Email:
+                                        </h3>
+                                    </div>
+                                    <div className={"w-8/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
+                                        <div className={"flex flex-col text-sm"}>
+                                            <span>{order.user.email}</span>
+                                        </div>
+                                    </div>
                                 </div>
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                     <div className={"w-3/12 sm:w-5/12 lg:w-4/12"}>
@@ -162,6 +180,22 @@ const OrderPage = () => {
                                         </div>
                                     </div>
                                 </div>
+                                {
+                                    order.paymentResult && (
+                                        <div className={"flex border-b-[1px] border-gray-300 py-4"}>
+                                            <div className={"w-5/12 lg:w-4/12 flex items-center"}>
+                                                <h3 className={"font-semibold"}>
+                                                    Transaction Id:
+                                                </h3>
+                                            </div>
+                                            <div className={"w-7/12 lg:w-8/12 lex items-center"}>
+                                        <span className={"text-sm"}>
+                                            {order.paymentResult.id}
+                                        </span>
+                                            </div>
+                                        </div>
+                                    )
+                                }
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                     <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-start"}>
                                         <h3 className={"font-semibold pr-2"}>
@@ -328,7 +362,7 @@ const OrderPage = () => {
                                                             <span>Shipping & handling:</span>
                                                             <span className="pl-2">${(order.shippingPrice).toFixed(2)}</span>
                                                         </div>
-                                                        <span className={"self-end w-16 my-1 border-b-2 border-grey-500"}/>
+                                                        <span className={"self-end w-16 my-1 border-b-[1px] border-grey-500"}/>
                                                         <div className={"flex justify-between text-sm my-1"}>
                                                             <span>Total before tax:</span>
                                                             <span className="pl-2">${(order.itemsPrice + order.shippingPrice).toFixed(2)}</span>
@@ -339,7 +373,7 @@ const OrderPage = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className={"flex justify-between font-semibold rounded-bl-xl rounded-br-xl text-lg px-8 pt-6 pb-8"}>
+                                                <div className={"flex justify-between font-semibold text-xl px-8 pt-5 pb-8"}>
                                                     <span className="text-red-600">Order Total:</span>
                                                     <span className="text-red-600">${(order.taxPrice + order.shippingPrice + order.itemsPrice).toFixed(2)}</span>
                                                 </div>
@@ -354,12 +388,12 @@ const OrderPage = () => {
 
                                                         {
                                                             order.paymentMethod === "PayPal / Credit Card" && (
-                                                                <PaypalCheckout existingOrder={order} refetch={refetch}/>
+                                                                <PaypalCheckout existingOrder={order}/>
                                                             )
                                                         }
                                                         {
                                                             order.paymentMethod === "Stripe / Credit Card" && (
-                                                                <StripeCheckout existingOrder={order} />
+                                                                <StripeCheckout existingOrder={order}/>
                                                             )
                                                         }
                                                     </div>
@@ -375,23 +409,23 @@ const OrderPage = () => {
                                             <div className={`${totalNumberOfCanceledItemsThatRequireRefund === orderItemsPaidAndNotCanceled.length && "mt-5"} bg-white border`}>
                                                 <div className="pt-8 px-8">
                                                     <div className={"flex flex-col"}>
-                                                        <h3 className={"text-xl font-bold"}>
+                                                        <h3 className={"text-xl font-semibold"}>
                                                             Refund Summary
                                                         </h3>
                                                         <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
-                                                        <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                        <div className={"flex justify-between text-sm my-1"}>
                                                             <span>Items ({totalNumberOfCanceledItemsThatRequireRefund}):</span>
                                                             <span className="pl-2">${totalDollarAmountOfCanceledItemsThatRequireRefund.toFixed(2)}</span>
                                                         </div>
                                                         {
                                                             order.isCanceled && (
-                                                                <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                                <div className={"flex justify-between text-sm my-1"}>
                                                                     <span>Shipping & handling:</span>
                                                                     <span className="pl-2">${totalDollarAmountOfShippingRefund.toFixed(2)}</span>
                                                                 </div>
                                                             )
                                                         }
-                                                        <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                        <div className={"flex justify-between text-sm my-1"}>
                                                             <span>Tax collected:</span>
                                                             <span className="pl-2">${(TAX_PERCENTAGE * totalDollarAmountOfCanceledItemsThatRequireRefund).toFixed(2)}</span>
                                                         </div>
@@ -399,7 +433,7 @@ const OrderPage = () => {
                                                             !order.isCanceled && (
                                                                 <>
                                                                     <span className={"self-end w-16 my-1 border-b-2 border-grey-500"}/>
-                                                                    <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                                    <div className={"flex justify-between text-sm my-1"}>
                                                                         <span>Refund subtotal:</span>
                                                                         <span className="pl-2">$
                                                                             {
@@ -407,14 +441,14 @@ const OrderPage = () => {
                                                                             }
                                                                         </span>
                                                                     </div>
-                                                                    <div className={"flex justify-between font-semibold text-sm my-1"}>
+                                                                    <div className={"flex justify-between text-sm my-1"}>
                                                                         <span>Shipping Fee:</span>
                                                                         <span className="pl-2">- ${totalDollarAmountOfFees.toFixed(2)}</span>
                                                                     </div>
                                                                 </>
                                                             )
                                                         }
-                                                        <div className={"flex justify-between font-bold rounded-bl-xl rounded-br-xl text-lg pt-6 pb-8"}>
+                                                        <div className={"flex justify-between font-semibold text-lg pt-6 pb-8"}>
                                                             <span className="text-green-500">Total Estimated Refund:</span>
                                                             <span className="text-green-500">$
                                                             {
