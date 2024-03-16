@@ -134,12 +134,12 @@ const OrderPage = () => {
                                     </Message>
                                 </div>
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-4/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
+                                    <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
                                         <h3 className={"font-semibold"}>
                                             Email:
                                         </h3>
                                     </div>
-                                    <div className={"w-8/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
+                                    <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
                                         <div className={"flex flex-col text-sm"}>
                                             <span>{order.user.email}</span>
                                         </div>
@@ -183,13 +183,13 @@ const OrderPage = () => {
                                 {
                                     order.paymentResult && (
                                         <div className={"flex border-b-[1px] border-gray-300 py-4"}>
-                                            <div className={"w-4/12 lg:w-4/12 flex items-center"}>
+                                            <div className={"w-4/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
                                                 <h3 className={"font-semibold"}>
-                                                    Transaction Id:
+                                                    Transaction #
                                                 </h3>
                                             </div>
-                                            <div className={"w-8/12 lg:w-8/12 lex items-center"}>
-                                        <span className={"text-sm"}>
+                                            <div className={"w-8/12 sm:w-7/12 lg:w-8/12 lex items-center"}>
+                                        <span className={"text-xs sm:text-sm px-1"}>
                                             {order.paymentResult.id}
                                         </span>
                                             </div>
