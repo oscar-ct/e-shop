@@ -52,6 +52,7 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                         body: data,
                     }
                 },
+                invalidatesTags: ["Order"],
             }),
             getPayPalClientId: build.query({
                     query: function () {
