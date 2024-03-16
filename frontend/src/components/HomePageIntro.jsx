@@ -27,7 +27,7 @@ const HomePageIntro = () => {
                     <span className={"pt-12 text-3xl font-semibold text-netural"}>Shop, Ship, & Enjoy.</span>
                     <div className={"pt-20 z-10"}>
                         <Link to={"/sort/latest/select/all"}>
-                            <CustomBtn customClass={"!px-14 fadeInEffect text-lg"}>
+                            <CustomBtn customClass={"!px-12 bg-zinc-700 shadow-lg !shadow-zinc-600 text-lg"}>
                                 Shop Now
                             </CustomBtn>
                         </Link>
@@ -90,7 +90,7 @@ const HomePageIntro = () => {
                                         <div className={"w-full h-full flex flex-col items-center justify-center"}>
                                             <Logo className={"py-20 w-[10em]"}/>
                                             <Link to={"/sort/latest/select/all"}>
-                                                <CustomBtn customClass={"!px-8"}>
+                                                <CustomBtn customClass={"!px-8 bg-zinc-700 shadow-sm !shadow-zinc-600"}>
                                                     Shop Now
                                                 </CustomBtn>
                                             </Link>
