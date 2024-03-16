@@ -136,7 +136,7 @@ const OrderPage = () => {
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                     <div className={"w-4/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
                                         <h3 className={"font-semibold"}>
-                                            Customer Email:
+                                            Email:
                                         </h3>
                                     </div>
                                     <div className={"w-8/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
@@ -183,12 +183,12 @@ const OrderPage = () => {
                                 {
                                     order.paymentResult && (
                                         <div className={"flex border-b-[1px] border-gray-300 py-4"}>
-                                            <div className={"w-5/12 lg:w-4/12 flex items-center"}>
+                                            <div className={"w-4/12 lg:w-4/12 flex items-center"}>
                                                 <h3 className={"font-semibold"}>
                                                     Transaction Id:
                                                 </h3>
                                             </div>
-                                            <div className={"w-7/12 lg:w-8/12 lex items-center"}>
+                                            <div className={"w-8/12 lg:w-8/12 lex items-center"}>
                                         <span className={"text-sm"}>
                                             {order.paymentResult.id}
                                         </span>

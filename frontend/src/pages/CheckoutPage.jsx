@@ -139,7 +139,7 @@ const CheckoutPage = () => {
                                             <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                                 <div className={"w-3/12 sm:w-4/12 flex items-center"}>
                                                     <h3 className={"font-semibold"}>
-                                                        Customer Email:
+                                                        Email:
                                                     </h3>
                                                 </div>
                                                 <div className={"w-9/12 sm:w-8/12"}>
@@ -304,7 +304,7 @@ const CheckoutPage = () => {
                                                 </>
                                             )
                                         }
-                                        <div className={"border-b-[1px] border-gray-300 mb-8 mt-4"}/>
+                                        <div className={"border-b-[1px] border-gray-300 mb-8 mt-8"}/>
 
                                         {
                                             paymentMethod === "PayPal / Credit Card" && (
