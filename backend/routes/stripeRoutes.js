@@ -4,7 +4,7 @@ import {protect} from "../middleware/authMiddleware.js";
 
 const router = express.Router();
 
-router.get("/config/stripe-js", protect, getStripeClientId)
-router.post("/create-payment-intent", protect, stripePaymentIntent);
+router.get("/config/stripe-js", getStripeClientId)
+router.post("/create-payment-intent", stripePaymentIntent);
 
 export default router;
