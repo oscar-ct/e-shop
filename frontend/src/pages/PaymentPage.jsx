@@ -11,23 +11,21 @@ import CustomBtn from "../components/CustomBtn";
 
 const PaymentPage = () => {
 
-    const cartItems = useSelector(function (state) {
+    const {shippingAddress, paymentMethod, cartItems} = useSelector(function (state) {
         return state.cart;
     });
-    const {shippingAddress, paymentMethod} = cartItems;
     const [paymentMeth, setPaymentMeth] = useState(paymentMethod ? paymentMethod : null);
     const navigate = useNavigate();
     const dispatch = useDispatch();
-    const shippingAddressIsInvalid = Object.keys(shippingAddress).length === 0;
 
     useEffect(function (){
-
-        if (cartItems.cartItems.length === 0) {
+        const shippingAddressIsInvalid = Object.keys(shippingAddress).length === 0;
+        if (cartItems.length === 0) {
             navigate("/")
         } else if (shippingAddressIsInvalid) {
             navigate("/shipping");
         }
-    }, [navigate, shippingAddress, cartItems.cartItems.length, shippingAddressIsInvalid])
+    }, [navigate, shippingAddress, cartItems.length]);
 
     const submitPaymentMethod = (e) => {
         e.preventDefault();
@@ -35,8 +33,8 @@ const PaymentPage = () => {
             dispatch(savePaymentMethod(paymentMeth));
             navigate("/submitorder")
         }
+    };
 
-    }
     return (
         <>
             <Meta title={"Payment Method"}/>
@@ -87,7 +85,7 @@ const PaymentPage = () => {
                                         </div>
                                         <div className={"w-9/12 flex  items-center"}>
                                             <span className={"px-3"}>
-                                               Credit Card, Google Pay, Cash App, After Pay, and more.
+                                               Credit Card, Cash App, After Pay, and more.
                                             </span>
                                         </div>
                                         <div className={"w-1/12 flex items-center"}>

@@ -21,6 +21,9 @@ const userSchema = new mongoose.Schema({
     },
     shippingAddresses: [
         {
+            name: {
+                type: String,
+            },
             address: {
                 type: String,
             },

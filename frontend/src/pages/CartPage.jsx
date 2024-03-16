@@ -3,7 +3,6 @@ import Message from "../components/Message";
 import {useSelector} from "react-redux";
 import CartItem from "../components/CartItem";
 import CheckoutSteps from "../components/CheckoutSteps";
-// import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import CustomBtn from "../components/CustomBtn";
 
@@ -11,7 +10,7 @@ const CartPage = () => {
 
     const navigate = useNavigate();
 
-    const {cartItems} = useSelector(function (state) {
+    const {cartItems, guestData} = useSelector(function (state) {
         return state.cart;
     });
     const {userData} = useSelector(function (state) {
@@ -23,7 +22,13 @@ const CartPage = () => {
     }, 0).toFixed(2);
 
     const checkoutHandler = () => {
-        userData ? navigate("/shipping") : navigate('/login?redirect=/shipping');
+        if (userData) {
+            navigate("/shipping");
+        }  else if (!userData && guestData) {
+            navigate("/shipping");
+        } else {
+            window.checkout_modal.showModal();
+        }
     };
 
     const totalNumberOfItems = cartItems.reduce(function (acc, product) {
@@ -31,12 +36,11 @@ const CartPage = () => {
     }, 0);
 
     return (
-        <div>
+        <>
             <Meta title={"Shopping Cart"}/>
             {
                 cartItems.length === 0 ? (
                     <div className={"px-2"}>
-                        {/*<BackButton/>*/}
                         <div className={"pt-12 md:pt-20 px-2"}>
                             <div className={"text-4xl pb-10 flex justify-center"}>
                                 Shopping Cart (0)
@@ -154,7 +158,34 @@ const CartPage = () => {
                     </>
                 )
             }
-        </div>
+            <dialog id="checkout_modal" className="modal modal-bottom sm:modal-middle">
+                <form method="dialog" className="modal-box bg-white">
+                    <div className="p-3">
+                        <div className="form-control w-full">
+                            <div className={"flex justify-between items-center"}>
+                                <div className="pb-3 font text-lg">
+                                    You are not currently logged in, we<span className={"px-1 font-bold"}>recommend</span> logging in prior to placing any orders.  This will allow you to seamlessly view and manage all your orders.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div className="modal-action w-full flex justify-center">
+                        <button
+                            onClick={() => navigate("/shipping")}
+                            className={"btn btn-neutral rounded-full normal-case"}
+                        >
+                            Continue As Guest
+                        </button>
+                        <CustomBtn onClick={() => navigate('/login?redirect=/shipping')} type={"submit"} customClass={"text-sm font-semibold"}>
+                           Login / Sign Up
+                        </CustomBtn>
+                    </div>
+                </form>
+                <form method="dialog" className="modal-backdrop">
+                    <button>close</button>
+                </form>
+            </dialog>
+        </>
     );
 };
 

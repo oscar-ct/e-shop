@@ -3,9 +3,11 @@ import Order from "../models/orderModel.js";
 import asyncHandler from "../middleware/asyncHandler.js";
 import Product from "../models/productModel.js";
 import {calculatePrices} from "../utils/calculatePrices.js";
+import {confirmStripeIntent} from "./stripeController.js";
 
 const SHIPPING_PRICE = 10;
 const TAX_PERCENTAGE = 0.0825;
+
 
 const confirmPrices =  asyncHandler(async (req, res) => {
     const {orderItems, validCode} = req.body;
@@ -38,7 +40,7 @@ const confirmPrices =  asyncHandler(async (req, res) => {
 });
 
 const createOrder = asyncHandler(async (req, res) => {
-    const { orderItems, shippingAddress, paymentMethod, validCode } = req.body;
+    const { orderItems, shippingAddress, paymentMethod, validCode, user } = req.body;
     if (orderItems && orderItems.length === 0) {
         res.status(400);
         throw new Error("No items found");
@@ -64,11 +66,12 @@ const createOrder = asyncHandler(async (req, res) => {
             calculatePrices(orderItemsFromDB, validCode);
         // create new order with data from frontend, verified with data from db
         const newOrder = new Order({
-            user: {
-                id: req.user._id,
-                name: req.user.name,
-                email: req.user.email
-            },
+            // user: {
+            //     id: req.user._id,
+            //     name: req.user.name,
+            //     email: req.user.email
+            // },
+            user,
             orderItems: orderItemsFromDB,
             freeShipping: !!validCode,
             shippingAddress: shippingAddress,
@@ -101,11 +104,24 @@ const updateOrderToPaid = asyncHandler(async (req, res) => {
     const {orderId, details} = req.body;
     const order = await Order.findById(orderId);
      if (order) {
-         const { totalPrice, orderItems } = order;
-         order.paidAmount = totalPrice;
-         order.isPaid = true;
-         order.paidAt = Date.now();
-         if (details) {
+         const { totalPrice, orderItems, paymentMethod } = order;
+         if (paymentMethod === "Stripe / Credit Card") {
+             try {
+                 const stripeResponse = await confirmStripeIntent(details.id);
+                 if (stripeResponse && stripeResponse.id === details.id) {
+                     order.paidAmount = totalPrice;
+                     order.isPaid = true;
+                     order.paidAt = Date.now();
+                     order.paymentResult = details;
+                 }
+             } catch (e) {
+                 console.log(e)
+             }
+         }
+         if (paymentMethod === "PayPal / Credit Card") {
+             order.paidAmount = totalPrice;
+             order.isPaid = true;
+             order.paidAt = Date.now();
              order.paymentResult = {
                  id: details.id,
                  status: details.status,
@@ -236,25 +252,32 @@ const cancelOrderItem = asyncHandler(async (req, res) => {
 
 // ADMIN && USER ACCESS
 const getOrderById = asyncHandler(async (req, res) => {
-    const userId = req.user._id;
-    if (userId) {
-        const order = await Order.findById(req.params.id)
-        if (order) {
-            if (userId.toString() === order.user.id.toString()) {
-                res.status(200);
-                return res.json(order);
-            } else if (req.user.isAdmin) {
-                res.status(200);
-                return res.json(order);
-            } else if (order && userId.toString() !== order.user.id.toString()) {
-                res.status(404);
-                throw new Error("You do not have access to this order!");
-            }
-        } else {
-            res.status(404);
-            throw new Error("Order not found");
-        }
+    const order = await Order.findById(req.params.id)
+    if (order) {
+        return res.json(order);
+    } else {
+        res.status(404);
+        throw new Error("Order not found");
     }
+    // const userId = req.user._id;
+    // if (userId) {
+    //     const order = await Order.findById(req.params.id)
+    //     if (order) {
+    //         if (userId.toString() === order.user.id.toString()) {
+    //             res.status(200);
+    //             return res.json(order);
+    //         } else if (req.user.isAdmin) {
+    //             res.status(200);
+    //             return res.json(order);
+    //         } else if (order && userId.toString() !== order.user.id.toString()) {
+    //             res.status(404);
+    //             throw new Error("You do not have access to this order!");
+    //         }
+    //     } else {
+    //         res.status(404);
+    //         throw new Error("Order not found");
+    //     }
+    // }
 });
 
 // ADMIN ACCESS ONLY

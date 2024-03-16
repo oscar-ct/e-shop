@@ -20,13 +20,12 @@ router.post("/verifyamount", confirmPrices);
 
 // Using custom middleware PROTECT
 router.get('/myorders', protect, getUserOrders);
-router.post('/', protect, createOrder);
-router.put('/:id/payment', protect, updateOrderToPaid);
 router.put('/:id/cancelitem', protect, cancelOrderItem);
-router.put('/:id/cancelorder', protect, cancelOrder);
 
-
-router.get('/:id', protect, getOrderById);  // User & Admin Access
+router.post('/', createOrder);
+router.put('/:id/payment', updateOrderToPaid);
+router.put('/:id/cancelorder', cancelOrder);
+router.get('/:id', getOrderById);  // User & Admin Access
 
 // ADMIN ACCESS ONLY
 // Using custom middleware PROTECT and ADMIN

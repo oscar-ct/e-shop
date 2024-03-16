@@ -4,7 +4,7 @@ const orderSchema = new mongoose.Schema({
     user: {
             id: {
                 type: mongoose.Schema.Types.ObjectId,
-                required: true,
+                // required: true,
                 ref: "User",
             },
             name: {
@@ -60,6 +60,10 @@ const orderSchema = new mongoose.Schema({
         }
     ],
     shippingAddress: {
+        name: {
+            type: String,
+            required: true
+        },
         address: {
             type: String,
             required: true

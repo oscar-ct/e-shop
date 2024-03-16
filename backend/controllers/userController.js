@@ -2,7 +2,9 @@ import asyncHandler from "../middleware/asyncHandler.js";
 import User from "../models/userModel.js";
 import bcrypt from "bcryptjs";
 import jwt from "jsonwebtoken";
-import { MailtrapClient } from "mailtrap"
+import { MailtrapClient } from "mailtrap";
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const invalidCredentialsError = () => {
@@ -245,6 +247,7 @@ const updateUserAddress = asyncHandler(async (req, res) => {
     const user = await User.findById(req.user._id);
     if (user) {
         const shippingAddress = {
+            name: req.body.name,
             address: req.body.address,
             city: req.body.city,
             postalCode: req.body.postalCode,

@@ -11,7 +11,7 @@ import {removeDiscountCode} from "../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import {useNavigate} from "react-router-dom";
 
-const PaypalCheckout = ({createNewOrder, existingOrder, refetch}) => {
+const PaypalCheckout = ({createNewOrder, existingOrder}) => {
 
     const cartState = useSelector( (state) => state.cart);
     const { discountKey, cartItems, totalPrice} = cartState;
@@ -95,7 +95,7 @@ const PaypalCheckout = ({createNewOrder, existingOrder, refetch}) => {
             } else {
                 await payOrder({orderId: existingOrder._id, details});
             }
-            refetch();
+            // refetch();
         });
     };
     const onPaypalError = (error) => {

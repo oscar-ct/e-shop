@@ -1,5 +1,7 @@
 import asyncHandler from "../middleware/asyncHandler.js";
 import crypto from "crypto";
+import dotenv from 'dotenv';
+dotenv.config();
 
 
 const encodeFileHandle = asyncHandler(async (req, res) => {

@@ -47,6 +47,10 @@ const router = createBrowserRouter(
             <Route path={"/sort/:sortByTerm/select/:filterTerm/page/:pageNumber"} element={<CategoryPage/>}/>
             <Route path={"/product/:id"} element={<ProductPage/>}/>
             <Route path={"/cart"} element={<CartPage/>}/>
+            <Route path={"/shipping"} element={<ShippingPage/>}/>
+            <Route path={"/payment"} element={<PaymentPage/>}/>
+            <Route path={"/submitorder"} element={<CheckoutPage/>}/>
+            <Route path={"/order/:id/*"} element={<OrderPage/>}/>
             <Route path={"/login"} element={<LoginPage/>}/>
             <Route path={"/register"} element={<RegisterPage/>}/>
             <Route path={"/reset-password/:id/:token"} element={<ForgotPasswordPage/>}/>
@@ -55,10 +59,6 @@ const router = createBrowserRouter(
 
             {/*Private Routes*/}
             <Route path={""} element={<PrivateRoute/>}>
-                <Route path={"/shipping"} element={<ShippingPage/>}/>
-                <Route path={"/payment"} element={<PaymentPage/>}/>
-                <Route path={"/submitorder"} element={<CheckoutPage/>}/>
-                <Route path={"/order/:id/*"} element={<OrderPage/>}/>
                 <Route path={"/profile/:id"} element={<ProfilePage/>}/>
             </Route>
 
