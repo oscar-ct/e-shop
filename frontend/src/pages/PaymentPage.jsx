@@ -41,7 +41,7 @@ const PaymentPage = () => {
             <CheckoutSteps/>
             <div className={"pt-0 w-full flex justify-center"}>
                 <div className={"mb-10 pt-3 sm:pt-7 w-full sm:w-[35em]"}>
-                    <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-neutral md:text-white"}>
+                    <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                         <h1>Payment Method(s)</h1>
                     </div>
                     <div className={"px-10 pb-10 pt-5 border"}>

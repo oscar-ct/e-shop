@@ -20,18 +20,18 @@ const CheckoutSteps = () => {
     const isPlaceOrderPage = pathname.includes("submitorder");
 
     return (
-        <div className={"flex justify-center pt-5 lg:pt-8 text-xs sm:text-sm"}>
-                    <div className={"steps w-full ibmplex"}>
-                        <Link to={"/cart"} data-content="✓" className={`step step-success ${isCartPage ? "text-xl" : "text-gray-400"}`}>
+        <div className={"flex justify-center pt-5 lg:pt-8 text-xs sm:text-sm font-semibold"}>
+                    <div className={"steps w-full"}>
+                        <Link to={"/cart"} data-content="✓" className={`step step-success ${isCartPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                             {step1name}
                         </Link>
                         {
                             Object.keys(shippingAddress).length !== 0 ? (
-                                <Link data-content="✓" to={"/shipping"} className={`step step-success ${isShippingPage ? "text-xl" : "text-gray-400"}`}>
+                                <Link data-content="✓" to={"/shipping"} className={`step step-success ${isShippingPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                     {step2name}
                                 </Link>
                             ) : (
-                                <Link data-content="✕" to={"/shipping"} className={`step step-error ${isShippingPage ? "text-xl" : "text-gray-400"}`}>
+                                <Link data-content="✕" to={"/shipping"} className={`step step-error ${isShippingPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                     {step2name}
                                 </Link>
                             )
@@ -49,11 +49,11 @@ const CheckoutSteps = () => {
                         }
                         {
                             Object.keys(shippingAddress).length !== 0 && paymentMethod ? (
-                                <Link data-content="★" to={"/submitorder"} className={`step step-warning ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                <Link data-content="✓" to={"/submitorder"} className={`step step-success ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                     {step4name}
                                 </Link>
                             ) : (
-                                <button data-content="★" className={`step step-error ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                <button data-content="✕" className={`step step-error ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                     {step4name}
                                 </button>
                             )

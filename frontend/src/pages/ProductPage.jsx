@@ -1,5 +1,5 @@
 import {useEffect, useRef} from 'react';
-import {useParams, useLocation, useNavigate} from "react-router-dom";
+import {useParams, useLocation} from "react-router-dom";
 import {Link} from 'react-router-dom'
 import Rating from "../components/Rating";
 import {useState} from "react";
@@ -57,7 +57,6 @@ const ProductPage = () => {
     const location = useLocation();
     // const navigate = useNavigate();
     const dispatch = useDispatch();
-    const navigate = useNavigate();
     const [quantity, setQuantity] = useState(1);
 
     const addToCartHandler = () => {
@@ -185,19 +184,28 @@ const ProductPage = () => {
                                                 </div>
                                                 <div className={"pb-4 sm:pt-4 border-b-[1px]  border-gray-300 flex justify-between"}>
                                                     <span className={"sm:text-3xl text-4xl"}>{formatPrice(product.price)}</span>
-                                                    <CustomBtn customClass={"sm:hidden"} isDisabled={product.countInStock === 0} onClick={() => {
-                                                        addToCartHandler();
-                                                        navigate("/cart");
-                                                    }
-                                                    }>
-                                                        Buy Now
-                                                    </CustomBtn>
+                                                    {/*<CustomBtn customClass={"sm:hidden"} isDisabled={product.countInStock === 0} onClick={() => {*/}
+                                                    {/*    addToCartHandler();*/}
+                                                    {/*    navigate("/cart");*/}
+                                                    {/*}*/}
+                                                    {/*}>*/}
+                                                    {/*    Buy Now*/}
+                                                    {/*</CustomBtn>*/}
+                                                    <div className={"flex pt-2 md:hidden text-lg"}>
+                                                        {
+                                                            product.countInStock > 0 ? (
+                                                                <span className={"font-semibold"}>Remaining in stock: {product.countInStock}</span>
+                                                            ): (
+                                                                <span className={"text-red-600 w-full font-semibold flex justify-start"}>Out of stock</span>
+                                                            )
+                                                        }
+                                                    </div>
                                                 </div>
 
                                                 <div>
-                                                    <h6 className={"text-lg lg:text-sm text-start pt-5 pb-5 font-bold lg:pb-2"}>Specifications</h6>
+                                                    <h6 className={"text-lg lg:text-sm text-start pt-5 pb-5 font-bold lg:pb-2"}>Product Specifications</h6>
                                                 </div>
-                                                <div className={"text-lg lg:text-sm py-1 w-full flex"}>
+                                                <div className={"lg:text-sm py-1 w-full flex"}>
                                                     <div className={"w-4/12"}>
                                                         <span className={"font-semibold pr-3"}>Brand</span>
                                                     </div>
@@ -205,7 +213,7 @@ const ProductPage = () => {
                                                         <span className={"font-normal w-8/12"}>{product.brand}</span>
                                                     </div>
                                                 </div>
-                                                <div className={"text-lg lg:text-sm py-1 flex"}>
+                                                <div className={"lg:text-sm py-1 flex"}>
                                                     <div className={"w-4/12"}>
                                                         <span className={"font-semibold pr-2"}>Model</span>
                                                     </div>
@@ -213,7 +221,7 @@ const ProductPage = () => {
                                                         <span className={"font-normal"}>{product.model}</span>
                                                     </div>
                                                 </div>
-                                                <div className={"text-lg lg:text-sm py-1 flex"}>
+                                                <div className={"lg:text-sm py-1 flex"}>
                                                     <div className={"w-4/12"}>
                                                         <span className={"font-semibold pr-2"}>Color</span>
                                                     </div>
@@ -224,7 +232,7 @@ const ProductPage = () => {
                                                 <div>
                                                     <h6 className={"text-lg lg:text-sm text-start pt-5 pb-5 font-bold lg:pb-2"}>About this product</h6>
                                                 </div>
-                                                <div className={"text-lg lg:text-sm pt-1 pb-5 flex flex-col"}>
+                                                <div className={"lg:text-sm pt-1 pb-5 flex flex-col"}>
                                                     <p className={"font-normal"}>{detailsActive ? product.description : product.description.substring(0, 138) + "..."}</p>
                                                     <span className={"self-end link link-primary"} onClick={() => setDetailsActive(prevState => !prevState)}>{detailsActive ? "show less" : "show more"}</span>
                                                 </div>
@@ -276,7 +284,7 @@ const ProductPage = () => {
                                                 {
                                                     product.countInStock > 0 && (
                                                         <div className={"pl-2 flex justify-end items-center w-5/12"}>
-                                                            <span className={"pr-1"}>Qty.</span>
+                                                            <span className={"pr-1"}>Qty</span>
                                                             <select
                                                                 placeholder={"Qty 1"}
                                                                 className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-20 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
@@ -315,7 +323,7 @@ const ProductPage = () => {
                                     <div className={"w-full lg:w-6/12 lg:pr-3"}>
                                         <div className={"h-full bg-white overflow-x-auto"}>
                                             <div className={"h-full"}>
-                                                <div className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white`}>
+                                                <div className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl ibmplex bg-white md:bg-zinc-700 md:text-white`}>
 
                                                     <h2>Customer Reviews
                                                         <span className={"text-2xl md:text-xl md:text-white pl-2"}>{product.reviews.length !== 0 ? `(${product.numReviews})` : "(0)"}</span>
@@ -460,7 +468,7 @@ const ProductPage = () => {
 
                                     <div className={"hidden lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
                                         <div className={"h-full bg-white flex flex-col"}>
-                                            <div className={"sticky py-2 px-5 pl-3 bg-neutral"}>
+                                            <div className={"sticky py-2 px-5 pl-3 bg-zinc-700"}>
                                                 <h2 className={"text-2xl ibmplex text-white"}>You might also like</h2>
                                             </div>
                                             <div className={"sm:px-3 sm:pb-2 flex overflow-y-auto h-full border"}>

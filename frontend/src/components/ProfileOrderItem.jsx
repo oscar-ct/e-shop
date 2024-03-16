@@ -34,9 +34,9 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
         <>
         <div className={`mb-5 sm:mb-0 px-3 sm:px-8 lg:px-14 xl:px-24 ${index+1 !== orderLength && "pb-16"}`}>
             <div className={"bg-white w-full flex flex-col"}>
-                <div className={"p-6 rounded-tr-xl rounded-tl-xl flex flex-row bg-neutral-100"}>
+                <div className={"p-6 rounded-tr-xl rounded-tl-xl flex flex-row bg-zinc-700"}>
                     <div className={"w-full flex justify-between"}>
-                        <div className={"flex"}>
+                        <div className={"flex text-white"}>
                             <div className={"flex flex-col lg:pr-3"}>
                                 <span className={"text-xs font-bold"}>
                                     ORDER PLACED
@@ -58,17 +58,17 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
                                     SHIP TO
                                 </span>
                                 <div className="tooltip tooltip-bottom" data-tip={`${order.shippingAddress.address}, ${order.shippingAddress.city}, ${order.shippingAddress.state} ${order.shippingAddress.postalCode}`}>
-                                    <span className={"cursor-default text-primary text-sm"}>
+                                    <span className={"cursor-default text-info text-sm"}>
                                         {order.user.name}
                                     </span>
                                 </div>
                             </div>
                         </div>
-                        <div className={"flex flex-col pl-3 lg:pr-3"}>
+                        <div className={"flex flex-col pl-3 lg:pr-3 text-white"}>
                             <span className={"hidden md:flex text-xs font-bold text-end"}>
                                 ORDER # {order._id}
                             </span>
-                            <Link to={`/order/${order._id}`} className={"text-end link link-primary text-sm"}>
+                            <Link to={`/order/${order._id}`} className={"text-end link link-info text-sm"}>
                                 View order details
                             </Link>
                         </div>

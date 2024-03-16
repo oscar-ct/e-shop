@@ -153,7 +153,7 @@ const OrderPage = () => {
                                     </div>
                                     <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
                                         <div className={"flex flex-col text-sm"}>
-                                            <span>{order.user.name}</span>
+                                            <span>{order.shippingAddress.name}</span>
                                             <span>{order.shippingAddress.address}</span>
                                             <span>{order.shippingAddress.city}, {order.shippingAddress.state} {order.shippingAddress.postalCode}</span>
                                             <span>{order.shippingAddress.country}</span>
@@ -320,7 +320,7 @@ const OrderPage = () => {
                                 !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
                                     <div className={"w-full pt-5 lg:pt-0 pb-5"}>
                                         <button onClick={() => window.confirm_modal.showModal()}
-                                                className={"btn text-xs btn-neutral btn-sm w-full rounded-full"}
+                                                className={"btn text-xs btn-neutral normal-case btn-sm w-full rounded-full"}
                                         >
                                             Cancel Order
                                         </button>

@@ -87,15 +87,11 @@ const ProfileAccountDetails = () => {
 
     return (
         <div className=" md:pt-4 bg-white mx-auto sm:w-96 w-full">
-            <div className="py-2 md:bg-neutral">
-                <h3 className="lg:pl-3 text-3xl md:text-2xl md:text-white ibmplex text-center">Account Details
+            <div className="py-2 md:bg-zinc-700">
+                <h3 className="lg:pl-3 text-2xl md:text-2xl md:text-white ibmplex text-center">Account Holder
                 </h3>
             </div>
             <div className={"border"}>
-                <div>
-                    <p className="text-gray-500 text-xs font-semibold pl-3 pt-3 text-center md:text-start">*Password is required to update account details
-                    </p>
-                </div>
                 <div className={"px-12 pb-12 pt-4"}>
                     <form onSubmit={submitAccountHandler} className="space-y-5">
                         <div className="space-y-2">

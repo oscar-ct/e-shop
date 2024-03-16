@@ -97,21 +97,18 @@ const ProfileAccountPassword = () => {
 
     return (
         <div className="pt-12 md:pt-4 bg-white mx-auto sm:w-96 w-full">
-            <div className="py-2 md:bg-neutral">
-                <h3 className="lg:pl-3 text-3xl md:text-2xl md:text-white ibmplex text-center">Update Password
+            <div className="py-2 md:bg-zinc-700">
+                <h3 className="lg:pl-3 text-2xl md:text-2xl md:text-white ibmplex text-center">Update Password
                 </h3>
             </div>
             <div className={"border"}>
-                <div>
-                    <p className="text-gray-500 text-xs font-semibold pl-3 pt-3 text-center md:text-start">*New password must be at least 6 characters
-                    </p>
-                </div>
                 <div className={"px-12 pb-12 pt-4"}>
                     <form onSubmit={submitPasswordHandler} className="space-y-5">
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-gray-700 tracking-wide">
                                 New password
                             </label>
+                            <span className={"text-xs pl-1"}>(must be at least 6 characters)</span>
                             <input
                                 className="bg-white w-full text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
                                 autoComplete={"password"}
