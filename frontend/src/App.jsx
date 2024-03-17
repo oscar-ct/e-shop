@@ -3,6 +3,7 @@ import Navbar from "./components/Navbar";
 import {useSelector} from "react-redux";
 import { Toaster } from 'react-hot-toast';
 import { ScrollRestoration } from "react-router-dom";
+import Footer from "./components/Footer";
 
 function App() {
 
@@ -32,6 +33,7 @@ function App() {
                       <Outlet/>
                     </div>
                 {/*</div>*/}
+                <Footer/>
             </div>
         </>
     );
