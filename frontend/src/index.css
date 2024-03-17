@@ -187,6 +187,9 @@ input {
 textarea {
   color: black;
 }
+.step:before {
+  height: .25rem!important;
+}
 
 @media screen and (max-width: 500px) {
   .shadow-xl {
