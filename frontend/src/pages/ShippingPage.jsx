@@ -58,6 +58,8 @@ const ShippingPage = () => {
         country: "",
     });
     const {address, city, postalCode, state, country, name} = shippingData;
+    // const [additionalAddress, setAdditionalAddress] = useState("")
+    // const [isAdditionalAddressActive, setIsAdditionalAddressActive] = useState(false);
 
     useEffect(() => {
         if (Object.keys(shippingAddress).length !== 0 && Object.hasOwnProperty.call(shippingAddress,"_id")) {
@@ -120,7 +122,7 @@ const ShippingPage = () => {
         if (useNewAddress) {
             if (savePaymentData) {
                 try {
-                    const updatedUser = await updateUserAddress(shippingData).unwrap();
+                    const updatedUser = await updateUserAddress({name, address, city, state, postalCode, country}).unwrap();
                     const mongodbShippingDataWithObjectId = updatedUser.shippingAddresses.filter(function (x) {
                         return x.name === name && x.address === address && x.city === city && x.postalCode === postalCode && x.country === country;
                     });
@@ -133,7 +135,7 @@ const ShippingPage = () => {
                 }
             } else {
                 dispatch(saveGuestData(guestEmail));
-                dispatch(saveShippingAddress({name: name, address: address, city: city, state: state, postalCode: postalCode, country: country}));
+                dispatch(saveShippingAddress({name, address, city, state, postalCode, country}));
                 navigate("/payment");
             }
         } else {
@@ -166,7 +168,7 @@ const ShippingPage = () => {
                                     !userData && (
                                         <div className="space-y-2">
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                                Email* <span className={"pl-2 text-xs text-red-500 font-semibold"}>email will be used for order related purposes only</span>
+                                                Customer Email
                                             </label>
                                             <input
                                                 className={`${dynamicBorder(guestEmail.length < validEmailCharLimit, guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
@@ -178,12 +180,13 @@ const ShippingPage = () => {
                                                 onChange={(e) => setGuestEmail(e.target.value)}
                                                 required
                                             />
+                                            <div className={"text-xs sm:text-sm w-full flex justify-center"}>(this email will be used to contact you about your order only)</div>
                                         </div>
                                     )
                                 }
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                        Name*
+                                        Recipient&apos;s Name
                                     </label>
                                     <input
                                         className={`${dynamicBorder(name.length < validNameCharLimit, name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
@@ -198,22 +201,44 @@ const ShippingPage = () => {
                                 </div>
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                        Address*
+                                        Street Address
                                     </label>
                                     <input
                                         className={`${dynamicBorder(address.length < validAddressCharLimit, address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
                                         autoComplete={"address"}
                                         type={"text"}
-                                        placeholder={"600 Navarro St #300"}
+                                        placeholder={"600 Navarro St"}
                                         id={"address"}
                                         value={address}
                                         onChange={onChange}
                                         required
                                     />
                                 </div>
+                                {/*{*/}
+                                {/*    !isAdditionalAddressActive ? (*/}
+                                {/*        <div>*/}
+                                {/*            <span onClick={() => setIsAdditionalAddressActive(true)} className={"text-sm font-medium text-primary pl-2 cursor-pointer hover:text-primary/80"}>+ Add apartment, suite, etc.</span>*/}
+                                {/*        </div>*/}
+                                {/*    ) : (*/}
+                                {/*        <div className="space-y-2">*/}
+                                {/*            <label className="text-sm font-medium text-gray-700 tracking-wide">*/}
+                                {/*                Apartment, suite, etc. (optional)*/}
+                                {/*            </label>*/}
+                                {/*            <input*/}
+                                {/*                className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}*/}
+                                {/*                autoComplete={"address"}*/}
+                                {/*                type={"text"}*/}
+                                {/*                placeholder={"Apt# 2213"}*/}
+                                {/*                id={"address"}*/}
+                                {/*                value={additionalAddress}*/}
+                                {/*                onChange={(e) => setAdditionalAddress(e.target.value)}*/}
+                                {/*            />*/}
+                                {/*        </div>*/}
+                                {/*    )*/}
+                                {/*}*/}
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                        City*
+                                        City
                                     </label>
                                     <input
                                         className={`${dynamicBorder(city.length < validCityCharLimit, city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
@@ -230,13 +255,13 @@ const ShippingPage = () => {
                                     <div className={"flex w-full"}>
                                         <div className={"w-8/12 md:w-6/12 pr-2"}>
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                                State*
+                                                State
                                             </label>
                                             <Select placeholder={"Select State"} options={states} styles={customStyles} id={state} value={states.filter(obj => obj.value === shippingData.state)} onChange={onChangeSelect}/>
                                         </div>
                                         <div className={"w-4/12 md:w-6/12 pl-2"}>
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                                Postal Code*
+                                                ZIP Code
                                             </label>
                                             <input
                                                 className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
@@ -253,7 +278,7 @@ const ShippingPage = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Country*
+                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Country
                                     </label>
                                     <Select placeholder={"Select Country"} options={countries} styles={customStyles} id={state} value={countries.filter(obj => obj.value === shippingData.country)} onChange={onChangeSelect}/>
                                 </div>
