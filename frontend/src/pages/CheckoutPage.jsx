@@ -114,7 +114,7 @@ const CheckoutPage = () => {
                 cartItems.length !== 0 && (Object.keys(shippingAddress).length !== 0 || paymentMethod !== null) && (
                     <div>
                         <CheckoutSteps/>
-                        <div className={"pt-0 mb-10 flex-col flex lg:flex-row w-full"}>
+                        <div className={"pt-0 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 card bg-white h-min"}>
                                 <div className={"pt-3 sm:pt-7"}>
                                     <h1

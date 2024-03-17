@@ -54,7 +54,7 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
                                 </span>
                             </div>
                             <div className={"flex flex-col pl-3 lg:pr-3"}>
-                                <span className={"text-xs font-bold"}>
+                                <span className={"text-xs font-bold text-center sm:text-start"}>
                                     SHIP TO
                                 </span>
                                 <div className="tooltip tooltip-bottom" data-tip={`${order.shippingAddress.address}, ${order.shippingAddress.city}, ${order.shippingAddress.state} ${order.shippingAddress.postalCode}`}>

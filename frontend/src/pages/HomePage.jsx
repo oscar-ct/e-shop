@@ -69,7 +69,6 @@ const HomePage = () => {
                         <HomePageIntro/>
                         <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
                         <HomePageLatestProducts scrollTo={scrollTo} data={data} windowInnerWidth={windowInnerWidth}/>
-                        <Footer/>
                     </>
                 )
             }

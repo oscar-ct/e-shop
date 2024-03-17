@@ -20,7 +20,7 @@ const CheckoutSteps = () => {
     const isPlaceOrderPage = pathname.includes("submitorder");
 
     return (
-        <div className={"flex justify-center pt-5 lg:pt-8 text-xs sm:text-sm font-semibold"}>
+        <div className={"flex justify-center pt-5 text-xs sm:text-sm font-semibold"}>
                     <div className={"steps w-full"}>
                         <Link to={"/cart"} data-content="✓" className={`step step-success ${isCartPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                             {step1name}
