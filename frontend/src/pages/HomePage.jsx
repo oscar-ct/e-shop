@@ -4,7 +4,6 @@ import Message from "../components/Message";
 import {useParams} from "react-router-dom";
 import {useEffect, useRef, useState} from "react";
 import Meta from "../components/Meta";
-import Footer from "../components/Footer";
 import HomePageCategorySection from "../components/HomePageCategorySection";
 import HomePageLatestProducts from "../components/HomePageLatestProducts";
 import HomePageIntro from "../components/HomePageIntro";
