@@ -82,13 +82,13 @@ const HomePageIntro = () => {
                             >
                                 <SwiperSlide>
                                     <div
-                                        style={{backgroundImage: `url(https://images.unsplash.com/photo-1628527304948-06157ee3c8a6?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundPosition: "center", backgroundSize: "cover",}}
+                                        style={{backgroundImage: `url(/images/towfiqu-barbhuiya-HNPrWOH2Z8U-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover",}}
                                         className={"h-[32em]"}
                                     >
                                         <div className={"w-full h-full flex items-end justify-end"}>
 
                                             <div className={"p-10 w-full flex flex-col items-center justify-center"}>
-                                                <span className={"px-2 pb-3 text-3xl text-white font-bold"}>Shop securely with</span>
+                                                <span className={"px-2 pb-3 text-3xl text-white font-bold"}>Pay safely with</span>
                                                 {/*<FaCcPaypal color={"white"} size={"3em"}/>*/}
                                                 <div className={"w-full flex items-center justify-evenly"}>
                                                     <StripeLogo width={90}/>
