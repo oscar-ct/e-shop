@@ -72,10 +72,10 @@ const HomePageIntro = () => {
                             <Swiper
                                 pagination
                                 slidesPerView={1}
-                                // autoplay={{
-                                //     delay: 8500,
-                                //     disableOnInteraction: false
-                                // }}
+                                autoplay={{
+                                    delay: 8500,
+                                    disableOnInteraction: false
+                                }}
                                 modules={[Autoplay, EffectFade, Pagination]}
                                 effect={"fade"}
                                 fadeEffect={{crossFade: true}}
@@ -88,10 +88,21 @@ const HomePageIntro = () => {
                                         <div className={"w-full h-full flex items-end justify-end"}>
 
                                             <div className={"p-10 w-full flex flex-col items-center justify-center"}>
-                                                <span className={"px-2 text-3xl text-white font-bold"}>Shop securely with</span>
+                                                <span className={"px-2 pb-3 text-3xl text-white font-bold"}>Shop securely with</span>
                                                 {/*<FaCcPaypal color={"white"} size={"3em"}/>*/}
-                                                <div className={"w-full flex items-center justify-around"}>
+                                                <div className={"w-full flex items-center justify-evenly"}>
                                                     <StripeLogo width={90}/>
+                                                    <div className={"flex flex-col"}>
+                                                        <div className={"flex justify-center"}>
+                                                            <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
+                                                        </div>
+                                                        <div className={"py-1 text-lg text-[#635bff] flex items-center"}>
+                                                            &
+                                                        </div>
+                                                        <div className={"flex justify-center"}>
+                                                            <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
+                                                        </div>
+                                                    </div>
                                                     <PaypalLogo width={60}/>
                                                 </div>
                                             </div>
@@ -109,9 +120,8 @@ const HomePageIntro = () => {
                                     {/*    className={"h-[32em]"}*/}
                                     {/*>*/}
                                         <div className={"w-full h-full flex flex-col items-center justify-center"}>
-                                            <div className={"pt-20 pb-10 w-full flex items-center flex-col justify-center"}>
+                                            <div className={"pt-20 pb-20 w-full flex items-center flex-col justify-center"}>
                                                 <Logo className={"w-[10em]"}/>
-                                                <span className={"text-lg italic ibmplex pt-6"}>By Oscar Castro</span>
                                             </div>
 
                                             <Link to={"/sort/latest/select/all"}>
