@@ -1,5 +1,5 @@
 import {useState, useEffect, useCallback} from "react";
-import {PaymentElement, useStripe, useElements} from "@stripe/react-stripe-js";
+import {PaymentElement, LinkAuthenticationElement, useStripe, useElements} from "@stripe/react-stripe-js";
 import CustomBtn from "./CustomBtn";
 import {useCreateStripePaymentIntentMutation} from "../slices/stripeApiSlice";
 import {useCreateOrderMutation, usePayOrderMutation, useVerifyAmountMutation} from "../slices/ordersApiSlice";
@@ -207,7 +207,13 @@ const StripeCheckoutForm = ({existingOrder}) => {
     };
 
     const paymentElementOptions = {
-        layout: "tabs"
+        layout: "tabs",
+    };
+
+    const linkAuthenticationElementOptions = {
+        defaultValues: {
+            email: userData ? userData.email : ""
+        }
     };
 
     return (
@@ -215,6 +221,7 @@ const StripeCheckoutForm = ({existingOrder}) => {
             {
                 !clientHasSecret && (
                     <>
+                        <LinkAuthenticationElement options={linkAuthenticationElementOptions} className={"pb-5"}/>
                         <PaymentElement className={"pb-3"} options={paymentElementOptions}/>
                         <div className={"flex justify-center"}>
                             <CustomBtn customClass={"w-full flex justify-center items-center my-3"} type={"submit"}
