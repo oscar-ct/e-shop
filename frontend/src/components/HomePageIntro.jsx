@@ -6,9 +6,11 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
-import {FaCcPaypal} from "react-icons/fa";
+// import {FaCcPaypal} from "react-icons/fa";
 import {motion} from "framer-motion";
 import CustomBtn from "./CustomBtn";
+import {ReactComponent as PaypalLogo} from "../icons/paypal-logo.svg";
+import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
 
 
 const HomePageIntro = () => {
@@ -70,14 +72,33 @@ const HomePageIntro = () => {
                             <Swiper
                                 pagination
                                 slidesPerView={1}
-                                autoplay={{
-                                    delay: 8500,
-                                    disableOnInteraction: false
-                                }}
+                                // autoplay={{
+                                //     delay: 8500,
+                                //     disableOnInteraction: false
+                                // }}
                                 modules={[Autoplay, EffectFade, Pagination]}
                                 effect={"fade"}
                                 fadeEffect={{crossFade: true}}
                             >
+                                <SwiperSlide>
+                                    <div
+                                        style={{backgroundImage: `url(https://images.unsplash.com/photo-1628527304948-06157ee3c8a6?q=80&w=2940&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundPosition: "center", backgroundSize: "cover",}}
+                                        className={"h-[32em]"}
+                                    >
+                                        <div className={"w-full h-full flex items-end justify-end"}>
+
+                                            <div className={"p-10 w-full flex flex-col items-center justify-center"}>
+                                                <span className={"px-2 text-3xl text-white font-bold"}>Shop securely with</span>
+                                                {/*<FaCcPaypal color={"white"} size={"3em"}/>*/}
+                                                <div className={"w-full flex items-center justify-around"}>
+                                                    <StripeLogo width={90}/>
+                                                    <PaypalLogo width={60}/>
+                                                </div>
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </SwiperSlide>
                                 <SwiperSlide>
                                     <div
                                         style={{backgroundImage: `url(/images/bg.png)`, backgroundPosition: "center", backgroundSize: "cover",}}
@@ -88,28 +109,17 @@ const HomePageIntro = () => {
                                     {/*    className={"h-[32em]"}*/}
                                     {/*>*/}
                                         <div className={"w-full h-full flex flex-col items-center justify-center"}>
-                                            <Logo className={"py-20 w-[10em]"}/>
+                                            <div className={"pt-20 pb-10 w-full flex items-center flex-col justify-center"}>
+                                                <Logo className={"w-[10em]"}/>
+                                                <span className={"text-lg italic ibmplex pt-6"}>By Oscar Castro</span>
+                                            </div>
+
                                             <Link to={"/sort/latest/select/all"}>
-                                                <CustomBtn customClass={"!px-8 bg-zinc-700 shadow-sm !shadow-zinc-600"}>
+                                                <CustomBtn customClass={"!px-8 bg-zinc-700"}>
                                                     Shop Now
                                                 </CustomBtn>
                                             </Link>
                                         </div>
-                                    </div>
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <div
-                                        style={{backgroundImage: `url(/images/muhammad-asyfaul-f2tNsobMisQ-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover",}}
-                                        className={"h-[32em]"}
-                                    >
-                                        <div className={"w-full h-full flex items-end justify-end"}>
-
-                                            <div className={"p-10 w-full flex flex-col items-center justify-center"}>
-                                                <span className={"p-2 text-3xl text-white font-bold"}>Shop with confidence</span>
-                                                <FaCcPaypal color={"white"} size={"3em"}/>
-                                            </div>
-                                        </div>
-
                                     </div>
                                 </SwiperSlide>
                             </Swiper>
