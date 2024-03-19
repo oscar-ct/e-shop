@@ -98,13 +98,7 @@ const ProductPage = () => {
                     <Spinner/>
                 ) : error || errorRated ? (
                         <NotFoundPage/>
-                    // <div className={"pt-10 px-2"}>
-                    //     <BackButton/>
-                    //     <Message variant={"error"}>
-                    //         {error?.data?.message || error.error}
-                    //     </Message>
-                    // </div>
-                ) : !isLoading && fullScreen ? (
+                ) : !isLoading && fullScreen && product ? (
                     <div className={"z-30 h-max bg-black absolute top-0 right-0 left-0 bottom-0"}>
                         <div className={"relative"}>
                             <button onClick={() => setFullScreen(false)} className={"z-10 hover:text-blue-500 rounded-full bg-black/50 p-3 text-2xl text-white absolute top-5 right-5"}>
@@ -135,7 +129,7 @@ const ProductPage = () => {
                             </Swiper>
                         </div>
                     </div>
-                    ) : !isLoading && (
+                    ) : !isLoading && product ? (
                     <>
                         <Meta title={product.name} description={product.description}/>
                         <BackButton/>
@@ -486,6 +480,8 @@ const ProductPage = () => {
                             </div>
                         </motion.div>
                     </>
+                ) : (
+                    <NotFoundPage/>
                 )
             }
             <ReviewModal productId={productId} refetch={refetch} onPage={true}/>
