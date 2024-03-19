@@ -41,7 +41,7 @@ const ProfileOrderItemProduct = ({product, index, orderSize}) => {
                                     </span>
                                 </div>
                                 <div className={"pt-4"}>
-                                    <CustomBtn customClass={"!text-[14px] !px-6"} onClick={addToCartHandler}>
+                                    <CustomBtn customClass={"!text-[14px] !px-6 !py-1"} onClick={addToCartHandler}>
                                         Buy It Again
                                     </CustomBtn>
                                 </div>
