@@ -3,23 +3,23 @@ import {
     useCreateProductMutation, useDeleteProductImageMutation, useUpdateProductImagesMutation,
 } from "../slices/productsApiSlice";
 import {useDispatch} from "react-redux";
-import {useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {setLoading} from "../slices/loadingSlice";
 import {FaTrash, FaUpload} from "react-icons/fa";
 import * as filestack from "filestack-js";
 import {useGetFilestackTokenQuery, useDeleteImageFromFilestackMutation, useEncodeHandleMutation} from "../slices/filestackSlice";
 import {toast} from "react-hot-toast";
 import {ReactComponent as Images} from "../icons/add-image.svg";
-import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import CategoryOptions from "../components/CategoryOptions";
+import AdminTabs from "../components/AdminTabs";
+import CustomBtn from "../components/CustomBtn";
 
 
 
 const AdminCreateProductPage = () => {
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
 
     const [createProduct,
         // {error: errorCreate}
@@ -155,14 +155,11 @@ const AdminCreateProductPage = () => {
     return (
         <>
             <Meta title={"New Product Listing"}/>
-            <BackButton/>
-            <div className={"2xl:px-20 pt-12 md:pt-20 lg:pt-4"}>
-                <div className={"bg-white mx-auto w-full"}>
-                    <h2 className={"py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white"}>
-                        New Product Listing
-                    </h2>
+            <div className={"py-10"}>
+                <AdminTabs/>
+                <div className={"bg-white mt-5 mx-auto w-full"}>
                     <div className={"px-10 py-5 border"}>
-                        <h2 className={"pt-5 lg:pt-0 text-xl font-bold flex items-center"}>
+                        <h2 className={"pt-5 text-xl font-bold flex items-center"}>
                             Step 1.
                             {
                                 newProduct === null ? (
@@ -172,7 +169,7 @@ const AdminCreateProductPage = () => {
                                 ) : (
                                     <div className="flex items-center pl-3 text-sm text-green-500 font-semibold">
                                         <span className={"pr-1"}>
-                                            Complete!
+                                            Completed!
                                         </span>
                                         <svg xmlns="http://www.w3.org/2000/svg" className="stroke-current shrink-0 h-5 w-5" fill="none" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                                         </svg>
@@ -332,11 +329,9 @@ const AdminCreateProductPage = () => {
                                 </div>
                             </div>
                             <div className={`px-5 sm:px-0 pt-1 w-full flex flex-col lg:flex-row lg:justify-end items-center`}>
-
-                                <button disabled={newProduct !== null || !formIsComplete} type={"submit"} className={`rounded-xl ${newProduct === null && formIsComplete && "shadow-blue"} self-end btn btn-primary w-full lg:btn-wide`}>
-                                   Create Listing
-                                </button>
-
+                                <CustomBtn isDisabled={newProduct !== null || !formIsComplete} type={"submit"} customClass={"self-end !px-14"}>
+                                    Create Listing
+                                </CustomBtn>
                             </div>
                         </form>
 
@@ -361,8 +356,8 @@ const AdminCreateProductPage = () => {
                                     return (
                                         <div key={index} className={"p-3"}>
                                             <div className={"indicator"}>
-                                                <span onClick={() => deleteProductImageFromDbAndFilestack(imageObj._id, imageObj.handle)} className="p-1 text-white indicator-item rounded-full badge badge-error cursor-pointer">
-                                                    <FaTrash className={"text-xs"}/>
+                                                <span onClick={() => deleteProductImageFromDbAndFilestack(imageObj._id, imageObj.handle)} className="indicator-item cursor-pointer">
+                                                    <FaTrash fill={"red"} className={"text-xs"}/>
                                                 </span>
                                                 <img src={imageObj.url} alt={"product"} className={"w-40 rounded-xl"}/>
                                             </div>
@@ -382,19 +377,22 @@ const AdminCreateProductPage = () => {
                             <p className={"text-xs py-1 text-center"}>
                                 *Please note the first uploaded image will be the cover
                             </p>
-                            <button disabled={newProduct === null || newProduct.images.length >= 7} onClick={openPicker} className={"rounded-xl btn w-full lg:btn-wide"}>
-                                <FaUpload/>
-                                Upload Image
-                            </button>
+                            <CustomBtn isDisabled={newProduct === null || newProduct.images.length >= 7} onClick={openPicker} customClass={"!px-10"}>
+                                <div className={"flex w-full justify-between items-center"}>
+                                    <FaUpload/>
+                                    <span className={"pl-4"}>Upload Image</span>
+                                </div>
+
+                            </CustomBtn>
                         </div>
 
                     </div>
                     {
                         imagesUploaded && (
                             <div className={"py-10 px-5 lg:px-0 flex justify-center"}>
-                                <button onClick={() => navigate("/admin/products")} className={"item-center btn btn-success rounded-xl"}>
-                                    Finished
-                                </button>
+                                <Link className={"link link-primary text-2xl"} to={(`/product/${newProduct._id}`)}>
+                                    I&apos;m finished, take me to new product listing
+                                </Link>
                             </div>
                         )
                     }
