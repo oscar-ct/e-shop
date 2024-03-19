@@ -180,7 +180,7 @@ const RegisterPage = () => {
                                 {/*}*/}
 
                                 <div className={"flex justify-center"}>
-                                    <button type="submit" className="btn btn-neutral normal-case rounded-full btn-wide">
+                                    <button type="submit" className="btn btn-neutral normal-case rounded-full btn-wide ibmplex text-base">
                                        Create Account
                                     </button>
                                 </div>

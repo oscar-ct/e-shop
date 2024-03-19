@@ -183,7 +183,7 @@ const LoginPage = () => {
                                 {/*}*/}
 
                                 <div className={"flex justify-center"}>
-                                    <button type="submit" className="rounded-full btn btn-neutral btn-wide normal-case">
+                                    <button type="submit" className="rounded-full btn btn-neutral btn-wide normal-case ibmplex text-base">
                                         Login
                                     </button>
                                 </div>
@@ -192,7 +192,7 @@ const LoginPage = () => {
                                 <p className={"pt-6"}>
                                     Don&apos;t have an account?
                                 </p>
-                                <Link to={ redirect ? `/register?redirect=${redirect}` : "/register"} className="link  text-blue-400 hover:text-blue-500 pt-6 pl-1">
+                                <Link to={ redirect ? `/register?redirect=${redirect}` : "/register"} className="link text-blue-400 hover:text-blue-500 pt-6 pl-1">
                                     Create new account
                                 </Link>
                             </div>
