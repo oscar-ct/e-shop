@@ -313,26 +313,9 @@ const AdminProductListPage = () => {
             <>
                 <Meta title={"Product List"}/>
                 <div className={"py-10"}>
-                    <div className={"flex justify-center"}>
-                        <div className={"flex justify-end"}>
-                        <AdminTabs/>
-                        <button
-                            onClick={() => navigate("/admin/products/create")}
-                            className={"absolute translate-x-12 bg-black/50 p-3 rounded-full text-white text-sm"}
-                        >
-                            <FaPlus/>
-                        </button>
-                        </div>
-                    </div>
-
-
+                    <AdminTabs/>
                     <div className={"mt-5 bg-white"}>
-                        <div className={"w-full py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white"}>
-                            <div>
-                                Products ({localData.length})
-                            </div>
-                        </div>
-                        <div className="overflow-x-auto p-5 border">
+                        <div className="overflow-x-auto px-5 py-10 border">
                             <table className="table table-zebra table-xs lg:w-full w-[984px]">
                                 <thead>
                                 <tr>
