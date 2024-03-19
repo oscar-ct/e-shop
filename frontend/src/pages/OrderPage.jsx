@@ -286,7 +286,7 @@ const OrderPage = () => {
                                         <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                             <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
                                                 <h3 className={"font-semibold pr-2"}>
-                                                    Tracking Number:
+                                                    Tracking #
                                                 </h3>
                                             </div>
                                             <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
