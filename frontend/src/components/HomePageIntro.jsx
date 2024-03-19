@@ -15,7 +15,7 @@ import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
 
 const HomePageIntro = () => {
     return (
-        <div className={"lg:drop-shadow-xl bg-transparent"}>
+        <div className={"lg:drop-shadow-xl bg-black md:bg-transparent"}>
 
             {/*MOBILE*/}
             <motion.div
@@ -24,9 +24,9 @@ const HomePageIntro = () => {
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
                     >
-                <div className={"absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
-                    <Logo className={"pt-28 w-[10em]"}/>
-                    <span className={"pt-12 text-3xl font-semibold text-netural"}>Shop, Ship, & Enjoy.</span>
+                <div className={"z-10 absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
+                    <Logo fill={"white"} className={"pt-28 w-[10em]"}/>
+                    <span className={"pt-12 text-3xl font-semibold text-white md:text-neutral"}>Shop, Ship, & Enjoy.</span>
                     <div className={"pt-20 z-10"}>
                         <Link to={"/sort/latest/select/all"}>
                             <CustomBtn customClass={"!px-12 bg-zinc-700 text-lg"}>
