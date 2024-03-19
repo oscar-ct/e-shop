@@ -63,7 +63,7 @@ const HomePageIntro = () => {
                             className={"h-full w-1/3"}
                         >
                             <div className={"w-full h-full flex items-start justify-center"}>
-                                <div className={"pt-20 px-10 font-bold text-white text-3xl"}>
+                                <div className={"pt-24 px-10 font-bold text-white text-3xl"}>
                                     Shop, Ship, & Enjoy.
                                 </div>
                             </div>
@@ -72,39 +72,46 @@ const HomePageIntro = () => {
                             <Swiper
                                 pagination
                                 slidesPerView={1}
-                                autoplay={{
-                                    delay: 8500,
-                                    disableOnInteraction: false
-                                }}
+                                // autoplay={{
+                                //     delay: 8500,
+                                //     disableOnInteraction: false
+                                // }}
                                 modules={[Autoplay, EffectFade, Pagination]}
                                 effect={"fade"}
                                 fadeEffect={{crossFade: true}}
                             >
                                 <SwiperSlide>
                                     <div
-                                        style={{backgroundImage: `url(/images/towfiqu-barbhuiya-HNPrWOH2Z8U-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover",}}
+                                        style={{backgroundImage: `url(/images/markus-winkler-ahjzVINkuCs-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover",}}
                                         className={"h-[32em]"}
                                     >
                                         <div className={"w-full h-full flex items-end justify-end"}>
 
-                                            <div className={"p-10 w-full flex flex-col items-center justify-center"}>
-                                                <span className={"px-2 pb-3 text-3xl text-white font-bold"}>Pay safely with</span>
-                                                {/*<FaCcPaypal color={"white"} size={"3em"}/>*/}
-                                                <div className={"w-full flex items-center justify-center"}>
-                                                    <StripeLogo width={90}/>
-                                                    <div className={"flex flex-col pl-3 pr-4"}>
-                                                        <div className={"flex justify-center"}>
-                                                            <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
+                                            <div className={"p-10 w-full h-full flex flex-col items-between justify-between"}>
+                                                <div className={"flex flex-col items-start justify-start"}>
+                                                    <span className={"px-2 pb-3 text-3xl font-bold"}>Pay safely with</span>
+                                                    {/*<FaCcPaypal color={"white"} size={"3em"}/>*/}
+                                                    <div className={"w-full lg:pl-8 flex items-center justify-start"}>
+                                                        <StripeLogo width={90}/>
+                                                        <div className={"flex flex-col pl-3 pr-4"}>
+                                                            <div className={"flex justify-center"}>
+                                                                <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
+                                                            </div>
+                                                            <div className={"py-1 text-lg text-[#635bff] flex items-center"}>
+                                                                &
+                                                            </div>
+                                                            <div className={"flex justify-center"}>
+                                                                <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
+                                                            </div>
                                                         </div>
-                                                        <div className={"py-1 text-lg text-[#635bff] flex items-center"}>
-                                                            &
-                                                        </div>
-                                                        <div className={"flex justify-center"}>
-                                                            <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
-                                                        </div>
+                                                        <PaypalLogo width={60}/>
                                                     </div>
-                                                    <PaypalLogo width={60}/>
                                                 </div>
+                                                <Link to={"/sort/latest/select/all"}>
+                                                    <CustomBtn customClass={"bg-zinc-700"}>
+                                                        Shop Now
+                                                    </CustomBtn>
+                                                </Link>
                                             </div>
                                         </div>
 
@@ -119,16 +126,24 @@ const HomePageIntro = () => {
                                     {/*    style={{backgroundImage: `url(/images/ian-dooley-hpTH5b6mo2s-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover",}}*/}
                                     {/*    className={"h-[32em]"}*/}
                                     {/*>*/}
-                                        <div className={"w-full h-full flex flex-col items-center justify-center"}>
-                                            <div className={"pt-20 pb-20 w-full flex items-center flex-col justify-center"}>
-                                                <Logo className={"w-[10em]"}/>
+                                        <div className={"w-full h-full flex flex-col items-center justify-evenly pb-5"}>
+                                            <div className={"pt-10 w-full flex items-center flex-col justify-center"}>
+                                                <div className={"text-3xl font-bold"}>Meet the developer</div>
                                             </div>
-
-                                            <Link to={"/sort/latest/select/all"}>
-                                                <CustomBtn customClass={"!px-8 bg-zinc-700"}>
-                                                    Shop Now
+                                            <div className="avatar">
+                                                <div className="w-48 rounded-full">
+                                                    <img alt={"headshot"} src={"/images/codeup-final.webp"}/>
+                                                </div>
+                                            </div>
+                                            <div className={"flex flex-col items-center"}>
+                                                <span className={"text-2xl font-bold"}>Oscar Castro</span>
+                                                <a href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
+                                            </div>
+                                            <a aria-label="portfolio" href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer">
+                                                <CustomBtn customClass={"bg-zinc-700"}>
+                                                    Learn More
                                                 </CustomBtn>
-                                            </Link>
+                                            </a>
                                         </div>
                                     </div>
                                 </SwiperSlide>
