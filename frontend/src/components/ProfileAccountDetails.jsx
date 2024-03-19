@@ -88,7 +88,7 @@ const ProfileAccountDetails = () => {
     return (
         <div className=" md:pt-4 bg-white mx-auto sm:w-96 w-full">
             <div className="py-2 md:bg-zinc-700">
-                <h3 className="lg:pl-3 text-2xl md:text-2xl md:text-white ibmplex text-center">Account Holder
+                <h3 className="lg:pl-3 text-2xl md:text-2xl md:text-white ibmplex text-center">Update Name/Email
                 </h3>
             </div>
             <div className={"border"}>
