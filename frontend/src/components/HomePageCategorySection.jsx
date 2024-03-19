@@ -16,7 +16,7 @@ const HomePageCategorySection = ({productCategories, windowInnerWidth}) => {
                 <div className={"h-12 md:bg-zinc-700 border-none md:border-b-[1px] md:border-grey-300"}>
                     <div  className={"flex justify-center lg:justify-start items-center h-full w-full"}>
                         <h2 className={"lg:pl-3 text-3xl md:text-2xl text-white ibmplex"}>
-                            Categories
+                            Popular Categories
                         </h2>
                     </div>
                 </div>
