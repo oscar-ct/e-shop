@@ -167,7 +167,7 @@ const StripeCheckoutForm = ({existingOrder}) => {
             isDiscounted = discount.validCode;
         }
         let totalPriceFromBackend = await verifyAmount({
-            orderItems: existingOrder ? existingOrder.orderItems : cartItems,
+            orderItems: existingOrder ? existingOrder.orderItems.filter((item) => !item.isCanceled) : cartItems,
             validCode : existingOrder ? existingOrder.freeShipping : isDiscounted,
         }).unwrap();
         totalPriceFromBackend = Number(totalPriceFromBackend);
