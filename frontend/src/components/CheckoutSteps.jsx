@@ -21,7 +21,7 @@ const CheckoutSteps = () => {
 
     return (
         <div className={"flex justify-center pt-5 text-xs sm:text-sm font-semibold"}>
-                    <div className={"steps w-full"}>
+                    <div className={"steps w-full roboto"}>
                         <Link to={"/cart"} data-content="✓" className={`step step-success ${isCartPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                             {step1name}
                         </Link>
@@ -31,7 +31,7 @@ const CheckoutSteps = () => {
                                     {step2name}
                                 </Link>
                             ) : (
-                                <Link data-content="✕" to={"/shipping"} className={`step step-error ${isShippingPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                <Link data-content="✕" to={"/shipping"} className={`step ${isShippingPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                     {step2name}
                                 </Link>
                             )
@@ -42,7 +42,7 @@ const CheckoutSteps = () => {
                                     {step3name}
                                 </Link>
                             ) : (
-                                <button data-content="✕" className={`step step-error ${isPaymentPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                <button data-content="✕" className={`step ${isPaymentPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                     {step3name}
                                 </button>
                             )
@@ -53,7 +53,7 @@ const CheckoutSteps = () => {
                                     {step4name}
                                 </Link>
                             ) : (
-                                <button data-content="✕" className={`step step-error ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
+                                <button data-content="✕" className={`step ${isPlaceOrderPage ? "text-lg sm:text-xl" : "text-gray-400"}`}>
                                     {step4name}
                                 </button>
                             )
