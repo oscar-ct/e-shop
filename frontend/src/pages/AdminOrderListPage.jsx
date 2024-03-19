@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import {useGetOrdersQuery, useUpdateOrderMutation} from "../slices/ordersApiSlice";
 import Spinner from "../components/Spinner";
-import {FaCheck, FaCheckCircle, FaEdit, FaTimes, FaTruck} from "react-icons/fa";
+import {FaCheckCircle, FaEdit, FaTruck} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import AdminTabs from "../components/AdminTabs";
 import {setLoading} from "../slices/loadingSlice";
@@ -10,6 +10,8 @@ import {toast} from "react-hot-toast";
 import ConfirmModal from "../components/ConfirmModal";
 import Meta from "../components/Meta";
 import CustomBtn from "../components/CustomBtn";
+import {ReactComponent as PaypalLogo} from "../icons/paypal-logo.svg";
+import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
 
 const AdminOrderListPage = () => {
 
@@ -29,6 +31,14 @@ const AdminOrderListPage = () => {
     const [trackingNumber, setTrackingNumber] = useState("");
     const [modalMessage, setModalMessage] = useState("");
 
+    useEffect(function () {
+        if (orders) {
+            if (!localData) {
+                setLocalData(orders);
+            }
+        }
+    }, [orders, localData]);
+
     const confirmUpdateModal = () => {
         let updated = confirmChanges();
         if (updated) {
@@ -46,7 +56,7 @@ const AdminOrderListPage = () => {
         setIsShipped(obj.isShipped.toString());
         setIsDelivered(obj.isDelivered.toString());
         setTrackingNumber(obj.trackingNumber);
-    }
+    };
     const completeEditHandler = () => {
         setEditMode(false);
         setTrackingNumber("");
@@ -55,7 +65,7 @@ const AdminOrderListPage = () => {
         setIsDelivered(null);
         setIsReimbursed(null);
         setModalMessage("");
-    }
+    };
     const submitUpdateHandler = async (e) => {
         e.preventDefault();
         window.confirm_modal.close();
@@ -85,7 +95,7 @@ const AdminOrderListPage = () => {
         }
         completeEditHandler();
         dispatch(setLoading(false));
-    }
+    };
 
     const confirmChanges = () => {
         const updatedObj = localData.find(function (obj) {
@@ -121,38 +131,6 @@ const AdminOrderListPage = () => {
         return message;
     };
 
-    useEffect(function () {
-        if (orders) {
-            if (!localData) {
-                setLocalData(orders);
-            }
-        }
-    }, [orders, localData]);
-
-    const orderStatus = (order, className) => {
-        return (
-            <td className={className}>
-                {order.isCanceled && order.orderItems.length === order.canceledItems.length ? (
-                    <span className={"px-2 py-1 text-white rounded-lg bg-neutral shadow-xl font-bold"}>
-                        Canceled
-                    </span>
-                ) : order.isDelivered ? ( <span className={"px-2 py-1 text-white rounded-lg font-bold bg-green-500 shadow-xl"}>
-                        Delivered
-                    </span>
-                ) : order.isShipped ? ( <span className={"px-2 py-1 text-white rounded-lg font-bold bg-blue-500 shadow-xl"}>
-                        Shipped
-                    </span>
-                ) : !order.isPaid && !order.isCanceled ? ( <span className={"px-2 py-1 text-white rounded-lg font-bold bg-red-500 shadow-xl"}>
-                      Not Paid
-                    </span>
-                ) : <span className={"px-2 py-1 text-black-500 rounded-lg font-bold bg-base-100 shadow-xl"}>
-                        In Progress
-                    </span>
-                }
-            </td>
-        )
-    }
-
     const trackingNumberHandler = (orderId, trackingNumber, isShipped) => {
         if (trackingNumber) {
             setTrackingNumber(trackingNumber);
@@ -160,7 +138,7 @@ const AdminOrderListPage = () => {
         setOrderId(orderId);
         setIsShipped(isShipped);
         window.tracking_modal.showModal();
-    }
+    };
 
     const submitTrackingNumber = async (e) => {
         e.preventDefault();
@@ -188,7 +166,7 @@ const AdminOrderListPage = () => {
         setTrackingNumber("");
         setIsShipped(null);
         setOrderId(null);
-    }
+    };
 
     const closeTrackingNumberModal = () => {
         setTimeout(function () {
@@ -196,8 +174,48 @@ const AdminOrderListPage = () => {
             setIsShipped(null);
             setOrderId(null);
         }, 300);
-    }
+    };
 
+    const orderStatus = (order) => {
+        return (
+            order.isCanceled && order.orderItems.length === order.canceledItems.length ? (
+                <span className={"rounded-full px-2 h-5 flex items-center text-white bg-neutral font-semibold"}>
+                    Canceled
+                </span>
+            ) : order.isDelivered ? ( <span className={"rounded-full px-2 h-5 flex items-center text-white bg-yellow-500 font-semibold"}>
+                    Delivered
+                </span>
+            ) : order.isShipped ? ( <span className={"rounded-full px-2 h-5 flex items-center text-white bg-blue-500 font-semibold"}>
+                    Shipped
+                </span>
+            ) : !order.isPaid && !order.isCanceled ? ( <span className={"rounded-full px-2 h-5 flex items-center text-white bg-red-500 font-semibold"}>
+                  Unpaid
+                </span>
+            ) : <span className={"rounded-full px-2 h-5 flex items-center text-white bg-green-500 font-semibold"}>
+                    Paid
+                </span>
+        )
+    };
+    const refundRequired = (order) => {
+        return (
+            order.isPaid && (order.orderItems.reduce((acc, item) => {return (item.isPaid && item.isCanceled) + acc}, 0) !== 0) && !order.isDelivered && !order.isShipped && !order.isReimbursed && (
+                <div className={"flex items-center text-red-500 w-min"}>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-5 h-5"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                    </svg>
+                    <span className={"pl-1"}>requires refund</span>
+                </div>
+            )
+        )
+    };
+    const refundOrder = (order) => {
+        return (
+            order.isPaid && (order.orderItems.reduce((acc, item) => {return (item.isPaid && item.isCanceled) + acc}, 0) !== 0) && !order.isDelivered && !order.isShipped && order.isReimbursed && (
+                <span className={"rounded-full px-2 h-5 flex items-center text-white bg-violet-700 font-semibold"}>
+                    Reimbursed
+                </span>
+            )
+        )
+    };
 
     return (
         isLoading || !localData ? <Spinner/> : error ? error : (
@@ -206,26 +224,63 @@ const AdminOrderListPage = () => {
                 <div className={"py-10"}>
                     <AdminTabs/>
                     <div className={"mt-5 bg-white"}>
-                        <div className={"w-full py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-neutral md:text-white"}>
-                            <div>
-                                Orders ({localData.length})
-                            </div>
+                        <div className="overflow-x-auto px-5 py-6 border">
+                            <div className={"flex flex-wrap w-full justify-between pb-8 sm:px-4 text-xs sm:text-sm lg:text-lg ibmplex font-light"}>
+                                <div className={"flex flex-col gap-2"}>
+                                    <div>
+                                        Orders: <span className={"font-bold"}>{orders.length}</span>
+                                    </div>
+                                    <div>
+                                        Canceled: <span className={"font-bold"}>{orders.reduce((acc, order) => {return (order.isCanceled && !order.isDelivered && !order.isShipped) + acc}, 0)}</span>
+                                    </div>
 
-                        </div>
-                        <div className="overflow-x-auto px-5 py-10 border">
-                            <table className="table table-zebra w-fit lg:w-full table-xs">
+                                </div>
+                                <div className={"flex flex-col gap-2"}>
+                                    <div>
+                                        Paid: <span className={"font-bold"}>{orders.reduce((acc, order) => {return (order.isPaid && !order.isCanceled && !order.isDelivered && !order.isShipped) + acc}, 0)}</span>
+                                    </div>
+                                    <div>
+                                        Unpaid: <span className={"font-bold"}>{orders.reduce((acc, order) => {return (!order.isPaid && !order.isCanceled && !order.isDelivered && !order.isShipped) + acc}, 0)}</span>
+                                    </div>
+
+                                </div>
+                                <div className={"flex flex-col gap-2"}>
+                                    <div>
+                                        Shipped: <span className={"font-bold"}>{orders.reduce((acc, order) => {return (order.isPaid && !order.isCanceled && !order.isDelivered && order.isShipped) + acc}, 0)}</span>
+                                    </div>
+                                    <div>
+                                        Delivered: <span className={"font-bold"}>{orders.reduce((acc, order) => {return (order.isPaid && !order.isCanceled && order.isDelivered && order.isShipped) + acc}, 0)}</span>
+                                    </div>
+
+                                </div>
+                                <div className={"flex flex-col gap-2"}>
+                                    <div className={"flex items-center gap-1"}>
+                                        <div className={"flex items-center text-red-500"}>
+                                            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" className="stroke-current shrink-0 w-4 h-4 md:w-5 md:h-5"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                            </svg>
+                                            <span className={"pl-1"}>Requires Refund:</span>
+                                        </div>
+                                        <span className={"font-bold text-red-500"}>{orders.reduce((acc, order) => {return (order.isPaid && (order.orderItems.reduce((acc, item) => {return (item.isPaid && item.isCanceled) + acc}, 0) !== 0) && !order.isDelivered && !order.isShipped && !order.isReimbursed) + acc}, 0)}</span>
+                                    </div>
+                                    <div>
+                                        Reimbursed: <span className={"font-bold"}>{orders.reduce((acc, order) => {return (order.isPaid && (order.orderItems.reduce((acc, item) => {return (item.isPaid && item.isCanceled) + acc}, 0) !== 0) && !order.isDelivered && !order.isShipped && order.isReimbursed) + acc}, 0)}</span>
+                                    </div>
+
+                                </div>
+
+                            </div>
+                            <table className="table table-zebra w-fit md:w-full table-xs">
                                 <thead>
                                 <tr>
                                     <th/>
                                     <th>Order #</th>
                                     <th className={"p-1"}>User</th>
                                     <th className={"p-1"}>Order date</th>
-                                    <th className={"p-1"}>Total (USD)</th>
+                                    <th className={"p-1"}>Amount</th>
+                                    <th className={"p-1"}>Service</th>
                                     <th className={"p-1"}>Status</th>
                                     <th className={"p-1"}>Refund</th>
-                                    <th className={"p-1"}>Paid</th>
                                     <th className={"p-1"}>Shipped</th>
-                                    {/*<th className={"p-1"}>Tracking</th>*/}
                                     <th className={"p-1"}>Delivered</th>
                                     <th/>
                                 </tr>
@@ -237,62 +292,101 @@ const AdminOrderListPage = () => {
                                             return (
                                                 <tr className={"hover"} key={index}>
 
-                                                    {
-                                                        editMode && order._id === orderId ? (
-                                                            <>
-                                                                <th className={"bg-blue-200"}>{index+1}</th>
-                                                                <td className={"bg-blue-200"}>{order._id.substring(order._id.length - 6, order._id.length)}</td>
-                                                                <td className={"p-1 bg-blue-200"}>{order.user?.name}</td>
-                                                                <td className={"p-1 bg-blue-200"}>{order.createdAt.substring(0, 10)}</td>
-                                                                <td className={"p-1 bg-blue-200"}>${order.totalPrice.toFixed(2)}</td>
+                                                    <>
+                                                        <th className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            {orders.length - index}
+                                                        </th>
+                                                        <td className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            <Link className={"link link-primary"} to={`/order/${order._id}`}>
+                                                                {order._id.substring(order._id.length - 6, order._id.length)}
+                                                            </Link>
+                                                        </td>
+                                                        <td className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            {order.user?.name}
+                                                        </td>
+                                                        <td className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            {order.createdAt.substring(0, 10)}
+                                                        </td>
+                                                        <td className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            ${order.totalPrice.toFixed(2)}
+                                                        </td>
+                                                        <td className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            {order.paymentMethod === "Stripe / Credit Card" ? <StripeLogo width={35}/> : <PaypalLogo width={30} height={30}/>}
+                                                        </td>
+                                                        <td className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            <div className={"flex items-center gap-1"}>
+                                                                {orderStatus(order)}
+                                                                {refundRequired(order)}
+                                                                {refundOrder(order)}
+                                                            </div>
+                                                        </td>
+                                                        <td className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            <select
+                                                                className="bg-white w-11 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                value={isReimbursed}
+                                                                onChange={(e) => setIsReimbursed(e.target.value)}
+                                                                disabled={!editMode && order._id !== orderId}
+                                                            >
                                                                 {
-                                                                    orderStatus(order, "bg-blue-200 p-1")
+                                                                    editMode && order._id === orderId && (
+                                                                        <>
+                                                                            <option value={"true"}>
+                                                                                yes
+                                                                            </option>
+                                                                            <option value={"false"}>
+                                                                               no
+                                                                            </option>
+                                                                        </>
+                                                                    )
+                                                                        // <option value="" disabled selected>{order.isReimbursed ? "yes" : "no"}</option>
                                                                 }
-                                                                <td className={"p-1 bg-blue-200"}>
-                                                                    <select
-                                                                        className="bg-white pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                        value={isReimbursed}
-                                                                        onChange={(e) => setIsReimbursed(e.target.value)}
-                                                                    >
-                                                                        <option value={"true"}>
-                                                                            true
-                                                                        </option>
-                                                                        <option value={"false"}>
-                                                                            false
-                                                                        </option>
-                                                                    </select>
-                                                                </td>
-                                                                <td className={"p-1 bg-blue-200 truncate"}>{order.isPaid ? order.paidAt.substring(0,10) : <FaTimes fill={"red"}/>}
-                                                                </td>
-                                                                <td className={"p-1 bg-blue-200"}>
-                                                                    <select
-                                                                        className="bg-white pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                        value={isShipped}
-                                                                        onChange={(e) => setIsShipped(e.target.value)}
-                                                                    >
-                                                                        <option value={"true"}>
-                                                                            true
-                                                                        </option>
-                                                                        <option value={"false"}>
-                                                                            false
-                                                                        </option>
-                                                                    </select>
-                                                                </td>
-                                                                <td className={"p-1 bg-blue-200"}>
-                                                                    <select
-                                                                        className="bg-white pl-1 w-16 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
-                                                                        value={isDelivered}
-                                                                        onChange={(e) => setIsDelivered(e.target.value)}
-                                                                    >
-                                                                        <option value={"true"}>
-                                                                            true
-                                                                        </option>
-                                                                        <option value={"false"}>
-                                                                            false
-                                                                        </option>
-                                                                    </select>
-                                                                </td>
-                                                                <td className={"p-1 bg-blue-200"}>
+                                                            </select>
+                                                        </td>
+                                                        <td className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            <select
+                                                                className="bg-white w-11 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                value={isShipped}
+                                                                onChange={(e) => setIsShipped(e.target.value)}
+                                                                disabled={!editMode && order._id !== orderId}
+                                                            >
+                                                                {
+                                                                    editMode && order._id === orderId && (
+                                                                        <>
+                                                                            <option value={"true"}>
+                                                                                yes
+                                                                            </option>
+                                                                            <option value={"false"}>
+                                                                                no
+                                                                            </option>
+                                                                        </>
+                                                                    )
+                                                                }
+                                                            </select>
+                                                        </td>
+                                                        <td className={`${editMode && order._id === orderId ? "bg-blue-200" : ""} p-1`}>
+                                                            <select
+                                                                className="bg-white w-11 shadow border rounded py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                value={isDelivered}
+                                                                onChange={(e) => setIsDelivered(e.target.value)}
+                                                                disabled={!editMode && order._id !== orderId}
+                                                            >
+                                                                {
+                                                                    editMode && order._id === orderId && (
+                                                                        <>
+                                                                            <option value={"true"}>
+                                                                                yes
+                                                                            </option>
+                                                                            <option value={"false"}>
+                                                                                no
+                                                                            </option>
+                                                                        </>
+                                                                    )
+                                                                }
+                                                            </select>
+                                                        </td>
+                                                        {
+                                                            editMode && order._id === orderId ? (
+                                                                <td className={"p-1 w-20 bg-blue-200"}>
                                                                     <div className={"flex items-center"}>
                                                                         <div className="tooltip tooltip-bottom" data-tip="save changes">
                                                                             <button onClick={confirmUpdateModal} className={"text-green-500 btn-glass btn-sm rounded-full"}>
@@ -301,35 +395,8 @@ const AdminOrderListPage = () => {
                                                                         </div>
                                                                     </div>
                                                                 </td>
-                                                            </>
-                                                        ) : (
-                                                            <>
-                                                                <th>{index+1}</th>
-                                                                <td><Link className={"link link-primary"} to={`/order/${order._id}`}>{order._id.substring(order._id.length - 6, order._id.length)}</Link></td>
-                                                                <td className={"p-1"}>{order.user?.name}</td>
-                                                                <td className={"p-1"}>{order.createdAt.substring(0, 10)}</td>
-                                                                <td className={"p-1"}>${order.totalPrice.toFixed(2)}</td>
-                                                                {
-                                                                    orderStatus(order, "p-1 truncate")
-                                                                }
-                                                                <td className={"p-1"}>
-                                                                    {(order.isCanceled || order.canceledItems.length !== 0) && order.isPaid && !order.isReimbursed ? (
-                                                                        <span className={"px-2 py-1 text-white rounded-lg font-bold bg-purple-500 shadow-xl"}>
-                                                                            Required
-                                                                        </span>
-                                                                    ) : order.isReimbursed && (
-                                                                    <span className={"px-2 py-1 text-green-500 rounded-lg font-bold bg-base-100 shadow-xl"}>
-                                                                           Complete
-                                                                        </span>
-                                                                    )}
-                                                                </td>
-                                                                <td className={"p-1 truncate"}>{order.isPaid ? order.paidAt.substring(0,10) : <FaTimes fill={"red"}/>}
-                                                                </td>
-                                                                <td className={"p-1"}>{order.isShipped ? <FaCheck className={"text-green-500"}/> : <FaTimes fill={"red"}/>}
-                                                                </td>
-                                                                <td className={"p-1 truncate"}>{order.isDelivered ? order.deliveredAt.substring(0,10) : <FaTimes fill={"red"}/>}
-                                                                </td>
-                                                                <td className={"p-1 w-20"}>
+                                                            ) : (
+                                                                <td className={`p-1 w-20`}>
                                                                     <div className={"flex items-center"}>
                                                                         <button onClick={() => editOrderHandler(order._id)} className={"btn-glass btn-sm rounded-full hover:text-primary"}>
                                                                             <FaEdit/>
@@ -339,15 +406,14 @@ const AdminOrderListPage = () => {
                                                                         </button>
                                                                     </div>
                                                                 </td>
-                                                            </>
-                                                        )
-                                                    }
+                                                            )
+                                                        }
+                                                    </>
                                                 </tr>
 
-                                            )
+                                            );
                                         })
                                     )
-
                                 }
                                 </tbody>
                             </table>
@@ -369,45 +435,29 @@ const AdminOrderListPage = () => {
                             )
                         }
                 </ConfirmModal>
-
                 <dialog id="tracking_modal" className="modal modal-bottom sm:modal-middle">
                     <form method="dialog" className="modal-box bg-white">
                         <div className="p-3">
-                            {
-                                isShipped ? (
-                                    <div className="form-control w-full">
-                                        <div className={"flex justify-between items-center"}>
-                                            <h3 className="pb-3 font-bold text-xl">
-                                                Tracking Number
-                                            </h3>
-                                        </div>
-                                        <input
-                                            type="text"
-                                            placeholder={"Enter a tracking number"}
-                                            className="bg-white input input-bordered w-full"
-                                            value={trackingNumber}
-                                            onChange={(e) => setTrackingNumber((e.target.value))}
-                                        />
-                                    </div>
-                                ) : (
-                                    <div className="form-control w-full">
-                                        <h3 className="pb-3 font-bold text-xl">
-                                            Tracking Number
-                                        </h3>
+                            <div className="form-control w-full">
+                                <h3 className="pb-3 font-bold text-xl">
+                                    Tracking Number
+                                </h3>
+                                {
+                                    !isShipped && (
                                         <h5 className={"pb-3 text-lg text-red-500"}>
                                             This order has not been marked as shipped, please mark as shipped to continue.
                                         </h5>
-                                        <input
-                                            disabled={true}
-                                            type="text"
-                                            placeholder="Enter tacking number"
-                                            className="bg-white input input-bordered w-full"
-                                            value={trackingNumber}
-                                            onChange={(e) => setTrackingNumber((e.target.value))}
-                                        />
-                                    </div>
-                                )
-                            }
+                                    )
+                                }
+                                <input
+                                    disabled={!isShipped}
+                                    type="text"
+                                    placeholder="Enter tacking number"
+                                    className="bg-white input input-bordered w-full"
+                                    value={trackingNumber}
+                                    onChange={(e) => setTrackingNumber((e.target.value))}
+                                />
+                            </div>
                         </div>
                         <div className="modal-action">
                             <button
