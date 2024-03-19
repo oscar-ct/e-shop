@@ -90,9 +90,9 @@ const HomePageIntro = () => {
                                             <div className={"p-10 w-full flex flex-col items-center justify-center"}>
                                                 <span className={"px-2 pb-3 text-3xl text-white font-bold"}>Pay safely with</span>
                                                 {/*<FaCcPaypal color={"white"} size={"3em"}/>*/}
-                                                <div className={"w-full flex items-center justify-evenly"}>
+                                                <div className={"w-full flex items-center justify-center"}>
                                                     <StripeLogo width={90}/>
-                                                    <div className={"flex flex-col"}>
+                                                    <div className={"flex flex-col pl-3 pr-4"}>
                                                         <div className={"flex justify-center"}>
                                                             <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
                                                         </div>
