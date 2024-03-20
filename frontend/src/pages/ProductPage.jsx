@@ -197,7 +197,7 @@ const ProductPage = () => {
                                                 </div>
 
                                                 <div>
-                                                    <h6 className={"text-lg lg:text-sm text-start pt-5 pb-5 font-bold lg:pb-2"}>Product Specifications</h6>
+                                                    <h6 className={"text-lg lg:text-sm text-start pt-5 pb-5 font-bold lg:pb-2"}>Specifications</h6>
                                                 </div>
                                                 <div className={"lg:text-sm py-1 w-full flex"}>
                                                     <div className={"w-4/12"}>
