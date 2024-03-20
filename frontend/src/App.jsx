@@ -26,13 +26,11 @@ function App() {
                     </div>
                 )
             }
-            <div className={loading.loading ? "opacity-30" : undefined}>
+            <div className={`${loading.loading ? "opacity-30" : ""}`}>
                 <Navbar/>
-                {/*<div className={"min-h-[calc(100vh-80px)]"}>*/}
-                    <div className={"bg-white container m-auto min-h-[calc(100vh-80px)]"}>
+                    <div className={"bg-white container mx-auto min-h-[calc(100vh-324px)] md:min-h-[calc(100vh-224px)]"}>
                       <Outlet/>
                     </div>
-                {/*</div>*/}
                 <Footer/>
             </div>
         </>
