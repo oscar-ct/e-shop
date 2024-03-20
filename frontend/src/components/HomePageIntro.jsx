@@ -15,7 +15,7 @@ import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
 
 const HomePageIntro = () => {
     return (
-        <div className={"lg:drop-shadow-xl bg-black md:bg-transparent"}>
+        <div className={"bg-black md:bg-transparent"}>
 
             {/*MOBILE*/}
             <motion.div
@@ -47,24 +47,36 @@ const HomePageIntro = () => {
             >
                 <div className={"hidden md:block w-full"}>
                     <div className={"flex h-[32em] w-full ibmplex"}>
+                        {/*<div*/}
+                        {/*    style={{backgroundImage: `url(https://images.unsplash.com/photo-1463171379579-3fdfb86d6285?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundPosition: "center", backgroundSize: "cover"}}*/}
+                        {/*    className={"h-full w-2/3"}*/}
+                        {/*>*/}
                         <div
-                            style={{backgroundImage: `url(/images/sincerely-media-HL3EOgFiy0k-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover"}}
+                            style={{backgroundImage: `url(/images/kelly-sikkema-mdADGzyXCVE-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover"}}
                             className={"h-full w-1/3"}
                         >
-                            <div className={"w-full h-full flex items-end justify-center"}>
-                                <div className={"pb-10 text-3xl font-bold flex items-center"}>
+                            <div className={"w-full h-full flex items-center justify-center"}>
+                                <div className={"text-3xl font-bold flex items-center"}>
                                     <Logo width={"20px"} className={"pt-1 mr-1"}/>
-                                    -shop.com
+                                    -shop
                                 </div>
                             </div>
                         </div>
                         <div
-                            style={{backgroundImage: `url(/images/curology-fPSELOXfeU4-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover"}}
+                            style={{backgroundImage: `url(images/sunder-muthukumaran-yaQqV9o1ZXc-unsplash.webp)`, backgroundPosition: "left", backgroundSize: "cover"}}
                             className={"h-full w-1/3"}
                         >
-                            <div className={"w-full h-full flex items-start justify-center"}>
-                                <div className={"pt-24 px-10 font-bold text-white text-3xl"}>
-                                    Shop, Ship, & Enjoy.
+                            <div className={"w-full h-full flex flex-col items-center justify-between"}>
+                                <div className={"pt-8 px-10 font-bold text-white text-3xl"}>
+                                    Enjoy online shopping
+                                </div>
+                                <div className={"pb-8 px-10  flex flex-col justify-center items-center"}>
+                                    <div className={"font-bold text-white text-3xl"}>
+                                    with FREE shipping
+                                    </div>
+                                    <div className={"text-xs text-white"}>
+                                        when you spend over $100
+                                    </div>
                                 </div>
                             </div>
                         </div>
