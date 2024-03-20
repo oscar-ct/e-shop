@@ -12,10 +12,10 @@ const HomePageCategorySection = ({productCategories, windowInnerWidth}) => {
 
     return (
         <>
-            <div className={"md:pt-20 pt-14 bg-black/90 md:bg-white liner-gradient w-full"}>
+            <div className={"pb-10 pt-14  md:bg-white bg-slate-50  w-full"}>
                 <div className={"h-12 md:bg-zinc-700 border-none md:border-b-[1px] md:border-grey-300"}>
                     <div  className={"flex justify-center lg:justify-start items-center h-full w-full"}>
-                        <h2 className={"lg:pl-3 text-3xl md:text-2xl text-white ibmplex"}>
+                        <h2 className={"lg:pl-3 text-3xl md:text-2xl md:text-white ibmplex"}>
                             Popular Categories
                         </h2>
                     </div>
@@ -31,12 +31,12 @@ const HomePageCategorySection = ({productCategories, windowInnerWidth}) => {
                     }
                 </div>
                 <div className={"lg:pt-5"}>
-                    <div className={"pb-10 lg:pb-0 flex justify-end items-center px-2"}>
+                    <div className={"flex justify-end items-center px-2"}>
                         <div>
                             {/*<Link to={"/sort/latest/select/all"} className={"btn glass bg-neutral/70 text-white"}>*/}
                             {/*    View All Categories*/}
                             {/*</Link>*/}
-                            <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-lg text-white md:text-black"}>
+                            <button onClick={() => setCategoryDropdownActive(!categoryDropdownActive)} className={"flex items-center text-lg text-black"}>
                                 {categoryDropdownActive ? "Less Categories" : "More Categories"}
                                 <div className={`px-2 ${rotateChevron(categoryDropdownActive)}`}>
                                     <FaChevronDown/>
