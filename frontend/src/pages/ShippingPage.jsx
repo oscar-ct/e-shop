@@ -180,7 +180,7 @@ const ShippingPage = () => {
                                                 onChange={(e) => setGuestEmail(e.target.value)}
                                                 required
                                             />
-                                            <div className={"text-xs sm:text-sm w-full flex justify-center"}>(this email will be used to contact you about your order only)</div>
+                                            <div className={"text-xs sm:text-sm w-full flex justify-center"}>(this email will be only be used to contact you about your order)</div>
                                         </div>
                                     )
                                 }
