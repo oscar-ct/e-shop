@@ -66,8 +66,8 @@ const HomePage = () => {
                     <>
                         <Meta title={"Home"} description={'Welcome to e-shop-us! An e-commerce website build by Oscar Castro'}/>
                         <HomePageIntro/>
-                        <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
                         <HomePageLatestProducts scrollTo={scrollTo} data={data} windowInnerWidth={windowInnerWidth}/>
+                        <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
                     </>
                 )
             }
