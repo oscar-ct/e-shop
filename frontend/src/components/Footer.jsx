@@ -4,7 +4,7 @@ import {FaGithub, FaGlobe, FaLinkedin} from "react-icons/fa";
 
 const Footer = () => {
     return (
-        <footer className="footer p-10 bg-black/90 text-neutral-content rounded-tr-xl rounded-tl-xl">
+        <footer className="footer p-10 bg-black/90 text-neutral-content">
             <div>
                 <Link to={"/"}><Logo fill={"white"} width={36}/></Link>
                 <p>Designed and developed by <a aria-label="portfolio" href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer" className={"link"}>Oscar Castro</a></p>
