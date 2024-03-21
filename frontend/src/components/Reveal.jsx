@@ -14,7 +14,7 @@ const Reveal = ({children, customClass, delay, once}) => {
         if (!once && !isInView) {
             mainControls.start("hidden")
         }
-    }, [isInView, mainControls])
+    }, [isInView, mainControls, once])
 
     return (
         <div ref={ref}>
