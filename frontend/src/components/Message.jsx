@@ -44,7 +44,7 @@ const Message = ({variant, children, border}) => {
     return (
         // this is not working properly
         // <div className={`alert alert-${variant}`}>
-        <div className={`${alertClass(variant)}`}>
+        <div className={`!rounded-sm ${alertClass(variant)}`}>
             <div className={"flex items-center justify-start"}>
                 <div className={"mr-1"}>{ iconType(variant) }</div>
                 <span className={"text-start"}>{children}</span>
