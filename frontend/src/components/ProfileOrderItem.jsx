@@ -34,7 +34,7 @@ const ProfileOrderItem = ({order, index, orderLength}) => {
         <>
         <div className={`mb-5 sm:mb-0 px-3 sm:px-8 lg:px-14 xl:px-24 ${index+1 !== orderLength && "pb-16"}`}>
             <div className={"bg-white w-full flex flex-col"}>
-                <div className={"p-6 rounded-tr-xl rounded-tl-xl flex flex-row bg-zinc-700"}>
+                <div className={"p-6 flex flex-row bg-zinc-700"}>
                     <div className={"w-full flex justify-between"}>
                         <div className={"flex text-white"}>
                             <div className={"flex flex-col lg:pr-3"}>
