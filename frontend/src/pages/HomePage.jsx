@@ -2,11 +2,13 @@ import {useGetProductsQuery, useGetProductsByCategoryQuery} from "../slices/prod
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
 import {useParams} from "react-router-dom";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useState} from "react";
 import Meta from "../components/Meta";
 import HomePageCategorySection from "../components/HomePageCategorySection";
 import HomePageLatestProducts from "../components/HomePageLatestProducts";
 import HomePageIntro from "../components/HomePageIntro";
+import Reveal from "../components/Reveal";
+
 
 
 const HomePage = () => {
@@ -31,27 +33,28 @@ const HomePage = () => {
     });
 
     // scroll to based on page number
-    useEffect( () => {
-        const executeScroll = () => {
-            if (scrollTo) {
-                var headerOffset = 80;
-                var elementPosition = scrollTo.current.getBoundingClientRect().top;
-                var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
-                window.scrollTo({
-                    top: offsetPosition,
-                    behavior: "smooth"
-                });
-                // scrollTo.current.scrollIntoView({behavior: "smooth", block: "start"})
-            }
-        };
-        if ((data && pageNumber) && (data?.page !== pageNumber) && document.readyState === "complete") {
-            setTimeout(() => {
-                executeScroll()
-            }, 500)
-        }
-    }, [data, pageNumber, data?.page]);
+    // useEffect( () => {
+    //     const executeScroll = () => {
+    //         if (scrollTo) {
+    //             var headerOffset = 80;
+    //             var elementPosition = scrollTo.current.getBoundingClientRect().top;
+    //             var offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+    //             window.scrollTo({
+    //                 top: offsetPosition,
+    //                 behavior: "smooth"
+    //             });
+    //             // scrollTo.current.scrollIntoView({behavior: "smooth", block: "start"})
+    //         }
+    //     };
+    //     if ((data && pageNumber) && (data?.page !== pageNumber) && document.readyState === "complete") {
+    //         setTimeout(() => {
+    //             executeScroll()
+    //         }, 500)
+    //     }
+    // }, [data, pageNumber, data?.page]);
+    //
+    // const scrollTo = useRef(null);
 
-    const scrollTo = useRef(null);
 
     return (
         <>
@@ -66,8 +69,12 @@ const HomePage = () => {
                     <>
                         <Meta title={"Home"} description={'Welcome to e-shop-us! An e-commerce website build by Oscar Castro'}/>
                         <HomePageIntro/>
-                        <HomePageLatestProducts scrollTo={scrollTo} data={data} windowInnerWidth={windowInnerWidth}/>
-                        <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
+                        <Reveal>
+                            <HomePageLatestProducts data={data} windowInnerWidth={windowInnerWidth}/>
+                        </Reveal>
+                        <Reveal>
+                            <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
+                        </Reveal>
                     </>
                 )
             }

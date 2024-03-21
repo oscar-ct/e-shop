@@ -6,24 +6,24 @@ import 'swiper/css';
 import 'swiper/css/pagination';
 import 'swiper/css/autoplay';
 import 'swiper/css/effect-fade';
-// import {FaCcPaypal} from "react-icons/fa";
-import {motion} from "framer-motion";
 import CustomBtn from "./CustomBtn";
 import {ReactComponent as PaypalLogo} from "../icons/paypal-logo.svg";
 import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
+import Reveal from "./Reveal";
+import {motion} from "framer-motion";
 
 
 const HomePageIntro = () => {
-    return (
-        <div className={"bg-black md:bg-transparent"}>
 
+    return (
+        <div className={"md:pb-14 bg-black md:bg-transparent"}>
             {/*MOBILE*/}
             <motion.div
                 className={"md:hidden w-full h-full relative"}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
-                    >
+            >
                 <div className={"z-10 absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
                     <Logo fill={"white"} className={"pt-28 w-[10em]"}/>
                     <span className={"pt-12 text-3xl font-semibold text-white md:text-neutral"}>Shop, Ship, & Enjoy.</span>
@@ -40,11 +40,7 @@ const HomePageIntro = () => {
             {/*MOBILE*/}
 
             {/*DESKTOP*/}
-            <motion.div
-                initial={{ opacity: 0 }}
-                animate={{ opacity: 1 }}
-                exit={{ opacity: 0 }}
-            >
+            <Reveal>
                 <div className={"hidden md:block w-full"}>
                     <div className={"flex h-[32em] w-full ibmplex"}>
                         {/*<div*/}
@@ -163,7 +159,7 @@ const HomePageIntro = () => {
                         </div>
                     </div>
                 </div>
-            </motion.div>
+            </Reveal>
             {/*DESKTOP*/}
         </div>
     );

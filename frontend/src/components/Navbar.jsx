@@ -1,4 +1,4 @@
-import {useEffect, useState, useRef} from "react";
+import {useEffect, useState} from "react";
 import {useScroll} from "../hooks/useScroll";
 import {motion} from "framer-motion";
 import {FaUser, FaChevronDown, FaSearch} from "react-icons/fa";
@@ -10,6 +10,7 @@ import {logout} from "../slices/authSlice";
 import {clearCartItems} from "../slices/cartSlice";
 import SearchBox from "./SearchBox";
 import CartIcon from "./CartIcon";
+import Reveal from "./Reveal";
 
 const Navbar = () => {
     const {cartItems, shippingAddress, paymentMethod} = useSelector(function (state) {
@@ -23,11 +24,6 @@ const Navbar = () => {
 
     const [logoutApiCall] = useLogoutMutation();
 
-    const documentRef1 = useRef();
-    const documentRef2 = useRef();
-    const documentRef3 = useRef();
-    const documentRef4 = useRef();
-
     const [searchIsActive, setSearchIsActive] = useState(false);
     const [keyword, setKeyword] = useState("");
     const [openNav, setOpenNav] = useState(false);
@@ -38,40 +34,40 @@ const Navbar = () => {
 
     const { scrollDirection, scrollY } = useScroll();
 
-    useEffect(function () {
-        const closeUserOpenDropdown = (e) => {
-            if (!documentRef1?.current?.contains(e.target)) {
-                setUserDropdownActive(false);
-            }
-        }
-        if (userDropdownActive) {
-            window.addEventListener('mouseout', closeUserOpenDropdown);
-        }
-        return () => window.removeEventListener("mouseout", closeUserOpenDropdown);
+    // useEffect(function () {
+    //     const closeUserOpenDropdown = (e) => {
+    //         if (!documentRef1?.current?.contains(e.target)) {
+    //             setUserDropdownActive(false);
+    //         }
+    //     }
+    //     if (userDropdownActive) {
+    //         window.addEventListener('mouseout', closeUserOpenDropdown);
+    //     }
+    //     return () => window.removeEventListener("mouseout", closeUserOpenDropdown);
+    //
+    // }, [userDropdownActive]);
 
-    }, [userDropdownActive]);
+    // useEffect(() => {
+    //     const closeProductsOpenDropdown = (e) => {
+    //         if (!documentRef4?.current?.contains(e.target)) {
+    //             setProductsDropdownActive(false);
+    //         }
+    //     }
+    //     if (productsDropdownActive) {
+    //         window.addEventListener('mouseout', closeProductsOpenDropdown);
+    //     }
+    //     return () => window.removeEventListener("mouseout", closeProductsOpenDropdown);
+    // }, [productsDropdownActive]);
 
-    useEffect(() => {
-        const closeProductsOpenDropdown = (e) => {
-            if (!documentRef4?.current?.contains(e.target)) {
-                setProductsDropdownActive(false);
-            }
-        }
-        if (productsDropdownActive) {
-            window.addEventListener('mouseout', closeProductsOpenDropdown);
-        }
-        return () => window.removeEventListener("mouseout", closeProductsOpenDropdown);
-    }, [productsDropdownActive]);
-
-    useEffect(() => {
-        const closeMobileNavOnScroll = () => {
-            setOpenNav(false);
-        }
-        if (openNav) {
-            window.addEventListener("scroll", closeMobileNavOnScroll);
-        }
-        return () => window.removeEventListener("scroll", closeMobileNavOnScroll);
-    }, [openNav]);
+    // useEffect(() => {
+    //     const closeMobileNavOnScroll = () => {
+    //         setOpenNav(false);
+    //     }
+    //     if (openNav) {
+    //         window.addEventListener("scroll", closeMobileNavOnScroll);
+    //     }
+    //     return () => window.removeEventListener("scroll", closeMobileNavOnScroll);
+    // }, [openNav]);
     useEffect(() => {
         const closeMobileNavOnResize = () => {
             window.innerWidth >= 960 && setOpenNav(false);
@@ -81,17 +77,17 @@ const Navbar = () => {
         }
         return () => window.removeEventListener("resize", closeMobileNavOnResize);
     }, [openNav])
-    useEffect(() => {
-        const handleClickOutside = (event) => {
-            if (!documentRef2?.current?.contains(event.target) && !documentRef3?.current?.contains(event.target)) {
-                setOpenNav(false);
-            }
-        };
-        if (openNav) {
-            window.addEventListener("click", handleClickOutside);
-        }
-        return () => window.removeEventListener("click", handleClickOutside);
-    }, [openNav]);
+    // useEffect(() => {
+    //     const handleClickOutside = (event) => {
+    //         if (!documentRef2?.current?.contains(event.target) && !documentRef3?.current?.contains(event.target)) {
+    //             setOpenNav(false);
+    //         }
+    //     };
+    //     if (openNav) {
+    //         window.addEventListener("click", handleClickOutside);
+    //     }
+    //     return () => window.removeEventListener("click", handleClickOutside);
+    // }, [openNav]);
     useEffect(function () {
         const adjustSmallScreen = () => {
             if (windowInnerWidth > 500) {
@@ -146,7 +142,7 @@ const Navbar = () => {
     const latestProductsLink = "/sort/latest/select/all";
     const styles = {
         active: {
-            // visibility: "visible",
+            visibility: "visible",
             transition: "all 0.5s"
         },
         hidden: {
@@ -155,21 +151,21 @@ const Navbar = () => {
             transform: "translateY(-100%)"
         },
         hidden2: {
-            // visibility: "hidden",
+            visibility: "hidden",
             transition: "all 0.5s",
-            transform: "translateX(-100%)"
+            transform: "translateY(-100%)"
         }
     };
 
     return (
         <>
             <nav
-                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 sticky visible transition-all duration-700 ` : smallScreen ? "sticky invisible duration-700 transition-all translate-y-[-100%]": "visible sticky" } inset-0 z-20 block h-max w-full rounded-none py-0 nav-liner-gradient bg-black text-white`}
+                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 sticky visible transition-all duration-700 ` : smallScreen ? "sticky invisible duration-700 transition-all translate-y-[-100%]": "visible sticky" } inset-0 z-30 block h-max w-full rounded-none py-0 nav-liner-gradient bg-black text-white`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
                 <div className="px-2 flex justify-between items-center">
-                    <button aria-label="menu" ref={documentRef2} className="middle none relative mr-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center uppercase transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none md:hidden" onClick={() => setOpenNav(!openNav)}>
+                    <button aria-label="menu" className="middle none relative mr-auto h-6 max-h-[40px] w-6 max-w-[40px] rounded-lg text-center uppercase transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none md:hidden" onClick={() => setOpenNav(!openNav)}>
 
                         {openNav ? (
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" className="h-7 w-8" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -199,11 +195,11 @@ const Navbar = () => {
                                     <CartIcon isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice}/>
                                 </div>
 
-                                <div ref={documentRef4} className="relative inline-block text-left py-4">
-                                    <div
-                                        onMouseEnter={() => setProductsDropdownActive(prevState => !prevState)}
-                                        className={"cursor-pointer btn btn-ghost normal-case flex items-center"}
-                                    >
+                                <div
+                                    className="relative inline-block text-left py-4"
+                                    onMouseEnter={() => setProductsDropdownActive(true)}
+                                    onMouseLeave={() => setProductsDropdownActive(false)}>
+                                    <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
                                         <span>Shop</span>
                                         <div className={`${rotateChevron(productsDropdownActive)}`}>
                                             <FaChevronDown/>
@@ -219,7 +215,7 @@ const Navbar = () => {
                                                             <span className={"w-full text-xl text-white whitespace-nowrap"}>Latest Products</span>
                                                         </Link>
                                                         <Link to={topRatedLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
-                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>Top Rated</span>
+                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>Best Selling</span>
                                                         </Link>
                                                         <Link to={latestProductsLink} className={"block px-10 py-5 rounded-b-md  hover:bg-neutral/70"}>
                                                             <span className={"w-full text-xl text-white whitespace-nowrap"}>All Categories</span>
@@ -232,15 +228,16 @@ const Navbar = () => {
                                 </div>
                                 {
                                     userData ? (
-                                        <div ref={documentRef1} className="relative inline-block text-left py-4">
-                                            <div
-                                                onMouseEnter={() => setUserDropdownActive(prevState => !prevState)}
-                                                className={"cursor-pointer btn btn-ghost normal-case flex items-center"}
-                                                >
-                                                    <span>{userData.name}</span>
-                                                    <div className={`${rotateChevron(userDropdownActive)}`}>
-                                                        <FaChevronDown/>
-                                                    </div>
+                                        <div
+                                            className="relative inline-block text-left py-4"
+                                            onMouseEnter={() => setUserDropdownActive(true)}
+                                            onMouseLeave={() => setUserDropdownActive(false)}
+                                            >
+                                            <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
+                                                <span>{userData.name}</span>
+                                                <div className={`${rotateChevron(userDropdownActive)}`}>
+                                                    <FaChevronDown/>
+                                                </div>
                                             </div>
                                             {
                                                 userDropdownActive && (
@@ -339,36 +336,46 @@ const Navbar = () => {
             </nav>
             {/*/////// mobile nav ///////*/}
             <nav>
-                <div ref={documentRef3} className={`z-20 bg-white/50 backdrop-blur-2xl fixed left-0 w-full py-6 md:hidden h-screen`} style={openNav ? styles.active : styles.hidden2}>
+                <div className={`z-20 bg-white/50 backdrop-blur-2xl fixed left-0 w-full py-6 md:hidden h-screen`} style={openNav ? styles.active : styles.hidden2}>
                     <div className={"flex flex-col justify-start h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
                             <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                               <Reveal once={false}>
                                 <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                    Home
                                 </Link>
+                               </Reveal>
                             </li>
                             <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                <Reveal once={false} delay={0.10}>
                                 <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                    Latest Products
+                                    All Products
                                 </Link>
+                                </Reveal>
                             </li>
                             <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                <Reveal once={false} delay={0.15}>
                                 <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                    Top Rated Products
+                                    Best Selling Products
                                 </Link>
+                                </Reveal>
                             </li>
                             {
                                 userData && (
                                     <>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                            <Reveal once={false} delay={0.20}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
                                                 My Account
                                             </Link>
+                                            </Reveal>
                                         </li>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                            <Reveal once={false} delay={0.25}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 My Orders
                                             </Link>
+                                            </Reveal>
                                         </li>
                                     </>
                                 )
@@ -377,9 +384,11 @@ const Navbar = () => {
                                 userData?.isAdmin && (
                                     <>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                            <Reveal once={false} delay={0.30}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 Admin Dashboard
                                             </Link>
+                                            </Reveal>
                                         </li>
                                     </>
                                 )
@@ -387,15 +396,19 @@ const Navbar = () => {
                             {
                                 userData ? (
                                     <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                        <Reveal once={false} delay={0.35}>
                                         <button className={"cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case"} onClick={logoutHandler}>
                                             Logout
                                         </button>
+                                        </Reveal>
                                     </li>
                                 ) : (
                                     <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                        <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
+                                        <Reveal once={false} delay={0.35}>
+                                        <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-info flex items-center normal-case">
                                             Login
                                         </Link>
+                                        </Reveal>
                                     </li>
                                 )
                             }

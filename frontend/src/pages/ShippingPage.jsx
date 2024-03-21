@@ -10,6 +10,7 @@ import CustomBtn from "../components/CustomBtn";
 import Select from "react-select";
 import {countries, states} from "../utils/locationData";
 import {customStyles} from "../utils/selectCustomStyles";
+import Reveal from "../components/Reveal";
 
 
 const ShippingPage = () => {
@@ -157,209 +158,211 @@ const ShippingPage = () => {
             <CheckoutSteps/>
             <div className={"pt-0 w-full flex justify-center"}>
                 <div className={"pt-3 pb-5 sm:pt-7 w-full sm:w-[35em]"}>
-                    <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
-                        <h1>Shipping Information</h1>
-                    </div>
-                    <div className={"px-10 pb-5 pt-5 w-full border"}>
-                    {
-                        useNewAddress ? (
-                            <form onSubmit={submitShippingData} className="space-y-5">
-                                {
-                                    !userData && (
-                                        <div className="space-y-2">
-                                            <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                                Customer Email
-                                            </label>
-                                            <input
-                                                className={`${dynamicBorder(guestEmail.length < validEmailCharLimit, guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
-                                                autoComplete={"email"}
-                                                type={"email"}
-                                                placeholder={"example@email.com"}
-                                                id={"email"}
-                                                value={guestEmail}
-                                                onChange={(e) => setGuestEmail(e.target.value)}
-                                                required
-                                            />
-                                            <div className={"text-xs sm:text-sm w-full flex justify-center"}>(this email will be only be used to contact you about your order)</div>
-                                        </div>
-                                    )
-                                }
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                        Recipient&apos;s Name
-                                    </label>
-                                    <input
-                                        className={`${dynamicBorder(name.length < validNameCharLimit, name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
-                                        autoComplete={"name"}
-                                        type={"text"}
-                                        placeholder={"John Doe"}
-                                        id={"name"}
-                                        value={name}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                        Street Address
-                                    </label>
-                                    <input
-                                        className={`${dynamicBorder(address.length < validAddressCharLimit, address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
-                                        autoComplete={"address"}
-                                        type={"text"}
-                                        placeholder={"600 Navarro St"}
-                                        id={"address"}
-                                        value={address}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                {/*{*/}
-                                {/*    !isAdditionalAddressActive ? (*/}
-                                {/*        <div>*/}
-                                {/*            <span onClick={() => setIsAdditionalAddressActive(true)} className={"text-sm font-medium text-primary pl-2 cursor-pointer hover:text-primary/80"}>+ Add apartment, suite, etc.</span>*/}
-                                {/*        </div>*/}
-                                {/*    ) : (*/}
-                                {/*        <div className="space-y-2">*/}
-                                {/*            <label className="text-sm font-medium text-gray-700 tracking-wide">*/}
-                                {/*                Apartment, suite, etc. (optional)*/}
-                                {/*            </label>*/}
-                                {/*            <input*/}
-                                {/*                className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}*/}
-                                {/*                autoComplete={"address"}*/}
-                                {/*                type={"text"}*/}
-                                {/*                placeholder={"Apt# 2213"}*/}
-                                {/*                id={"address"}*/}
-                                {/*                value={additionalAddress}*/}
-                                {/*                onChange={(e) => setAdditionalAddress(e.target.value)}*/}
-                                {/*            />*/}
-                                {/*        </div>*/}
-                                {/*    )*/}
-                                {/*}*/}
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                        City
-                                    </label>
-                                    <input
-                                        className={`${dynamicBorder(city.length < validCityCharLimit, city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
-                                        autoComplete={"home city"}
-                                        type={"text"}
-                                        placeholder={"San Antonio"}
-                                        id={"city"}
-                                        value={city}
-                                        onChange={onChange}
-                                        required
-                                    />
-                                </div>
-                                <div className="space-y-2">
-                                    <div className={"flex w-full"}>
-                                        <div className={"w-8/12 md:w-6/12 pr-2"}>
-                                            <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                                State
-                                            </label>
-                                            <Select placeholder={"Select State"} options={states} styles={customStyles} id={state} value={states.filter(obj => obj.value === shippingData.state)} onChange={onChangeSelect}/>
-                                        </div>
-                                        <div className={"w-4/12 md:w-6/12 pl-2"}>
-                                            <label className="text-sm font-medium text-gray-700 tracking-wide">
-                                                ZIP Code
-                                            </label>
-                                            <input
-                                                className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
-                                                autoComplete={"locality"}
-                                                type={"text"}
-                                                placeholder={"78205"}
-                                                id={"postalCode"}
-                                                value={postalCode}
-                                                onChange={onChange}
-                                                required
-                                            />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div className="space-y-2">
-                                    <label className="text-sm font-medium text-gray-700 tracking-wide">Country
-                                    </label>
-                                    <Select placeholder={"Select Country"} options={countries} styles={customStyles} id={state} value={countries.filter(obj => obj.value === shippingData.country)} onChange={onChangeSelect}/>
-                                </div>
-                                {
-                                    userData && (
-                                        <div className="w-full flex justify-end">
-                                        {
-                                            userData.shippingAddresses?.length !== 0 && (
-                                                <div className={"py-3 w-6/12 flex items-center"}>
-                                                    <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-start link link-primary"}>Use Saved Address</span>
-                                                </div>
-                                            )
-                                        }
-
-                                        <label className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
-                                            <span className="text-sm pr-2">Save this address</span>
-                                            <input type="checkbox" checked={savePaymentData} onChange={() => setSavePaymentData(prevState => !prevState)} className="checkbox checkbox-primary" />
+                    <Reveal>
+                        <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
+                            <h1>Shipping Information</h1>
+                        </div>
+                        <div className={"bg-white px-10 pb-5 pt-5 w-full border"}>
+                        {
+                            useNewAddress ? (
+                                <form onSubmit={submitShippingData} className="space-y-5">
+                                    {
+                                        !userData && (
+                                            <div className="space-y-2">
+                                                <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                                    Customer Email
+                                                </label>
+                                                <input
+                                                    className={`${dynamicBorder(guestEmail.length < validEmailCharLimit, guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                                    autoComplete={"email"}
+                                                    type={"email"}
+                                                    placeholder={"example@email.com"}
+                                                    id={"email"}
+                                                    value={guestEmail}
+                                                    onChange={(e) => setGuestEmail(e.target.value)}
+                                                    required
+                                                />
+                                                <div className={"text-xs sm:text-sm w-full flex justify-center"}>(this email will be only be used to contact you about your order)</div>
+                                            </div>
+                                        )
+                                    }
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                            Recipient&apos;s Name
                                         </label>
+                                        <input
+                                            className={`${dynamicBorder(name.length < validNameCharLimit, name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                            autoComplete={"name"}
+                                            type={"text"}
+                                            placeholder={"John Doe"}
+                                            id={"name"}
+                                            value={name}
+                                            onChange={onChange}
+                                            required
+                                        />
                                     </div>
-                                    )
-                                }
-                                <div className={"pt-5 w-full flex justify-end"}>
-                                    <CustomBtn
-                                        isDisabled={!isValidShippingData || ( userData ? false : guestEmail.length === 0)}
-                                        type={"submit"}
-                                    >
-                                        Save and Continue
-                                    </CustomBtn>
-                                </div>
-                            </form>
-                        ) : (
-                            <form onSubmit={submitShippingData}>
-                                {
-                                    userData?.shippingAddresses.map(function(item, index) {
-                                        return (
-                                            <div key={index} className="my-5" onClick={() => setRadioId(item._id)}>
-                                                <div className={"w-full card bg-zinc-100 cursor-pointer"}>
-                                                    <div className={"w-full flex p-6"}>
-                                                        <div className={"w-10/12 flex flex-col justify-center"}>
-                                                             <span className={"truncate"}>
-                                                                {item.name}
-                                                            </span>
-                                                            <span className={"truncate"}>
-                                                                {item.address}
-                                                            </span>
-                                                            <span className={"truncate"}>
-                                                                {`${item.city}, ${item.state} ${item.postalCode} `}
-                                                            </span>
-                                                            <span className={"truncate"}>
-                                                                {item.country}
-                                                            </span>
-                                                        </div>
-                                                        <div className={"w-2/12 flex items-center"}>
-                                                            <input
-                                                                type="radio"
-                                                                name="address"
-                                                                id={index.toString()}
-                                                                value={item._id}
-                                                                className="radio radio-primary"
-                                                                onChange={(e) => {setRadioId(e.target.value)}}
-                                                                checked={item._id === radioId}
-                                                                />
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                            Street Address
+                                        </label>
+                                        <input
+                                            className={`${dynamicBorder(address.length < validAddressCharLimit, address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                            autoComplete={"address"}
+                                            type={"text"}
+                                            placeholder={"600 Navarro St"}
+                                            id={"address"}
+                                            value={address}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    {/*{*/}
+                                    {/*    !isAdditionalAddressActive ? (*/}
+                                    {/*        <div>*/}
+                                    {/*            <span onClick={() => setIsAdditionalAddressActive(true)} className={"text-sm font-medium text-primary pl-2 cursor-pointer hover:text-primary/80"}>+ Add apartment, suite, etc.</span>*/}
+                                    {/*        </div>*/}
+                                    {/*    ) : (*/}
+                                    {/*        <div className="space-y-2">*/}
+                                    {/*            <label className="text-sm font-medium text-gray-700 tracking-wide">*/}
+                                    {/*                Apartment, suite, etc. (optional)*/}
+                                    {/*            </label>*/}
+                                    {/*            <input*/}
+                                    {/*                className={`bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}*/}
+                                    {/*                autoComplete={"address"}*/}
+                                    {/*                type={"text"}*/}
+                                    {/*                placeholder={"Apt# 2213"}*/}
+                                    {/*                id={"address"}*/}
+                                    {/*                value={additionalAddress}*/}
+                                    {/*                onChange={(e) => setAdditionalAddress(e.target.value)}*/}
+                                    {/*            />*/}
+                                    {/*        </div>*/}
+                                    {/*    )*/}
+                                    {/*}*/}
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                            City
+                                        </label>
+                                        <input
+                                            className={`${dynamicBorder(city.length < validCityCharLimit, city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                            autoComplete={"home city"}
+                                            type={"text"}
+                                            placeholder={"San Antonio"}
+                                            id={"city"}
+                                            value={city}
+                                            onChange={onChange}
+                                            required
+                                        />
+                                    </div>
+                                    <div className="space-y-2">
+                                        <div className={"flex w-full"}>
+                                            <div className={"w-8/12 md:w-6/12 pr-2"}>
+                                                <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                                    State
+                                                </label>
+                                                <Select placeholder={"Select State"} options={states} styles={customStyles} id={state} value={states.filter(obj => obj.value === shippingData.state)} onChange={onChangeSelect}/>
+                                            </div>
+                                            <div className={"w-4/12 md:w-6/12 pl-2"}>
+                                                <label className="text-sm font-medium text-gray-700 tracking-wide">
+                                                    ZIP Code
+                                                </label>
+                                                <input
+                                                    className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                                    autoComplete={"locality"}
+                                                    type={"text"}
+                                                    placeholder={"78205"}
+                                                    id={"postalCode"}
+                                                    value={postalCode}
+                                                    onChange={onChange}
+                                                    required
+                                                />
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <div className="space-y-2">
+                                        <label className="text-sm font-medium text-gray-700 tracking-wide">Country
+                                        </label>
+                                        <Select placeholder={"Select Country"} options={countries} styles={customStyles} id={state} value={countries.filter(obj => obj.value === shippingData.country)} onChange={onChangeSelect}/>
+                                    </div>
+                                    {
+                                        userData && (
+                                            <div className="w-full flex justify-end">
+                                            {
+                                                userData.shippingAddresses?.length !== 0 && (
+                                                    <div className={"py-3 w-6/12 flex items-center"}>
+                                                        <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-start link link-primary"}>Use Saved Address</span>
+                                                    </div>
+                                                )
+                                            }
+
+                                            <label className="py-3 w-6/12 flex items-center justify-end cursor-pointer">
+                                                <span className="text-sm pr-2">Save this address</span>
+                                                <input type="checkbox" checked={savePaymentData} onChange={() => setSavePaymentData(prevState => !prevState)} className="checkbox checkbox-primary" />
+                                            </label>
+                                        </div>
+                                        )
+                                    }
+                                    <div className={"pt-5 w-full flex justify-end"}>
+                                        <CustomBtn
+                                            isDisabled={!isValidShippingData || ( userData ? false : guestEmail.length === 0)}
+                                            type={"submit"}
+                                        >
+                                            Save and Continue
+                                        </CustomBtn>
+                                    </div>
+                                </form>
+                            ) : (
+                                <form onSubmit={submitShippingData}>
+                                    {
+                                        userData?.shippingAddresses.map(function(item, index) {
+                                            return (
+                                                <div key={index} className="my-5" onClick={() => setRadioId(item._id)}>
+                                                    <div className={"w-full card bg-blue-100/50 cursor-pointer"}>
+                                                        <div className={"w-full flex p-6"}>
+                                                            <div className={"w-10/12 flex flex-col justify-center"}>
+                                                                 <span className={"truncate"}>
+                                                                    {item.name}
+                                                                </span>
+                                                                <span className={"truncate"}>
+                                                                    {item.address}
+                                                                </span>
+                                                                <span className={"truncate"}>
+                                                                    {`${item.city}, ${item.state} ${item.postalCode} `}
+                                                                </span>
+                                                                <span className={"truncate"}>
+                                                                    {item.country}
+                                                                </span>
+                                                            </div>
+                                                            <div className={"w-2/12 flex items-center"}>
+                                                                <input
+                                                                    type="radio"
+                                                                    name="address"
+                                                                    id={index.toString()}
+                                                                    value={item._id}
+                                                                    className="radio radio-primary"
+                                                                    onChange={(e) => {setRadioId(e.target.value)}}
+                                                                    checked={item._id === radioId}
+                                                                    />
+                                                            </div>
                                                         </div>
                                                     </div>
                                                 </div>
-                                            </div>
-                                        )
-                                    })
-                                }
-                                <div className={"py-3"}>
-                                    <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-end link link-primary"}>Use New Address</span>
-                                </div>
-                                <div className={"pt-5 w-full flex justify-end"}>
-                                    <CustomBtn isDisabled={radioId === ""} type={"submit"}>
-                                        Save and Continue
-                                    </CustomBtn>
-                                </div>
-                            </form>
-                        )
-                    }
-                    </div>
+                                            )
+                                        })
+                                    }
+                                    <div className={"py-3"}>
+                                        <span onClick={() => setUseNewAddress(prevState => !prevState)} className={"text-sm text-end link link-primary"}>Use New Address</span>
+                                    </div>
+                                    <div className={"pt-5 w-full flex justify-end"}>
+                                        <CustomBtn isDisabled={radioId === ""} type={"submit"}>
+                                            Save and Continue
+                                        </CustomBtn>
+                                    </div>
+                                </form>
+                            )
+                        }
+                        </div>
+                    </Reveal>
                 </div>
             </div>
         </>

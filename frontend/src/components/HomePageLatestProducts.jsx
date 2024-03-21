@@ -4,7 +4,7 @@ import ProductItem from "./ProductItem";
 const HomePageLatestProducts = ({data, windowInnerWidth, scrollTo}) => {
     return (
         <>
-            <div className={"pt-14 pb-10 md:pb-0 bg-black/90 liner-gradient md:bg-white"}>
+            <div className={"pb-10 pt-14 md:py-0 bg-black/90 liner-gradient md:bg-transparent"}>
                 <div ref={scrollTo} className={"h-12 md:bg-zinc-700"}>
                     <div className={"flex justify-center lg:justify-start items-center h-full w-full"}>
                         <h2 className={"lg:pl-3 text-3xl md:text-2xl text-white ibmplex"}>
