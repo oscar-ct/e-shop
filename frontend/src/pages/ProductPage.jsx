@@ -10,7 +10,6 @@ import {
     useGetProductsByRatingQuery
 } from "../slices/productsApiSlice";
 import Spinner from "../components/Spinner";
-// import Message from "../components/Message";
 import {addToCart} from "../slices/cartSlice";
 import {useDispatch, useSelector} from "react-redux";
 import FormatPrice from "../components/FormatPrice"
@@ -30,7 +29,7 @@ import CustomBtn from "../components/CustomBtn";
 import Reveal from "../components/Reveal";
 
 const ProductPage = () => {
-    // const [product, setProduct] = useState({});
+
     const { id: productId } = useParams();
     const { data: product, refetch, isLoading, error } = useGetProductDetailsQuery(productId);
     const { data: topRatedProducts, isLoading: loadingRated, error: errorRated } = useGetProductsByRatingQuery();
@@ -137,9 +136,7 @@ const ProductPage = () => {
                                 <div className={"lg:w-9/12 flex flex-col lg:pr-3"}>
                                     <Reveal y={0}>
                                         <div className={"sm:hidden px-3 py-3 flex flex-col"}>
-                                            <span className={"text-2xl lg:text-xl font-semibold"}>
-                                                {product.name}
-                                            </span>
+                                            <span className={"text-2xl lg:text-xl font-semibold"}>{product.name}</span>
                                             <div className={"flex"}>
                                                 <button onClick={executeScroll} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
                                                 </button>
@@ -172,9 +169,7 @@ const ProductPage = () => {
                                                     <div className={"bg-white border lg:bg-transparent px-5 pt-5 lg:pl-4 lg:pt-0 lg:px-0 w-full h-min border-b-[1px] border-t-[1px] lg:border-none border-gray-300"}>
 
                                                         <div className={"hidden sm:block pb-3 lg:border-b-[1px] border-gray-300"}>
-                                                            <span className={"text-2xl lg:text-xl font-semibold"}>
-                                                                {product.name}
-                                                            </span>
+                                                            <span className={"text-2xl lg:text-xl font-semibold"}>{product.name}</span>
                                                             <button onClick={executeScroll} className={"block text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
                                                             </button>
                                                         </div>
@@ -182,13 +177,6 @@ const ProductPage = () => {
                                                             <FormatPrice price={product.price} fontSize={"text-3xl"}>
                                                                 /ea.
                                                             </FormatPrice>
-                                                            {/*<CustomBtn customClass={"sm:hidden"} isDisabled={product.countInStock === 0} onClick={() => {*/}
-                                                            {/*    addToCartHandler();*/}
-                                                            {/*    navigate("/cart");*/}
-                                                            {/*}*/}
-                                                            {/*}>*/}
-                                                            {/*    Buy Now*/}
-                                                            {/*</CustomBtn>*/}
                                                             <div className={"flex pt-2 md:hidden text-lg"}>
                                                                 {
                                                                     product.countInStock > 0 ? (
@@ -199,7 +187,6 @@ const ProductPage = () => {
                                                                 }
                                                             </div>
                                                         </div>
-
                                                         <div>
                                                             <h6 className={"text-lg lg:text-sm text-start pt-5 pb-5 font-bold lg:pb-2"}>Specifications --</h6>
                                                         </div>
@@ -235,21 +222,19 @@ const ProductPage = () => {
                                                             <span className={"self-end link link-primary"} onClick={() => setDetailsActive(prevState => !prevState)}>{detailsActive ? "show less" : "show more"}</span>
                                                         </div>
                                                     </div>
-                                                {/*<div className={"lg:hidden border-b-[1px] border-gray-300"}/>*/}
                                                 </Reveal>
                                             </div>
                                         </div>
 
                                 </div>
-
                                 <div className={"pt-0 lg:w-3/12 lg:pl-3"}>
                                     <Reveal>
                                         <div className={"h-full p-7 text-lg lg:text-sm bg-white border mx-6 sm:mx-0"}>
                                             <div className={"py-2 sm:hidden"}>Buy Now</div>
                                             <div className={"flex py-2"}>
-                                                <span className={"w-full flex justify-start items-start"}>
+                                                <div className={"w-full flex justify-start items-start"}>
                                                     <FormatPrice price={product.price} fontSize={"text-2xl"}/>
-                                                </span>
+                                                </div>
                                             </div>
                                             {
                                                 product.price > 100 && (
@@ -261,13 +246,9 @@ const ProductPage = () => {
                                             <div className={"flex py-2"}>
                                                 {
                                                     product.countInStock > 0 ? (
-                                                        <span className={"font-semibold"}>
-                                                            Only {product.countInStock} left in stock - order soon
-                                                        </span>
+                                                        <span className={"font-semibold"}>Only {product.countInStock} left in stock - order soon</span>
                                                     ) : (
-                                                        <span className={"text-red-600 w-full font-semibold flex justify-start"}>
-                                                            Out of stock
-                                                        </span>
+                                                        <span className={"text-red-600 w-full font-semibold flex justify-start"}>Out of stock</span>
                                                     )
                                                 }
                                             </div>
@@ -302,9 +283,6 @@ const ProductPage = () => {
                                                         )
                                                     }
                                                 </div>
-                                                {/*<button className={`rounded-full btn-md btn ${product.countInStock === 0 ? "btn-disabled" : "btn-primary shadow-blue"}`} disabled={product.countInStock === 0} onClick={addToCartHandler}>*/}
-                                                {/*    Add To Cart*/}
-                                                {/*</button>*/}
                                                 <CustomBtn isDisabled={product.countInStock === 0} onClick={addToCartHandler}>
                                                     Add To Cart
                                                 </CustomBtn>
@@ -313,7 +291,6 @@ const ProductPage = () => {
                                     </Reveal>
                                 </div>
                             </div>
-
                             <Reveal>
                                 <div ref={scrollTo} className={"w-full"}>
                                     {/*//////////////*/}
@@ -322,10 +299,8 @@ const ProductPage = () => {
                                             <div className={"overflow-x-auto"}>
                                                 <div className={"h-full"}>
                                                     <div className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl ibmplex md:bg-zinc-700 md:text-white`}>
-
                                                         <h2>Customer Reviews
                                                             <span className={"text-2xl md:text-xl md:text-white pl-2"}>{product.reviews.length !== 0 ? `(${product.numReviews})` : "(0)"}</span>
-
                                                         </h2>
                                                         {
                                                             userData ? (
@@ -423,10 +398,8 @@ const ProductPage = () => {
                                                                         <div key={index} className={"pt-3"}>
                                                                             <div className={"flex flex-col"}>
                                                                                 <div className={"flex justify-between"}>
-                                                                                    <span className={"pb-2 text-xs font-bold text-neutral-500"}>
-                                                                                        {review.name}
-                                                                                    </span>
-                                                                                    <span className={"pb-2 text-xs font-bold text-neutral-500 flex items-center"}>
+                                                                                    <span className={"pb-2 text-xs font-bold text-neutral-500"}>{review.name}</span>
+                                                                                    <div className={"pb-2 text-xs font-bold text-neutral-500 flex items-center"}>
                                                                                         {review.createdAt.substring(0, 10)}
                                                                                         {
                                                                                             userData?._id === review.user && (
@@ -436,17 +409,14 @@ const ProductPage = () => {
                                                                                             )
                                                                                         }
 
-                                                                                    </span>
+                                                                                    </div>
                                                                                 </div>
 
                                                                                 <div className={"flex items-start"}>
                                                                                     <div className={"pt-[2px]"}>
                                                                                         <Rating rating={review.rating}/>
                                                                                     </div>
-
-                                                                                    <span className={"pl-2 text-sm font-bold"}>
-                                                                                            {review.title}
-                                                                                    </span>
+                                                                                    <span className={"pl-2 text-sm font-bold"}>{review.title}</span>
                                                                                 </div>
                                                                             </div>
                                                                             <p className={"pt-2 text-sm font-normal"}>
@@ -462,8 +432,6 @@ const ProductPage = () => {
                                                 </div>
                                             </div>
                                         </div>
-
-
                                         <div className={"hidden lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
                                             <div className={"h-full bg-white flex flex-col"}>
                                                 <div className={"sticky py-2 px-5 pl-3 bg-zinc-700"}>
