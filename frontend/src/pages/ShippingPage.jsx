@@ -156,9 +156,9 @@ const ShippingPage = () => {
         <>
             <Meta title={"Shipping Address"}/>
             <CheckoutSteps/>
-            <div className={"pt-0 w-full flex justify-center"}>
-                <div className={"pt-3 pb-5 sm:pt-7 w-full sm:w-[35em]"}>
-                    <Reveal>
+            <Reveal y={0}>
+                <div className={"pt-0 w-full flex justify-center"}>
+                    <div className={"pt-3 sm:pt-7 w-full sm:w-[35em]"}>
                         <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                             <h1>Shipping Information</h1>
                         </div>
@@ -319,7 +319,7 @@ const ShippingPage = () => {
                                                 <div key={index} className="my-5" onClick={() => setRadioId(item._id)}>
                                                     <div className={"w-full card bg-blue-100/50 cursor-pointer"}>
                                                         <div className={"w-full flex p-6"}>
-                                                            <div className={"w-10/12 flex flex-col justify-center"}>
+                                                            <div className={"text-sm w-10/12 flex flex-col justify-center"}>
                                                                  <span className={"truncate"}>
                                                                     {item.name}
                                                                 </span>
@@ -362,9 +362,9 @@ const ShippingPage = () => {
                             )
                         }
                         </div>
-                    </Reveal>
+                    </div>
                 </div>
-            </div>
+            </Reveal>
         </>
     );
 };

@@ -57,7 +57,7 @@ const CartPage = () => {
                         <div className={"flex-col flex lg:flex-row w-full"}>
 
                             <div className={"lg:mb-10 lg:w-8/12 h-min"}>
-                                <Reveal>
+                                <Reveal y={0}>
                                     <div className={"pt-3 sm:pt-7"}>
                                         <h1
                                             // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
@@ -87,7 +87,7 @@ const CartPage = () => {
                                     </div>
                                 </Reveal>
                             </div>
-                            <Reveal>
+                            <Reveal y={0}>
                                 <div className={"lg:hidden"}>
                                     {
                                         totalPrice > 100 ? (
@@ -113,7 +113,7 @@ const CartPage = () => {
 
 
                             <div className={"lg:pt-7 px-4 w-96 place-self-end lg:place-self-start lg:pl-10 lg:w-4/12"}>
-                                <Reveal>
+                                <Reveal y={0}>
                                     <div className={"hidden lg:flex"}>
                                         {
                                             totalPrice > 100 ? (

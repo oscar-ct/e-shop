@@ -9,7 +9,6 @@ import Meta from "../components/Meta";
 import CustomBtn from "../components/CustomBtn";
 import Reveal from "../components/Reveal";
 
-
 const PaymentPage = () => {
 
     const {shippingAddress, paymentMethod, cartItems} = useSelector(function (state) {
@@ -40,13 +39,13 @@ const PaymentPage = () => {
         <>
             <Meta title={"Payment Method"}/>
             <CheckoutSteps/>
-            <div className={"pt-0 w-full flex justify-center"}>
-                <div className={"pt-3 sm:pt-7 w-full sm:w-[35em]"}>
-                    <Reveal>
+            <Reveal y={0}>
+                <div className={"pt-0 w-full flex justify-center"}>
+                    <div className={"pt-3 sm:pt-7 w-full sm:w-[35em]"}>
                         <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                             <h1>Payment Method(s)</h1>
                         </div>
-                        <div className={"bg-white px-10 pb-5 pt-5 border"}>
+                        <div className={"bg-white px-10 pb-5 pt-5 border text-sm"}>
                             <form onSubmit={submitPaymentMethod}>
                                 <div className="my-5">
                                     <div
@@ -111,9 +110,9 @@ const PaymentPage = () => {
                                 </div>
                             </form>
                         </div>
-                    </Reveal>
+                    </div>
                 </div>
-            </div>
+            </Reveal>
         </>
     );
 };
