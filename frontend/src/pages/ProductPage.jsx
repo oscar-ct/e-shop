@@ -151,7 +151,7 @@ const ProductPage = () => {
                                                     <div className={"rounded-md w-full flex justify-center sm:border-none"} onClick={() => setFullScreen(true)}>
                                                         <img src={product.images.length !== 0 ? product.images[imageIndex]?.url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl cursor-pointer rounded-sm object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
                                                     </div>
-                                                    <div className={"w-full flex pt-7 px-5"}>
+                                                    <div className={"w-full flex justify-center pt-7 px-5"}>
                                                         {
                                                             product.images.map(function (image, index) {
                                                                 return (
