@@ -116,7 +116,7 @@ const CheckoutPage = () => {
                         <CheckoutSteps/>
                         <div className={"pt-0 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 h-min"}>
-                                <Reveal y={0}>
+                                <Reveal>
                                     <div className={"pt-3 sm:pt-7"}>
                                         <h1
                                             // style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
@@ -225,7 +225,7 @@ const CheckoutPage = () => {
                                 </Reveal>
                             </div>
                             <div className={"p-3 lg:pt-7 lg:pl-10 lg:w-5/12"}>
-                                <Reveal y={0}>
+                                <Reveal>
                                 {
                                     totalPrice > 100 || discount ? (
                                         <div className={"pb-3 px-2 sm:px-0"}>
@@ -244,7 +244,7 @@ const CheckoutPage = () => {
                                     )
                                 }
                                 </Reveal>
-                                <Reveal y={0}>
+                                <Reveal>
                                     <div className="bg-white border">
                                         <div className="pt-8 px-8">
                                             <div className={"flex flex-col"}>

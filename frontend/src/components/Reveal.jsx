@@ -6,7 +6,6 @@ const Reveal = ({children, customChildClass, delay, once, y, customParentClass})
     const ref = useRef(null);
     const isInView = useInView(ref, {once: once});
     const mainControls = useAnimation();
-    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
 
     useEffect(() => {
         if (isInView) {
@@ -17,28 +16,18 @@ const Reveal = ({children, customChildClass, delay, once, y, customParentClass})
         }
     }, [isInView, mainControls, once]);
 
-    useEffect(() => {
-        const activeWindow = () => {
-            setWindowWidth(window.innerWidth);
-        };
-        window.addEventListener("resize", activeWindow);
-        return () => {
-            window.removeEventListener("resize", activeWindow)
-        }
-    }, []);
-
     return (
         <div ref={ref} className={`${customParentClass}`}>
             <motion.div
                 variants={{
-                    hidden: { opacity: 0, y: y === 0 ? y : windowWidth >= 768 ? 0 : 75},
-                    visible: { opacity: 1, y: 0 },
+                    hidden: { opacity: 0},
+                    visible: { opacity: 1},
                 }}
                 initial={"hidden"}
                 animate={mainControls}
                 transition={{
-                    duration: windowWidth >= 768 ? 0.25 : 0.55,
-                    delay: windowWidth >= 768 ? delay : 0.15
+                    duration: .25,
+                    delay: delay
                 }}
                 className={`${customChildClass}`}
             >
