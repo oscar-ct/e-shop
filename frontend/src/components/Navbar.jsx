@@ -347,14 +347,14 @@ const Navbar = () => {
                                </Reveal>
                             </li>
                             <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                <Reveal once={false} delay={0.10}>
+                                <Reveal once={false} delay={0.5}>
                                 <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                     All Products
                                 </Link>
                                 </Reveal>
                             </li>
                             <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                <Reveal once={false} delay={0.15}>
+                                <Reveal once={false} delay={0.10}>
                                 <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                     Best Selling Products
                                 </Link>
@@ -364,14 +364,14 @@ const Navbar = () => {
                                 userData && (
                                     <>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                            <Reveal once={false} delay={0.20}>
+                                            <Reveal once={false} delay={0.15}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
                                                 My Account
                                             </Link>
                                             </Reveal>
                                         </li>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                            <Reveal once={false} delay={0.25}>
+                                            <Reveal once={false} delay={0.20}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 My Orders
                                             </Link>
@@ -384,7 +384,7 @@ const Navbar = () => {
                                 userData?.isAdmin && (
                                     <>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Reveal once={false} delay={0.30}>
+                                            <Reveal once={false} delay={0.25}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 Admin Dashboard
                                             </Link>
@@ -396,7 +396,7 @@ const Navbar = () => {
                             {
                                 userData ? (
                                     <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                        <Reveal once={false} delay={0.35}>
+                                        <Reveal once={false} delay={0.30}>
                                         <button className={"cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case"} onClick={logoutHandler}>
                                             Logout
                                         </button>
