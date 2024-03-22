@@ -9,18 +9,13 @@ import HomePageLatestProducts from "../components/HomePageLatestProducts";
 import HomePageIntro from "../components/HomePageIntro";
 import Reveal from "../components/Reveal";
 
-
-
 const HomePage = () => {
 
     const {pageNumber} = useParams();
-
     // products query
     const { data, isLoading, error } = useGetProductsQuery({pageNumber});
-
     // products by category query
     const { data: productCategories, isLoading: loadingCategories, error: errorCategories } = useGetProductsByCategoryQuery();
-
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
 
     // set window width on resize
