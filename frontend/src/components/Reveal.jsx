@@ -1,7 +1,7 @@
 import {motion, useAnimation, useInView} from "framer-motion";
 import {useEffect, useRef} from "react";
 
-const Reveal = ({children, customChildClass, delay, once, customParentClass}) => {
+const Reveal = ({children, customChildClass, delay, once, y, customParentClass}) => {
 
     const ref = useRef(null);
     const isInView = useInView(ref, {once: once});
@@ -20,8 +20,8 @@ const Reveal = ({children, customChildClass, delay, once, customParentClass}) =>
         <div ref={ref} className={`${customParentClass}`}>
             <motion.div
                 variants={{
-                    hidden: { opacity: 0},
-                    visible: { opacity: 1},
+                    hidden: { opacity: 0, y: y},
+                    visible: { opacity: 1, y: 0},
                 }}
                 initial={"hidden"}
                 animate={mainControls}
@@ -38,7 +38,8 @@ const Reveal = ({children, customChildClass, delay, once, customParentClass}) =>
 };
 
 Reveal.defaultProps = {
-    delay: 0.0,
+    y: 0,
+    delay: 0.10,
     once: true,
 }
 
