@@ -9,9 +9,8 @@ import 'swiper/css/effect-fade';
 import CustomBtn from "./CustomBtn";
 import {ReactComponent as PaypalLogo} from "../icons/paypal-logo.svg";
 import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
-import Reveal from "./Reveal";
 import {motion} from "framer-motion";
-
+import Reveal from "./Reveal";
 
 const HomePageIntro = () => {
 
@@ -80,10 +79,10 @@ const HomePageIntro = () => {
                             <Swiper
                                 pagination
                                 slidesPerView={1}
-                                // autoplay={{
-                                //     delay: 8500,
-                                //     disableOnInteraction: false
-                                // }}
+                                autoplay={{
+                                    delay: 8500,
+                                    disableOnInteraction: false
+                                }}
                                 modules={[Autoplay, EffectFade, Pagination]}
                                 effect={"fade"}
                                 fadeEffect={{crossFade: true}}
@@ -122,7 +121,6 @@ const HomePageIntro = () => {
                                                 </Link>
                                             </div>
                                         </div>
-
                                     </div>
                                 </SwiperSlide>
                                 <SwiperSlide>
