@@ -133,8 +133,8 @@ const HomePageIntro = () => {
                                     {/*    className={"h-[32em]"}*/}
                                     {/*>*/}
                                         <div className={"w-full h-full flex flex-col items-center justify-evenly pb-5"}>
-                                            <div className={"pt-10 w-full flex items-center flex-col justify-center"}>
-                                                <div className={"text-3xl font-bold"}>Meet the developer</div>
+                                            <div className={"pt-10 w-full flex justify-center"}>
+                                                <div className={"text-3xl font-bold px-12"}>Meet the developer</div>
                                             </div>
                                             <div className="avatar">
                                                 <div className="w-48 rounded-full">
