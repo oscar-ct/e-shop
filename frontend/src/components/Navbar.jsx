@@ -151,7 +151,7 @@ const Navbar = () => {
             transform: "translateY(-100%)"
         },
         hidden2: {
-            visibility: "hidden",
+            // visibility: "hidden",
             transition: "all 0.5s",
             transform: "translateY(-100%)"
         }
@@ -215,7 +215,7 @@ const Navbar = () => {
                                                             <span className={"w-full text-xl text-white whitespace-nowrap"}>Latest Products</span>
                                                         </Link>
                                                         <Link to={topRatedLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
-                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>Best Selling</span>
+                                                            <span className={"w-full text-xl text-white whitespace-nowrap"}>Top Rated</span>
                                                         </Link>
                                                         <Link to={latestProductsLink} className={"block px-10 py-5 rounded-b-md  hover:bg-neutral/70"}>
                                                             <span className={"w-full text-xl text-white whitespace-nowrap"}>All Categories</span>
@@ -340,23 +340,23 @@ const Navbar = () => {
                     <div className={"flex flex-col justify-start h-full w-full"}>
                         <ul className="flex flex-col text-white font-bold text-xl">
                             <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                               <Reveal once={false}>
+                               <Reveal once={false} y={-50}>
                                 <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                    Home
                                 </Link>
                                </Reveal>
                             </li>
                             <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                <Reveal once={false} delay={0.5}>
+                                <Reveal once={false} y={-50} delay={0.20}>
                                 <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                     All Products
                                 </Link>
                                 </Reveal>
                             </li>
                             <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                <Reveal once={false} delay={0.10}>
+                                <Reveal once={false} y={-50} delay={0.25}>
                                 <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                    Best Selling Products
+                                    Top Rated Products
                                 </Link>
                                 </Reveal>
                             </li>
@@ -364,14 +364,14 @@ const Navbar = () => {
                                 userData && (
                                     <>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                            <Reveal once={false} delay={0.15}>
+                                            <Reveal once={false} y={-50} delay={0.30}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
                                                 My Account
                                             </Link>
                                             </Reveal>
                                         </li>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                            <Reveal once={false} delay={0.20}>
+                                            <Reveal once={false} y={-50} delay={0.35}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 My Orders
                                             </Link>
@@ -384,7 +384,7 @@ const Navbar = () => {
                                 userData?.isAdmin && (
                                     <>
                                         <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Reveal once={false} delay={0.25}>
+                                            <Reveal once={false} y={-50} delay={0.35}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
                                                 Admin Dashboard
                                             </Link>
@@ -396,20 +396,30 @@ const Navbar = () => {
                             {
                                 userData ? (
                                     <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                        <Reveal once={false} delay={0.30}>
+                                        <Reveal once={false} y={-50} delay={0.40}>
                                         <button className={"cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case"} onClick={logoutHandler}>
                                             Logout
                                         </button>
                                         </Reveal>
                                     </li>
                                 ) : (
-                                    <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                        <Reveal once={false} delay={0.35}>
-                                        <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-info flex items-center normal-case">
-                                            Login
-                                        </Link>
-                                        </Reveal>
-                                    </li>
+                                    <>
+                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                            <Reveal once={false} y={-50} delay={0.30}>
+                                            <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-primary flex items-center normal-case">
+                                                Login
+                                            </Link>
+                                            </Reveal>
+                                        </li>
+                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                            <Reveal once={false} y={-50} delay={0.30}>
+                                                <Link onClick={() => setOpenNav(!openNav)} to={"/register"} className="cursor-pointer text-3xl font-bold text-primary flex items-center normal-case">
+                                                    Sign up
+                                                </Link>
+                                            </Reveal>
+                                        </li>
+                                    </>
+
                                 )
                             }
                         </ul>
