@@ -1,12 +1,13 @@
 import {motion, useAnimation, useInView} from "framer-motion";
-import {useEffect, useRef} from "react";
+import {useEffect, useRef, useState} from "react";
 
-const Reveal = ({children, customClass, delay, once}) => {
+const Reveal = ({children, customChildClass, delay, once, y, customParentClass}) => {
 
     const ref = useRef(null);
     const isInView = useInView(ref, {once: once});
-
     const mainControls = useAnimation();
+    const [windowWidth, setWindowWidth] = useState(window.innerWidth);
+
     useEffect(() => {
         if (isInView) {
             mainControls.start("visible")
@@ -14,23 +15,32 @@ const Reveal = ({children, customClass, delay, once}) => {
         if (!once && !isInView) {
             mainControls.start("hidden")
         }
-    }, [isInView, mainControls, once])
+    }, [isInView, mainControls, once]);
+
+    useEffect(() => {
+        const activeWindow = () => {
+            setWindowWidth(window.innerWidth);
+        };
+        window.addEventListener("resize", activeWindow);
+        return () => {
+            window.removeEventListener("resize", activeWindow)
+        }
+    }, []);
 
     return (
-        <div ref={ref}>
+        <div ref={ref} className={`${customParentClass}`}>
             <motion.div
                 variants={{
-                    hidden: { opacity: 0, y: 75},
-                    visible: {opacity: 1, y: 0},
+                    hidden: { opacity: 0, y: y === 0 ? y : windowWidth >= 768 ? 0 : 75},
+                    visible: { opacity: 1, y: 0 },
                 }}
                 initial={"hidden"}
                 animate={mainControls}
                 transition={{
-                    duration: 0.55,
-                    delay: delay
+                    duration: windowWidth >= 768 ? 0.25 : 0.55,
+                    delay: windowWidth >= 768 ? delay : 0.15
                 }}
-                exit={"hidden"}
-                className={`${customClass}`}
+                className={`${customChildClass}`}
             >
                 {children}
             </motion.div>
