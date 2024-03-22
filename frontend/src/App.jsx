@@ -32,7 +32,6 @@ function App() {
                       <Outlet/>
                     </div>
                 <Footer/>
-
             </div>
         </>
     );
