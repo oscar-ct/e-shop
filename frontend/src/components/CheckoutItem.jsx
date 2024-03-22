@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import {FaTrash} from "react-icons/fa";
 import {addToCart, removeFromCart} from "../slices/cartSlice";
 import {useDispatch} from "react-redux";
-import {formatPrice} from "../utils/formatPriceUtilis";
+import FormatPrice from "./FormatPrice";
 
 const CheckoutItem = ( {item} ) => {
 
@@ -19,53 +19,32 @@ const CheckoutItem = ( {item} ) => {
     return (
         <>
             <div className={"flex w-full mt-5"}>
-
                 <div className={"w-2/12"}>
                     <Link className={"bg-zinc-100/70 rounded-md w-full h-full flex justify-center items-center"} to={`/product/${item._id}`}>
                         <img className={"max-h-[160px] object-cover rounded-md"} src={item.images.length !== 0 ? item.images[0].url : "/images/sample.jpg"} alt={"cartItem"}/>
                     </Link>
                 </div>
-
                 <div className={"w-8/12 flex flex-col px-3 sm:px-5"}>
-
                     <Link to={`/product/${item._id}`} className={"sm:text-lg font-bold hover:link hover:link-primary"}>
                         {item.name}
                     </Link>
-
                     <div className={"flex w-full"}>
                         <div className={"flex flex-col w-9/12"}>
                             <div>
-                                <span className={"text-gray-500 font-bold text-xs"}>
-                                    Brand:
-                                </span>
-                                <span className={"ml-1 text-sm"}>
-                                    {item.brand}
-                                </span>
+                                <span className={"text-gray-500 font-bold text-xs"}>Brand:</span>
+                                <span className={"ml-1 text-sm"}>{item.brand}</span>
                             </div>
                             <div>
-                                <span className={"text-gray-500 font-bold text-xs"}>
-                                    Remaining In Stock:
-                                </span>
-                                <span className={"ml-1 text-sm"}>
-                                    {item.countInStock}
-                                </span>
+                                <span className={"text-gray-500 font-bold text-xs"}>Remaining In Stock:</span>
+                                <span className={"ml-1 text-sm"}>{item.countInStock}</span>
                             </div>
                             <div>
-                                <span className={"text-gray-500 font-bold text-xs"}>
-                                    Price:
-                                </span>
-                                <span className={"ml-1 text-sm"}>
-                                    ${item.price}/ea
-                                </span>
+                                <span className={"text-gray-500 font-bold text-xs"}>Price:</span>
+                                <span className={"ml-1 text-sm"}>${item.price}/ea.</span>
                             </div>
                         </div>
-
                         <div className={"w-3/12 flex justify-end items-end"}>
-
                             <div className={"flex justify-end items-center flex-col lg:flex-row"}>
-                                {/*<label className="block lg:mr-2 text-sm font-medium text-gray-900 dark:text-white pb-3">*/}
-                                {/*    Qty:*/}
-                                {/*</label>*/}
                                 <select
                                     className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-20 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     value={item.quantity}
@@ -81,16 +60,12 @@ const CheckoutItem = ( {item} ) => {
                                         })
                                     }
                                 </select>
-
                             </div>
                         </div>
                     </div>
                 </div>
-
                 <div className={"w-2/12 flex flex-col items-end justify-between"}>
-                {
-                    formatPrice(item.price * item.quantity, "text-xl")
-                }
+                    <FormatPrice price={item.price * item.quantity} fontSize={"text-xl"}/>
                     <div>
                         <button
                             onClick={() => removeFromCartHandler(item._id)}

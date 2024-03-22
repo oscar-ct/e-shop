@@ -2,7 +2,7 @@ import {Link} from "react-router-dom";
 import {FaTrash} from "react-icons/fa";
 import {addToCart, removeFromCart} from "../slices/cartSlice";
 import {useDispatch} from "react-redux";
-import {formatPrice} from "../utils/formatPriceUtilis";
+import FormatPrice from "./FormatPrice";
 
 const CartItem = ( {item} ) => {
 
@@ -34,38 +34,22 @@ const CartItem = ( {item} ) => {
                         <div className={"flex flex-col lg:pt-3"}>
                             <div className={"flex flex-col text-xs sm:text-sm"}>
                                 <div className={"pb-1"}>
-                                    <span className={"text-xs font-bold text-gray-500"}>
-                                        Brand:
-                                    </span>
-                                    <span className={"ml-1"}>
-                                        {item.brand}
-                                    </span>
+                                    <span className={"text-xs font-bold text-gray-500"}>Brand:</span>
+                                    <span className={"ml-1"}>{item.brand}</span>
                                 </div>
                                 <div className={"pb-1"}>
-                                      <span className={"text-xs font-bold text-gray-500"}>
-                                        Model:
-                                    </span>
-                                    <span className={"ml-1 "}>
-                                        {item.model}
-                                    </span>
+                                    <span className={"text-xs font-bold text-gray-500"}>Model:</span>
+                                    <span className={"ml-1 "}>{item.model}</span>
                                 </div>
                             </div>
                             <div className={"flex flex-col text-xs sm:text-sm"}>
                                 <div className={"flex items-center pb-1"}>
-                                     <span className={"text-xs font-bold text-gray-500"}>
-                                        Remaining In Stock:
-                                    </span>
-                                    <span className={"ml-1"}>
-                                        {item.countInStock}
-                                    </span>
+                                     <span className={"text-xs font-bold text-gray-500"}>Remaining In Stock:</span>
+                                    <span className={"ml-1"}>{item.countInStock}</span>
                                 </div>
                                 <div>
-                                      <span className={"text-xs font-bold text-gray-500"}>
-                                        List Price:
-                                    </span>
-                                    <span className={"ml-1"}>
-                                        ${item.price}/ea
-                                    </span>
+                                    <span className={"text-xs font-bold text-gray-500"}>List Price:</span>
+                                    <span className={"ml-1"}>${item.price}/ea.</span>
                                 </div>
                             </div>
                         </div>
@@ -73,9 +57,7 @@ const CartItem = ( {item} ) => {
                 </div>
 
                 <div className={"w-2/12 flex flex-col items-end justify-between"}>
-                {
-                    formatPrice(item.price * item.quantity, "text-xl")
-                }
+                    <FormatPrice price={item.price * item.quantity} fontSize={"text-xl"}/>
                     <div className={"py-2 flex justify-end items-center flex-col lg:flex-row"}>
                         <label className="block lg:mr-2 text-sm font-medium text-gray-900 dark:text-white pb-2">
                             Qty:
