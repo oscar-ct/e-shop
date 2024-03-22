@@ -5,7 +5,6 @@ import { Toaster } from 'react-hot-toast';
 import { ScrollRestoration } from "react-router-dom";
 import Footer from "./components/Footer";
 
-
 function App() {
 
     const loading = useSelector(function (state) {
@@ -27,7 +26,7 @@ function App() {
                     </div>
                 )
             }
-            <div className={`${loading.loading ? "opacity-30" : ""} bg-stone-50`}>
+            <div className={`${loading.loading ? "opacity-30" : ""} bg-stone-50 relative`}>
                 <Navbar/>
                     <div className={"container mx-auto min-h-[calc(100vh-324px)] md:min-h-[calc(100vh-224px)]"}>
                       <Outlet/>
