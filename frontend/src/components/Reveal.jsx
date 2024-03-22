@@ -1,7 +1,7 @@
 import {motion, useAnimation, useInView} from "framer-motion";
-import {useEffect, useRef, useState} from "react";
+import {useEffect, useRef} from "react";
 
-const Reveal = ({children, customChildClass, delay, once, y, customParentClass}) => {
+const Reveal = ({children, customChildClass, delay, once, customParentClass}) => {
 
     const ref = useRef(null);
     const isInView = useInView(ref, {once: once});
