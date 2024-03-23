@@ -134,7 +134,6 @@ const ProductPage = () => {
                         <div className={"flex flex-col"}>
                             <div className={"pt-14 sm:pt-20 lg:pt-4 flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col lg:pr-3"}>
-                                    <Reveal y={0}>
                                         <div className={"sm:hidden px-3 py-3 flex flex-col"}>
                                             <span className={"text-2xl lg:text-xl font-semibold"}>{product.name}</span>
                                             <div className={"flex"}>
@@ -142,12 +141,12 @@ const ProductPage = () => {
                                                 </button>
                                             </div>
                                         </div>
-                                    </Reveal>
+
 
                                         {/*<div className={"w-full flex flex-col lg:flex-row flex-wrap bg-white md:border px-5 xl:px-7 pt-3 md:pt-10 sm:pb-5"}>*/}
                                         <div className={"w-full flex flex-col lg:flex-row flex-wrap"}>
                                             <div className={"flex flex-col lg:w-6/12"}>
-                                                <Reveal y={0}>
+
                                                     <div className={"rounded-md w-full flex justify-center sm:border-none"} onClick={() => setFullScreen(true)}>
                                                         <img src={product.images.length !== 0 ? product.images[imageIndex]?.url : "/images/sample.jpg"} alt={"product"} className={"rounded-xl cursor-pointer rounded-sm object-scale-down h-[28em] lg:h-[20em] xl:h-[24em] 2xl:h-[28em]"}/>
                                                     </div>
@@ -162,10 +161,10 @@ const ProductPage = () => {
                                                             })
                                                         }
                                                     </div>
-                                                </Reveal>
+
                                             </div>
                                             <div className={"lg:w-6/12 flex flex-col lg:flex-row py-7 lg:py-0"}>
-                                                <Reveal>
+
                                                     <div className={"bg-white border lg:bg-transparent px-5 pt-5 lg:pl-4 lg:pt-0 lg:px-0 w-full h-min border-b-[1px] border-t-[1px] lg:border-none border-gray-300"}>
 
                                                         <div className={"hidden sm:block pb-3 lg:border-b-[1px] border-gray-300"}>
@@ -222,13 +221,13 @@ const ProductPage = () => {
                                                             <span className={"self-end link link-primary"} onClick={() => setDetailsActive(prevState => !prevState)}>{detailsActive ? "show less" : "show more"}</span>
                                                         </div>
                                                     </div>
-                                                </Reveal>
+
                                             </div>
                                         </div>
 
                                 </div>
                                 <div className={"pt-0 lg:w-3/12 lg:pl-3"}>
-                                    <Reveal>
+
                                         <div className={"h-full p-7 text-lg lg:text-sm bg-white border mx-6 sm:mx-0"}>
                                             <div className={"py-2 sm:hidden"}>Buy Now</div>
                                             <div className={"flex py-2"}>
@@ -288,7 +287,7 @@ const ProductPage = () => {
                                                 </CustomBtn>
                                             </div>
                                         </div>
-                                    </Reveal>
+
                                 </div>
                             </div>
                             <Reveal>
