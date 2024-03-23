@@ -234,7 +234,7 @@ const Navbar = () => {
                                             onMouseLeave={() => setUserDropdownActive(false)}
                                             >
                                             <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
-                                                <span>{userData.name}</span>
+                                                <span>{userData.name.substring(0, 32)}</span>
                                                 <div className={`${rotateChevron(userDropdownActive)}`}>
                                                     <FaChevronDown/>
                                                 </div>
