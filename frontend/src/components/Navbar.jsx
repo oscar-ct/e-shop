@@ -151,7 +151,7 @@ const Navbar = () => {
             transform: "translateY(-100%)"
         },
         hidden2: {
-            // visibility: "hidden",
+            visibility: "hidden",
             transition: "all 0.5s",
             transform: "translateY(-100%)"
         }
