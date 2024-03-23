@@ -11,12 +11,18 @@ import {ReactComponent as PaypalLogo} from "../icons/paypal-logo.svg";
 import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
 import {motion} from "framer-motion";
 import Reveal from "./Reveal";
+import {useSelector} from "react-redux";
 
 const HomePageIntro = () => {
+
+    const {userData} = useSelector(function (state) {
+        return state.auth;
+    });
 
     return (
         <div className={"md:pb-14 bg-black md:bg-transparent"}>
             {/*MOBILE*/}
+
             <motion.div
                 className={"md:hidden w-full h-full relative"}
                 initial={{ opacity: 0 }}
@@ -51,10 +57,22 @@ const HomePageIntro = () => {
                             className={"h-full w-1/3"}
                         >
                             <div className={"w-full h-full flex items-center justify-center"}>
-                                <div className={"text-3xl font-bold flex items-center"}>
-                                    <Logo width={"20px"} className={"pt-1 mr-1"}/>
-                                    -shop
-                                </div>
+
+                                    {
+                                        userData ? (
+                                            <div className={"flex flex-col justify-center items-center text-3xl font-bold"}>
+                                                <span>Welcome, </span>
+                                                <span className={"truncate"}>{userData.name.split(" ")[0].substring(0, 13)}</span>
+                                            </div>
+                                        ) : (
+                                            <div className={"text-3xl font-bold flex items-center"}>
+                                                <Logo width={"20px"} className={"pt-1 mr-1"}/>
+                                                -shop
+                                            </div>
+                                        )
+                                    }
+
+
                             </div>
                         </div>
                         <div
@@ -62,11 +80,11 @@ const HomePageIntro = () => {
                             className={"h-full w-1/3"}
                         >
                             <div className={"w-full h-full flex flex-col items-center justify-between"}>
-                                <div className={"pt-8 px-10 font-bold text-white text-3xl"}>
+                                <div className={"pt-8 px-10 font-bold text-white text-3xl text-center"}>
                                     Enjoy online shopping
                                 </div>
                                 <div className={"pb-8 px-10  flex flex-col justify-center items-center"}>
-                                    <div className={"font-bold text-white text-3xl"}>
+                                    <div className={"font-bold text-white text-3xl text-center"}>
                                     with FREE shipping
                                     </div>
                                     <div className={"text-xs text-white"}>
@@ -126,27 +144,27 @@ const HomePageIntro = () => {
                                 <SwiperSlide>
                                     <div
                                         style={{backgroundImage: `url(/images/bg.png)`, backgroundPosition: "center", backgroundSize: "cover",}}
-                                        className={"h-[32em]"}
+                                        className={"h-[32em] bg-zinc-400"}
                                     >
                                     {/*<div*/}
                                     {/*    style={{backgroundImage: `url(/images/ian-dooley-hpTH5b6mo2s-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover",}}*/}
                                     {/*    className={"h-[32em]"}*/}
                                     {/*>*/}
                                         <div className={"w-full h-full flex flex-col items-center justify-evenly pb-5"}>
-                                            <div className={"pt-10 w-full flex justify-center"}>
-                                                <div className={"text-3xl font-bold px-12"}>Meet the developer</div>
+                                            <div className={"pt-3 w-full flex justify-center"}>
+                                                <div className={"text-3xl text-white font-bold px-12 text-center"}>Meet the developer</div>
                                             </div>
                                             <div className="avatar">
-                                                <div className="w-48 rounded-full">
+                                                <div className="w-48 mask mask-squircle">
                                                     <img alt={"headshot"} src={"/images/codeup-final.webp"}/>
                                                 </div>
                                             </div>
-                                            <div className={"flex flex-col items-center"}>
+                                            <div className={"flex flex-col items-center text-white"}>
                                                 <span className={"text-2xl font-bold"}>Oscar Castro</span>
                                                 <a href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
                                             </div>
                                             <a aria-label="portfolio" href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer">
-                                                <CustomBtn customClass={"bg-zinc-700"}>
+                                                <CustomBtn>
                                                     Learn More
                                                 </CustomBtn>
                                             </a>
