@@ -15,7 +15,6 @@ import Meta from "../components/Meta";
 import {toast} from "react-hot-toast";
 import PaypalCheckout from "../components/PaypalCheckout";
 import StripeCheckout from "../components/StripeCheckout";
-import Reveal from "../components/Reveal";
 
 const CheckoutPage = () => {
 
@@ -116,116 +115,111 @@ const CheckoutPage = () => {
                         <CheckoutSteps/>
                         <div className={"pt-0 flex-col flex lg:flex-row w-full"}>
                             <div className={"lg:w-7/12 h-min"}>
-                                <Reveal>
-                                    <div className={"pt-3 sm:pt-7"}>
-                                        <h1
-                                            // style={{ background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                            className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
-                                            Checkout (
-                                            <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
-                                                {totalNumberOfItems}
-                                                {
-                                                    totalNumberOfItems === 1 ? (
-                                                        " Item"
-                                                    ) : (
-                                                        " Items"
-                                                    )
-                                                }
-                                            </span>)
-                                        </h1>
-                                    </div>
-                                    <div className={"bg-white border px-4 sm:px-7 py-4"}>
-                                        {
-                                            !userData && guestData && (
-                                                <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                                    <div className={"w-3/12 sm:w-4/12 flex items-center"}>
-                                                        <h3 className={"font-semibold"}>
-                                                            Email:
-                                                        </h3>
-                                                    </div>
-                                                    <div className={"w-9/12 sm:w-8/12"}>
-                                                        <div className={"flex justify-between items-center"}>
-                                                            <div className={"flex flex-col text-sm"}>
-                                                                <span>{guestData}</span>
-                                                            </div>
-                                                            <div>
-                                                                <Link to={"/shipping"}>
-                                                                    <FaEdit/>
-                                                                </Link>
-                                                            </div>
+                                <div className={"pt-3 sm:pt-7"}>
+                                    <h1 className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
+                                        Order Details (
+                                        <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
+                                            {totalNumberOfItems}
+                                            {
+                                                totalNumberOfItems === 1 ? (
+                                                    " Item"
+                                                ) : (
+                                                    " Items"
+                                                )
+                                            }
+                                        </span>)
+                                    </h1>
+                                </div>
+                                <div className={"bg-white border px-4 sm:px-7 py-4"}>
+                                    {
+                                        !userData && guestData && (
+                                            <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                                <div className={"w-3/12 sm:w-4/12 flex items-center"}>
+                                                    <h3 className={"font-semibold"}>
+                                                        Email:
+                                                    </h3>
+                                                </div>
+                                                <div className={"w-9/12 sm:w-8/12"}>
+                                                    <div className={"flex justify-between items-center"}>
+                                                        <div className={"flex flex-col text-sm"}>
+                                                            <span>{guestData}</span>
                                                         </div>
-                                                    </div>
-                                                </div>
-                                            )
-                                        }
-                                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                            <div className={"w-3/12 sm:w-4/12"}>
-                                                <h3 className={"font-semibold"}>
-                                                    Ship To:
-                                                </h3>
-                                            </div>
-                                            <div className={"w-9/12 sm:w-8/12"}>
-                                                <div className={"flex justify-between"}>
-                                                    <div className={"flex flex-col text-sm"}>
-                                                        <span>{shippingAddress.name}</span>
-                                                        <span>{shippingAddress.address}</span>
-                                                        <span>{shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}</span>
-                                                        <span>{shippingAddress.country}</span>
-                                                    </div>
-                                                    <div>
-                                                        <Link to={"/shipping"}>
-                                                            <FaEdit/>
-                                                        </Link>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                            <div className={"w-5/12 sm:w-4/12 flex items-center"}>
-                                                <h3 className={"font-semibold"}>
-                                                    Payment Service:
-                                                </h3>
-                                            </div>
-                                            <div className={"w-7/12 sm:w-8/12"}>
-                                                <div className={"flex justify-between"}>
-                                                    <div className={"flex items-center"}>
                                                         <div>
-                                                            {
-                                                                paymentMethod === "PayPal / Credit Card" ? (
-                                                                    <PayPal width={"50"} height={"50"}/>
-                                                                ) :  paymentMethod === "Stripe / Credit Card" ? (
-                                                                    <StripeLogo className={"w-20"}/>
-                                                                ) : ""
-                                                            }
+                                                            <Link to={"/shipping"}>
+                                                                <FaEdit/>
+                                                            </Link>
                                                         </div>
-                                                    </div>
-                                                    <div className={"flex items-center"}>
-                                                        <Link to={"/payment"}>
-                                                            <FaEdit/>
-                                                        </Link>
                                                     </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                        <div className={"py-5"}>
+                                        )
+                                    }
+                                    <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                        <div className={"w-3/12 sm:w-4/12"}>
                                             <h3 className={"font-semibold"}>
-                                                Order Item(s):
+                                                Ship To:
                                             </h3>
-                                            <div>
-                                                {
-                                                    cartItems.map(function (item) {
-                                                        return (
-                                                            <CheckoutItem item={item} key={item._id}/>
-                                                        )
-                                                    })
-                                                }
+                                        </div>
+                                        <div className={"w-9/12 sm:w-8/12"}>
+                                            <div className={"flex justify-between"}>
+                                                <div className={"flex flex-col text-sm"}>
+                                                    <span>{shippingAddress.name}</span>
+                                                    <span>{shippingAddress.address}</span>
+                                                    <span>{shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}</span>
+                                                    <span>{shippingAddress.country}</span>
+                                                </div>
+                                                <div>
+                                                    <Link to={"/shipping"}>
+                                                        <FaEdit/>
+                                                    </Link>
+                                                </div>
                                             </div>
                                         </div>
                                     </div>
-                                </Reveal>
+                                    <div className={"flex border-b-[1px] border-gray-300 py-3"}>
+                                        <div className={"w-5/12 sm:w-4/12 flex items-center"}>
+                                            <h3 className={"font-semibold"}>
+                                                Payment Service:
+                                            </h3>
+                                        </div>
+                                        <div className={"w-7/12 sm:w-8/12"}>
+                                            <div className={"flex justify-between"}>
+                                                <div className={"flex items-center"}>
+                                                    <div>
+                                                        {
+                                                            paymentMethod === "PayPal / Credit Card" ? (
+                                                                <PayPal width={"50"} height={"50"}/>
+                                                            ) :  paymentMethod === "Stripe / Credit Card" ? (
+                                                                <StripeLogo className={"w-20"}/>
+                                                            ) : ""
+                                                        }
+                                                    </div>
+                                                </div>
+                                                <div className={"flex items-center"}>
+                                                    <Link to={"/payment"}>
+                                                        <FaEdit/>
+                                                    </Link>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div className={"py-5"}>
+                                        <h3 className={"font-semibold"}>
+                                            Order Item(s):
+                                        </h3>
+                                        <div>
+                                            {
+                                                cartItems.map(function (item) {
+                                                    return (
+                                                        <CheckoutItem item={item} key={item._id}/>
+                                                    )
+                                                })
+                                            }
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
                             <div className={"p-3 lg:pt-7 lg:pl-10 lg:w-5/12"}>
-                                <Reveal>
                                 {
                                     totalPrice > 100 || discount ? (
                                         <div className={"pb-3 px-2 sm:px-0"}>
@@ -243,8 +237,6 @@ const CheckoutPage = () => {
                                         </div>
                                     )
                                 }
-                                </Reveal>
-                                <Reveal>
                                     <div className="bg-white border">
                                         <div className="pt-8 px-8">
                                             <div className={"flex flex-col"}>
@@ -351,7 +343,6 @@ const CheckoutPage = () => {
                                         </div>
                                     )
                                 }
-                                </Reveal>
                             </div>
                         </div>
                     </div>
