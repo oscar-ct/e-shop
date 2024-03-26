@@ -290,166 +290,165 @@ const ProductPage = () => {
 
                                 </div>
                             </div>
-                            <Reveal>
-                                <div ref={scrollTo} className={"w-full"}>
-                                    {/*//////////////*/}
-                                    <div id="reviews" className={"pt-10 lg:pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start pb-10"}>
-                                        <div className={"w-full lg:w-6/12 lg:pr-3"}>
-                                            <div className={"overflow-x-auto"}>
-                                                <div className={"h-full"}>
-                                                    <div className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl ibmplex md:bg-zinc-700 md:text-white`}>
-                                                        <h2>Customer Reviews
-                                                            <span className={"text-2xl md:text-xl md:text-white pl-2"}>{product.reviews.length !== 0 ? `(${product.numReviews})` : "(0)"}</span>
-                                                        </h2>
-                                                        {
-                                                            userData ? (
-                                                                <button onClick={() =>  window.review_modal.showModal()} className={"hidden md:block text-xs text-center link pr-3"}>
+
+                            <div ref={scrollTo} className={"w-full"}>
+                                {/*//////////////*/}
+                                <div id="reviews" className={"pt-10 lg:pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start pb-10"}>
+                                    <div className={"w-full lg:w-6/12 lg:pr-3"}>
+                                        <div className={"overflow-x-auto"}>
+                                            <div className={"h-full"}>
+                                                <div className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl ibmplex md:bg-zinc-700 md:text-white`}>
+                                                    <h2>Customer Reviews
+                                                        <span className={"text-2xl md:text-xl md:text-white pl-2"}>{product.reviews.length !== 0 ? `(${product.numReviews})` : "(0)"}</span>
+                                                    </h2>
+                                                    {
+                                                        userData ? (
+                                                            <button onClick={() =>  window.review_modal.showModal()} className={"hidden md:block text-xs text-center link pr-3"}>
+                                                                Write a review
+                                                            </button>
+                                                        ) : (
+                                                            <Link to={"/login"}
+                                                                  className={"hidden md:block text-xs text-center link pr-3"}>
+                                                                Write a review
+                                                            </Link>
+                                                        )
+                                                    }
+                                                </div>
+                                                    {
+                                                        userData ? (
+                                                            <div className={"md:hidden w-full flex justify-center pb-6 pt-2"}>
+                                                                <button onClick={() =>  window.review_modal.showModal()} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
                                                                     Write a review
                                                                 </button>
-                                                            ) : (
-                                                                <Link to={"/login"}
-                                                                      className={"hidden md:block text-xs text-center link pr-3"}>
+                                                            </div>
+                                                        ) : (
+                                                            <div className={"md:hidden w-full flex justify-center pb-6 pt-2"}>
+                                                                <Link to={"/login"} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
                                                                     Write a review
                                                                 </Link>
-                                                            )
-                                                        }
-                                                    </div>
-                                                        {
-                                                            userData ? (
-                                                                <div className={"md:hidden w-full flex justify-center pb-6 pt-2"}>
-                                                                    <button onClick={() =>  window.review_modal.showModal()} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
-                                                                        Write a review
-                                                                    </button>
-                                                                </div>
-                                                            ) : (
-                                                                <div className={"md:hidden w-full flex justify-center pb-6 pt-2"}>
-                                                                    <Link to={"/login"} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
-                                                                        Write a review
-                                                                    </Link>
-                                                                </div>
-                                                            )
+                                                            </div>
+                                                        )
 
-                                                        }
-                                                    <div className={"bg-white px-5 lg:px-8 lg:pb-8 py-4 lg:py-6 border"}>
-                                                        {
-                                                            product.reviews.length === 0 && (
-                                                                <div className={"w-full px-4 flex flex-col gap-6 justify-center items-center"}>
-                                                                    <div className={"py-6 md:py-3"}>
-                                                                        <span className={"text-2xl font-light"}>This product does not have any reviews yet</span>
-                                                                    </div>
-                                                                    <div className={"flex items-center"}>
-                                                                        <div className="rating rating-sm pr-5">
-                                                                            <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled checked type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
-                                                                        </div>
-                                                                        <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
-                                                                    </div>
-                                                                    <div className={"flex items-center"}>
-                                                                        <div className="rating rating-sm pr-5">
-                                                                            <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled checked type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
-                                                                        </div>
-                                                                        <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
-                                                                    </div>
-                                                                    <div className={"flex items-center"}>
-                                                                        <div className="rating rating-sm pr-5">
-                                                                            <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled checked type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
-                                                                        </div>
-                                                                        <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
-                                                                    </div>
-                                                                    <div className={"flex items-center"}>
-                                                                        <div className="rating rating-sm pr-5">
-                                                                            <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled checked type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
-                                                                        </div>
-                                                                        <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
-                                                                    </div>
-                                                                    <div className={"flex items-center"}>
-                                                                        <div className="rating rating-sm pr-5">
-                                                                            <input disabled checked type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
-                                                                            <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
-                                                                        </div>
-                                                                        <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
-                                                                    </div>
+                                                    }
+                                                <div className={"bg-white px-5 lg:px-8 lg:pb-8 py-4 lg:py-6 border"}>
+                                                    {
+                                                        product.reviews.length === 0 && (
+                                                            <div className={"w-full px-4 flex flex-col gap-6 justify-center items-center"}>
+                                                                <div className={"py-6 md:py-3"}>
+                                                                    <span className={"text-2xl font-light"}>This product does not have any reviews yet</span>
                                                                 </div>
-                                                            )
-                                                        }
-                                                        {
-                                                            product.reviews.length !== 0 && (
-                                                                product.reviews.map(function (review, index) {
-                                                                    return (
-                                                                        <div key={index} className={"pt-3"}>
-                                                                            <div className={"flex flex-col"}>
-                                                                                <div className={"flex justify-between"}>
-                                                                                    <span className={"pb-2 text-xs font-bold text-neutral-500"}>{review.name}</span>
-                                                                                    <div className={"pb-2 text-xs font-bold text-neutral-500 flex items-center"}>
-                                                                                        {review.createdAt.substring(0, 10)}
-                                                                                        {
-                                                                                            userData?._id === review.user && (
-                                                                                                <button onClick={() => openConfirmModal(review._id, review.user)} className={"pl-2"}>
-                                                                                                    <FaTrash fill={"red"}/>
-                                                                                                </button>
-                                                                                            )
-                                                                                        }
+                                                                <div className={"flex items-center"}>
+                                                                    <div className="rating rating-sm pr-5">
+                                                                        <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled checked type="radio" name="rating-5" className="mask mask-star-2 bg-warning" />
+                                                                    </div>
+                                                                    <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                                </div>
+                                                                <div className={"flex items-center"}>
+                                                                    <div className="rating rating-sm pr-5">
+                                                                        <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled checked type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-4" className="mask mask-star-2 bg-warning" />
+                                                                    </div>
+                                                                    <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                                </div>
+                                                                <div className={"flex items-center"}>
+                                                                    <div className="rating rating-sm pr-5">
+                                                                        <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled checked type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-3" className="mask mask-star-2 bg-warning" />
+                                                                    </div>
+                                                                    <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                                </div>
+                                                                <div className={"flex items-center"}>
+                                                                    <div className="rating rating-sm pr-5">
+                                                                        <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled checked type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-2" className="mask mask-star-2 bg-warning" />
+                                                                    </div>
+                                                                    <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                                </div>
+                                                                <div className={"flex items-center"}>
+                                                                    <div className="rating rating-sm pr-5">
+                                                                        <input disabled checked type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                        <input disabled type="radio" name="rating-1" className="mask mask-star-2 bg-warning" />
+                                                                    </div>
+                                                                    <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
+                                                                </div>
+                                                            </div>
+                                                        )
+                                                    }
+                                                    {
+                                                        product.reviews.length !== 0 && (
+                                                            product.reviews.map(function (review, index) {
+                                                                return (
+                                                                    <div key={index} className={"pt-3"}>
+                                                                        <div className={"flex flex-col"}>
+                                                                            <div className={"flex justify-between"}>
+                                                                                <span className={"pb-2 text-xs font-bold text-neutral-500"}>{review.name}</span>
+                                                                                <div className={"pb-2 text-xs font-bold text-neutral-500 flex items-center"}>
+                                                                                    {review.createdAt.substring(0, 10)}
+                                                                                    {
+                                                                                        userData?._id === review.user && (
+                                                                                            <button onClick={() => openConfirmModal(review._id, review.user)} className={"pl-2"}>
+                                                                                                <FaTrash fill={"red"}/>
+                                                                                            </button>
+                                                                                        )
+                                                                                    }
 
-                                                                                    </div>
-                                                                                </div>
-
-                                                                                <div className={"flex items-start"}>
-                                                                                    <div className={"pt-[2px]"}>
-                                                                                        <Rating rating={review.rating}/>
-                                                                                    </div>
-                                                                                    <span className={"pl-2 text-sm font-bold"}>{review.title}</span>
                                                                                 </div>
                                                                             </div>
-                                                                            <p className={"pt-2 text-sm font-normal"}>
-                                                                                {review.comment}
-                                                                            </p>
-                                                                        </div>
-                                                                    )
-                                                                })
 
-                                                            )
-                                                        }
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        <div className={"hidden lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
-                                            <div className={"h-full bg-white flex flex-col"}>
-                                                <div className={"sticky py-2 px-5 pl-3 bg-zinc-700"}>
-                                                    <h2 className={"text-2xl ibmplex text-white"}>You might also like</h2>
-                                                </div>
-                                                <div className={"sm:px-3 sm:pb-2 flex overflow-y-auto h-full border"}>
-                                                    {
-                                                        !loadingRated && (
-                                                            topRatedProducts.map(function (product, index) {
-                                                                return <ProductItem key={index} product={product} smallSize={true} cardWidth={"w-[12em] sm:w-56"}/>
+                                                                            <div className={"flex items-start"}>
+                                                                                <div className={"pt-[2px]"}>
+                                                                                    <Rating rating={review.rating}/>
+                                                                                </div>
+                                                                                <span className={"pl-2 text-sm font-bold"}>{review.title}</span>
+                                                                            </div>
+                                                                        </div>
+                                                                        <p className={"pt-2 text-sm font-normal"}>
+                                                                            {review.comment}
+                                                                        </p>
+                                                                    </div>
+                                                                )
                                                             })
+
                                                         )
                                                     }
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
+                                    <div className={"hidden lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
+                                        <div className={"h-full bg-white flex flex-col"}>
+                                            <div className={"sticky py-2 px-5 pl-3 bg-zinc-700"}>
+                                                <h2 className={"text-2xl ibmplex text-white"}>You might also like</h2>
+                                            </div>
+                                            <div className={"sm:px-3 sm:pb-2 flex overflow-y-auto h-full border"}>
+                                                {
+                                                    !loadingRated && (
+                                                        topRatedProducts.map(function (product, index) {
+                                                            return <ProductItem key={index} product={product} smallSize={true} cardWidth={"w-[12em] sm:w-56"}/>
+                                                        })
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                    </div>
                                 </div>
-                            </Reveal>
+                            </div>
                         </div>
                     </>
                 ) : (
