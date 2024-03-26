@@ -1,7 +1,7 @@
 import {motion, useAnimation, useInView} from "framer-motion";
 import {useEffect, useRef} from "react";
 
-const Reveal = ({children, customChildClass, delay, once, y, customParentClass}) => {
+const Reveal = ({children, customChildClass, delay, once, y, customParentClass, isSmallScreen}) => {
 
     const ref = useRef(null);
     const isInView = useInView(ref, {once: once});
@@ -16,17 +16,19 @@ const Reveal = ({children, customChildClass, delay, once, y, customParentClass})
         }
     }, [isInView, mainControls, once]);
 
+
+
     return (
         <div ref={ref} className={`${customParentClass}`}>
             <motion.div
                 variants={{
-                    hidden: { opacity: 0, y: y},
-                    visible: { opacity: 1, y: 0},
+                    hidden: { opacity: 0, y: y, scale: isSmallScreen ? .5 : 1 },
+                    visible: { opacity: 1, y: 0, scale: 1 },
                 }}
                 initial={"hidden"}
                 animate={mainControls}
                 transition={{
-                    duration: .25,
+                    duration: .15,
                     delay: delay
                 }}
                 className={`${customChildClass}`}
@@ -38,6 +40,7 @@ const Reveal = ({children, customChildClass, delay, once, y, customParentClass})
 };
 
 Reveal.defaultProps = {
+    isSmallScreen: false,
     y: 0,
     delay: 0.10,
     once: true,
