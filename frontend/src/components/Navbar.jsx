@@ -125,6 +125,7 @@ const Navbar = () => {
     };
     const submitSearch = () => {
         if (keyword.trim()) {
+            setOpenNav(false);
             navigate(`/search/${keyword}`);
             setKeyword("");
         }
@@ -322,7 +323,7 @@ const Navbar = () => {
                             >
                                 <FaSearch className={searchIsActive && "animate-bounce"} />
                             </button>
-                            <CartIcon isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice} />
+                            <CartIcon onClick={() => setOpenNav(false)} isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice} />
                         </div>
                     </div>
                 </div>
