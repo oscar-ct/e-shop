@@ -314,7 +314,7 @@ const ShippingPage = () => {
                                     userData?.shippingAddresses.map(function(item, index) {
                                         return (
                                             <div key={index} className="my-5" onClick={() => setRadioId(item._id)}>
-                                                <div className={"w-full card bg-blue-100/50 cursor-pointer"}>
+                                                <div className={`w-full card border cursor-pointer ${item._id === radioId && "border-primary"}`}>
                                                     <div className={"w-full flex p-6"}>
                                                         <div className={"text-sm w-10/12 flex flex-col justify-center"}>
                                                              <span className={"truncate"}>
