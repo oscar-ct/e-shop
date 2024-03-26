@@ -65,7 +65,7 @@ const HomePageIntro = () => {
                                                 <span className={"truncate"}>{userData.name.split(" ")[0].substring(0, 13)}</span>
                                             </div>
                                         ) : (
-                                            <div className={"text-3xl font-bold flex items-center"}>
+                                            <div className={"text-3xl font-base flex items-center"}>
                                                 <Logo width={"20px"} className={"pt-1 mr-1"}/>
                                                 -shop
                                             </div>
@@ -80,11 +80,11 @@ const HomePageIntro = () => {
                             className={"h-full w-1/3"}
                         >
                             <div className={"w-full h-full flex flex-col items-center justify-between"}>
-                                <div className={"pt-8 px-10 font-bold text-white text-3xl text-center"}>
+                                <div className={"pt-8 px-10 font-base text-white text-3xl text-center flex"}>
                                     Enjoy online shopping
                                 </div>
                                 <div className={"pb-8 px-10  flex flex-col justify-center items-center"}>
-                                    <div className={"font-bold text-white text-3xl text-center"}>
+                                    <div className={"font-base text-white text-3xl text-center"}>
                                     with FREE shipping
                                     </div>
                                     <div className={"text-xs text-white"}>
@@ -114,7 +114,7 @@ const HomePageIntro = () => {
 
                                             <div className={"p-10 w-full h-full flex flex-col items-between justify-between"}>
                                                 <div className={"flex flex-col items-start justify-start"}>
-                                                    <span className={"px-2 pb-3 text-3xl font-bold"}>Pay safely with</span>
+                                                    <span className={"px-2 pb-3 text-3xl font-base"}>Pay safely with</span>
                                                     {/*<FaCcPaypal color={"white"} size={"3em"}/>*/}
                                                     <div className={"w-full lg:pl-8 flex items-center justify-start"}>
                                                         <StripeLogo width={90}/>
@@ -152,7 +152,7 @@ const HomePageIntro = () => {
                                     {/*>*/}
                                         <div className={"w-full h-full flex flex-col items-center justify-evenly pb-5"}>
                                             <div className={"pt-3 w-full flex justify-center"}>
-                                                <div className={"text-3xl text-white font-bold px-12 text-center"}>Meet the developer</div>
+                                                <div className={"text-3xl text-white font-base px-12 text-center"}>Meet the developer</div>
                                             </div>
                                             <div className="avatar">
                                                 <div className="w-48 mask mask-squircle">
@@ -160,8 +160,8 @@ const HomePageIntro = () => {
                                                 </div>
                                             </div>
                                             <div className={"flex flex-col items-center text-white"}>
-                                                <span className={"text-2xl font-bold"}>Oscar Castro</span>
-                                                <a href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
+                                                <span className={"text-2xl font-base"}>Oscar Castro</span>
+                                                <a className={"link link-primary"} href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
                                             </div>
                                             <a aria-label="portfolio" href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer">
                                                 <CustomBtn>
