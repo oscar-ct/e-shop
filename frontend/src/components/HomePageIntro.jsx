@@ -60,8 +60,8 @@ const HomePageIntro = () => {
 
                                     {
                                         userData ? (
-                                            <div className={"flex flex-col justify-center items-center text-3xl font-bold"}>
-                                                <span>Welcome, </span>
+                                            <div className={"flex flex-col justify-center items-center text-2xl font-base"}>
+                                                <span>Welcome back, </span>
                                                 <span className={"truncate"}>{userData.name.split(" ")[0].substring(0, 13)}</span>
                                             </div>
                                         ) : (
