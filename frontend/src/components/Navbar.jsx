@@ -1,6 +1,6 @@
 import {useEffect, useState} from "react";
 import {useScroll} from "../hooks/useScroll";
-import {motion} from "framer-motion";
+import {AnimatePresence, motion, useAnimation} from "framer-motion";
 import {FaUser, FaChevronDown, FaSearch} from "react-icons/fa";
 import {ReactComponent as Logo} from "../icons/e.svg"
 import {Link, useNavigate} from 'react-router-dom'
@@ -70,7 +70,7 @@ const Navbar = () => {
     // }, [openNav]);
     useEffect(() => {
         const closeMobileNavOnResize = () => {
-            window.innerWidth >= 960 && setOpenNav(false);
+            window.innerWidth >= 768 && setOpenNav(false);
         }
         if (openNav) {
             window.addEventListener("resize", closeMobileNavOnResize);
@@ -99,12 +99,12 @@ const Navbar = () => {
         adjustSmallScreen();
     }, [windowInnerWidth])
     useEffect(function () {
-        const setInnerWidth = () => {
+        const setInnerWindowWidth = () => {
             setWindowInnerWidth(window.innerWidth);
         };
-        window.addEventListener("resize", setInnerWidth);
+        window.addEventListener("resize", setInnerWindowWidth);
         return () => {
-            window.removeEventListener("resize", setInnerWidth)
+            window.removeEventListener("resize", setInnerWindowWidth)
         }
     }, []);
 
@@ -140,22 +140,17 @@ const Navbar = () => {
     const myAccountLink = "/profile/account";
     const topRatedLink = "/sort/toprated/select/all";
     const latestProductsLink = "/sort/latest/select/all";
-    const styles = {
-        active: {
-            visibility: "visible",
-            transition: "all 0.5s"
-        },
-        hidden: {
-            // visibility: "hidden",
-            transition: "all 0.5s",
-            transform: "translateY(-100%)"
-        },
-        hidden2: {
-            visibility: "hidden",
-            transition: "all 0.5s",
-            transform: "translateY(-100%)"
+
+    const mainControls = useAnimation();
+
+    useEffect(() => {
+        if (openNav) {
+            mainControls.start("visible")
         }
-    };
+        if (!openNav) {
+            mainControls.start("hidden")
+        }
+    }, [mainControls, openNav]);
 
     return (
         <>
@@ -336,95 +331,110 @@ const Navbar = () => {
             </nav>
             {/*/////// mobile nav ///////*/}
             <nav>
-                <div className={`z-20 bg-white/50 backdrop-blur-2xl fixed left-0 w-full py-6 md:hidden h-screen`} style={openNav ? styles.active : styles.hidden2}>
-                    <div className={"flex flex-col justify-start h-full w-full"}>
-                        <ul className="flex flex-col text-white font-bold text-xl">
-                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                               <Reveal once={false} y={-50}>
-                                <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                   Home
-                                </Link>
-                               </Reveal>
-                            </li>
-                            <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                <Reveal once={false} y={-50} delay={0.20}>
-                                <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                    All Products
-                                </Link>
-                                </Reveal>
-                            </li>
-                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                <Reveal once={false} y={-50} delay={0.25}>
-                                <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                    Top Rated Products
-                                </Link>
-                                </Reveal>
-                            </li>
-                            {
-                                userData && (
-                                    <>
-                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                            <Reveal once={false} y={-50} delay={0.30}>
-                                            <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case">
-                                                My Account
-                                            </Link>
-                                            </Reveal>
-                                        </li>
-                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                            <Reveal once={false} y={-50} delay={0.35}>
-                                            <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                                My Orders
-                                            </Link>
-                                            </Reveal>
-                                        </li>
-                                    </>
-                                )
-                            }
-                            {
-                                userData?.isAdmin && (
-                                    <>
-                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Reveal once={false} y={-50} delay={0.35}>
-                                            <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"cursor-pointer text-3xl font-bold text-neutral flex items-center normal-case"}>
-                                                Admin Dashboard
-                                            </Link>
-                                            </Reveal>
-                                        </li>
-                                    </>
-                                )
-                            }
-                            {
-                                userData ? (
-                                    <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                        <Reveal once={false} y={-50} delay={0.40}>
-                                        <button className={"cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case"} onClick={logoutHandler}>
-                                            Logout
-                                        </button>
-                                        </Reveal>
-                                    </li>
-                                ) : (
-                                    <>
-                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                            <Reveal once={false} y={-50} delay={0.30}>
-                                            <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-primary flex items-center normal-case">
-                                                Login
-                                            </Link>
-                                            </Reveal>
-                                        </li>
-                                        <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                            <Reveal once={false} y={-50} delay={0.30}>
-                                                <Link onClick={() => setOpenNav(!openNav)} to={"/register"} className="cursor-pointer text-3xl font-bold text-primary flex items-center normal-case">
-                                                    Sign up
+                <AnimatePresence>
+                    <motion.div
+                        className={`z-20 bg-black/80 backdrop-blur-xl fixed left-0 w-full py-6 md:hidden h-screen`}
+                        variants={{
+                            hidden: { opacity: .25, y: "-100%"},
+                            visible: {opacity: 1, y: 0 },
+                        }}
+                        initial={"hidden"}
+                        animate={mainControls}
+                        transition={{
+                            ease: "linear",
+                            duration: .25,
+                            delay: 0.00
+                        }}
+                    >
+                        <div className={"flex flex-col justify-start h-full w-full"}>
+                            <ul className="flex flex-col text-white font-bold text-xl">
+                                <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                   <Reveal once={false} y={-50}>
+                                    <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"cursor-pointer text-3xl font-bold text-white flex items-center normal-case"}>
+                                       Home
+                                    </Link>
+                                   </Reveal>
+                                </li>
+                                <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                    <Reveal once={false} y={-50} delay={0.15}>
+                                    <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"cursor-pointer text-3xl font-bold text-white flex items-center normal-case"}>
+                                        All Products
+                                    </Link>
+                                    </Reveal>
+                                </li>
+                                <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                    <Reveal once={false} y={-50} delay={0.20}>
+                                    <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"cursor-pointer text-3xl font-bold text-white flex items-center normal-case"}>
+                                        Top Rated Products
+                                    </Link>
+                                    </Reveal>
+                                </li>
+                                {
+                                    userData && (
+                                        <>
+                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                                <Reveal once={false} y={-50} delay={0.25}>
+                                                <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-white flex items-center normal-case">
+                                                    My Account
                                                 </Link>
+                                                </Reveal>
+                                            </li>
+                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                                <Reveal once={false} y={-50} delay={0.30}>
+                                                <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"cursor-pointer text-3xl font-bold text-white flex items-center normal-case"}>
+                                                    My Orders
+                                                </Link>
+                                                </Reveal>
+                                            </li>
+                                        </>
+                                    )
+                                }
+                                {
+                                    userData?.isAdmin && (
+                                        <>
+                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                                <Reveal once={false} y={-50} delay={0.30}>
+                                                <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"cursor-pointer text-3xl font-bold text-secondary flex items-center normal-case"}>
+                                                    Admin Dashboard
+                                                </Link>
+                                                </Reveal>
+                                            </li>
+                                        </>
+                                    )
+                                }
+                                {
+                                    userData ? (
+                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                            <Reveal once={false} y={-50} delay={0.35}>
+                                            <button className={"cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case"} onClick={logoutHandler}>
+                                                Logout
+                                            </button>
                                             </Reveal>
                                         </li>
-                                    </>
+                                    ) : (
+                                        <>
+                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                                <Reveal once={false} y={-50} delay={0.25}>
+                                                <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-info flex items-center normal-case">
+                                                    Login
+                                                </Link>
+                                                </Reveal>
+                                            </li>
+                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                                <Reveal once={false} y={-50} delay={0.30}>
+                                                    <Link onClick={() => setOpenNav(!openNav)} to={"/register"} className="cursor-pointer text-3xl font-bold text-primary flex items-center normal-case">
+                                                        Sign up
+                                                    </Link>
+                                                </Reveal>
+                                            </li>
+                                        </>
 
-                                )
-                            }
-                        </ul>
-                    </div>
-                </div>
+                                    )
+                                }
+                            </ul>
+                        </div>
+                    </motion.div>
+                </AnimatePresence>
             </nav>
             {/*/////// mobile nav ///////*/}
         </>
