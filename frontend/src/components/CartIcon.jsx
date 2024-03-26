@@ -2,7 +2,7 @@ import {Link, useNavigate} from "react-router-dom";
 import {useEffect, useState} from "react";
 import CustomBtn from "./CustomBtn";
 
-const CartIcon = ({isValidShippingAddress, isValidPaymentMethod, cartItems, totalCartItems, subtotalPrice}) => {
+const CartIcon = ({isValidShippingAddress, isValidPaymentMethod, cartItems, totalCartItems, subtotalPrice, onClick}) => {
 
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
     const [cartDropdownActive, setCartDropdownActive] = useState(false);
@@ -21,8 +21,8 @@ const CartIcon = ({isValidShippingAddress, isValidPaymentMethod, cartItems, tota
     return (
         <>
             {
-                windowInnerWidth <= 500 ? (
-                    <Link to={"/cart"} className="px-2 btn btn-ghost">
+                windowInnerWidth <= 768 ? (
+                    <Link onClick={onClick} to={"/cart"} className="px-2 btn btn-ghost">
                         <div className="indicator">
                             <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                             {
@@ -39,7 +39,7 @@ const CartIcon = ({isValidShippingAddress, isValidPaymentMethod, cartItems, tota
                         onMouseLeave={() => setCartDropdownActive(false)}
                         className="dropdown dropdown-end py-4"
                     >
-                        <label  onClick={() => navigate("/cart")} className="px-2 btn btn-ghost">
+                        <label onClick={() => navigate("/cart")} className="px-2 btn btn-ghost">
                             <div className="indicator">
                                 <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 3h2l.4 2M7 13h10l4-8H5.4M7 13L5.4 5M7 13l-2.293 2.293c-.63.63-.184 1.707.707 1.707H17m0 0a2 2 0 100 4 2 2 0 000-4zm-8 2a2 2 0 11-4 0 2 2 0 014 0z" /></svg>
                                 {
