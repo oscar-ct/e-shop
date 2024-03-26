@@ -335,7 +335,7 @@ const Navbar = () => {
                     <motion.div
                         className={`z-20 bg-black/80 backdrop-blur-xl fixed left-0 w-full py-6 md:hidden h-screen`}
                         variants={{
-                            hidden: { opacity: .25, y: "-100%"},
+                            hidden: { opacity: .25, y: "calc(-100% - 58px)" },
                             visible: {opacity: 1, y: 0 },
                         }}
                         initial={"hidden"}
