@@ -11,6 +11,7 @@ const ProductItem = ( {product, smallSize = false, cardWidth = "", windowInnerWi
             <Reveal
                 customParentClass={"h-full"}
                 customChildClass={"h-full"}
+                isSmallScreen={windowInnerWidth <= 768}
             >
                 <motion.div
                     transition={{ duration: 0.25 }}

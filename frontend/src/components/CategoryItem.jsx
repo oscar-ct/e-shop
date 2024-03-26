@@ -6,7 +6,9 @@ const CategoryItem = ({product, windowInnerWidth}) => {
     return (
         <>
             <Link to={`/sort/latest/select/${product.category.toLowerCase()}`} className={"w-6/12 sm:w-[175px] p-1 sm:py-3 sm:px-2"}>
-                <Reveal>
+                <Reveal
+                    isSmallScreen={windowInnerWidth <= 768}
+                >
                     <motion.div
                                 animate={{ opacity: 1, scale: 1 }}
                                 transition={{ duration: 0.2 }}
