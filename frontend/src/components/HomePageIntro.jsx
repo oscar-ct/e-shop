@@ -80,7 +80,7 @@ const HomePageIntro = () => {
                             className={"h-full w-1/3"}
                         >
                             <div className={"w-full h-full flex flex-col items-center justify-between"}>
-                                <div className={"pt-8 px-10 font-base text-white text-3xl text-center flex"}>
+                                <div className={"pt-10 px-10 font-base text-white text-3xl text-center flex"}>
                                     Enjoy online shopping
                                 </div>
                                 <div className={"pb-8 px-10  flex flex-col justify-center items-center"}>
