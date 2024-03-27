@@ -23,8 +23,8 @@ const SearchBox = () => {
     return (
         <div className="relative mx-auto" style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}}>
             <input
-                autoComplete={"off"} className="bg-white/90 h-10 pl-5 pr-10 rounded-full text-[16px] md:text-sm focus:outline-none"
-                type="search" name="search" placeholder="Search all products" value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyPress={(e) => {
+                autoComplete={"off"} className="bg-white/90 h-10 pl-5 pr-10 md:w-60 lg:w-72 rounded-full text-[16px] md:text-sm focus:outline-none"
+                type="search" name="search" placeholder="What are you looking for?" value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyPress={(e) => {
                     e.key === "Enter" && submitSearch()
             }}
             />
