@@ -160,9 +160,9 @@ const AdminUserListPage = () => {
         isLoading || !localData ? <Spinner/> : error ? error : (
             <>
                 <Meta title={"User List"}/>
-                <div className={"py-10"}>
+                <div className={"sm:py-10"}>
                     <AdminTabs/>
-                    <div className={"mt-5 bg-white"}>
+                    <div className={"sm:mt-5 bg-white"}>
                         <div className="overflow-x-auto px-5 py-10 border">
                             <table className="table w-full table-zebra table-sm">
                                 <thead>

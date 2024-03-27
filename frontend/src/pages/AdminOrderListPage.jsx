@@ -221,9 +221,9 @@ const AdminOrderListPage = () => {
         isLoading || !localData ? <Spinner/> : error ? error : (
             <>
                 <Meta title={"Order List"}/>
-                <div className={"py-10"}>
+                <div className={"sm:py-10"}>
                     <AdminTabs/>
-                    <div className={"mt-5 bg-white"}>
+                    <div className={"sm:mt-5 bg-white"}>
                         <div className="overflow-x-auto px-5 py-6 border">
                             <div className={"flex flex-wrap w-full justify-between pb-8 sm:px-4 text-xs sm:text-sm lg:text-lg ibmplex font-light"}>
                                 <div className={"flex flex-col gap-2"}>

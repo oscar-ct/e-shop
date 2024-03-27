@@ -1,7 +1,7 @@
 import {useEffect, useState} from 'react';
 import Spinner from "../components/Spinner";
 import {FaCheckCircle, FaEdit, FaImages, FaMinusCircle, FaTimes, FaPlus} from "react-icons/fa";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import {
     useGetProductsQuery,
     useUpdateProductImagesMutation,
@@ -57,7 +57,7 @@ const AdminProductListPage = () => {
 
 
     const dispatch = useDispatch();
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
     const filePickerOptions = {
         accept: 'image/*',
@@ -312,9 +312,9 @@ const AdminProductListPage = () => {
         isLoading || !localData ? <Spinner/> : error ? error : (
             <>
                 <Meta title={"Product List"}/>
-                <div className={"py-10"}>
+                <div className={"sm:py-10"}>
                     <AdminTabs/>
-                    <div className={"mt-5 bg-white"}>
+                    <div className={"sm:mt-5 bg-white"}>
                         <div className="overflow-x-auto px-5 py-10 border">
                             <table className="table table-zebra table-xs lg:w-full w-[984px]">
                                 <thead>

@@ -155,9 +155,9 @@ const AdminCreateProductPage = () => {
     return (
         <>
             <Meta title={"New Product Listing"}/>
-            <div className={"py-10"}>
+            <div className={"sm:py-10"}>
                 <AdminTabs/>
-                <div className={"bg-white mt-5 mx-auto w-full"}>
+                <div className={"bg-white sm:mt-5 mx-auto w-full"}>
                     <div className={"px-10 py-5 border"}>
                         <h2 className={"pt-5 text-xl font-bold flex items-center"}>
                             Step 1.
