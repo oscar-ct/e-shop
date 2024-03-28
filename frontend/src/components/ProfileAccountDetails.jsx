@@ -86,12 +86,12 @@ const ProfileAccountDetails = () => {
 
 
     return (
-        <div className=" md:pt-4 bg-white mx-auto sm:w-96 w-full">
-            <div className="py-2 md:bg-zinc-700">
-                <h3 className="lg:pl-3 text-2xl md:text-2xl md:text-white ibmplex text-center">Update Name/Email
+        <div className="h-max sm:pt-4 mx-auto sm:w-96 w-full">
+            <div className="py-2 sm:bg-zinc-700">
+                <h3 className="lg:pl-3 text-xl sm:text-2xl sm:text-white ibmplex text-center">Account Details
                 </h3>
             </div>
-            <div className={"border"}>
+            <div className={"border bg-white"}>
                 <div className={"px-12 pb-12 pt-4"}>
                     <form onSubmit={submitAccountHandler} className="space-y-5">
                         <div className="space-y-2">
@@ -122,14 +122,13 @@ const ProfileAccountDetails = () => {
                         </div>
                         <div className="space-y-2">
                             <label className="mb-5 text-sm font-medium text-gray-700 tracking-wide">
-                                Current password
+                                Enter your password to update name and/or email
                             </label>
-
                             <input
                                 className="bg-white w-full content-center text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
                                 autoComplete={"current-password"}
                                 type={"password"}
-                                placeholder={"Enter your password"}
+                                placeholder={"Current password"}
                                 id={"password"}
                                 onChange={(e) => {setPassword(e.target.value)}}
                                 value={password}

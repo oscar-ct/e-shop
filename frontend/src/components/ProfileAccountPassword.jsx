@@ -96,12 +96,12 @@ const ProfileAccountPassword = () => {
     };
 
     return (
-        <div className="pt-12 md:pt-4 bg-white mx-auto sm:w-96 w-full">
-            <div className="py-2 md:bg-zinc-700">
-                <h3 className="lg:pl-3 text-2xl md:text-2xl md:text-white ibmplex text-center">Update Password
+        <div className="pt-10 sm:pt-12 lg:pt-4 mx-auto sm:w-96 w-full">
+            <div className="py-2 sm:bg-zinc-700">
+                <h3 className="lg:pl-3 text-xl sm:text-2xl sm:text-white ibmplex text-center">Update Password
                 </h3>
             </div>
-            <div className={"border"}>
+            <div className={"bg-white border"}>
                 <div className={"px-12 pb-12 pt-4"}>
                     <form onSubmit={submitPasswordHandler} className="space-y-5">
                         <div className="space-y-2">

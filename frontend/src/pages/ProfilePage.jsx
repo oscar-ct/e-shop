@@ -80,7 +80,7 @@ const ProfilePage = () => {
                 ) : (
                     <>
                         <Meta title={`${params === "orders" ? "My Orders" : "Account"}`}/>
-                        <div className={"pt-10 pb-5 flex justify-center"}>
+                        <div className={"pt-10 sm:pb-5 flex justify-center"}>
                             <div className={"grow max-w-[72rem] flex flex-col"}>
                                 <div className={"pb-5 flex justify-center"}>
                                     <div className="bg-zinc-100 tabs tabs-boxed">
@@ -111,8 +111,8 @@ const ProfilePage = () => {
                                             <h1 className={"mt-5 text-2xl font-bold text-center"}>No Orders Found</h1>
                                         )
                                     ) : (
-                                        <div className="mt-5 w-full h-full flex flex-col">
-                                            <div className={"w-full flex flex-col lg:flex-row justify-between items-start"}>
+                                        <div className="mt-5">
+                                            <div className={"flex flex-col lg:flex-row"}>
                                                 <ProfileAccountDetails/>
                                                 <ProfileAccountPassword/>
                                             </div>
