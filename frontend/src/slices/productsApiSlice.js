@@ -17,19 +17,31 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                     }
                 },
                 // 5 seconds
-                providesTags: ["Product"],
+                providesTags: ["Products"],
+                keepUnusedDataFor: 5
+            }),
+            getProductsByAdmin: build.query({
+                query: function ({searchTerm, pageNumber}) {
+                    return {
+                        url: `${PRODUCTS_URL}/admin`,
+                        params: {
+                            searchTerm,
+                            pageNumber,
+                        }
+                    }
+                },
+                providesTags: ["Products"],
                 keepUnusedDataFor: 5
             }),
             getProductDetails: build.query({
                 query: function (id) {
                     return {
-                        url: `${PRODUCTS_URL}/${id}`
+                        url: `${PRODUCTS_URL}/product/${id}`
                     }
                 },
-                // 5 seconds
-                // keepUnusedDataFor: 5
-                }
-            ),
+                providesTags: ["Product"],
+                keepUnusedDataFor: 5
+            }),
             createProduct: build.mutation({
                     query: function (data) {
                         return {
@@ -39,46 +51,45 @@ export const productsApiSlice = apiSlice.injectEndpoints({
                         }
                     },
                     // this will allow the created product to show with reloading page, clears cache
-                    invalidatesTags: ["Product"],
+                    invalidatesTags: ["Products"],
                 }
             ),
             updateProduct: build.mutation({
                     query: function (data) {
                         return {
-                            url: `${PRODUCTS_URL}/${data.productId}`,
+                            url: `${PRODUCTS_URL}/product/${data.productId}`,
                             method: "PUT",
                             body: data,
                         }
                     },
                 // this will allow the created product to show with reloading page, clears cache
-                    invalidatesTags: ["Product"],
+                    invalidatesTags: ["Product", "Products"],
                 }
             ),
             updateProductImages: build.mutation({
                     query: function (data) {
                         return {
-                            url: `${PRODUCTS_URL}/${data.productId}/images`,
+                            url: `${PRODUCTS_URL}/product/${data.productId}/images`,
                             method: "PUT",
                             body: data,
                         }
                     },
-                    // this will allow the created product to show with reloading page, clears cache
-                    invalidatesTags: ["Product"],
                 }
             ),
             deleteProduct: build.mutation({
                     query: function (id) {
                         return {
-                            url: `${PRODUCTS_URL}/${id}`,
+                            url: `${PRODUCTS_URL}/product/${id}`,
                             method: "DELETE"
                         }
                     },
+                    invalidatesTags: ["Products"],
                 }
             ),
             deleteProductImage: build.mutation({
                     query: function (data) {
                         return {
-                            url: `${PRODUCTS_URL}/${data.productId}/images`,
+                            url: `${PRODUCTS_URL}/product/${data.productId}/images`,
                             method: "DELETE",
                             body: data,
                         }
@@ -88,23 +99,21 @@ export const productsApiSlice = apiSlice.injectEndpoints({
             createReview: build.mutation({
                     query: function (data) {
                         return {
-                            url: `${PRODUCTS_URL}/${data.productId}/reviews`,
+                            url: `${PRODUCTS_URL}/product/${data.productId}/reviews`,
                             method: "POST",
                             body: data,
                         }
                     },
-                invalidatesTags: ["Product"],
                 }
             ),
             deleteReview: build.mutation({
                     query: function (data) {
                         return {
-                            url: `${PRODUCTS_URL}/${data.productId}/reviews`,
+                            url: `${PRODUCTS_URL}/product/${data.productId}/reviews`,
                             method: "DELETE",
                             body: data,
                         }
                     },
-                    invalidatesTags: ["Product"],
                 }
             ),
             getProductsByRating: build.query({
@@ -141,4 +150,4 @@ export const productsApiSlice = apiSlice.injectEndpoints({
     }
 });
 
-export const { useGetProductsQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation, useDeleteProductImageMutation, useCreateReviewMutation, useDeleteReviewMutation, useGetProductsByRatingQuery, useValidateDiscountCodeMutation, useGetProductsByCategoryQuery} = productsApiSlice;
+export const { useGetProductsQuery, useGetProductsByAdminQuery, useGetProductDetailsQuery, useCreateProductMutation, useUpdateProductMutation, useUpdateProductImagesMutation, useDeleteProductMutation, useDeleteProductImageMutation, useCreateReviewMutation, useDeleteReviewMutation, useGetProductsByRatingQuery, useValidateDiscountCodeMutation, useGetProductsByCategoryQuery} = productsApiSlice;
