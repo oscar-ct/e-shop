@@ -1,9 +1,9 @@
 import {useEffect, useState} from 'react';
 import Spinner from "../components/Spinner";
-import {FaCheckCircle, FaEdit, FaImages, FaMinusCircle, FaTimes, FaPlus} from "react-icons/fa";
+import {FaCheckCircle, FaEdit, FaImages, FaMinusCircle, FaTimes} from "react-icons/fa";
 import {Link} from "react-router-dom";
 import {
-    useGetProductsQuery,
+    useGetProductsByAdminQuery,
     useUpdateProductImagesMutation,
     useUpdateProductMutation,
     useDeleteProductMutation,
@@ -24,8 +24,8 @@ import CustomBtn from "../components/CustomBtn";
 
 
 const AdminProductListPage = () => {
-    const {sortByTerm, pageNumber, filterTerm} = useParams();
-    const {data, isLoading, refetch, error} = useGetProductsQuery({sortByTerm, pageNumber, filterTerm});
+    const {pageNumber} = useParams();
+    const {data, isLoading, refetch, error} = useGetProductsByAdminQuery({pageNumber});
     const [updateProduct,
         // {error: errorUpdate}
     ] = useUpdateProductMutation();
@@ -52,6 +52,7 @@ const AdminProductListPage = () => {
     const [inStock, setInStock] = useState(null);
     const [category, setCategory] = useState(null);
     const [description, setDescription] = useState(null);
+    const [isDisabled, setIsDisabled] = useState(null);
     const [modalMessage, setModalMessage] = useState("");
 
 
@@ -122,6 +123,7 @@ const AdminProductListPage = () => {
             category,
             description,
             color,
+            isDisabled,
         }
         dispatch(setLoading(true));
         try {
@@ -155,6 +157,7 @@ const AdminProductListPage = () => {
         setCategory(null);
         setDescription(null);
         setColor(null);
+        setIsDisabled(null);
         setModalMessage("");
     };
     const editProductHandler = (id) => {
@@ -169,6 +172,7 @@ const AdminProductListPage = () => {
         setCategory(obj.category);
         setDescription(obj.description);
         setColor(obj.color);
+        setIsDisabled(obj.isDisabled);
     };
     const confirmUpdateHandler = () => {
         let updated = confirmChanges();
@@ -192,6 +196,7 @@ const AdminProductListPage = () => {
             countInStock: inStock.toString(),
             category,
             description,
+            isDisabled,
         }
         const a = {
             name: updatedObj.name,
@@ -202,6 +207,7 @@ const AdminProductListPage = () => {
             countInStock: updatedObj.countInStock.toString(),
             category: updatedObj.category,
             description: updatedObj.description,
+            isDisabled: updatedObj.isDisabled,
         }
         return Object.entries(b).filter(([key, val]) => a[key] !== val && key in a).reduce((a, [key, v]) => ({
             ...a,
@@ -293,7 +299,7 @@ const AdminProductListPage = () => {
                 console.log(e)
             }
         }
-    }
+    };
 
 
     useEffect(function () {
@@ -307,6 +313,8 @@ const AdminProductListPage = () => {
    const openConfirmDeleteProductModal = () => {
         window.alert_modal.showModal();
    };
+
+   const bgColor = (isDisabled) => isDisabled ? "bg-gray-400 opacity-60" : "";
 
     return (
         isLoading || !localData ? <Spinner/> : error ? error : (
@@ -329,6 +337,7 @@ const AdminProductListPage = () => {
                                     <th className={"p-1"}>Stock</th>
                                     <th className={"p-1"}>Category</th>
                                     <th className={"p-1"}>Description</th>
+                                    <th className={"p-1"}>Disabled</th>
                                     <th className={"p-1"}>List date</th>
                                     <th/>
                                 </tr>
@@ -411,6 +420,20 @@ const AdminProductListPage = () => {
                                                                         onChange={(e) => setDescription(e.target.value)}
                                                                     />
                                                                 </td>
+                                                                <td className={"p-1 bg-blue-200"}>
+                                                                    <select
+                                                                        className="bg-white pl-1 shadow appearance-none border rounded w-[40px] py-2 text-gray-700 leading-tight focus:outline-none focus:shadow-primary"
+                                                                        value={isDisabled}
+                                                                        onChange={(e) => setIsDisabled(e.target.value)}
+                                                                    >
+                                                                        <option value={"true"}>
+                                                                            true
+                                                                        </option>
+                                                                        <option value={"false"}>
+                                                                            false
+                                                                        </option>
+                                                                    </select>
+                                                                </td>
                                                                 <td className={"p-1 w-20 bg-blue-200 truncate"}>{item?.createdAt.substring(0, 10)}</td>
                                                                 <td className={"p-1 w-20 bg-blue-200"}>
                                                                     <div className={"flex justify-center items-center"}>
@@ -429,36 +452,57 @@ const AdminProductListPage = () => {
                                                             </>
                                                         ) : (
                                                             <>
-                                                            <th>{index+1}</th>
-                                                            {/*<td>{item._id.substring(item._id.length - 6, item._id.length)}*/}
-                                                            {/*</td>*/}
-                                                            <td className={"p-1 w-64"}><Link className={"link link-primary"} to={`/product/${item._id}`}>
-                                                                {item.name.substring(0, 42)}
-                                                            </Link></td>
-                                                            <td className={"p-1"}>{item.brand}</td>
-                                                            <td className={"p-1"}>{item.model}</td>
-                                                            <td className={"p-1"}>{item.color}</td>
-                                                            <td className={"p-1"}>${item.price}</td>
-                                                            <td className={"p-1"}>{item.countInStock !== 0 ? item.countInStock : <FaTimes fill={"red"}/>}</td>
-                                                            <td className={"p-1"}>{item.category}</td>
-                                                            <td className={"p-1 w-48 text-clip"}>{item.description.substring(0, 48)}...</td>
-                                                            <td className={"w-20 p-1"}>{item?.createdAt.substring(0, 10)}</td>
-                                                            <td className={"p-2"}>
-                                                                <div className={"flex justify-end items-center"}>
-                                                                    <button
-                                                                        onClick={() => editProductHandler(item._id)}
-                                                                        className={"btn-glass btn-xs rounded-full hover:text-primary"}
-                                                                    >
-                                                                        <FaEdit className={"text-sm"}/>
-                                                                    </button>
-                                                                    <button
-                                                                        onClick={() => openImagesModal(item._id)}
-                                                                        className={`btn-glass btn-xs rounded-full hover:text-primary ${editMode && "hidden"}`}
-                                                                    >
-                                                                        <FaImages className={"text-sm"}/>
-                                                                    </button>
-                                                                </div>
-                                                            </td>
+                                                                <th className={`${bgColor(item.isDisabled)}`}>
+                                                                    {index+1}
+                                                                </th>
+                                                                <td className={`p-1 w-64 ${bgColor(item.isDisabled)}`}>
+                                                                    <Link className={"link link-primary"} to={`/product/${item._id}`}>
+                                                                        {item.name.substring(0, 42)}
+                                                                    </Link>
+                                                                </td>
+                                                                <td className={`p-1 ${bgColor(item.isDisabled)}`}>
+                                                                    {item.brand}
+                                                                </td>
+                                                                <td className={`p-1 ${bgColor(item.isDisabled)}`}>
+                                                                    {item.model}
+                                                                </td>
+                                                                <td className={`p-1 ${bgColor(item.isDisabled)}`}>
+                                                                    {item.color}
+                                                                </td>
+                                                                <td className={`p-1 ${bgColor(item.isDisabled)}`}>
+                                                                    ${item.price}
+                                                                </td>
+                                                                <td className={`p-1 ${bgColor(item.isDisabled)}`}>
+                                                                    {item.countInStock !== 0 ? item.countInStock : <FaTimes fill={"red"}/>}
+                                                                </td>
+                                                                <td className={`p-1 ${bgColor(item.isDisabled)}`}>
+                                                                    {item.category}
+                                                                </td>
+                                                                <td className={`p-1 w-48 text-clip ${bgColor(item.isDisabled)}`}>
+                                                                    {item.description.substring(0, 32)}...
+                                                                </td>
+                                                                <td className={`p-1 ${bgColor(item.isDisabled)}`}>
+                                                                    {item.isDisabled.toString()}
+                                                                </td>
+                                                                <td className={`w-20 p-1 truncate ${bgColor(item.isDisabled)}`}>
+                                                                    {item?.createdAt.substring(0, 10)}
+                                                                </td>
+                                                                <td className={`p-2 ${bgColor(item.isDisabled)}`}>
+                                                                    <div className={`flex justify-end items-center`}>
+                                                                        <button
+                                                                            onClick={() => editProductHandler(item._id)}
+                                                                            className={"btn-glass btn-xs rounded-full hover:text-primary"}
+                                                                        >
+                                                                            <FaEdit className={"text-sm"}/>
+                                                                        </button>
+                                                                        <button
+                                                                            onClick={() => openImagesModal(item._id)}
+                                                                            className={`btn-glass btn-xs rounded-full hover:text-primary ${editMode && "hidden"}`}
+                                                                        >
+                                                                            <FaImages className={"text-sm"}/>
+                                                                        </button>
+                                                                    </div>
+                                                                </td>
                                                             </>
                                                         )
                                                     }
@@ -470,15 +514,13 @@ const AdminProductListPage = () => {
 
                                 }
                                 </tbody>
-                                <tfoot>
-                                </tfoot>
                             </table>
                         </div>
 
 
                         <div className={"pt-4 pb-8 flex justify-center"}>
                             <div className={"join"}>
-                                <Paginate pages={data.pages} page={data.page} isAdmin={true} filterTerm={filterTerm} sortByTerm={sortByTerm}/>
+                                <Paginate pages={data.pages} page={data.page} isAdmin={true}/>
                             </div>
                         </div>
 
