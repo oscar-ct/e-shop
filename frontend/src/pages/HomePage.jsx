@@ -7,7 +7,6 @@ import Meta from "../components/Meta";
 import HomePageCategorySection from "../components/HomePageCategorySection";
 import HomePageLatestProducts from "../components/HomePageLatestProducts";
 import HomePageIntro from "../components/HomePageIntro";
-import Reveal from "../components/Reveal";
 
 const HomePage = () => {
 
@@ -64,8 +63,11 @@ const HomePage = () => {
                     <>
                         <Meta title={"Home"} description={'Welcome to e-shop-us! An e-commerce website build by Oscar Castro'}/>
                         <HomePageIntro/>
-                        <HomePageLatestProducts data={data} windowInnerWidth={windowInnerWidth}/>
-                        <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
+                        <div className={"flex flex-col md:flex-col-reverse"}>
+                            <HomePageLatestProducts data={data} windowInnerWidth={windowInnerWidth}/>
+                            <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
+                        </div>
+
                     </>
                 )
             }
