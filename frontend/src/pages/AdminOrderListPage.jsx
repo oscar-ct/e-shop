@@ -25,9 +25,9 @@ const AdminOrderListPage = () => {
     const [localData, setLocalData] = useState(orders ? orders : null);
     const [editMode, setEditMode] = useState(false);
     const [orderId, setOrderId] = useState(null);
-    const [isDelivered, setIsDelivered] = useState(null);
-    const [isShipped, setIsShipped] = useState(null);
-    const [isReimbursed, setIsReimbursed] = useState(null);
+    const [isDelivered, setIsDelivered] = useState("");
+    const [isShipped, setIsShipped] = useState("");
+    const [isReimbursed, setIsReimbursed] = useState("");
     const [trackingNumber, setTrackingNumber] = useState("");
     const [modalMessage, setModalMessage] = useState("");
 
@@ -61,9 +61,9 @@ const AdminOrderListPage = () => {
         setEditMode(false);
         setTrackingNumber("");
         setOrderId(null);
-        setIsShipped(null);
-        setIsDelivered(null);
-        setIsReimbursed(null);
+        setIsShipped("");
+        setIsDelivered("");
+        setIsReimbursed("");
         setModalMessage("");
     };
     const submitUpdateHandler = async (e) => {
@@ -164,14 +164,14 @@ const AdminOrderListPage = () => {
         }
         window.tracking_modal.close();
         setTrackingNumber("");
-        setIsShipped(null);
+        setIsShipped("");
         setOrderId(null);
     };
 
     const closeTrackingNumberModal = () => {
         setTimeout(function () {
             setTrackingNumber("");
-            setIsShipped(null);
+            setIsShipped("");
             setOrderId(null);
         }, 300);
     };
