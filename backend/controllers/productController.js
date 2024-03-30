@@ -20,7 +20,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
     // if url sort param exists, sort by that params, else default to sort by newest to oldest
     const sortTerm = req.query.sortByTerm === "toprated" ? {rating: -1} : req.query.sortByTerm === "latest" ? {createdAt: -1} : req.query.sortByTerm === "price-asc" ? {price: +1} : req.query.sortByTerm === "price-dsc" ? {price: -1} : {createdAt: -1};
     // if url search param exists, filter by that search keyword param, else default to all i.e. {}
-    const searchTerm = req.query.searchTerm ? { name: {$regex: req.query.searchTerm, $options: "i"} } : req.query.sortByTerm === "toprated" ? {rating: {$gt: 0}} : {};
+    const searchTerm = req.query.searchTerm ? { name: {$regex: req.query.searchTerm, $options: "i"}, isDisabled: false} : req.query.sortByTerm === "toprated" ? {rating: {$gt: 0}, isDisabled: false} : {isDisabled: false};
     // initialize count variable
     let count;
     // if category exists and category term does not equal all do this
@@ -68,6 +68,29 @@ const getAllProducts = asyncHandler(async (req, res) => {
             page,
             pages: Math.ceil(count / pageSize),
             keyword: keyword, categoryTerm: categoryTerm
+        }
+    );
+});
+
+
+const getAllProductsByAdmin = asyncHandler(async (req, res) => {
+    const pageSize = 16;
+    const page = Number(req.query.pageNumber) || 1;
+    const sortTerm = {createdAt: -1};
+    const searchTerm = req.query.searchTerm ? { name: {$regex: req.query.searchTerm, $options: "i"} } : {};
+    const count = await Product.countDocuments({...searchTerm});
+    // set products to query search parameter
+    const products = await Product
+        .find({...searchTerm})
+        .sort({...sortTerm})
+        .limit(pageSize)
+        .skip(pageSize * (page-1));
+    res.status(201);
+    return res.json(
+        {
+            products,
+            page,
+            pages: Math.ceil(count / pageSize),
         }
     );
 });
@@ -134,7 +157,7 @@ const createProduct = asyncHandler(async function (req, res) {
 });
 
 const updateProduct = asyncHandler(async function (req, res) {
-    const {name, price, model, color, description, brand, category, countInStock} = req.body;
+    const {name, price, model, color, description, brand, category, countInStock, isDisabled} = req.body;
     const productToEdit = await Product.findById(req.params.id);
     if (productToEdit) {
         productToEdit.color = color;
@@ -145,6 +168,7 @@ const updateProduct = asyncHandler(async function (req, res) {
         productToEdit.description = description;
         productToEdit.category = category;
         productToEdit.countInStock = countInStock;
+        productToEdit.isDisabled = isDisabled
         if (req.body.images) {
             productToEdit.image = req.body.image;
         }
@@ -273,7 +297,7 @@ const getProductCategories = asyncHandler(async (req, res) => {
 });
 
 
-export {getAllProducts, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct, deleteProductImage, createProductReview, deleteProductReview, getProductsByRating, getProductCategories};
+export {getAllProducts, getAllProductsByAdmin, getProductById, createProduct, updateProduct, updateProductImages, deleteProduct, deleteProductImage, createProductReview, deleteProductReview, getProductsByRating, getProductCategories};
 
 
 

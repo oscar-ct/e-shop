@@ -12,6 +12,7 @@ import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
 import {motion} from "framer-motion";
 import Reveal from "./Reveal";
 import {useSelector} from "react-redux";
+import {useEffect, useState} from "react";
 
 const HomePageIntro = () => {
 
@@ -19,10 +20,18 @@ const HomePageIntro = () => {
         return state.auth;
     });
 
+    const [isAnimating, setIsAnimating] = useState(true);
+    useEffect(() => {
+        const timeoutId = setTimeout(() => {
+           setIsAnimating(false);
+        }, 2700);
+
+        return () => clearTimeout(timeoutId);
+    }, [])
+
     return (
         <div className={"md:pb-14 bg-black md:bg-transparent"}>
             {/*MOBILE*/}
-
             <motion.div
                 className={"md:hidden w-full h-full relative"}
                 initial={{ opacity: 0 }}
@@ -54,37 +63,47 @@ const HomePageIntro = () => {
                         {/*>*/}
                         <div
                             style={{backgroundImage: `url(/images/kelly-sikkema-mdADGzyXCVE-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover"}}
-                            className={"h-full w-1/3"}
+                            className={"h-full w-4/12"}
                         >
                             <div className={"w-full h-full flex items-center justify-center"}>
-
                                     {
                                         userData ? (
-                                            <div className={"flex flex-col justify-center items-center text-2xl font-base"}>
+                                            <div className={"flex flex-col justify-center items-center text-2xl font-bold"}>
                                                 <span>Welcome back, </span>
                                                 <span className={"truncate"}>{userData.name.split(" ")[0].substring(0, 13)}</span>
                                             </div>
                                         ) : (
-                                            <div className={"text-3xl font-base flex items-center"}>
+                                            <div className={"text-3xl font-bold flex items-center"}>
                                                 <Logo width={"20px"} className={"pt-1 mr-1"}/>
-                                                -shop
+                                                -shop :)
                                             </div>
                                         )
                                     }
-
-
                             </div>
                         </div>
                         <div
-                            style={{backgroundImage: `url(images/sunder-muthukumaran-yaQqV9o1ZXc-unsplash.webp)`, backgroundPosition: "left", backgroundSize: "cover"}}
-                            className={"h-full w-1/3"}
+                            style={{backgroundImage: `url(/images/milad-fakurian-VbC-EiOTDqA-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover"}}
+                            className={"h-full w-4/12"}
                         >
-                            <div className={"w-full h-full flex flex-col items-center justify-between"}>
-                                <div className={"pt-10 px-10 font-base text-white text-3xl text-center flex"}>
+                            <div className={"w-full h-full flex flex-col items-center justify-center"}>
+                                <div className={"pt-10 px-10 font-bold text-white text-3xl text-center flex"}>
                                     Enjoy online shopping
                                 </div>
-                                <div className={"pb-8 px-10  flex flex-col justify-center items-center"}>
-                                    <div className={"font-base text-white text-3xl text-center"}>
+                                <div className={"h-[15em] relative w-full"}>
+                                    <div className={"flex h-full justify-center items-center "}>
+                                        <motion.div
+                                            whileHover={{ scale: 1.2 }}
+                                            whileTap={{ scale: 1.0 }}
+                                        >
+                                            <a href={"https://daisyui.com/"}>
+                                            <img alt={"daisyui"} className="mask mask-triangle-2" src="https://daisyui.com/images/stock/photo-1567653418876-5bb0e566e1c2.jpg" /></a>
+                                        </motion.div>
+                                    </div>
+                                    <div className={`${isAnimating ? "animate-ping" : ""} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em]`}/>
+                                    <div className={`${isAnimating ? "animate-ping" : ""} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em]`}/>
+                                </div>
+                                <div className={"pb-10 px-10  flex flex-col justify-center items-center"}>
+                                    <div className={"font-bold text-white text-3xl text-center"}>
                                     with FREE shipping
                                     </div>
                                     <div className={"text-xs text-white"}>
@@ -93,7 +112,7 @@ const HomePageIntro = () => {
                                 </div>
                             </div>
                         </div>
-                        <div className={"w-1/3 h-full"}>
+                        <div className={"w-4/12 h-full"}>
                             <Swiper
                                 pagination
                                 slidesPerView={1}
@@ -114,7 +133,7 @@ const HomePageIntro = () => {
 
                                             <div className={"p-10 w-full h-full flex flex-col items-between justify-between"}>
                                                 <div className={"flex flex-col items-start justify-start"}>
-                                                    <span className={"px-2 pb-3 text-3xl font-base"}>Pay safely with</span>
+                                                    <span className={"px-2 pb-3 text-3xl font-bold"}>Pay safely with</span>
                                                     {/*<FaCcPaypal color={"white"} size={"3em"}/>*/}
                                                     <div className={"w-full lg:pl-8 flex items-center justify-start"}>
                                                         <StripeLogo width={90}/>
@@ -152,7 +171,7 @@ const HomePageIntro = () => {
                                     {/*>*/}
                                         <div className={"w-full h-full flex flex-col items-center justify-evenly pb-5"}>
                                             <div className={"pt-3 w-full flex justify-center"}>
-                                                <div className={"text-3xl text-white font-base px-12 text-center"}>Meet the developer</div>
+                                                <div className={"text-3xl text-white font-bold px-12 text-center"}>Meet the developer</div>
                                             </div>
                                             <div className="avatar">
                                                 <div className="w-48 mask mask-squircle">
@@ -160,12 +179,12 @@ const HomePageIntro = () => {
                                                 </div>
                                             </div>
                                             <div className={"flex flex-col items-center text-white"}>
-                                                <span className={"text-2xl font-base"}>Oscar Castro</span>
-                                                <a className={"link link-primary"} href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
+                                                <span className={"text-2xl font-bold"}>Oscar Castro</span>
+                                                <a className={"link link-white hover:text-primary"} href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
                                             </div>
                                             <a aria-label="portfolio" href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer">
-                                                <CustomBtn>
-                                                    Learn More
+                                                <CustomBtn customClass={"bg-zinc-700"}>
+                                                    Visit Portfolio
                                                 </CustomBtn>
                                             </a>
                                         </div>

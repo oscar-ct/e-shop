@@ -1,6 +1,7 @@
 import express from "express";
 import {
     getAllProducts,
+    getAllProductsByAdmin,
     getProductById,
     createProduct,
     updateProduct,
@@ -21,17 +22,18 @@ const router = express.Router();
 router.get('/',getAllProducts);
 router.get('/top', getProductsByRating);
 router.get('/categories', getProductCategories);
-router.get('/:id', getProductById);
+router.get('/product/:id', getProductById);
 
-router.post("/:id/reviews", protect, createProductReview);
-router.delete("/:id/reviews", protect, deleteProductReview);
+router.post("/product/:id/reviews", protect, createProductReview);
+router.delete("/product/:id/reviews", protect, deleteProductReview);
 
 // ADMIN ACCESS ONLY
+router.get('/admin', protect, admin, getAllProductsByAdmin);
 router.post("/", protect, admin, createProduct);
-router.put("/:id", protect, admin, updateProduct);
-router.put("/:id/images", protect, admin, updateProductImages);
-router.delete("/:id", protect, admin, deleteProduct);
-router.delete("/:id/images", protect, admin, deleteProductImage);
+router.put("/product/:id", protect, admin, updateProduct);
+router.put("/product/:id/images", protect, admin, updateProductImages);
+router.delete("/product/:id", protect, admin, deleteProduct);
+router.delete("/product/:id/images", protect, admin, deleteProductImage);
 
 
 export default router;

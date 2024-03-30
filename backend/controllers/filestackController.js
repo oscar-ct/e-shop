@@ -7,7 +7,8 @@ dotenv.config();
 const encodeFileHandle = asyncHandler(async (req, res) => {
     const {handle} = req.body;
     let policyObj = {
-        expiry: 1704002400,
+        // expires December 31, 2024 !!!!!!!!
+        expiry: 1735624800,
         handle: handle,
         call: ['remove'],
     }

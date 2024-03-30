@@ -164,7 +164,7 @@ const AdminUserListPage = () => {
                     <AdminTabs/>
                     <div className={"sm:mt-5 bg-white"}>
                         <div className="overflow-x-auto px-5 py-10 border">
-                            <table className="table w-full table-zebra table-sm">
+                            <table className="table w-full table-zebra table-xs">
                                 <thead>
                                 <tr>
                                     <th/>

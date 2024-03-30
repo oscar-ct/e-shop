@@ -91,7 +91,12 @@ const productSchema = new mongoose.Schema({
                 type: String
             }
         }
-    ]
+    ],
+    isDisabled: {
+        type: Boolean,
+        required: true,
+        default: true,
+    },
 
 }, {
     timestamps: true
