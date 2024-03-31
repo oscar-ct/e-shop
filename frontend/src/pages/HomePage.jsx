@@ -7,6 +7,7 @@ import Meta from "../components/Meta";
 import HomePageCategorySection from "../components/HomePageCategorySection";
 import HomePageLatestProducts from "../components/HomePageLatestProducts";
 import HomePageIntro from "../components/HomePageIntro";
+import {useScroll} from "../hooks/useScroll";
 
 const HomePage = () => {
 
@@ -25,6 +26,8 @@ const HomePage = () => {
         window.addEventListener("resize", adjustWidth);
         return () => window.removeEventListener("resize", adjustWidth);
     });
+
+    const { scrollY } = useScroll();
 
     // scroll to based on page number
     // useEffect( () => {
@@ -62,7 +65,7 @@ const HomePage = () => {
                 ) : (
                     <>
                         <Meta title={"Home"} description={'Welcome to e-shop-us! An e-commerce website build by Oscar Castro'}/>
-                        <HomePageIntro/>
+                        <HomePageIntro scrollY={scrollY}/>
                         <div className={"flex flex-col md:flex-col-reverse"}>
                             <HomePageLatestProducts data={data} windowInnerWidth={windowInnerWidth}/>
                             <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
