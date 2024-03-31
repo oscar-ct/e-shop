@@ -308,7 +308,7 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <div className={"pl-12 flex w-full justify-center items-end"}>
+                                <div className={"pl-12 py-3 flex w-full justify-center items-end"}>
                                     <button className={"animate-slide-in-left"} onClick={() => navigate("/")}>
                                         <Logo className={"w-8 "} fill={"white"}/>
                                     </button>
