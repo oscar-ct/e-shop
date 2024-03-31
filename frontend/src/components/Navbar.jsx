@@ -31,6 +31,7 @@ const Navbar = () => {
     const [userDropdownActive, setUserDropdownActive] = useState(false);
     const [windowInnerWidth, setWindowInnerWidth] = useState(window.innerWidth);
     const [smallScreen, setSmallScreen] = useState(window.innerWidth < 500);
+    const [navGradient, setNavGradient]= useState("");
 
     const { scrollDirection, scrollY } = useScroll();
 
@@ -91,8 +92,10 @@ const Navbar = () => {
     useEffect(function () {
         const adjustSmallScreen = () => {
             if (windowInnerWidth > 500) {
+                setNavGradient("nav-liner-gradient");
                 setSmallScreen(false);
             } else {
+                setNavGradient("");
                 setSmallScreen(true);
             }
         }
@@ -156,7 +159,7 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 sticky visible transition-all duration-700 ` : !openNav && smallScreen ? "sticky invisible duration-700 transition-all translate-y-[-100%]": "visible sticky" } inset-0 z-30 block h-max w-full rounded-none py-0 nav-liner-gradient bg-black border-b-[1px] border-black sm:border-none text-white`}
+                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 sticky visible transition-all duration-700 ` : !openNav && smallScreen ? "sticky invisible duration-700 transition-all translate-y-[-100%]": "visible sticky" } inset-0 z-30 block h-max w-full rounded-none py-0 ${navGradient} bg-black border-b-[1px] border-black sm:border-none text-white`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
