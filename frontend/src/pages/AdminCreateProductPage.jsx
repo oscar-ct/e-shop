@@ -372,13 +372,13 @@ const AdminCreateProductPage = () => {
                         </div>
 
                         <div className={"px-5 sm:px-0 py-5 w-full flex flex-col lg:flex-row lg:justify-between"}>
-                            <p className={"text-xs py-1 text-center"}>
-                                *Please note the first uploaded image will be the cover
+                            <p className={"text-xs pb-2 text-center"}>
+                                Note: the first uploaded image will be the cover image
                             </p>
                             <CustomBtn isDisabled={newProduct === null || newProduct.images.length >= 7} onClick={openPicker} customClass={"!px-10"}>
-                                <div className={"flex w-full justify-between items-center"}>
+                                <div className={"flex w-full justify-center items-center"}>
                                     <FaUpload/>
-                                    <span className={"pl-4"}>Upload Image</span>
+                                    <span className={"pl-2"}>Upload Image</span>
                                 </div>
 
                             </CustomBtn>
