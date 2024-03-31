@@ -14,20 +14,28 @@ import Reveal from "./Reveal";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 
-const HomePageIntro = () => {
+const HomePageIntro = ({scrollY}) => {
 
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
 
-    const [isAnimating, setIsAnimating] = useState(true);
-    useEffect(() => {
-        const timeoutId = setTimeout(() => {
-           setIsAnimating(false);
-        }, 2700);
+    const [animateClassName, setAnimateClassName] = useState("");
 
-        return () => clearTimeout(timeoutId);
-    }, [])
+    // useEffect(() => {
+    //     const timeout = setTimeout(() => {
+    //     }, 1000);
+    //     return () => clearTimeout(timeout);
+    // }, []);
+
+    useEffect(() => {
+        if (scrollY === 0) {
+            setAnimateClassName("animate-ping");
+            setTimeout(() => {
+                setAnimateClassName("fadeInEffect");
+            }, 1000);
+        }
+    }, [scrollY])
 
     return (
         <div className={"md:pb-14 bg-black md:bg-transparent"}>
@@ -99,8 +107,8 @@ const HomePageIntro = () => {
                                             <img alt={"daisyui"} className="mask mask-triangle-2" src="https://daisyui.com/images/stock/photo-1567653418876-5bb0e566e1c2.jpg" /></a>
                                         </motion.div>
                                     </div>
-                                    <div className={`${isAnimating ? "animate-ping" : ""} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em]`}/>
-                                    <div className={`${isAnimating ? "animate-ping" : ""} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em]`}/>
+                                    <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em]`}/>
+                                    <div className={`${animateClassName} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em]`}/>
                                 </div>
                                 <div className={"pb-10 px-10  flex flex-col justify-center items-center"}>
                                     <div className={"font-bold text-white text-3xl text-center"}>
