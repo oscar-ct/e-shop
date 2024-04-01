@@ -247,12 +247,12 @@ const ProductPage = () => {
                                                     }
                                                 </div>
                                                 <div className={"flex py-3 text-sm text-gray-500"}>
-                                                    <span className={"w-4/12  font-semibold text-start"}>Sold By:</span>
-                                                    <span className={"w-8/12 text-start"}>Oscar Castro</span>
+                                                    <span className={"w-5/12  font-semibold text-start"}>Sold By:</span>
+                                                    <span className={"w-7/12 text-start"}>Oscar Castro</span>
                                                 </div>
                                                 <div className={"flex pb-2 text-sm text-gray-500"}>
-                                                    <span className={"w-4/12  font-semibold text-start"}>Posted On:</span>
-                                                    <span className={"w-8/12 text-start"}>{product.createdAt.substring(0, 10)}</span>
+                                                    <span className={"w-5/12  font-semibold text-start"}>List Date:</span>
+                                                    <span className={"w-7/12 text-start"}>{product.createdAt.substring(0, 10)}</span>
                                                 </div>
                                                 <div className={"w-full flex flex-col justify-between pt-3"} >
                                                     <div className={"flex pb-5"}>
