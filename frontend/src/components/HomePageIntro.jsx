@@ -13,14 +13,35 @@ import {motion} from "framer-motion";
 import Reveal from "./Reveal";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
+import CategoryItem from "./CategoryItem";
 
-const HomePageIntro = ({scrollY}) => {
+const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
 
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
 
     const [animateClassName, setAnimateClassName] = useState("");
+    const rgb = [
+        "#ff0000",
+        "#ff7300",
+        '#fffb00',
+        "#48ff00",
+        "#00ffd5",
+        "#002bff",
+        "#7a00ff",
+        '#ff00c8',
+        "#ff0000"
+    ];
+
+    const [logoColor, setLogoColor] = useState("white");
+
+    // useEffect(() => {
+    //     const interval = setInterval(() => {
+    //         setLogoColor(rgb[Math.floor(Math.random() * rgb.length)])
+    //     }, 3000);
+    //     return () => clearInterval(interval);
+    // }, [])
 
     // useEffect(() => {
     //     const timeout = setTimeout(() => {
@@ -32,7 +53,7 @@ const HomePageIntro = ({scrollY}) => {
         if (scrollY === 0) {
             setAnimateClassName("animate-ping");
             setTimeout(() => {
-                setAnimateClassName("fadeInEffect");
+                setAnimateClassName("hidden");
             }, 1000);
         }
     }, [scrollY])
@@ -62,147 +83,158 @@ const HomePageIntro = ({scrollY}) => {
             {/*MOBILE*/}
 
             {/*DESKTOP*/}
-            <Reveal>
-                <div className={"hidden md:block w-full"}>
-                    <div className={"flex h-[32em] w-full ibmplex"}>
-                        {/*<div*/}
-                        {/*    style={{backgroundImage: `url(https://images.unsplash.com/photo-1463171379579-3fdfb86d6285?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundPosition: "center", backgroundSize: "cover"}}*/}
-                        {/*    className={"h-full w-2/3"}*/}
-                        {/*>*/}
-                        <div
-                            style={{backgroundImage: `url(/images/kelly-sikkema-mdADGzyXCVE-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover"}}
-                            className={"h-full w-4/12"}
-                        >
-                            <div className={"w-full h-full flex items-center justify-center"}>
-                                    {
-                                        userData ? (
-                                            <div className={"flex flex-col justify-center items-center text-2xl font-bold"}>
-                                                <span>Welcome back, </span>
-                                                <span className={"truncate"}>{userData.name.split(" ")[0].substring(0, 13)}</span>
-                                            </div>
-                                        ) : (
-                                            <div className={"text-3xl font-bold flex items-center"}>
-                                                <Logo width={"20px"} className={"pt-1 mr-1"}/>
-                                                -shop :)
-                                            </div>
-                                        )
-                                    }
-                            </div>
-                        </div>
-                        <div
-                            style={{backgroundImage: `url(/images/milad-fakurian-VbC-EiOTDqA-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover"}}
-                            className={"h-full w-4/12"}
-                        >
-                            <div className={"w-full h-full flex flex-col items-center justify-center"}>
-                                <div className={"pt-10 px-10 font-bold text-white text-3xl text-center flex"}>
-                                    Enjoy online shopping
-                                </div>
-                                <div className={"h-[15em] relative w-full"}>
-                                    <div className={"flex h-full justify-center items-center "}>
-                                        <motion.div
-                                            whileHover={{ scale: 1.2 }}
-                                            whileTap={{ scale: 1.0 }}
-                                        >
-                                            <a href={"https://daisyui.com/"}>
-                                            <img alt={"daisyui"} className="mask mask-triangle-2" src="https://daisyui.com/images/stock/photo-1567653418876-5bb0e566e1c2.jpg" /></a>
-                                        </motion.div>
-                                    </div>
-                                    <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em]`}/>
-                                    <div className={`${animateClassName} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em]`}/>
-                                </div>
-                                <div className={"pb-10 px-10  flex flex-col justify-center items-center"}>
-                                    <div className={"font-bold text-white text-3xl text-center"}>
-                                    with FREE shipping
-                                    </div>
-                                    <div className={"text-xs text-white"}>
-                                        when you spend over $100
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div className={"w-4/12 h-full"}>
-                            <Swiper
-                                pagination
-                                slidesPerView={1}
-                                autoplay={{
-                                    delay: 8500,
-                                    disableOnInteraction: false
-                                }}
-                                modules={[Autoplay, EffectFade, Pagination]}
-                                effect={"fade"}
-                                fadeEffect={{crossFade: true}}
-                            >
-                                <SwiperSlide>
-                                    <div
-                                        style={{backgroundImage: `url(/images/markus-winkler-ahjzVINkuCs-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover",}}
-                                        className={"h-[32em]"}
-                                    >
-                                        <div className={"w-full h-full flex items-end justify-end"}>
 
-                                            <div className={"p-10 w-full h-full flex flex-col items-between justify-between"}>
-                                                <div className={"flex flex-col items-start justify-start"}>
-                                                    <span className={"px-2 pb-3 text-3xl font-bold"}>Pay safely with</span>
-                                                    {/*<FaCcPaypal color={"white"} size={"3em"}/>*/}
-                                                    <div className={"w-full lg:pl-8 flex items-center justify-start"}>
-                                                        <StripeLogo width={90}/>
-                                                        <div className={"flex flex-col pl-3 pr-4"}>
-                                                            <div className={"flex justify-center"}>
-                                                                <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
-                                                            </div>
-                                                            <div className={"py-1 text-lg text-[#635bff] flex items-center"}>
-                                                                &
-                                                            </div>
-                                                            <div className={"flex justify-center"}>
-                                                                <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
+                <div className={"hidden md:block w-full"}>
+                    <div className={"flex h-[58em] w-full ibmplex"}>
+                        <div
+                            style={{backgroundImage: `url(https://images.unsplash.com/photo-1660914256311-918659fae88f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundPosition: "center", backgroundSize: "cover"}}
+                            className={"h-full w-full"}
+                        >
+                            <div className={"w-full h-full flex flex-col items-center justify-between"}>
+                                <Reveal>
+                                    <div className={"flex h-[32em] w-full ibmplex"}>
+                                        <div
+                                            style={{backgroundImage: `url(/images/kelly-sikkema-mdADGzyXCVE-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover",}}
+                                            className={"h-full w-1/3 rounded-br-full"}
+                                        >
+                                            <div className={"w-full h-full flex items-center justify-center"}>
+                                                {
+                                                    userData ? (
+                                                        <div className={"flex flex-col justify-center items-center text-2xl font-bold"}>
+                                                            <span>Welcome back, </span>
+                                                            <span className={"truncate"}>{userData.name.split(" ")[0].substring(0, 13)}</span>
+                                                        </div>
+                                                    ) : (
+                                                        <div className={"text-3xl font-bold flex flex-col justify-center items-center"}>
+                                                            <span>Welcome to</span>
+                                                            <div className={"flex pt-2"}>
+                                                                <Logo width={"20px"} className={"pt-1 mr-1"}/>
+                                                                -shop
                                                             </div>
                                                         </div>
-                                                        <PaypalLogo width={60}/>
+                                                    )
+                                                }
+                                            </div>
+                                        </div>
+                                        <div className={"h-full w-1/3"}>
+                                            <div className={"w-full h-full flex flex-col items-center justify-center"}>
+                                                <div className={"h-48 relative w-full"}>
+                                                    <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em]`}/>
+                                                    <div className={`${animateClassName} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em]`}/>
+                                                </div>
+
+                                                <div className={"pb-20 px-10 w-full flex flex-col justify-center items-center"}>
+                                                    <motion.span
+                                                        onMouseEnter={() => setLogoColor(rgb[Math.floor(Math.random() * rgb.length)])}
+                                                        whileHover={{ scale: 1.2 }}
+                                                        whileTap={{ scale: 1.0 }}
+                                                        className={`fadeInEffect -rotate-90`}
+                                                    >
+                                                        <Logo fill={logoColor} className={"w-[6em] opacity-70"}/>
+                                                    </motion.span>
+                                                    <div className={"font-semibold text-white text-xl text-center pt-8"}>
+                                                        Enjoy online shopping with <span className={"font-bold text-violet-600"}>FREE</span> shipping!
                                                     </div>
+                                                    {/*<div className={"text-xs text-white font-light"}>*/}
+                                                    {/*    when you spend over $100*/}
+                                                    {/*</div>*/}
                                                 </div>
                                                 <Link to={"/sort/latest/select/all"}>
-                                                    <CustomBtn customClass={"bg-zinc-700"}>
+                                                    <CustomBtn customClass={""}>
                                                         Shop Now
                                                     </CustomBtn>
                                                 </Link>
                                             </div>
                                         </div>
-                                    </div>
-                                </SwiperSlide>
-                                <SwiperSlide>
-                                    <div
-                                        style={{backgroundImage: `url(/images/bg.png)`, backgroundPosition: "center", backgroundSize: "cover",}}
-                                        className={"h-[32em] bg-zinc-400"}
-                                    >
-                                    {/*<div*/}
-                                    {/*    style={{backgroundImage: `url(/images/ian-dooley-hpTH5b6mo2s-unsplash.jpg)`, backgroundPosition: "center", backgroundSize: "cover",}}*/}
-                                    {/*    className={"h-[32em]"}*/}
-                                    {/*>*/}
-                                        <div className={"w-full h-full flex flex-col items-center justify-evenly pb-5"}>
-                                            <div className={"pt-3 w-full flex justify-center"}>
-                                                <div className={"text-3xl text-white font-bold px-12 text-center"}>Meet the developer</div>
-                                            </div>
-                                            <div className="avatar">
-                                                <div className="w-48 mask mask-squircle">
-                                                    <img alt={"headshot"} src={"/images/codeup-final.webp"}/>
-                                                </div>
-                                            </div>
-                                            <div className={"flex flex-col items-center text-white"}>
-                                                <span className={"text-2xl font-bold"}>Oscar Castro</span>
-                                                <a className={"link link-white hover:text-primary"} href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
-                                            </div>
-                                            <a aria-label="portfolio" href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer">
-                                                <CustomBtn customClass={"bg-zinc-700"}>
-                                                    Visit Portfolio
-                                                </CustomBtn>
-                                            </a>
+                                        <div className={"w-1/3 h-full"}>
+                                            <Swiper
+                                                pagination
+                                                slidesPerView={1}
+                                                autoplay={{
+                                                    delay: 8500,
+                                                    disableOnInteraction: false
+                                                }}
+                                                modules={[EffectFade, Pagination, Autoplay]}
+                                                effect={"fade"}
+                                                fadeEffect={{crossFade: true}}
+                                            >
+                                                <SwiperSlide>
+                                                    <div
+                                                        style={{backgroundImage: `url(/images/markus-winkler-ahjzVINkuCs-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover",}}
+                                                        className={"h-[32em] rounded-bl-full"}
+                                                    >
+                                                        <div className={"w-full h-full flex items-end justify-end"}>
+
+                                                            <div className={"p-10 w-full h-full flex flex-col items-between justify-between"}>
+                                                                <div className={"flex flex-col items-start justify-start"}>
+                                                                    <span className={"px-2 pb-3 text-3xl font-bold"}>Pay safely with</span>
+                                                                    <div className={"w-full lg:pl-8 flex items-center justify-start"}>
+                                                                        <StripeLogo width={90}/>
+                                                                        <div className={"flex flex-col pl-3 pr-4"}>
+                                                                            <div className={"flex justify-center"}>
+                                                                                <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
+                                                                            </div>
+                                                                            <div className={"py-1 text-lg text-[#635bff] flex items-center"}>
+                                                                                &
+                                                                            </div>
+                                                                            <div className={"flex justify-center"}>
+                                                                                <span className={"h-5 bg-[#635bff] pl-[1px]"}/>
+                                                                            </div>
+                                                                        </div>
+                                                                        <PaypalLogo width={60}/>
+                                                                    </div>
+                                                                </div>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                </SwiperSlide>
+                                                <SwiperSlide>
+                                                    <div
+                                                        style={{backgroundImage: `url(/images/bg.png)`, backgroundPosition: "center", backgroundSize: "cover",}}
+                                                        className={"h-[32em] bg-zinc-800 rounded-bl-full"}
+                                                    >
+                                                        <div className={"w-full h-full flex flex-col items-center justify-evenly pb-5"}>
+                                                            <div className={"pt-3 w-full flex justify-center"}>
+                                                                <div className={"text-3xl text-white font-bold px-12 text-center"}>Meet the developer</div>
+                                                            </div>
+                                                            <div className="avatar">
+                                                                <div className="w-48 mask mask-squircle">
+                                                                    <img alt={"headshot"} src={"/images/codeup-final.webp"}/>
+                                                                </div>
+                                                            </div>
+                                                            <div className={"flex w-full flex-col items-end px-8 text-white"}>
+                                                                <span className={"text-2xl font-bold"}>Oscar Castro</span>
+                                                                <a className={"link link-white hover:text-primary pb-5"} href={"mailto:oscar.a.castro818@gmail.com"}>oscar.a.castro818@gmail.com</a>
+                                                                <a aria-label="portfolio" href={"https://oscar-ct.com/"} target="_blank" rel="noopener noreferrer">
+                                                                    <CustomBtn customClass={"bg-zinc-700"}>
+                                                                        Visit Portfolio
+                                                                    </CustomBtn>
+                                                                </a>
+                                                            </div>
+
+                                                        </div>
+                                                    </div>
+                                                </SwiperSlide>
+                                            </Swiper>
                                         </div>
                                     </div>
-                                </SwiperSlide>
-                            </Swiper>
+                                </Reveal>
+                                <div className={"w-full flex flex-col items-center justify-center pb-14"}>
+                                    <span className={"text-3xl md:text-2xl text-white ibmplex pb-2"}>Popular Categories</span>
+                                    <div className={"w-full flex flex-wrap justify-center"}>
+                                    {
+                                        productCategories.slice(0, windowInnerWidth < 768 ? 6 : windowInnerWidth < 1024 && windowInnerWidth >= 768 ? 4 :  windowInnerWidth > 1024 && windowInnerWidth < 1280 ? 5 : windowInnerWidth >= 1280 && windowInnerWidth < 1282 ? 6 :
+                                            windowInnerWidth >= 1282 && windowInnerWidth < 1536 ? 7 :
+                                                windowInnerWidth > 1536 ? 8 : 8).map(function (product, index) {
+                                            return <CategoryItem key={index} product={product} windowInnerWidth={windowInnerWidth}/>
+                                        })
+                                    }
+                                    </div>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </Reveal>
             {/*DESKTOP*/}
         </div>
     );
