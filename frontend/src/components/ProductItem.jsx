@@ -1,37 +1,60 @@
 import {Link, useNavigate} from 'react-router-dom'
 import Rating from "./Rating";
-import {useState} from "react";
+import {useCallback, useState} from "react";
 import {motion} from "framer-motion";
 import Reveal from "./Reveal";
-import CustomBtn from "./CustomBtn";
 import {addToCart} from "../slices/cartSlice";
 import {toast} from "react-hot-toast";
 import {useDispatch} from "react-redux";
+import {useEffect, useRef} from "react";
 
 
 const ProductItem = ( {product, smallSize = false, cardWidth = "", windowInnerWidth} ) => {
-    const [count, setCount] = useState(0);
+
     const [imgIndex, setImageIndex] = useState(0);
     const dispatch = useDispatch();
     const navigate = useNavigate();
     const quantity = 1;
-    const addToCartHandler = () => {
+
+    const addToCartHandler = useCallback(() => {
         dispatch(addToCart({
             ...product, quantity
         }));
         toast.success(() => {
             return <Link to={"/cart"}>Added To Cart</Link>
         });
-        // navigate("/cart");
-    };
-    const navigateHandler = () => {
-        if (count === 0) {
-            navigate(`/product/${product._id}`);
-        }
-    };
+    }, [dispatch, product, quantity]);
+
+    // const navigateHandler = () => {
+    //     navigate(`/product/${product._id}`);
+    // };
+
+    const buttonRef = useRef();
+    const cardRef = useRef();
+
+    useEffect(() => {
+        const handleButtonClick = (event) => {
+            if (buttonRef?.current?.contains(event.target)) {
+                addToCartHandler();
+            }
+        };
+        window.addEventListener("click", handleButtonClick);
+        return () => window.removeEventListener("click", handleButtonClick);
+    }, [addToCartHandler]);
+
+
+    useEffect(() => {
+        const handleCardClick = (event) => {
+            if (!buttonRef?.current?.contains(event.target) && cardRef?.current?.contains(event.target)) {
+                navigate(`/product/${product._id}`);
+            }
+        };
+        window.addEventListener("click", handleCardClick);
+        return () => window.removeEventListener("click", handleCardClick);
+    }, [navigate, product._id]);
 
     return (
-        <div onClick={navigateHandler} className={"w-6/12 sm:w-72 p-1 sm:p-3 cursor-pointer"}>
+        <div ref={cardRef} className={"w-6/12 sm:w-72 p-1 sm:p-3 cursor-pointer relative"}>
             <Reveal
                 customParentClass={"h-full"}
                 customChildClass={"h-full"}
@@ -39,8 +62,8 @@ const ProductItem = ( {product, smallSize = false, cardWidth = "", windowInnerWi
             >
                 <motion.div
                     transition={{ duration: 0.25 }}
-                    whileHover={windowInnerWidth >= 768 ? { scale: 1.1} : {scale: 1}}
-                    whileTap={windowInnerWidth >= 768 ? { scale: 0.9} : {scale: 1}}
+                    whileHover={windowInnerWidth >= 768 ? { scale: 1.05} : {scale: 1}}
+                    // whileTap={windowInnerWidth >= 768 ? { scale: 0.9} : {scale: 1}}
                     className={`${cardWidth && cardWidth} rounded-2xl border-[1px] border-black md:border-gray-300 flex flex-col bg-white md:shadow-md h-full`}
                 >
                     <div
@@ -73,10 +96,15 @@ const ProductItem = ( {product, smallSize = false, cardWidth = "", windowInnerWi
                             !smallSize && (
                                 <div className={"w-full flex flex-col sm:pt-2 justify-around"}>
                                     <span className={"sm:text-xl font-bold text-slate-500"}>${product.price}</span>
-                                    <div className={"w-full flex justify-center py-2"} >
-                                        <CustomBtn onTouchStart={count + 1} onTouchEnd={count - 1} onMouseEnter={() => setCount(count + 1)} onMouseLeave={() => setCount(count - 1)} onClick={() => addToCartHandler()} customClass={"text-sm w-10/12 bg-zinc-600"}>
-                                            Add To Cart
-                                        </CustomBtn>
+                                    <div ref={buttonRef} className={"my-2 w-10/12 h-full self-center"}>
+                                        <motion.button
+                                            whileTap={{scale: 0.9}}
+                                            className={`w-full relative rounded-full px-5 py-2 text-base overflow-hidden group bg-zinc-600 relative md:hover:bg-gradient-to-r md:hover:from-violet-600 md:hover:to-violet-500 text-white md:hover:ring-2 md:hover:ring-offset-0 md:hover:ring-violet-500 md:transition-all md:ease-out md:duration-300"}`}
+                                            type={"button"}
+                                        >
+                                            <span className={"md:absolute md:right-0 md:w-8 md:h-32 md:-mt-12 md:transition-all md:duration-500 md:transform md:translate-x-12 md:bg-white md:opacity-10 md:rotate-12 md:group-hover:-translate-x-40 md:ease"}/>
+                                            <span className={"relative ibmplex text-sm"}>Add To Cart</span>
+                                        </motion.button>
                                     </div>
                                 </div>
                             )
@@ -85,7 +113,6 @@ const ProductItem = ( {product, smallSize = false, cardWidth = "", windowInnerWi
                 </motion.div>
             </Reveal>
         </div>
-
     );
 };
 
