@@ -40,6 +40,8 @@ const Reveal = ({children, customChildClass, delay, once, y, customParentClass, 
 };
 
 Reveal.defaultProps = {
+    customParentClass: "w-full",
+    customChildClass: "w-full",
     isSmallScreen: false,
     y: 0,
     delay: 0.10,
