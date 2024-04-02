@@ -114,7 +114,7 @@ const CheckoutPage = () => {
                     <div>
                         <CheckoutSteps/>
                         <div className={"pt-0 flex-col flex lg:flex-row w-full"}>
-                            <div className={"lg:w-7/12 h-min"}>
+                            <div className={"lg:w-7/12 h-min md:pl-3 md:pr-3 lg:pr-0 2xl:pl-0"}>
                                 <div className={"pt-3 sm:pt-7"}>
                                     <h1 className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                                         Order Details (
@@ -219,7 +219,7 @@ const CheckoutPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={"p-3 lg:pt-7 lg:pl-10 lg:w-5/12"}>
+                            <div className={"p-3 lg:pt-7 lg:pl-5 lg:w-5/12"}>
                                 {
                                     totalPrice > 100 || discount ? (
                                         <div className={"pb-3 px-2 sm:px-0"}>
