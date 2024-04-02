@@ -44,9 +44,12 @@ const CheckoutItem = ( {item} ) => {
                             </div>
                         </div>
                         <div className={"w-3/12 flex justify-end items-end"}>
-                            <div className={"flex justify-end items-center flex-col lg:flex-row"}>
+                            <div className={"flex justify-end items-center"}>
+                                <label className="block mr-1 text-xs sm:text-sm font-medium text-gray-900 dark:text-white pb-1">
+                                    Qty:
+                                </label>
                                 <select
-                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-20 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                    className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-min sm:w-16 p-1 sm:p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                                     value={item.quantity}
                                     onChange={(e) => addToCartHandler(item, Number(e.target.value))}
                                 >
