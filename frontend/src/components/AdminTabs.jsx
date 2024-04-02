@@ -6,7 +6,7 @@ const AdminTabs = () => {
 
     return (
         <>
-            <ul className="text-sm font-medium text-center text-gray-500 rounded-lg flex flex-wrap dark:divide-gray-700 dark:text-gray-400">
+            <ul className="text-sm font-medium text-center text-gray-500 rounded-lg flex flex-wrap dark:divide-gray-700 dark:text-gray-400 sm:px-3">
                 <li className="w-6/12 sm:w-3/12 focus-within:z-10">
                     <Link to={"/admin/orders"}
                        className={`${location.pathname === "/admin/orders" ? "text-white bg-gray-700" : "text-gray-200 bg-gray-800"} inline-block w-full p-4 border-r border-b border-gray-700 sm:rounded-s-lg focus:ring-4 focus:ring-blue-300 active focus:outline-none hover:text-white hover:bg-gray-700
