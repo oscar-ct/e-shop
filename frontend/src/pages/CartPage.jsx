@@ -53,8 +53,8 @@ const CartPage = () => {
                 ) : (
                     <>
                         <CheckoutSteps/>
-                        <div className={"flex-col flex lg:flex-row w-full"}>
-                            <div className={"lg:mb-10 lg:w-8/12 h-min"}>
+                        <div className={"flex-col flex lg:flex-row w-full md:pl-3 md:pr-3 lg:pr-0 2xl:pl-0"}>
+                            <div className={"lg:w-8/12 h-min"}>
                                 <div className={"pt-3 sm:pt-7"}>
                                     <h1
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
@@ -73,7 +73,7 @@ const CartPage = () => {
                                         )
                                     </h1>
                                 </div>
-                                <div className={"bg-white border pt-10 px-4 sm:px-7 pb-4 sm:pb-7"}>
+                                <div className={"lg:overflow-y-auto lg:min-h-[275px] lg:md:max-h-[calc(100vh-388px)] bg-white border pt-10 px-4 sm:px-7 pb-4 sm:pb-7 overflow-y"}>
                                     {
                                         cartItems.map(function (item) {
                                             return (
@@ -104,7 +104,7 @@ const CartPage = () => {
                                     )
                                 }
                             </div>
-                            <div className={"lg:pt-7 px-4 w-96 place-self-end lg:place-self-start lg:pl-10 lg:w-4/12"}>
+                            <div className={"lg:pt-7 px-3 w-96 place-self-end lg:place-self-start lg:pl-5 lg:w-4/12"}>
                                 <div className={"hidden lg:flex"}>
                                     {
                                         totalPrice > 100 ? (

@@ -313,7 +313,7 @@ const OrderPage = () => {
                             {/*ORDER DETAILS*/}
 
 
-                            <div className={"px-3 pb-5 lg:pl-10 lg:w-5/12"}>
+                            <div className={"px-3 pb-5 lg:pl-5 lg:w-5/12"}>
 
                             {/*CANCEL OPTIONS*/}
                             {
