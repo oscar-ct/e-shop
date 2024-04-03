@@ -221,7 +221,7 @@ const ProductPage = () => {
                                 </div>
                                 {
                                     !product.isDisabled && (
-                                        <div className={"lg:pr-3 2xl:pr-0 pt-0 lg:w-3/12 lg:pl-3"}>
+                                        <div className={"lg:pr-3 pt-0 lg:w-3/12 lg:pl-3"}>
                                             <div className={"h-full p-7 text-lg lg:text-sm bg-white border mx-6 sm:mx-0"}>
                                                 <div className={"py-2 sm:hidden"}>Buy Now</div>
                                                 <div className={"flex py-2"}>
@@ -289,7 +289,7 @@ const ProductPage = () => {
                                     )
                                 }
                             </div>
-                            <div ref={scrollTo} className={"w-full lg:pl-3 2xl:pl-0"}>
+                            <div ref={scrollTo} className={"w-full lg:pl-3"}>
                                 {/*//////////////*/}
                                 <div id="reviews" className={"pt-10 lg:pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start pb-10"}>
                                     <div className={"w-full lg:w-6/12 lg:pr-3"}>
@@ -432,7 +432,7 @@ const ProductPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={"hidden lg:pr-3 2xl:pr-0 lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
+                                    <div className={"hidden lg:pr-3 lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
                                         <div className={"h-full bg-white flex flex-col"}>
                                             <div className={"sticky py-2 px-5 pl-3 bg-zinc-700"}>
                                                 <h2 className={"text-2xl ibmplex text-white"}>You might also like</h2>
@@ -441,7 +441,7 @@ const ProductPage = () => {
                                                 {
                                                     !loadingRated && (
                                                         topRatedProducts.map(function (product, index) {
-                                                            return <ProductItem key={index} product={product} smallSize={true} cardWidth={"w-[12em] sm:w-56"}/>
+                                                            return <ProductItem key={index} product={product} smallSize={true} cardWidth={"w-[12em] sm:w-56"} windowInnerWidth={768}/>
                                                         })
                                                     )
                                                 }
