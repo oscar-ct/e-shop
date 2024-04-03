@@ -7,7 +7,7 @@ const HomePageLatestProducts = ({data, windowInnerWidth, scrollTo}) => {
     useEffect(() => windowInnerWidth <= 768 ? setGradient("liner-gradient") : setGradient(""), [windowInnerWidth])
     return (
         <>
-            <div className={`pb-1 md:px-3 2xl:px-0 md:pb-10 pt-14 md:pt-0 bg-black/90 ${gradient} md:bg-transparent`}>
+            <div className={`pb-1 md:px-3 md:pb-10 pt-14 md:pt-0 bg-black/90 ${gradient} md:bg-transparent`}>
                 <div ref={scrollTo} className={"h-12 md:bg-zinc-700"}>
                     <div className={"flex justify-center items-center h-full w-full"}>
                         <h2 className={"lg:pl-3 text-3xl md:text-2xl text-white ibmplex"}>
