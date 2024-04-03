@@ -119,7 +119,7 @@ const OrderPage = () => {
                         {/*TITLE*/}
 
 
-                        <div className={"lg:pt-5 flex-col flex lg:flex-row w-full"}>
+                        <div className={"lg:pt-5 flex-col flex lg:flex-row w-full md:px-3 lg:pr-0 2xl:container mx-auto"}>
 
                             {/*ORDER DETAILS*/}
                             <div className={"lg:w-7/12 bg-white border h-min p-4 sm:p-7"}>

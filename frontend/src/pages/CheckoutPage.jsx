@@ -113,11 +113,11 @@ const CheckoutPage = () => {
                 cartItems.length !== 0 && (Object.keys(shippingAddress).length !== 0 || paymentMethod !== null) && (
                     <div>
                         <CheckoutSteps/>
-                        <div className={"pt-0 flex-col flex lg:flex-row w-full"}>
-                            <div className={"lg:w-7/12 h-min md:pl-3 md:pr-3 lg:pr-0 2xl:pl-0"}>
+                        <div className={"pt-0 flex-col flex lg:flex-row w-full 2xl:container mx-auto"}>
+                            <div className={"lg:w-7/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
                                 <div className={"pt-3 sm:pt-7"}>
                                     <h1 className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
-                                        Order Details (
+                                        Order Review (
                                         <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
                                             {totalNumberOfItems}
                                             {
