@@ -87,7 +87,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                 <div className={"hidden md:block w-full"}>
                     <div className={"flex h-[58em] w-full ibmplex"}>
                         <div
-                            style={{backgroundImage: `url(https://images.unsplash.com/photo-1660914256311-918659fae88f?q=80&w=1470&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`, backgroundPosition: "center", backgroundSize: "cover"}}
+                            style={{backgroundImage: `url(/images/lxrcbsv-qe_tC7Qk5Do-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover"}}
                             className={"h-full w-full"}
                         >
                             <div className={"w-full h-full flex flex-col items-center justify-between"}>
