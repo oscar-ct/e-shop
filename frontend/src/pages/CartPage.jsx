@@ -5,6 +5,7 @@ import CartItem from "../components/CartItem";
 import CheckoutSteps from "../components/CheckoutSteps";
 import Meta from "../components/Meta";
 import CustomBtn from "../components/CustomBtn";
+import BackButton from "../components/BackButton";
 
 const CartPage = () => {
 
@@ -38,8 +39,11 @@ const CartPage = () => {
     return (
         <>
             <Meta title={"Shopping Cart"}/>
+
             {
                 cartItems.length === 0 ? (
+                <>
+                    <BackButton/>
                     <div className={"px-2"}>
                         <div className={"pt-12 md:pt-20 px-2"}>
                             <div className={"text-4xl pb-10 flex justify-center"}>
@@ -50,10 +54,11 @@ const CartPage = () => {
                             </Message>
                         </div>
                     </div>
+                </>
                 ) : (
                     <>
                         <CheckoutSteps/>
-                        <div className={"flex-col flex lg:flex-row w-full md:pl-3 md:pr-3 lg:pr-0 2xl:pl-0"}>
+                        <div className={"flex-col flex lg:flex-row w-full md:pl-3 md:pr-3 lg:pr-0 2xl:container mx-auto"}>
                             <div className={"lg:w-8/12 h-min"}>
                                 <div className={"pt-3 sm:pt-7"}>
                                     <h1
