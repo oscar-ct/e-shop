@@ -119,8 +119,8 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                         <div className={"h-full w-1/3"}>
                                             <div className={"w-full h-full flex flex-col items-center justify-center"}>
                                                 <div className={"h-48 relative w-full"}>
-                                                    <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em]`}/>
-                                                    <div className={`${animateClassName} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em]`}/>
+                                                    <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em] rounded-br-full`}/>
+                                                    <div className={`${animateClassName} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em] rounded-bl-full`}/>
                                                 </div>
 
                                                 <div className={"pb-20 px-10 w-full flex flex-col justify-center items-center"}>
@@ -132,12 +132,12 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                     >
                                                         <Logo fill={logoColor} className={"w-[6em] opacity-70"}/>
                                                     </motion.span>
-                                                    <div className={"font-semibold text-white text-xl text-center pt-8"}>
+                                                    <div className={"font-semibold text-white text-[2vw] text-center pt-8"}>
                                                         Enjoy online shopping with <span className={"font-bold text-violet-600"}>FREE</span> shipping!
                                                     </div>
-                                                    {/*<div className={"text-xs text-white font-light"}>*/}
-                                                    {/*    when you spend over $100*/}
-                                                    {/*</div>*/}
+                                                    <div className={"text-xs text-zinc-200 font-light"}>
+                                                        when you spend over $100
+                                                    </div>
                                                 </div>
                                                 <Link to={"/sort/latest/select/all"}>
                                                     <CustomBtn customClass={""}>
