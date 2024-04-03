@@ -11,7 +11,7 @@ const getAllProducts = asyncHandler(async (req, res) => {
     // initialize products variable
     let products;
     // set number of products per page, search or sort queries will return 16 products, else only 8 (i.e. homepage)
-    const pageSize = req.query.searchTerm || req.query.sortByTerm ? 16 : 8;
+    const pageSize = req.query.searchTerm || req.query.sortByTerm ? 16 : 14;
     // if page number exists from url search params, set page number, else set to 1
     const page = Number(req.query.pageNumber) || 1;
     // if url search params includes a search or sort or category parameter, set keyword/categoryTerm to that, else leave blank, this is used to update the title of the search or category page
