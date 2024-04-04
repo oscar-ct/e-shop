@@ -49,7 +49,12 @@ const CheckoutPage = () => {
     const submitApplyDiscountCode = async () => {
         const res = await validateDiscountCode({code: discountCode}).unwrap();
         if (!res.validCode) {
-            toast.error("Invalid discount code :(");
+            dispatch(setLoading(true));
+            toast.remove();
+            setTimeout(() => {
+                dispatch(setLoading(false));
+                toast.error("Invalid discount code :(");
+            }, 1000)
         } else {
             toast.success("You are now receiving FREE SHIPPING!");
             dispatch(applyDiscountCode(discountCode));
@@ -117,7 +122,7 @@ const CheckoutPage = () => {
                             <div className={"lg:w-7/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
                                 <div className={"pt-3 sm:pt-7"}>
                                     <h1 className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
-                                        Order Review (
+                                        Your Order (
                                         <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
                                             {totalNumberOfItems}
                                             {
@@ -146,7 +151,7 @@ const CheckoutPage = () => {
                                                         </div>
                                                         <div>
                                                             <Link to={"/shipping"}>
-                                                                <FaEdit/>
+                                                                <FaEdit className={"w-3"}/>
                                                             </Link>
                                                         </div>
                                                     </div>
@@ -170,7 +175,7 @@ const CheckoutPage = () => {
                                                 </div>
                                                 <div>
                                                     <Link to={"/shipping"}>
-                                                        <FaEdit/>
+                                                        <FaEdit className={"w-3"}/>
                                                     </Link>
                                                 </div>
                                             </div>
@@ -197,7 +202,7 @@ const CheckoutPage = () => {
                                                 </div>
                                                 <div className={"flex items-center"}>
                                                     <Link to={"/payment"}>
-                                                        <FaEdit/>
+                                                        <FaEdit className={"w-3"}/>
                                                     </Link>
                                                 </div>
                                             </div>
@@ -238,12 +243,12 @@ const CheckoutPage = () => {
                                     )
                                 }
                                     <div className="bg-white border">
-                                        <div className="pt-8 px-8">
-                                            <div className={"flex flex-col"}>
-                                                <h3 className={"text-xl font-semibold"}>
-                                                    Order Summary
-                                                </h3>
-                                                <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
+                                        <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
+                                            Order Summary
+                                        </h3>
+                                        <div className="pt-0 px-6">
+                                            <div className={"flex flex-col md:pt-6"}>
+                                                <div className={"md:hidden border-b-[1px] border-gray-300 mt-5 mb-3"}/>
                                                 <div className={"flex justify-between text-sm my-1"}>
                                                     <span>Items({totalNumberOfItems}):</span>
                                                     <span className="pl-2">${itemsPrice}</span>
@@ -264,36 +269,36 @@ const CheckoutPage = () => {
                                                 </div>
                                             </div>
                                         </div>
-                                        <div className={"flex justify-between font-semibold text-xl px-8 pt-5 pb-6"}>
+                                        <div className={"flex justify-between font-semibold text-lg px-6 pt-5 pb-6"}>
                                             <span className="text-red-600">Order Total:</span>
                                             <span className="text-red-600">${totalPrice}</span>
                                         </div>
-                                        <div className={"px-8 pb-4"}>
+                                        <div className={"px-6 pb-4"}>
                                             {
                                                 discount ? (
                                                     <div className={"w-full flex items-center justify-between"}>
-                                                        <span className={"text-sm"}>Discount code applied :D</span>
+                                                        <span className={"text-sm font-semibold"}>Discount code applied :D</span>
                                                         <div className={"pl-10"}>
                                                             <button onClick={() => submitRemoveDiscountCode()}
-                                                                    className={"btn btn-xs rounded-full btn-error px-4"}>
-                                                                remove
+                                                                    className={"btn btn-sm text-xs rounded-full px-4 normal-case"}>
+                                                                Remove Discount
                                                             </button>
                                                         </div>
                                                     </div>
                                                 ) : (
                                                     <>
                                                         <div
-                                                            className={"flex flex-col items-end md:items-center md:flex-row md:justify-between lg:flex-col lg:items-end xl:items-center xl:flex-row xl:justify-between"}>
+                                                            className={"px-3 flex flex-col items-end lg:flex-col lg:items-end xl:items-center xl:flex-row xl:justify-between"}>
                                                             <input
-                                                                className={"bg-white text-[16px] input input-bordered input-sm w-full max-w-xs border border-gray-300 rounded-sm focus:outline-none focus:border-blue-400"}
+                                                                className={"bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"}
                                                                 placeholder={"Have a discount code?"}
                                                                 value={discountCode}
                                                                 onChange={(e) => setDiscountCode(e.target.value)}
                                                                 type={"text"}
                                                             />
-                                                            <div className={"pt-3 md:pt-0 lg:pt-3 xl:pt-0 xl:pl-10"}>
+                                                            <div className={"pt-3 xl:pt-0 xl:pl-10"}>
                                                                 <button onClick={submitApplyDiscountCode}
-                                                                        className={"btn btn-xs rounded-full btn-neutral px-4 truncate normal-case"}>
+                                                                        className={"btn btn-sm text-xs rounded-full px-4 truncate normal-case"}>
                                                                     Apply Code
                                                                 </button>
                                                             </div>
@@ -301,7 +306,7 @@ const CheckoutPage = () => {
                                                     </>
                                                 )
                                             }
-                                            <div className={"border-b-[1px] border-gray-300 mb-8 mt-8"}/>
+                                            <div className={"border-b-[1px] border-gray-300 my-6"}/>
 
                                             {
                                                 paymentMethod === "PayPal / Credit Card" && (
