@@ -267,6 +267,13 @@ const deleteProductReview = asyncHandler(async (req, res) => {
     if (user === userId.toString()) {
         const updated = await Product.updateOne({_id: req.params.id}, {$pull: {reviews: {_id: reviewId}}});
         if (updated) {
+            const product = await Product.findById(req.params.id);
+            product.numReviews = product.reviews.length;
+            const totalRatings = product.reviews.reduce(function (acc, review) {
+                return acc + review.rating;
+            }, 0);
+            product.rating = totalRatings/product.reviews.length;
+            await product.save();
             res.status(201).json({
                 message: "Product review deleted"
             });
