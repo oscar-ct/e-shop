@@ -143,7 +143,7 @@ const ProductPage = () => {
                                                     <Rating rating={product.rating}/>
                                                 </div>
                                                 <div onClick={executeScroll} className={"pl-4 text-sm font-semibold link-primary cursor-pointer"}>
-                                                    {`${product.rating.toFixed(1)} rating`}
+                                                    {product.numReviews !== 0 ? `${product.rating.toFixed(1)} rating` : "0 reviews"}
                                                 </div>
                                                 <div className={"pl-6 flex"}>
                                                     <button
@@ -191,7 +191,7 @@ const ProductPage = () => {
                                                             <Rating rating={product.rating}/>
                                                         </div>
                                                         <div className={"pl-4 text-sm font-semibold"}>
-                                                            {`${product.rating.toFixed(1)} rating`}
+                                                            {product.numReviews !== 0 ? `${product.rating.toFixed(1)} rating` : "0 reviews"}
                                                         </div>
                                                         <div className={"pl-6 flex"}>
                                                             <button
@@ -286,17 +286,17 @@ const ProductPage = () => {
                                                     }
                                                 </div>
                                                 <div className={"flex justify-center"}>
-                                                    <div className={"w-full"}>
-                                                        <div className={"flex py-2 text-xs text-gray-500"}>
-                                                            <span className={"w-5/12  font-semibold text-start"}>Ships from:</span>
+                                                    <div className={"w-full text-sm font-semibold "}>
+                                                        <div className={"flex pt-2 pb-2 text-gray-500"}>
+                                                            <span className={"w-5/12 text-start"}>Ships from:</span>
                                                             <span className={"w-7/12 text-start"}>San Antonio, TX</span>
                                                         </div>
-                                                        <div className={"flex py-2 text-xs text-gray-500"}>
-                                                            <span className={"w-5/12  font-semibold text-start"}>Sold by:</span>
+                                                        <div className={"flex pb-2 text-gray-500"}>
+                                                            <span className={"w-5/12 text-start"}>Sold by:</span>
                                                             <span className={"w-7/12 text-start"}>Oscar Castro</span>
                                                         </div>
-                                                        <div className={"flex py-2 text-xs text-gray-500"}>
-                                                            <span className={"w-5/12  font-semibold text-start"}>Listed on:</span>
+                                                        <div className={"flex pb-2 text-gray-500"}>
+                                                            <span className={"w-5/12 text-start"}>Listed on:</span>
                                                             <span className={"w-7/12 text-start"}>{`${product.createdAt.substring(5, 10)}-${product.createdAt.substring(0, 4)}`}</span>
                                                         </div>
                                                     </div>
@@ -310,7 +310,7 @@ const ProductPage = () => {
                                                                     <label htmlFor={"qty"} className={"text-sm font-semibold pr-1"}>Quantity:</label>
                                                                     <select
                                                                         id={"qty"}
-                                                                        className="h-full w-full !outline-none text-sm"
+                                                                        className="h-full w-full !outline-none text-sm bg-white"
                                                                         value={quantity}
                                                                         onChange={(e) => setQuantity(Number(e.target.value))}
                                                                     >
@@ -348,21 +348,30 @@ const ProductPage = () => {
                                                     <h2>Customer Reviews
                                                         <span className={"text-2xl md:text-xl md:text-white pl-2"}>{product.reviews.length !== 0 ? `(${product.numReviews})` : "(0)"}</span>
                                                     </h2>
-                                                    {
-                                                        userData ? (
-                                                            <button onClick={() =>  window.review_modal.showModal()} className={"hidden md:block text-xs text-center link pr-3"}>
-                                                                Write a review
-                                                            </button>
-                                                        ) : (
-                                                            <Link to={"/login"}
-                                                                  className={"hidden md:block text-xs text-center link pr-3"}>
-                                                                Write a review
-                                                            </Link>
-                                                        )
-                                                    }
+                                                    <div className={"hidden md:flex pr-3"}>
+                                                        <button
+                                                            onClick={() => {
+                                                                userData ? window.review_modal.showModal() : navigate("/login")
+                                                            }}
+                                                            className={"pb-[1px] flex items-center border-b border-gray-400"}
+                                                        >
+                                                            <FaPen className={"w-3"} fill={"white"}/>
+                                                            <span className={"text-white pl-2 text-xs font-semibold"}>Write a review</span>
+                                                        </button>
+                                                    </div>
                                                 </div>
 
                                                 <div className={"bg-white px-5 lg:px-8 lg:pb-8 py-4 lg:py-6 border"}>
+                                                    {
+                                                        product.reviews.length !== 0  && (
+                                                            <div className={"md:hidden w-full flex justify-center"}>
+                                                                <button onClick={() => userData ? window.review_modal.showModal() : navigate("/login")} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
+                                                                    Write a review
+                                                                </button>
+                                                            </div>
+                                                        )
+                                                    }
+
                                                     {
                                                         product.reviews.length === 0 && (
                                                             <>
@@ -421,22 +430,13 @@ const ProductPage = () => {
                                                                         <progress className="progress progress-warning w-[15em] sm:w-[25em] lg:w-[20em] 2xl:w-[25em]" value={0} max="100"/>
                                                                     </div>
                                                                 </div>
-                                                                {
-                                                                    userData ? (
-                                                                        <div className={"md:hidden w-full flex justify-center pb-8"}>
-                                                                            <button onClick={() =>  window.review_modal.showModal()} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
-                                                                                Write a review
-                                                                            </button>
-                                                                        </div>
-                                                                    ) : (
-                                                                        <div className={"md:hidden w-full flex justify-center pb-8"}>
-                                                                            <Link to={"/login"} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
-                                                                                Write a review
-                                                                            </Link>
-                                                                        </div>
-                                                                    )
 
-                                                                }
+                                                                <div className={"md:hidden w-full flex justify-center pb-8"}>
+                                                                    <button onClick={() => userData ? window.review_modal.showModal() : navigate("/login")} className={"btn btn-neutral btn-sm rounded-full normal-case"}>
+                                                                        Write a review
+                                                                    </button>
+                                                                </div>
+
                                                             </>
                                                         )
                                                     }
@@ -444,12 +444,12 @@ const ProductPage = () => {
                                                         product.reviews.length !== 0 && (
                                                             product.reviews.map(function (review, index) {
                                                                 return (
-                                                                    <div key={index} className={"pt-3"}>
+                                                                    <div key={index} className={"py-3 border-b"}>
                                                                         <div className={"flex flex-col"}>
                                                                             <div className={"flex justify-between"}>
                                                                                 <span className={"pb-2 text-xs font-bold text-neutral-500"}>{review.name}</span>
                                                                                 <div className={"pb-2 text-xs font-bold text-neutral-500 flex items-center"}>
-                                                                                    {review.createdAt.substring(0, 10)}
+                                                                                    {`${review.createdAt.substring(5, 10)}-${review.createdAt.substring(0, 4)}`}
                                                                                     {
                                                                                         userData?._id === review.user && (
                                                                                             <button onClick={() => openConfirmModal(review._id, review.user)} className={"pl-2"}>
@@ -457,24 +457,21 @@ const ProductPage = () => {
                                                                                             </button>
                                                                                         )
                                                                                     }
-
                                                                                 </div>
                                                                             </div>
-
                                                                             <div className={"flex items-start"}>
-                                                                                <div className={"pt-[2px]"}>
-                                                                                    <Rating rating={review.rating}/>
-                                                                                </div>
-                                                                                <span className={"pl-2 text-sm font-bold"}>{review.title}</span>
+                                                                                <Rating rating={review.rating}/>
                                                                             </div>
                                                                         </div>
+                                                                        <p className={"pt-2 text-sm font-bold"}>
+                                                                            {review.title}
+                                                                        </p>
                                                                         <p className={"pt-2 text-sm font-normal"}>
                                                                             {review.comment}
                                                                         </p>
                                                                     </div>
                                                                 )
                                                             })
-
                                                         )
                                                     }
                                                 </div>
