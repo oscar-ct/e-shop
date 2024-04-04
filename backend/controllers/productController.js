@@ -271,10 +271,14 @@ const deleteProductReview = asyncHandler(async (req, res) => {
         if (updated) {
             const product = await Product.findById(req.params.id);
             product.numReviews = product.reviews.length;
-            const totalRatings = product.reviews.reduce(function (acc, review) {
-                return acc + review.rating;
-            }, 0);
-            product.rating = totalRatings/product.reviews.length;
+            if (product.reviews.length !== 0) {
+                const totalRatings = product.reviews.reduce(function (acc, review) {
+                    return acc + review.rating;
+                }, 0);
+                product.rating = totalRatings/product.reviews.length;
+            } else {
+                product.rating = 0;
+            }
             await product.save();
             res.status(201).json({
                 message: "Deleted successfully"
