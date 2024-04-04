@@ -47,7 +47,7 @@ const PaymentPage = () => {
                         <form onSubmit={submitPaymentMethod}>
                             <div className="my-5">
                                 <div
-                                    className={`w-full card border cursor-pointer ${paymentMeth === "PayPal / Credit Card" && "border-primary"}`}
+                                    className={`w-full border cursor-pointer rounded-md shadow-sm ${paymentMeth === "PayPal / Credit Card" && "border-blue-400 ring-2 ring-blue-200"}`}
                                     onClick={() => setPaymentMeth("PayPal / Credit Card")}
                                 >
                                     <div className={"w-full flex px-6 py-5"}>
@@ -75,7 +75,7 @@ const PaymentPage = () => {
                             </div>
                             <div className="my-5">
                                 <div
-                                    className={`w-full card border cursor-pointer ${paymentMeth === "Stripe / Credit Card" && "border-primary"}`}
+                                    className={`w-full border cursor-pointer rounded-md shadow-sm ${paymentMeth === "Stripe / Credit Card" && "border-blue-400 ring-2 ring-blue-200"}`}
                                     onClick={() => setPaymentMeth("Stripe / Credit Card")}
                                 >
                                     <div className={"w-full flex pr-6 pl-3 py-5"}>
