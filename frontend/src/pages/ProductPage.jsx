@@ -1,6 +1,6 @@
 import {useEffect, useRef} from 'react';
 import {useParams, useLocation} from "react-router-dom";
-import {Link} from 'react-router-dom'
+import {Link, useNavigate} from 'react-router-dom'
 import Rating from "../components/Rating";
 import {useState} from "react";
 // import axios from "axios";
@@ -22,7 +22,7 @@ import {toast} from "react-hot-toast";
 import BackButton from "../components/BackButton";
 import Meta from "../components/Meta";
 import ProductItem from "../components/ProductItem";
-import {FaTrash} from "react-icons/fa";
+import {FaTrash, FaPen} from "react-icons/fa";
 import ConfirmModal from "../components/ConfirmModal";
 import NotFoundPage from "./NotFoundPage";
 import CustomBtn from "../components/CustomBtn";
@@ -30,6 +30,7 @@ import CustomBtn from "../components/CustomBtn";
 const ProductPage = () => {
 
     const { id: productId } = useParams();
+    const navigate = useNavigate();
     const { data: product, refetch, isLoading, error } = useGetProductDetailsQuery(productId);
     const { data: topRatedProducts, isLoading: loadingRated, error: errorRated } = useGetProductsByRatingQuery();
     const [deleteReview] = useDeleteReviewMutation();
@@ -134,10 +135,31 @@ const ProductPage = () => {
                             <div className={"pt-14 sm:pt-20 lg:pt-4 flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col lg:pl-3"}>
                                     <div className={"sm:hidden px-3 py-3 flex flex-col"}>
-                                        <span className={"text-2xl lg:text-xl font-semibold"}>{product.name}</span>
+                                        <span className={"text-2xl font-semibold"}>{product.name}</span>
                                         <div className={"flex"}>
-                                            <button onClick={executeScroll} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
-                                            </button>
+
+                                            <div className={"flex items-center pt-3"}>
+                                                <div>
+                                                    <Rating rating={product.rating}/>
+                                                </div>
+                                                <div onClick={executeScroll} className={"pl-4 text-sm font-semibold link-primary cursor-pointer"}>
+                                                    {`${product.rating.toFixed(1)} rating`}
+                                                </div>
+                                                <div className={"pl-6 flex"}>
+                                                    <button
+                                                        onClick={() => {
+                                                            userData ? window.review_modal.showModal() : navigate("/login")
+                                                        }}
+                                                        className={"pb-[1px] flex border-b border-gray-400"}
+                                                    >
+                                                        <FaPen className={"w-3"} fill={"gray"}/>
+                                                        <span className={"text-gray-500 pl-2 text-xs font-semibold"}>Write a review</span>
+                                                    </button>
+                                                </div>
+                                            </div>
+
+                                            {/*<button onClick={executeScroll} className={"text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>*/}
+                                            {/*</button>*/}
                                         </div>
                                     </div>
                                     {/*<div className={"w-full flex flex-col lg:flex-row flex-wrap bg-white md:border px-5 xl:px-7 pt-3 md:pt-10 sm:pb-5"}>*/}
@@ -158,16 +180,33 @@ const ProductPage = () => {
                                                 }
                                             </div>
                                         </div>
-                                        <div className={"lg:w-6/12 xl:w-7/12 2xl:w-8/12 flex flex-col lg:flex-row py-7 lg:py-0"}>
+                                        <div className={"px-2 lg:px-0 lg:w-6/12 xl:w-7/12 2xl:w-8/12 flex flex-col lg:flex-row py-7 lg:py-0"}>
 
                                             <div className={"bg-white border lg:bg-transparent px-5 lg:px-6 2xl:px-10 pt-5 lg:pt-0 w-full h-min border-b-[1px] border-t-[1px] lg:border-none border-gray-300"}>
 
-                                                <div className={"hidden sm:block pb-3 lg:border-b-[1px] border-gray-300"}>
-                                                    <span className={"text-2xl lg:text-xl font-semibold"}>{product.name}</span>
-                                                    <button onClick={executeScroll} className={"block text-sm link link-primary"}><Rating rating={product.rating} text={`${product.numReviews} ${product.numReviews === 1 ? "review" : "reviews"}`}/>
-                                                    </button>
+                                                <div className={"hidden sm:block pb-3"}>
+                                                    <span className={"text-2xl lg:text-xl 2xl:text-2xl font-semibold"}>{product.name}</span>
+                                                    <div className={"flex items-center pt-2"}>
+                                                        <div>
+                                                            <Rating rating={product.rating}/>
+                                                        </div>
+                                                        <div className={"pl-4 text-sm font-semibold"}>
+                                                            {`${product.rating.toFixed(1)} rating`}
+                                                        </div>
+                                                        <div className={"pl-6 flex"}>
+                                                            <button
+                                                                onClick={() => {
+                                                                    userData ? window.review_modal.showModal() : navigate("/login")
+                                                                }}
+                                                                className={"pb-[1px] flex border-b border-gray-400"}
+                                                            >
+                                                            <FaPen className={"w-3"} fill={"gray"}/>
+                                                            <span className={"text-gray-500 pl-2 text-xs font-semibold"}>Write a review</span>
+                                                            </button>
+                                                        </div>
+                                                    </div>
                                                 </div>
-                                                <div className={"pb-4 sm:pt-4 md:border-b-[1px] border-gray-300 flex justify-between"}>
+                                                <div className={"pb-4 sm:pt-4 flex justify-between"}>
                                                     <FormatPrice price={product.price} fontSize={"text-3xl"}>
                                                         /ea.
                                                     </FormatPrice>
@@ -211,17 +250,18 @@ const ProductPage = () => {
                                                 <div>
                                                     <h6 className={"text-lg lg:text-sm text-start pt-5 pb-5 font-bold lg:pb-2"}>About this product --</h6>
                                                 </div>
-                                                <div className={"lg:text-sm pt-1 pb-5 flex flex-col"}>
+                                                <div className={"xl:hidden lg:text-sm pt-1 pb-5 flex flex-col"}>
                                                     <p className={"font-normal"}>{detailsActive ? product.description : product.description.substring(0, 138) + "..."}</p>
                                                     <span className={"self-end link link-primary"} onClick={() => setDetailsActive(prevState => !prevState)}>{detailsActive ? "show less" : "show more"}</span>
                                                 </div>
+                                                <p className={"text-sm font-normal hidden xl:block"}>{product.description}</p>
                                             </div>
                                         </div>
                                     </div>
                                 </div>
                                 {
                                     !product.isDisabled && (
-                                        <div className={"lg:pr-3 pt-0 lg:w-3/12"}>
+                                        <div className={"px-2 lg:px-0 lg:pr-3 pt-0 lg:w-3/12"}>
                                             <div className={"h-full p-7 text-lg lg:text-sm bg-white border sm:mx-0"}>
                                                 <div className={"py-2 sm:hidden"}>Buy Now</div>
                                                 <div className={"flex py-2"}>
@@ -236,33 +276,41 @@ const ProductPage = () => {
                                                         </div>
                                                     )
                                                 }
-                                                <div className={"flex py-2"}>
+                                                <div className={"flex pb-5 pt-3"}>
                                                     {
                                                         product.countInStock > 0 ? (
-                                                            <span className={"font-semibold"}>Only {product.countInStock} left in stock - order soon</span>
+                                                            <span className={"font-semibold text-lg"}>Only {product.countInStock} left in stock - order soon</span>
                                                         ) : (
                                                             <span className={"text-red-600 w-full font-semibold flex justify-start"}>Out of stock</span>
                                                         )
                                                     }
                                                 </div>
-                                                <div className={"flex py-3 text-sm text-gray-500"}>
-                                                    <span className={"w-5/12  font-semibold text-start"}>Sold By:</span>
-                                                    <span className={"w-7/12 text-start"}>Oscar Castro</span>
-                                                </div>
-                                                <div className={"flex pb-2 text-sm text-gray-500"}>
-                                                    <span className={"w-5/12  font-semibold text-start"}>List Date:</span>
-                                                    <span className={"w-7/12 text-start"}>{product.createdAt.substring(0, 10)}</span>
+                                                <div className={"flex justify-center"}>
+                                                    <div className={"w-full"}>
+                                                        <div className={"flex py-2 text-xs text-gray-500"}>
+                                                            <span className={"w-5/12  font-semibold text-start"}>Ships from:</span>
+                                                            <span className={"w-7/12 text-start"}>San Antonio, TX</span>
+                                                        </div>
+                                                        <div className={"flex py-2 text-xs text-gray-500"}>
+                                                            <span className={"w-5/12  font-semibold text-start"}>Sold by:</span>
+                                                            <span className={"w-7/12 text-start"}>Oscar Castro</span>
+                                                        </div>
+                                                        <div className={"flex py-2 text-xs text-gray-500"}>
+                                                            <span className={"w-5/12  font-semibold text-start"}>Listed on:</span>
+                                                            <span className={"w-7/12 text-start"}>{`${product.createdAt.substring(5, 10)}-${product.createdAt.substring(0, 4)}`}</span>
+                                                        </div>
+                                                    </div>
                                                 </div>
                                                 <div className={"w-full flex flex-col justify-between pt-3"} >
                                                     <div className={"flex pb-5"}>
-                                                        <div className={"flex items-center justify-end w-7/12"}/>
                                                         {
                                                             product.countInStock > 0 && (
-                                                                <div className={"pl-2 flex justify-end items-center w-5/12"}>
-                                                                    <span className={"text-sm pr-1"}>Qty:</span>
+                                                                <div className={"py-3 flex justify-end lg:justify-start items-center w-full"}>
+                                                                    <div className={"w-6/12 lg:w-8/12 rounded-md border-gray-200 border h-12 flex justify-start items-center px-2"}>
+                                                                    <label htmlFor={"qty"} className={"text-sm font-semibold pr-1"}>Quantity:</label>
                                                                     <select
-                                                                        placeholder={"Qty 1"}
-                                                                        className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-20 p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
+                                                                        id={"qty"}
+                                                                        className="h-full w-full !outline-none text-sm"
                                                                         value={quantity}
                                                                         onChange={(e) => setQuantity(Number(e.target.value))}
                                                                     >
@@ -276,6 +324,7 @@ const ProductPage = () => {
                                                                             })
                                                                         }
                                                                     </select>
+                                                                    </div>
                                                                 </div>
                                                             )
                                                         }
@@ -289,10 +338,10 @@ const ProductPage = () => {
                                     )
                                 }
                             </div>
-                            <div ref={scrollTo} className={"w-full lg:pl-3"}>
+                            <div ref={scrollTo} className={"w-full pl-2 lg:pl-3"}>
                                 {/*//////////////*/}
                                 <div id="reviews" className={"pt-10 lg:pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start pb-10"}>
-                                    <div className={"w-full lg:w-6/12 lg:pr-3"}>
+                                    <div className={"w-full lg:w-6/12 pr-2 lg:pr-3"}>
                                         <div className={"overflow-x-auto"}>
                                             <div className={"h-full"}>
                                                 <div className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl ibmplex md:bg-zinc-700 md:text-white`}>
