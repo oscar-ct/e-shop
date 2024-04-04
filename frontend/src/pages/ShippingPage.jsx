@@ -78,7 +78,7 @@ const ShippingPage = () => {
 
     const validAddressCharLimit = 48;
     const validCityCharLimit = 48;
-    const validEmailCharLimit = 48;
+    const emailRegex = /^([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/;
     const validNameCharLimit = 48;
 
     const isValidPostalCode = (zipCode) => {
@@ -147,7 +147,7 @@ const ShippingPage = () => {
         if (string.length === 0) {
             return "";
         }
-        return boolean ? "!border-green-500" : "!border-red-500";
+        return boolean ? "!border-green-500 focus:ring-green-100" : "!border-red-500 focus:ring-red-100";
     };
 
     return (
@@ -170,7 +170,7 @@ const ShippingPage = () => {
                                                 Customer Email
                                             </label>
                                             <input
-                                                className={`${dynamicBorder(guestEmail.length < validEmailCharLimit, guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                                className={`${dynamicBorder(emailRegex.test(guestEmail), guestEmail)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
                                                 autoComplete={"email"}
                                                 type={"email"}
                                                 placeholder={"example@email.com"}
@@ -188,7 +188,7 @@ const ShippingPage = () => {
                                         Recipient&apos;s Name
                                     </label>
                                     <input
-                                        className={`${dynamicBorder(name.length < validNameCharLimit, name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                        className={`${dynamicBorder(name.length < validNameCharLimit, name)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
                                         autoComplete={"name"}
                                         type={"text"}
                                         placeholder={"John Doe"}
@@ -203,10 +203,10 @@ const ShippingPage = () => {
                                         Street Address
                                     </label>
                                     <input
-                                        className={`${dynamicBorder(address.length < validAddressCharLimit, address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                        className={`${dynamicBorder(address.length < validAddressCharLimit, address)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
                                         autoComplete={"address"}
                                         type={"text"}
-                                        placeholder={"600 Navarro St"}
+                                        placeholder={"600 Navarro St #400"}
                                         id={"address"}
                                         value={address}
                                         onChange={onChange}
@@ -240,7 +240,7 @@ const ShippingPage = () => {
                                         City
                                     </label>
                                     <input
-                                        className={`${dynamicBorder(city.length < validCityCharLimit, city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                        className={`${dynamicBorder(city.length < validCityCharLimit, city)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
                                         autoComplete={"home city"}
                                         type={"text"}
                                         placeholder={"San Antonio"}
@@ -256,14 +256,27 @@ const ShippingPage = () => {
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">
                                                 State
                                             </label>
-                                            <Select placeholder={"Select State"} options={states} styles={customStyles} id={state} value={states.filter(obj => obj.value === shippingData.state)} onChange={onChangeSelect}/>
+                                            <Select placeholder={"Select State"}
+                                                    options={states}
+                                                    styles={{...customStyles, control: (base) => ({
+                                                            ...base,
+                                                            padding: "2px",
+                                                            borderRadius: 6,
+                                                            cursor: "pointer",
+                                                            fontSize: "16px",
+                                                        }),
+                                                    }}
+                                                    id={state}
+                                                    value={states.filter(obj => obj.value === shippingData.state)}
+                                                    onChange={onChangeSelect}
+                                            />
                                         </div>
                                         <div className={"w-4/12 md:w-6/12 pl-2"}>
                                             <label className="text-sm font-medium text-gray-700 tracking-wide">
                                                 ZIP Code
                                             </label>
                                             <input
-                                                className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-sm focus:outline-none`}
+                                                className={`${dynamicBorder(isValidPostalCode(postalCode), postalCode)} bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400`}
                                                 autoComplete={"locality"}
                                                 type={"text"}
                                                 placeholder={"78205"}
@@ -279,7 +292,21 @@ const ShippingPage = () => {
                                 <div className="space-y-2">
                                     <label className="text-sm font-medium text-gray-700 tracking-wide">Country
                                     </label>
-                                    <Select placeholder={"Select Country"} options={countries} styles={customStyles} id={state} value={countries.filter(obj => obj.value === shippingData.country)} onChange={onChangeSelect}/>
+                                    <Select
+                                        placeholder={"Select Country"}
+                                        options={countries}
+                                        styles={{...customStyles, control: (base) => ({
+                                                ...base,
+                                                padding: "2px",
+                                                borderRadius: 6,
+                                                cursor: "pointer",
+                                                fontSize: "16px",
+                                            }),
+                                        }}
+                                        id={state}
+                                        value={countries.filter(obj => obj.value === shippingData.country)}
+                                        onChange={onChangeSelect}
+                                    />
                                 </div>
                                 {
                                     userData && (
@@ -301,7 +328,7 @@ const ShippingPage = () => {
                                 }
                                 <div className={"pt-5 w-full flex justify-end"}>
                                     <CustomBtn
-                                        isDisabled={!isValidShippingData || ( userData ? false : guestEmail.length === 0)}
+                                        isDisabled={!isValidShippingData || ( userData ? false : !emailRegex.test(guestEmail))}
                                         type={"submit"}
                                     >
                                         Save and Continue
