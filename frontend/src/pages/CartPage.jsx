@@ -134,7 +134,7 @@ const CartPage = () => {
                                 <div className="lg:my-0 mb-5 lg:w-full border bg-white self-end">
                                     <div className="px-8 py-5">
                                         <div className={"flex flex-col"}>
-                                            <h3 className={"text-lg"}>
+                                            <h3 className={"text-xl font-semibold"}>
                                                 Subtotal (
                                                 <span className={"text-[16px] font-semibold"}>
                                                     {totalNumberOfItems}
