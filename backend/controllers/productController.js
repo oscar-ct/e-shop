@@ -253,8 +253,10 @@ const createProductReview = asyncHandler(async (req, res) => {
             return acc + review.rating;
         }, 0);
         product.rating = totalRatings/product.reviews.length;
-        const updatedProduct = await product.save();
-        res.status(201).json(updatedProduct);
+        await product.save();
+        res.status(201).json({
+            message: "Review added successfully"
+        });
     } else {
         res.status(404);
         throw new Error("Product not found");
@@ -275,7 +277,7 @@ const deleteProductReview = asyncHandler(async (req, res) => {
             product.rating = totalRatings/product.reviews.length;
             await product.save();
             res.status(201).json({
-                message: "Product review deleted"
+                message: "Deleted successfully"
             });
         } else {
             res.status(404);
