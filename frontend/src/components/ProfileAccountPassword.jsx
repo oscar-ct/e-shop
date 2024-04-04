@@ -98,11 +98,13 @@ const ProfileAccountPassword = () => {
     return (
         <div className="pt-10 sm:pt-12 lg:pt-4 mx-auto sm:w-96 w-full">
             <div className="py-2 sm:bg-zinc-700">
-                <h3 className="lg:pl-3 text-xl sm:text-2xl sm:text-white ibmplex text-center">Update Password
-                </h3>
+                <div className="hidden sm:block pl-3 text-xl text-white ibmplex text-center">Update Your Password
+                </div>
+                <div className="sm:hidden text-xl ibmplex text-center">Update Your Password
+                </div>
             </div>
             <div className={"bg-white border"}>
-                <div className={"px-12 pb-12 pt-4"}>
+                <div className={"p-10"}>
                     <form onSubmit={submitPasswordHandler} className="space-y-5">
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-gray-700 tracking-wide">
@@ -110,7 +112,7 @@ const ProfileAccountPassword = () => {
                             </label>
                             <span className={"text-xs pl-1"}>(must be at least 6 characters)</span>
                             <input
-                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
+                                className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
                                 autoComplete={"password"}
                                 placeholder={"New password"}
                                 type={"password"}
@@ -126,10 +128,10 @@ const ProfileAccountPassword = () => {
                             </label>
 
                             <input
-                                className="bg-white w-full content-center text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
+                                className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
                                 autoComplete={"password"}
                                 type={"password"}
-                                placeholder={"Confirm password"}
+                                placeholder={"Confirm new password"}
                                 id={"confirm-password"}
                                 onChange={(e) => {setConfirmPassword(e.target.value)}}
                                 value={confirmPassword}
@@ -140,7 +142,7 @@ const ProfileAccountPassword = () => {
                             <label className="text-sm font-medium text-gray-700 tracking-wide">Current password
                             </label>
                             <input
-                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
+                                className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
                                 autoComplete={"password"}
                                 placeholder={"Current password"}
                                 type={"password"}
@@ -167,7 +169,7 @@ const ProfileAccountPassword = () => {
                         {/*        )*/}
                         {/*    }*/}
                         {/*</div>*/}
-                        <div className={"pt-8 flex justify-center"}>
+                        <div className={"pt-5 flex justify-center"}>
                             <CustomBtn isDisabled={newPassword.length < 6 || confirmPassword.length < 6} type={"submit"} customClass={"btn-wide"}>
                                 Update
                             </CustomBtn>

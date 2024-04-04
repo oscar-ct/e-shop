@@ -88,17 +88,19 @@ const ProfileAccountDetails = () => {
     return (
         <div className="h-max sm:pt-4 mx-auto sm:w-96 w-full">
             <div className="py-2 sm:bg-zinc-700">
-                <h3 className="lg:pl-3 text-xl sm:text-2xl sm:text-white ibmplex text-center">Account Details
-                </h3>
+                <div className="hidden sm:block pl-3 text-xl text-white ibmplex text-center">User Information
+                </div>
+                <div className="sm:hidden text-xl ibmplex text-center">User Information
+                </div>
             </div>
             <div className={"border bg-white"}>
-                <div className={"px-12 pb-12 pt-4"}>
+                <div className={"p-10"}>
                     <form onSubmit={submitAccountHandler} className="space-y-5">
                         <div className="space-y-2">
                             <label className="text-sm font-medium text-gray-700 tracking-wide">Name
                             </label>
                             <input
-                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
+                                className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
                                 autoComplete={"name"}
                                 type={"name"}
                                 id={"name"}
@@ -111,7 +113,7 @@ const ProfileAccountDetails = () => {
                             <label className="text-sm font-medium text-gray-700 tracking-wide">Email
                             </label>
                             <input
-                                className="bg-white w-full text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
+                                className="bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
                                 autoComplete={"email"}
                                 type={"email"}
                                 id={"email"}
@@ -125,7 +127,7 @@ const ProfileAccountDetails = () => {
                                 Enter your password to update name and/or email
                             </label>
                             <input
-                                className="bg-white w-full content-center text-base px-4 py-2 border  border-gray-300 focus:outline-none focus:border-blue-400"
+                                className="bg-white w-full content-center text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"
                                 autoComplete={"current-password"}
                                 type={"password"}
                                 placeholder={"Current password"}
@@ -152,7 +154,7 @@ const ProfileAccountDetails = () => {
                         {/*        )*/}
                         {/*    }*/}
                         {/*</div>*/}
-                        <div className={"pt-8 flex justify-center"}>
+                        <div className={"pt-5 flex justify-center"}>
                             <CustomBtn isDisabled={(userData.name === name.trim() && userData.email === email.trim())} type={"submit"} customClass={"btn-wide"}>
                                 Update
                             </CustomBtn>
