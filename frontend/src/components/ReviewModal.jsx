@@ -38,8 +38,9 @@ const ReviewModal = ({productId, refetch, onPage}) => {
             comment: reviewBody,
         }
         try {
-            await createReview(data).unwrap();
+            const res = await createReview(data).unwrap();
             if (onPage) {
+                toast.success(res.message);
                 refetch();
             }
         } catch (e) {
