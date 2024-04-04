@@ -16,6 +16,7 @@ import NotFoundPage from "./NotFoundPage";
 import {clearCartItems} from "../slices/cartSlice";
 import PaypalCheckout from "../components/PaypalCheckout";
 import StripeCheckout from "../components/StripeCheckout";
+import BackButton from "../components/BackButton";
 
 
 const OrderPage = () => {
@@ -82,6 +83,7 @@ const OrderPage = () => {
                 ) : (
                     <>
                         <Meta title={`Order # ${order._id}`}/>
+
                         {/*TITLE*/}
                         <div className={"p-5 lg:pt-10 lg:pb-5"}>
                             {
@@ -120,11 +122,17 @@ const OrderPage = () => {
 
 
                         <div className={"lg:pt-5 flex-col flex lg:flex-row w-full md:px-3 lg:pr-0 2xl:container mx-auto"}>
+                            <div className={"lg:hidden"}>
+                                <BackButton/>
+                            </div>
 
                             {/*ORDER DETAILS*/}
                             <div className={"lg:w-7/12 bg-white border h-min p-4 sm:p-7"}>
-                                <div className={"pb-5"}>
-                                    <h1 className={"text-2xl font-semibold text-center"}>
+                                <div className={"pt-5 md:pt-0 pb-5 lg:pb-0 lg:flex"}>
+                                    <div className={"hidden lg:block -translate-y-4"}>
+                                        <BackButton/>
+                                    </div>
+                                    <h1 className={"lg:mx-auto text-2xl font-semibold text-center"}>
                                         Order # {order._id}
                                     </h1>
                                 </div>
@@ -320,9 +328,9 @@ const OrderPage = () => {
                                 !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
                                     <div className={"w-full pt-5 lg:pt-0 pb-5"}>
                                         <button onClick={() => window.confirm_modal.showModal()}
-                                                className={"btn text-xs btn-neutral normal-case btn-sm w-full rounded-full"}
+                                                className={"btn btn-outline bg-white btn-error normal-case btn-sm w-full rounded-full"}
                                         >
-                                            Cancel Order
+                                            Cancel This Order
                                         </button>
                                     </div>
                                 ) : (order.isCanceled || totalNumberOfCanceledItemsThatRequireRefund > 0) && order.isPaid && !order.isReimbursed ? (
@@ -345,15 +353,13 @@ const OrderPage = () => {
                                     {
                                         totalNumberOfItems - totalNumberOfCanceledItems !== 0 && (
                                             <div className="bg-white border">
-
                                             {/*ORDER SUMMARY*/}
-
-                                                <div className="pt-8 px-8">
-                                                    <div className={"flex flex-col"}>
-                                                        <h3 className={"text-xl font-semibold"}>
-                                                            Order Summary
-                                                        </h3>
-                                                        <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
+                                                <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
+                                                    Order Summary
+                                                </h3>
+                                                <div className="pt-0 px-6">
+                                                    <div className={"flex flex-col md:pt-6"}>
+                                                        <div className={"md:hidden border-b-[1px] border-gray-300 mt-5 mb-3"}/>
                                                         <div className={"flex justify-between text-sm my-1"}>
                                                             <span>Items ({totalNumberOfItems - totalNumberOfCanceledItems}):</span>
                                                             <span className="pl-2">${(order.itemsPrice).toFixed(2)}</span>
@@ -373,7 +379,7 @@ const OrderPage = () => {
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className={"flex justify-between font-semibold text-xl px-8 pt-5 pb-8"}>
+                                                <div className={"flex justify-between font-semibold text-lg px-6 pt-5 pb-6"}>
                                                     <span className="text-red-600">Order Total:</span>
                                                     <span className="text-red-600">${(order.taxPrice + order.shippingPrice + order.itemsPrice).toFixed(2)}</span>
                                                 </div>
@@ -383,8 +389,8 @@ const OrderPage = () => {
                                             {/*PAYMENT OPTIONS*/}
                                             {
                                                 !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
-                                                    <div className={"px-8 pb-5"}>
-                                                        <div className={"border-t-[1px] pb-8"}/>
+                                                    <div className={"px-6 pb-5"}>
+                                                        <div className={"border-t-[1px] pb-6"}/>
 
                                                         {
                                                             order.paymentMethod === "PayPal / Credit Card" && (
@@ -406,13 +412,13 @@ const OrderPage = () => {
                                     {
                                         order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) && (
 
-                                            <div className={`${totalNumberOfCanceledItemsThatRequireRefund === orderItemsPaidAndNotCanceled.length && "mt-5"} bg-white border`}>
-                                                <div className="pt-8 px-8">
-                                                    <div className={"flex flex-col"}>
-                                                        <h3 className={"text-xl font-semibold"}>
-                                                            Refund Summary
-                                                        </h3>
-                                                        <div className={"border-b-[1px] border-gray-300 mt-5 mb-3"}/>
+                                            <div className={`${totalNumberOfCanceledItemsThatRequireRefund === orderItemsPaidAndNotCanceled.length ? "mt-5" : "mt-5 lg:mt-0"} bg-white border `}>
+                                                <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
+                                                    Refund Summary
+                                                </h3>
+                                                <div className="pt-0 px-6">
+                                                    <div className={"flex flex-col md:pt-6"}>
+                                                        <div className={"md:hidden border-b-[1px] border-gray-300 mt-5 mb-3"}/>
                                                         <div className={"flex justify-between text-sm my-1"}>
                                                             <span>Items ({totalNumberOfCanceledItemsThatRequireRefund}):</span>
                                                             <span className="pl-2">${totalDollarAmountOfCanceledItemsThatRequireRefund.toFixed(2)}</span>
