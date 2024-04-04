@@ -1,4 +1,4 @@
-const Message = ({variant, children, border}) => {
+const Message = ({variant, children, border= ""}) => {
 
     const iconType = (variant) => {
         if (variant === "info") {
@@ -28,13 +28,13 @@ const Message = ({variant, children, border}) => {
     const alertClass = (variant) => {
         switch (variant) {
             case "error" :
-                return `alert flex alert-error bg-[#F4595E59] ${border}`;
+                return `alert flex alert-error bg-[#F4595E59] border-none ${border}`;
             case "warning" :
-                return `alert flex alert-warning bg-[#F8B11C59] ${border}`;
+                return `alert flex alert-warning bg-[#F8B11C59] border-none ${border}`;
             case "success" :
-                return `alert flex alert-success bg-[#32CD8859] ${border}`;
+                return `alert flex alert-success bg-green-200 border-none ${border}`;
             case "info" :
-                return `alert flex alert-info bg-[#32B0F559] ${border}`;
+                return `alert flex alert-info bg-indigo-200 border-none ${border}`;
             default :
                 return `alert flex ${border}`;
         }
@@ -53,8 +53,5 @@ const Message = ({variant, children, border}) => {
     );
 };
 
-Message.defaultProps = {
-    border: "rounded-md"
-}
 
 export default Message;
