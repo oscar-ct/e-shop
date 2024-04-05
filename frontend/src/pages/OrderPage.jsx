@@ -1,4 +1,4 @@
-import {useEffect} from 'react';
+import {useEffect, useState} from 'react';
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {
@@ -17,6 +17,7 @@ import {clearCartItems} from "../slices/cartSlice";
 import PaypalCheckout from "../components/PaypalCheckout";
 import StripeCheckout from "../components/StripeCheckout";
 import BackButton from "../components/BackButton";
+import {useScroll} from "../hooks/useScroll";
 
 
 const OrderPage = () => {
@@ -29,6 +30,8 @@ const OrderPage = () => {
     const [cancelOrder,
         // {error: errorCancelOrder}
     ] = useCancelOrderMutation();
+
+    const { scrollY } = useScroll();
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -71,7 +74,18 @@ const OrderPage = () => {
     const submitCancel = async () => {
         await cancelOrder(order._id);
         refetch();
-    }
+    };
+
+    const [width, setWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        const setWindowWidth = () => {
+            setWidth(window.innerWidth);
+        }
+        window.addEventListener("resize", setWindowWidth);
+        return () => {
+            removeEventListener("resize", setWindowWidth)
+        }
+    }, []);
 
     return (
         <>
@@ -83,6 +97,13 @@ const OrderPage = () => {
                 ) : (
                     <>
                         <Meta title={`Order # ${order._id}`}/>
+                        {
+                            scrollY > 25 && width < 1024 && (
+                                <div className={"fadeInEffect"}>
+                                    <BackButton/>
+                                </div>
+                            )
+                        }
 
                         {/*TITLE*/}
                         <div className={"p-5 lg:pt-10 lg:pb-5"}>
@@ -122,16 +143,24 @@ const OrderPage = () => {
 
 
                         <div className={"lg:pt-5 flex-col flex lg:flex-row w-full md:px-3 lg:pr-0 2xl:container mx-auto"}>
-                            <div className={"lg:hidden"}>
-                                <BackButton/>
-                            </div>
+                            {
+                                scrollY < 25 && width < 1024 && (
+                                    <div className={"lg:hidden"}>
+                                        <BackButton/>
+                                    </div>
+                                )
+                            }
 
                             {/*ORDER DETAILS*/}
                             <div className={"lg:w-7/12 bg-white border h-min p-4 sm:p-7"}>
                                 <div className={"pt-5 md:pt-0 pb-5 lg:pb-0 lg:flex"}>
-                                    <div className={"hidden lg:block -translate-y-4"}>
-                                        <BackButton/>
-                                    </div>
+                                    {
+                                        width >= 1024 && (
+                                            <div className={"-translate-y-4"}>
+                                                <BackButton/>
+                                            </div>
+                                        )
+                                    }
                                     <h1 className={"lg:mx-auto text-2xl font-semibold text-center"}>
                                         Order # {order._id}
                                     </h1>
@@ -321,7 +350,7 @@ const OrderPage = () => {
                             {/*ORDER DETAILS*/}
 
 
-                            <div className={"px-3 pb-5 lg:pl-5 lg:w-5/12"}>
+                            <div className={"pt-5 lg:pt-0 px-3 pb-5 lg:pl-5 lg:w-5/12"}>
 
                             {/*CANCEL OPTIONS*/}
                             {
@@ -412,7 +441,7 @@ const OrderPage = () => {
                                     {
                                         order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) && (
 
-                                            <div className={`${totalNumberOfCanceledItemsThatRequireRefund === orderItemsPaidAndNotCanceled.length ? "mt-5" : "mt-5 lg:mt-0"} bg-white border `}>
+                                            <div className={`${totalNumberOfCanceledItemsThatRequireRefund === orderItemsPaidAndNotCanceled.length ? "mt-5" : ""} bg-white border`}>
                                                 <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
                                                     Refund Summary
                                                 </h3>
