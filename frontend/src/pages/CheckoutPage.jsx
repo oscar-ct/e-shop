@@ -16,6 +16,7 @@ import {toast} from "react-hot-toast";
 import PaypalCheckout from "../components/PaypalCheckout";
 import StripeCheckout from "../components/StripeCheckout";
 
+
 const CheckoutPage = () => {
 
     const {userData} = useSelector( (state) => state.auth);
@@ -30,6 +31,7 @@ const CheckoutPage = () => {
     const [validateDiscountCode] = useValidateDiscountCodeMutation();
 
     const [discountCode, setDiscountCode] = useState("");
+    const [discountLabelActive, setDiscountLabelActive] = useState(false);
 
     const totalNumberOfItems = cartItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -64,6 +66,7 @@ const CheckoutPage = () => {
         setDiscountCode("");
         dispatch(removeDiscountCode());
     };
+
 
     /// Helper /////
     const createNewOrder = async () => {
@@ -276,7 +279,7 @@ const CheckoutPage = () => {
                                         <div className={"px-6 pb-4"}>
                                             {
                                                 discount ? (
-                                                    <div className={"w-full flex items-center justify-between"}>
+                                                    <div className={"pb-10 w-full flex items-center justify-between"}>
                                                         <span className={"text-sm font-semibold"}>Discount code applied :D</span>
                                                         <div className={"pl-10"}>
                                                             <button onClick={() => submitRemoveDiscountCode()}
@@ -286,27 +289,42 @@ const CheckoutPage = () => {
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <>
-                                                        <div
-                                                            className={"flex flex-col items-end lg:flex-col lg:items-end xl:items-center xl:flex-row xl:justify-between"}>
-                                                            <input
-                                                                className={"bg-white w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"}
-                                                                placeholder={"Have a discount code?"}
-                                                                value={discountCode}
-                                                                onChange={(e) => setDiscountCode(e.target.value)}
-                                                                type={"text"}
-                                                            />
-                                                            <div className={"pt-3 xl:pt-0 xl:pl-10"}>
-                                                                <button onClick={submitApplyDiscountCode}
-                                                                        className={"btn btn-sm text-xs rounded-full px-4 truncate normal-case"}>
-                                                                    Apply Code
-                                                                </button>
-                                                            </div>
-                                                        </div>
-                                                    </>
+                                                    <div className={"pb-8"}>
+                                                        {
+                                                            !discountLabelActive ? (
+                                                                <div className={"flex justify-start"}>
+                                                                    <span onClick={() => setDiscountLabelActive(true)} className={"text-sm text-primary cursor-pointer"}>Have a discount code?</span>
+                                                                </div>
+                                                            ) : (
+                                                                <div className={"flex w-full items-end"}>
+                                                                    <div className={`relative h-11 w-full min-w-[200px]`} >
+                                                                        <input
+                                                                            autoFocus
+                                                                            // onFocus={() => setDiscountLabelActive(true)}
+                                                                            onBlur={() => discountCode.length === 0 && setDiscountLabelActive(false)}
+                                                                            value={discountCode}
+                                                                            onChange={(e) => setDiscountCode(e.target.value)}
+                                                                            placeholder="Enter your discount code"
+                                                                            className="peer h-full w-full border-b border-gray-300 bg-transparent pt-4 pb-1.5 font-sans text-sm font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100"/>
+                                                                        <label
+                                                                            className="after:content[''] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight text-gray-500 transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-sm peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500">
+                                                                            Discount code
+                                                                        </label>
+                                                                    </div>
+                                                                    <button
+                                                                        onClick={submitApplyDiscountCode}
+                                                                        className={"pl-5 text-xs"}
+                                                                    >
+                                                                        Apply
+                                                                    </button>
+                                                                </div>
+                                                            )
+                                                        }
+                                                    </div>
                                                 )
                                             }
-                                            <div className={"border-b my-6"}/>
+
+                                            {/*<div className={"border-b my-6"}/>*/}
 
                                             {
                                                 paymentMethod === "PayPal / Credit Card" && (
@@ -318,7 +336,6 @@ const CheckoutPage = () => {
                                                     <StripeCheckout/>
                                                 )
                                             }
-
                                         </div>
                                     </div>
                                 {
