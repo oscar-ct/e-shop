@@ -290,7 +290,7 @@ const CheckoutPage = () => {
                                                         <div
                                                             className={"flex flex-col items-end lg:flex-col lg:items-end xl:items-center xl:flex-row xl:justify-between"}>
                                                             <input
-                                                                className={"bg-white w-full text-base px-4 py-2 border border-gray-300 rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"}
+                                                                className={"bg-white w-full text-base px-4 py-2 border rounded-md shadow-sm focus:ring-2 focus:ring-blue-200 focus:outline-none focus:border-blue-400"}
                                                                 placeholder={"Have a discount code?"}
                                                                 value={discountCode}
                                                                 onChange={(e) => setDiscountCode(e.target.value)}
@@ -306,7 +306,7 @@ const CheckoutPage = () => {
                                                     </>
                                                 )
                                             }
-                                            <div className={"border-b-[1px] border-gray-300 my-6"}/>
+                                            <div className={"border-b my-6"}/>
 
                                             {
                                                 paymentMethod === "PayPal / Credit Card" && (
