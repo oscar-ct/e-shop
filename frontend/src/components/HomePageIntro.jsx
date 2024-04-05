@@ -223,9 +223,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                     <span className={"text-3xl md:text-2xl text-white ibmplex pb-2"}>Popular Categories</span>
                                     <div className={"w-full flex flex-wrap justify-center"}>
                                     {
-                                        productCategories.slice(0, windowInnerWidth < 768 ? 6 : windowInnerWidth < 1024 && windowInnerWidth >= 768 ? 4 :  windowInnerWidth > 1024 && windowInnerWidth < 1280 ? 5 : windowInnerWidth >= 1280 && windowInnerWidth < 1282 ? 6 :
-                                            windowInnerWidth >= 1282 && windowInnerWidth < 1536 ? 7 :
-                                                windowInnerWidth > 1536 ? 8 : 8).map(function (product, index) {
+                                        productCategories.slice(0, windowInnerWidth >= 768 && windowInnerWidth < 900 ? 4 : windowInnerWidth >= 900 && windowInnerWidth < 1068 ? 5 : windowInnerWidth >= 1068 && windowInnerWidth < 1250 ? 6 : windowInnerWidth >= 1250 && windowInnerWidth < 1420 ? 7 : 8).map(function (product, index) {
                                             return <CategoryItem key={index} product={product} windowInnerWidth={windowInnerWidth}/>
                                         })
                                     }
