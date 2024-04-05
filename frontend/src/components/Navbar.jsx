@@ -294,10 +294,10 @@ const Navbar = () => {
                         {
                             searchIsActive ? (
                                 <div className={"w-full flex justify-end "}>
-                                    <div className={"py-2 w-min "}>
+                                    <div className={"w-min "}>
                                         <input
                                             autoFocus
-                                            autoComplete={"off"} className="animate-slide-in-right px-4 bg-white/90 h-10 rounded-full text-[16px] md:text-sm focus:outline-none"
+                                            autoComplete={"off"} className="animate-slide-in-right px-4 bg-white/90 h-8 rounded-full text-[16px] md:text-sm focus:outline-none"
                                             type="search" name="search" placeholder="Search all products" value={keyword} onChange={(e) => setKeyword(e.target.value)} onKeyPress={(e) => {
                                             if (e.key === "Enter") {
                                             submitSearch();
@@ -308,7 +308,7 @@ const Navbar = () => {
                                     </div>
                                 </div>
                             ) : (
-                                <div className={"pl-12 py-3 flex w-full justify-center items-end"}>
+                                <div className={"pl-12 flex w-full justify-center items-end"}>
                                     <button className={"animate-slide-in-left"} onClick={() => navigate("/")}>
                                         <Logo className={"w-8 "} fill={"white"}/>
                                     </button>
