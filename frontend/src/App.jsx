@@ -28,7 +28,7 @@ function App() {
             }
             <div className={`${loading.loading ? "opacity-30" : ""} bg-stone-50 relative`}>
                 <Navbar/>
-                    <div className={"mx-auto min-h-[calc(100vh-300px)] md:min-h-[calc(100vh-224px)]"}>
+                    <div className={"mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-224px)]"}>
                       <Outlet/>
                     </div>
                 <Footer/>
