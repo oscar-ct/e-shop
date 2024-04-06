@@ -21,7 +21,7 @@ function App() {
             <Toaster />
             {
                 loading.loading && (
-                    <div className={"absolute z-10 w-full h-screen flex justify-center"}>
+                    <div className={"fixed z-30 w-full h-screen flex items-center justify-center"}>
                       <span className="loading loading-bars loading-lg"/>
                     </div>
                 )
