@@ -41,7 +41,7 @@ const PaymentPage = () => {
             <div className={"pt-0 w-full flex justify-center"}>
                 <div className={"pt-3 sm:pt-7 w-full sm:w-[35em]"}>
                     <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
-                        <h1>Payment Method(s)</h1>
+                        <h1>Payment Service(s)</h1>
                     </div>
                     <div className={"bg-white px-10 pb-5 pt-5 border text-sm"}>
                         <form onSubmit={submitPaymentMethod}>
@@ -80,9 +80,9 @@ const PaymentPage = () => {
                                 >
                                     <div className={"w-full flex pr-6 pl-3 py-5"}>
                                         <div className={"w-2/12 flex justify-center"}>
-                                            <StripeLogo className={"w-full"}/>
+                                            <StripeLogo className={"w-full h-full"}/>
                                         </div>
-                                        <div className={"w-9/12 flex  items-center"}>
+                                        <div className={"w-9/12 flex items-center"}>
                                             <span className={"px-3 py-4"}>
                                                Credit Card, Cash App, After Pay, and more.
                                             </span>
