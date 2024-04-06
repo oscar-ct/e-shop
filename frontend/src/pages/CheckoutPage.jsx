@@ -32,7 +32,7 @@ const CheckoutPage = () => {
 
     const [discountCode, setDiscountCode] = useState("");
     const [discountLabelActive, setDiscountLabelActive] = useState(false);
-    // const [discountLabelHover, setDiscountLabelHover] = useState(false);
+    const [discountLabelHover, setDiscountLabelHover] = useState(false);
 
     const totalNumberOfItems = cartItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -155,7 +155,7 @@ const CheckoutPage = () => {
                                                         </div>
                                                         <div>
                                                             <Link to={"/shipping"}>
-                                                                <FaEdit className={"w-3"}/>
+                                                                <FaEdit className={"w-3.5"}/>
                                                             </Link>
                                                         </div>
                                                     </div>
@@ -179,7 +179,7 @@ const CheckoutPage = () => {
                                                 </div>
                                                 <div>
                                                     <Link to={"/shipping"}>
-                                                        <FaEdit className={"w-3"}/>
+                                                        <FaEdit className={"w-3.5"}/>
                                                     </Link>
                                                 </div>
                                             </div>
@@ -197,16 +197,16 @@ const CheckoutPage = () => {
                                                     <div>
                                                         {
                                                             paymentMethod === "PayPal / Credit Card" ? (
-                                                                <PayPal width={"50"} height={"50"}/>
+                                                                <PayPal width={"40"} height={"40"}/>
                                                             ) :  paymentMethod === "Stripe / Credit Card" ? (
-                                                                <StripeLogo className={"w-20"}/>
+                                                                <StripeLogo className={"w-16"}/>
                                                             ) : ""
                                                         }
                                                     </div>
                                                 </div>
                                                 <div className={"flex items-center"}>
                                                     <Link to={"/payment"}>
-                                                        <FaEdit className={"w-3"}/>
+                                                        <FaEdit className={"w-3.5"}/>
                                                     </Link>
                                                 </div>
                                             </div>
@@ -290,7 +290,7 @@ const CheckoutPage = () => {
                                                         </div>
                                                     </div>
                                                 ) : (
-                                                    <div className={"pb-8"}>
+                                                    <div className={"pb-10"}>
                                                         {/*{*/}
                                                         {/*    !discountLabelActive ? (*/}
                                                         {/*        <div className={"flex justify-start items-end h-11"}>*/}
@@ -300,18 +300,18 @@ const CheckoutPage = () => {
                                                                 <div className={"flex w-full items-end"}>
                                                                     <div className={`relative h-11 w-full`} >
                                                                         <input
-                                                                            // onMouseEnter={() => setDiscountLabelHover(true)}
-                                                                            // onMouseLeave={() => setDiscountLabelHover(false)}
+                                                                            onMouseEnter={() => setDiscountLabelHover(true)}
+                                                                            onMouseLeave={() => setDiscountLabelHover(false)}
                                                                             onFocus={() => setDiscountLabelActive(true)}
                                                                             // onBlur={() => discountCode.length === 0 && setDiscountLabelActive(false)}
                                                                             onBlur={() => discountCode.length === 0 && setDiscountLabelActive(false)}
                                                                             value={discountCode}
                                                                             onChange={(e) => setDiscountCode(e.target.value)}
-                                                                            placeholder=""
-                                                                            className={`${!discountLabelActive ? "cursor-pointer" : ""} text-[16px] lg:text-base peer h-full w-full rounded-none border-b border-gray-300 hover:border-gray-400 bg-transparent pt-4 pb-1.5 font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100`}/>
+                                                                            placeholder="Enter discount code"
+                                                                            className={`${!discountLabelActive ? "cursor-pointer" : ""} text-[16px] lg:text-base peer h-full w-full rounded-none border-b border-gray-300 hover:border-gray-400 bg-transparent pt-4 pb-1.5 font-normal text-blue-gray-700 outline outline-0 transition-all placeholder-shown:border-blue-gray-200 placeholder-shown:text-sm focus:border-gray-500 focus:outline-0 disabled:border-0 disabled:bg-blue-gray-50 placeholder:opacity-0 focus:placeholder:opacity-100`}/>
                                                                         <label
-                                                                            className={`after:content[''] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-[14px] peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500`}>
-                                                                            {discountLabelActive ? "Enter discount code" : "Have a discount code?"}
+                                                                            className={`${discountLabelHover ? "text-gray-700" : "text-gray-500"} after:content[''] pointer-events-none absolute left-0 -top-1.5 flex h-full w-full select-none !overflow-visible truncate text-[11px] font-normal leading-tight transition-all after:absolute after:-bottom-1.5 after:block after:w-full after:scale-x-0 after:border-b-2 after:border-gray-500 after:transition-transform after:duration-300 peer-placeholder-shown:text-[14px] peer-placeholder-shown:leading-[4.25] peer-placeholder-shown:text-blue-gray-500 peer-focus:text-[11px] peer-focus:leading-tight peer-focus:text-gray-900 peer-focus:after:scale-x-100 peer-focus:after:border-gray-900 peer-disabled:text-transparent peer-disabled:peer-placeholder-shown:text-blue-gray-500`}>
+                                                                            {discountLabelActive ? "Discount code" : "Have a discount code?"}
                                                                         </label>
                                                                     </div>
                                                                     {
@@ -331,16 +331,28 @@ const CheckoutPage = () => {
                                                 )
                                             }
 
+
                                             {/*<div className={"border-b my-6"}/>*/}
 
                                             {
                                                 paymentMethod === "PayPal / Credit Card" && (
-                                                    <PaypalCheckout createNewOrder={() => createNewOrder()}/>
+                                                    <div className={"px-4"}>
+                                                        <PaypalCheckout createNewOrder={() => createNewOrder()}/>
+                                                    </div>
                                                 )
                                             }
                                             {
                                                 paymentMethod === "Stripe / Credit Card" && (
-                                                    <StripeCheckout/>
+                                                    <>
+                                                        <div className={"flex w-full justify-center items-center"}>
+                                                            <div className={"flex justify-center items-center px-3 rounded-lg border-2 border-[#4f3cff]"}>
+                                                                <span className={"ibmplex text-sm text-[#4f3cff]"}>Powered by</span>
+                                                                <StripeLogo className={"w-16"}/>
+                                                            </div>
+                                                        </div>
+                                                        <StripeCheckout/>
+                                                    </>
+
                                                 )
                                             }
                                         </div>
