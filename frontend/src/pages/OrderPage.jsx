@@ -31,7 +31,7 @@ const OrderPage = () => {
         // {error: errorCancelOrder}
     ] = useCancelOrderMutation();
 
-    const { scrollY } = useScroll();
+    const { scrollY, scrollDirection } = useScroll();
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -86,6 +86,7 @@ const OrderPage = () => {
             removeEventListener("resize", setWindowWidth)
         }
     }, []);
+    console.log(scrollDirection)
 
     return (
         <>
@@ -98,13 +99,12 @@ const OrderPage = () => {
                     <>
                         <Meta title={`Order # ${order._id}`}/>
                         {
-                            scrollY > 25 && width < 1024 && (
-                                <div className={"fadeInEffect"}>
+                            (width < 768) && (
+                                <div className={`${scrollY < 120 ? "translate-y-[120px]" : ""} fadeInEffect`}>
                                     <BackButton/>
                                 </div>
                             )
                         }
-
                         {/*TITLE*/}
                         <div className={"p-5 lg:pt-10 lg:pb-5"}>
                             {
@@ -140,23 +140,21 @@ const OrderPage = () => {
                             }
                         </div>
                         {/*TITLE*/}
-
-
                         <div className={"lg:pt-5 flex-col flex lg:flex-row w-full md:px-3 lg:pr-0 2xl:container mx-auto"}>
-                            {
-                                scrollY < 25 && width < 1024 && (
-                                    <div className={"lg:hidden"}>
-                                        <BackButton/>
-                                    </div>
-                                )
-                            }
+                            {/*{*/}
+                            {/*    scrollY < 250 && width < 1024 && (*/}
+                            {/*        <div className={"lg:hidden"}>*/}
+                            {/*            <BackButton/>*/}
+                            {/*        </div>*/}
+                            {/*    )*/}
+                            {/*}*/}
 
                             {/*ORDER DETAILS*/}
                             <div className={"lg:w-7/12 bg-white border h-min p-4 sm:p-7"}>
                                 <div className={"pt-5 md:pt-0 pb-5 lg:pb-0 lg:flex"}>
                                     {
-                                        width >= 1024 && (
-                                            <div className={"-translate-y-4"}>
+                                        width >= 768 && (
+                                            <div className={"-translate-y-7 -translate-x-7"}>
                                                 <BackButton/>
                                             </div>
                                         )
@@ -208,9 +206,9 @@ const OrderPage = () => {
                                             <div>
                                                 {
                                                     order.paymentMethod === "PayPal / Credit Card" ? (
-                                                        <PayPal width={"50"} height={"50"}/>
+                                                        <PayPal width={"40"} height={"40"}/>
                                                     ) : order.paymentMethod === "Stripe / Credit Card" ? (
-                                                        <StripeLogo className={"w-20"}/>
+                                                        <StripeLogo className={"w-16"}/>
                                                     ) : ""
                                                 }
                                             </div>
@@ -419,16 +417,27 @@ const OrderPage = () => {
                                             {
                                                 !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
                                                     <div className={"px-6 pb-5"}>
-                                                        <div className={"border-t-[1px] pb-6"}/>
+
+                                                        <div className={"border-t-[1px] pb-10"}/>
 
                                                         {
                                                             order.paymentMethod === "PayPal / Credit Card" && (
-                                                                <PaypalCheckout existingOrder={order}/>
+                                                                <div className={"px-4"}>
+                                                                    <PaypalCheckout existingOrder={order}/>
+                                                                </div>
                                                             )
                                                         }
                                                         {
                                                             order.paymentMethod === "Stripe / Credit Card" && (
-                                                                <StripeCheckout existingOrder={order}/>
+                                                                <>
+                                                                    <div className={"flex w-full justify-center items-center"}>
+                                                                        <div className={"flex justify-center items-center px-3 rounded-lg border-2 border-[#4f3cff]"}>
+                                                                            <span className={"ibmplex text-sm text-[#4f3cff]"}>Powered by</span>
+                                                                            <StripeLogo className={"w-16"}/>
+                                                                        </div>
+                                                                    </div>
+                                                                    <StripeCheckout existingOrder={order}/>
+                                                                </>
                                                             )
                                                         }
                                                     </div>
