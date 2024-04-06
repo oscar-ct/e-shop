@@ -344,7 +344,7 @@ const CheckoutPage = () => {
                                             {
                                                 paymentMethod === "Stripe / Credit Card" && (
                                                     <>
-                                                        <div className={"flex w-full justify-center items-center"}>
+                                                        <div className={"pb-3 flex w-full justify-center items-center"}>
                                                             <div className={"flex justify-center items-center px-3 rounded-lg border-2 border-[#4f3cff]"}>
                                                                 <span className={"ibmplex text-sm text-[#4f3cff]"}>Powered by</span>
                                                                 <StripeLogo className={"w-16"}/>
