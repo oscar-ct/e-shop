@@ -171,7 +171,7 @@ const OrderPage = () => {
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                     <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
                                         <h3 className={"font-semibold"}>
-                                            Email:
+                                            Customer Email:
                                         </h3>
                                     </div>
                                     <div className={"w-9/12 sm:w-7/12 lg:w-8/12 flex items-center"}>
@@ -202,13 +202,19 @@ const OrderPage = () => {
                                         </h3>
                                     </div>
                                     <div className={"w-7/12 lg:w-8/12"}>
-                                        <div className={"flex items-center"}>
-                                            <div>
+                                        <div className={"flex items-center xl:items-start"}>
+                                            <div className={"flex flex-col text-sm"}>
                                                 {
                                                     order.paymentMethod === "PayPal / Credit Card" ? (
-                                                        <PayPal width={"40"} height={"40"}/>
-                                                    ) : order.paymentMethod === "Stripe / Credit Card" ? (
-                                                        <StripeLogo className={"w-16"}/>
+                                                        <>
+                                                            <span className={"font-semibold"}>Paypal, Inc.</span>
+                                                            <span>(includes: Paypal, Venmo, Credit Card, etc.)</span>
+                                                        </>
+                                                    ) :  order.paymentMethod === "Stripe / Credit Card" ? (
+                                                        <>
+                                                            <span className={"font-semibold"}>Stripe, Inc.</span>
+                                                            <span>(includes: Cash App, Afterpay, Credit Card, etc.)</span>
+                                                        </>
                                                     ) : ""
                                                 }
                                             </div>
