@@ -8,7 +8,6 @@ import {setLoading} from "../slices/loadingSlice";
 import {applyDiscountCode, removeDiscountCode} from "../slices/cartSlice";
 import Message from "../components/Message";
 import CheckoutItem from "../components/CheckoutItem";
-import {ReactComponent as PayPal} from "../icons/paypal-logo.svg";
 import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
 import {FaEdit} from "react-icons/fa";
 import Meta from "../components/Meta";
@@ -145,7 +144,7 @@ const CheckoutPage = () => {
                                             <div className={"flex border-b-[1px] border-gray-300 py-3"}>
                                                 <div className={"w-3/12 sm:w-4/12 flex items-center"}>
                                                     <h3 className={"font-semibold"}>
-                                                        Email:
+                                                        Customer Email:
                                                     </h3>
                                                 </div>
                                                 <div className={"w-9/12 sm:w-8/12"}>
@@ -163,51 +162,59 @@ const CheckoutPage = () => {
                                             </div>
                                         )
                                     }
-                                    <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                        <div className={"w-3/12 sm:w-4/12"}>
-                                            <h3 className={"font-semibold"}>
-                                                Ship To:
-                                            </h3>
-                                        </div>
-                                        <div className={"w-9/12 sm:w-8/12"}>
-                                            <div className={"flex justify-between"}>
-                                                <div className={"flex flex-col text-sm"}>
-                                                    <span>{shippingAddress.name}</span>
-                                                    <span>{shippingAddress.address}</span>
-                                                    <span>{shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}</span>
-                                                    <span>{shippingAddress.country}</span>
-                                                </div>
-                                                <div>
-                                                    <Link to={"/shipping"}>
-                                                        <FaEdit className={"w-3.5"}/>
-                                                    </Link>
+                                    <div className={"xl:flex"}>
+                                        <div className={"flex border-b-[1px] border-gray-300 py-3 w-full xl:w-6/12 xl:h-32"}>
+                                            <div className={"w-3/12 sm:w-4/12"}>
+                                                <h3 className={"font-semibold"}>
+                                                    Ship To:
+                                                </h3>
+                                            </div>
+                                            <div className={"w-9/12 sm:w-8/12"}>
+                                                <div className={"flex justify-between h-full"}>
+                                                    <div className={"flex flex-col text-sm"}>
+                                                        <span>{shippingAddress.name}</span>
+                                                        <span>{shippingAddress.address}</span>
+                                                        <span>{shippingAddress.city}, {shippingAddress.state} {shippingAddress.postalCode}</span>
+                                                        <span>{shippingAddress.country}</span>
+                                                    </div>
+                                                    <div className={"xl:self-end xl:pr-3"}>
+                                                        <Link to={"/shipping"}>
+                                                            <FaEdit className={"w-3"}/>
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                        <div className={"w-5/12 sm:w-4/12 flex items-center"}>
-                                            <h3 className={"font-semibold"}>
-                                                Payment Service:
-                                            </h3>
-                                        </div>
-                                        <div className={"w-7/12 sm:w-8/12"}>
-                                            <div className={"flex justify-between"}>
-                                                <div className={"flex items-center"}>
-                                                    <div>
-                                                        {
-                                                            paymentMethod === "PayPal / Credit Card" ? (
-                                                                <PayPal width={"40"} height={"40"}/>
-                                                            ) :  paymentMethod === "Stripe / Credit Card" ? (
-                                                                <StripeLogo className={"w-16"}/>
-                                                            ) : ""
-                                                        }
+                                        <div className={"flex border-b-[1px] border-gray-300 py-3 w-full xl:w-6/12 xl:h-32"}>
+                                            <div className={"w-3/12 sm:w-4/12 xl:w-4/12 flex items-center xl:items-start"}>
+                                                <h3 className={"font-semibold pr-5"}>
+                                                    Payment Service:
+                                                </h3>
+                                            </div>
+                                            <div className={"w-9/12 sm:w-8/12 xl:w-8/12"}>
+                                                <div className={"flex justify-between h-full"}>
+                                                    <div className={"flex items-center xl:items-start"}>
+                                                        <div className={"flex flex-col text-sm"}>
+                                                            {
+                                                                paymentMethod === "PayPal / Credit Card" ? (
+                                                                    <>
+                                                                        <span className={"font-semibold"}>Paypal, Inc.</span>
+                                                                        <span>(includes: Paypal, Venmo, Credit Card, etc.)</span>
+                                                                    </>
+                                                                ) :  paymentMethod === "Stripe / Credit Card" ? (
+                                                                    <>
+                                                                        <span className={"font-semibold"}>Stripe, Inc.</span>
+                                                                        <span>(includes: Cash App, Afterpay, Credit Card, etc.)</span>
+                                                                    </>
+                                                                ) : ""
+                                                            }
+                                                        </div>
                                                     </div>
-                                                </div>
-                                                <div className={"flex items-center"}>
-                                                    <Link to={"/payment"}>
-                                                        <FaEdit className={"w-3.5"}/>
-                                                    </Link>
+                                                    <div className={"flex items-start xl:items-end"}>
+                                                        <Link to={"/payment"}>
+                                                            <FaEdit className={"w-3"}/>
+                                                        </Link>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
@@ -360,7 +367,7 @@ const CheckoutPage = () => {
                                 {
                                     userData && (
                                         <div className={"pt-3 px-2 sm:px-0"}>
-                                            <div className={"alert flex rounded-md w-full"}>
+                                            <div className={"alert flex rounded-sm w-full"}>
                                                 <div className={"flex items-center justify-start w-full"}>
                                                     <div className={"mr-1"}>
                                                         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
