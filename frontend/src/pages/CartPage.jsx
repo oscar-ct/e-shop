@@ -65,7 +65,7 @@ const CartPage = () => {
                                         // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
                                         className={"hidden md:block py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-zinc-700 md:text-white font-semibold"}>
                                          Shopping Cart (
-                                        <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
+                                        <span className={"text-2xl md:text-xl md:font-light"}>
                                             {totalNumberOfItems}
                                             {
                                                 totalNumberOfItems === 1 ? (
@@ -78,7 +78,7 @@ const CartPage = () => {
                                         )
                                     </h1>
                                 </div>
-                                <div className={"lg:overflow-y-auto lg:min-h-[275px] lg:md:max-h-[calc(100vh-388px)] bg-white border pt-10 px-4 sm:px-7 pb-4 sm:pb-7 overflow-y"}>
+                                <div className={"bg-white border pt-10 px-4 sm:px-7 pb-4 sm:pb-7 overflow-y"}>
                                     {
                                         cartItems.map(function (item) {
                                             return (
@@ -109,7 +109,7 @@ const CartPage = () => {
                                     )
                                 }
                             </div>
-                            <div className={"lg:pt-7 px-3 w-96 place-self-end lg:place-self-start lg:pl-5 lg:w-4/12"}>
+                            <div className={"lg:fixed right-0 lg:pt-7 px-3 w-96 place-self-end lg:place-self-start lg:pl-5 lg:w-4/12"}>
                                 <div className={"hidden lg:flex"}>
                                     {
                                         totalPrice > 100 ? (
