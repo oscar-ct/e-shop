@@ -159,7 +159,7 @@ const ShippingPage = () => {
                     <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                         <h1>Shipping Information</h1>
                     </div>
-                    <div className={"md:shadow-lg bg-white px-10 pb-5 pt-5 w-full border"}>
+                    <div className={"md:shadow-lg bg-white px-10 pb-5 pt-5 w-full md:border"}>
                     {
                         useNewAddress ? (
                             <form onSubmit={submitShippingData} className="space-y-5">
@@ -341,7 +341,7 @@ const ShippingPage = () => {
                                     userData?.shippingAddresses.map(function(item, index) {
                                         return (
                                             <div key={index} className="my-5" onClick={() => setRadioId(item._id)}>
-                                                <div className={`w-full card border cursor-pointer ${item._id === radioId && "border-blue-400 ring-2 ring-blue-200"}`}>
+                                                <div className={`w-full rounded-md shadow-sm border cursor-pointer ${item._id === radioId && "ring-2 border-green-500 ring-green-100"}`}>
                                                     <div className={"w-full flex p-6"}>
                                                         <div className={"text-sm w-10/12 flex flex-col justify-center"}>
                                                              <span className={"truncate"}>

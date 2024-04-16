@@ -43,11 +43,11 @@ const PaymentPage = () => {
                     <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                         <h1>Payment Service(s)</h1>
                     </div>
-                    <div className={"md:shadow-lg bg-white px-10 pb-5 pt-5 border text-sm"}>
+                    <div className={"md:shadow-lg bg-white px-10 pb-5 pt-5 md:border text-sm"}>
                         <form onSubmit={submitPaymentMethod}>
                             <div className="my-5">
                                 <div
-                                    className={`w-full border cursor-pointer rounded-md shadow-sm ${paymentMeth === "PayPal / Credit Card" && "border-blue-400 ring-2 ring-blue-200"}`}
+                                    className={`w-full border cursor-pointer rounded-md shadow-sm ${paymentMeth === "PayPal / Credit Card" && "ring-2 border-green-500 ring-green-100"}`}
                                     onClick={() => setPaymentMeth("PayPal / Credit Card")}
                                 >
                                     <div className={"w-full flex px-6 py-5"}>
@@ -75,7 +75,7 @@ const PaymentPage = () => {
                             </div>
                             <div className="my-5">
                                 <div
-                                    className={`w-full border cursor-pointer rounded-md shadow-sm ${paymentMeth === "Stripe / Credit Card" && "border-blue-400 ring-2 ring-blue-200"}`}
+                                    className={`w-full border cursor-pointer rounded-md shadow-sm ${paymentMeth === "Stripe / Credit Card" && "ring-2 border-green-500 ring-green-100"}`}
                                     onClick={() => setPaymentMeth("Stripe / Credit Card")}
                                 >
                                     <div className={"w-full flex pr-6 pl-3 py-5"}>
