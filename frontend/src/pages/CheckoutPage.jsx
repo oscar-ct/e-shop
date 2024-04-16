@@ -124,7 +124,7 @@ const CheckoutPage = () => {
                         <div className={"pt-0 flex-col flex lg:flex-row w-full 2xl:container mx-auto"}>
                             <div className={"lg:w-7/12 2xl:w-8/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
                                 <div className={"pt-3 sm:pt-7"}>
-                                    <h1 className={"md:block py-2 text-center font-semibold text-2xl ibmplex bg-white md:bg-zinc-700 md:text-white"}>
+                                    <h1 className={"md:block pb-6 pt-3 md:pb-2 md:pt-2 text-center font-semibold text-3xl md:text-2xl ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                                         Review your Order Information
                                         {/*<span className={"text-xl md:text-white font-light"}>*/}
                                         {/*    {totalNumberOfItems}*/}
@@ -254,8 +254,8 @@ const CheckoutPage = () => {
                                     )
                                 }
                                     <div className={"border md:border-none"}>
-                                        <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
-                                            Payment Summary
+                                        <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-3xl md:text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
+                                            Collect Payment
                                         </h3>
                                         <div className={"md:border md:shadow-lg bg-white"}>
                                             <div className="pt-0 px-6">
