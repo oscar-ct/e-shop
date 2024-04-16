@@ -23,10 +23,12 @@ const QuantitySelect = ({quantity, products, item}) => {
     }, []);
 
     useEffect(() => {
-        if (width > 500) {
-            setQuantityText("Quantity:")
-        } else {
+        if (width > 500 && width < 768) {
             setQuantityText("Qty:")
+        } else if (width >= 768) {
+            setQuantityText("Quantity:")
+        } else{
+            setQuantityText("")
         }
     }, [width]);
 
@@ -35,7 +37,7 @@ const QuantitySelect = ({quantity, products, item}) => {
             <label htmlFor={"qty"} className={"text-sm font-semibold pr-1"}>{quantityText}</label>
             <select
                 id={"qty"}
-                className="h-full w-full md:w-16 !outline-none text-sm bg-white cursor-pointer"
+                className="h-full w-full md:w-16 !outline-none text-sm bg-white cursor-pointer font-bold"
                 value={quantity}
                 onChange={(e) => addToCartHandler(item, Number(e.target.value))}
             >
