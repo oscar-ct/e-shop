@@ -58,12 +58,44 @@ const CartPage = () => {
                 ) : (
                     <>
                         <CheckoutSteps/>
-                        <div className={"flex-col flex lg:flex-row w-full md:pl-3 md:pr-3 lg:pr-0 2xl:container mx-auto"}>
-                            <div className={"lg:w-8/12 h-min"}>
-                                <div className={"pt-3 sm:pt-7"}>
-                                    <h1
-                                        // style={{background: "linear-gradient(90deg, rgba(255,255,255,1) 0%, rgba(216,228,253,1) 100%)"}}
-                                        className={"hidden md:block py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-zinc-700 md:text-white font-semibold"}>
+                        <div className={"flex-col flex lg:flex-row w-full md:pl-3 md:pr-3 2xl:container mx-auto"}>
+                            <div className={"lg:w-full h-min"}>
+                                <div className={"px-3 flex flex-col items-center"}>
+                                    <div className={"text-4xl font-semibold pt-10 flex justify-center text-center"}>
+                                        Your cart total is ${totalPrice}
+                                    </div>
+                                    <div className={"pt-10 text-center text-sm"}>
+                                        Taxes and shipping will be calculated at checkout
+                                    </div>
+                                    <div className={"pt-10"}>
+                                        <CustomBtn onClick={checkoutHandler}>
+                                            Proceed To Checkout
+                                        </CustomBtn>
+                                    </div>
+                                </div>
+                                <div className={"pt-10 px-3 sm:px-0"}>
+                                    {
+                                        totalPrice > 100 ? (
+                                            <div className={"pb-3 w-full"}>
+                                                <Message variant={"success"}>
+                                                    <span className={"text-sm"}>
+                                                        Your order qualifies for FREE shipping!
+                                                    </span>
+                                                </Message>
+                                            </div>
+                                        ) : (
+                                            <div className={"pb-3 w-full"}>
+                                                <Message variant={"info"}>
+                                                    <span className={"text-sm"}>
+                                                        Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
+                                                    </span>
+                                                </Message>
+                                            </div>
+                                        )
+                                    }
+                                </div>
+                                <div>
+                                    <h1 className={"hidden md:block py-2 text-center text-3xl md:text-2xl ibmplex bg-white md:bg-zinc-700 md:text-white font-semibold"}>
                                          Shopping Cart (
                                         <span className={"text-2xl md:text-xl md:font-light"}>
                                             {totalNumberOfItems}
@@ -78,7 +110,7 @@ const CartPage = () => {
                                         )
                                     </h1>
                                 </div>
-                                <div className={"bg-white border pt-10 px-4 sm:px-7 pb-4 sm:pb-7 overflow-y"}>
+                                <div className={"shadow-lg bg-white border pt-10 px-4 sm:px-7 pb-4 sm:pb-7 overflow-y"}>
                                     {
                                         cartItems.map(function (item) {
                                             return (
@@ -86,78 +118,6 @@ const CartPage = () => {
                                             )
                                         })
                                     }
-                                </div>
-                            </div>
-                            <div className={"lg:hidden"}>
-                                {
-                                    totalPrice > 100 ? (
-                                        <div className={"py-3 px-2 sm:px-0"}>
-                                            <Message variant={"success"}>
-                                                <span className={"text-sm"}>
-                                                    Your order qualifies for FREE shipping!
-                                                </span>
-                                            </Message>
-                                        </div>
-                                    ) : (
-                                        <div className={"py-3 px-2 sm:px-0"}>
-                                            <Message variant={"info"}>
-                                                <span className={"text-sm"}>
-                                                    Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
-                                                </span>
-                                            </Message>
-                                        </div>
-                                    )
-                                }
-                            </div>
-                            <div className={"lg:fixed right-0 lg:pt-7 px-3 w-96 place-self-end lg:place-self-start lg:pl-5 lg:w-4/12"}>
-                                <div className={"hidden lg:flex"}>
-                                    {
-                                        totalPrice > 100 ? (
-                                            <div className={"pb-3 w-full"}>
-                                                <Message variant={"success"} border={"rounded-xl"}>
-                                                    <span className={"text-sm"}>
-                                                        Your order qualifies for FREE shipping!
-                                                    </span>
-                                                </Message>
-                                            </div>
-                                        ) : (
-                                            <div className={"pb-3 w-full"}>
-                                                <Message variant={"info"} border={"rounded-xl"}>
-                                                    <span className={"text-sm"}>
-                                                        Add <span className={"font-bold"}>${(100 - totalPrice).toFixed(2)}</span> to your order to qualify for FREE shipping.
-                                                    </span>
-                                                </Message>
-                                            </div>
-                                        )
-                                    }
-                                </div>
-                                <div className="lg:my-0 mb-5 lg:w-full border bg-white self-end">
-                                    <div className="px-8 py-5">
-                                        <div className={"flex flex-col"}>
-                                            <h3 className={"text-xl font-semibold"}>
-                                                Subtotal (
-                                                <span className={"text-[16px] font-semibold"}>
-                                                    {totalNumberOfItems}
-                                                    {totalNumberOfItems > 1 ? (" Items") : (" Item")}
-                                                </span>)
-                                            </h3>
-                                            <div className={"text-xs py-1"}>Taxes will be calculated at checkout</div>
-                                            <div className={"border-b-[1px] border-gray-300 my-2"}/>
-                                            <div className={"flex justify-end"}>
-                                                <span className="text-xl font-semibold">
-                                                    ${totalPrice}
-                                                    <span className={"pl-1 text-xs font-semibold"}>
-                                                        USD
-                                                    </span>
-                                                </span>
-                                            </div>
-                                        </div>
-                                    </div>
-                                    <div className="card-actions justify-end px-5 pb-5">
-                                        <CustomBtn onClick={checkoutHandler}>
-                                            Proceed To Checkout
-                                        </CustomBtn>
-                                    </div>
                                 </div>
                             </div>
                         </div>
