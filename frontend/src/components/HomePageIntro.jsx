@@ -1,5 +1,5 @@
 import {ReactComponent as Logo} from "../icons/e.svg";
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import { Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Pagination, EffectFade} from "swiper/modules";
 import 'swiper/css';
@@ -20,6 +20,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
+    const navigate = useNavigate();
 
     const [animateClassName, setAnimateClassName] = useState("");
     const rgb = [
@@ -87,7 +88,14 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                 <div className={"hidden md:block w-full"}>
                     <div className={"flex h-[58em] w-full ibmplex"}>
                         <div
-                            style={{backgroundImage: `url(/images/lxrcbsv-qe_tC7Qk5Do-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover"}}
+                            style={{
+                                // backgroundImage: `url(/images/lxrcbsv-qe_tC7Qk5Do-unsplash.webp)`,
+                                backgroundImage: `url(https://images.unsplash.com/photo-1655512318649-8e32533c1c9f?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
+                                backgroundPosition: "center",
+                                backgroundSize: "cover",
+                                // transform: "scale(1.1)",
+                                // transition: "all 2s ease-in"
+                            }}
                             className={"h-full w-full"}
                         >
                             <div className={"w-full h-full flex flex-col items-center justify-between"}>
@@ -122,9 +130,9 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                     <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em] rounded-br-full`}/>
                                                     <div className={`${animateClassName} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em] rounded-bl-full`}/>
                                                 </div>
-
-                                                <div className={"pb-20 px-10 w-full flex flex-col justify-center items-center"}>
+                                                <div className={"pb-10 px-10 w-full flex flex-col justify-center items-center"}>
                                                     <motion.span
+                                                        onDoubleClick={() => navigate("/search/snake")}
                                                         onMouseEnter={() => setLogoColor(rgb[Math.floor(Math.random() * rgb.length)])}
                                                         whileHover={{ scale: 1.2 }}
                                                         whileTap={{ scale: 1.0 }}
