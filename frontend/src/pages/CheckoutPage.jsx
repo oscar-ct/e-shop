@@ -124,9 +124,9 @@ const CheckoutPage = () => {
                         <div className={"pt-0 flex-col flex lg:flex-row w-full 2xl:container mx-auto"}>
                             <div className={"lg:w-7/12 xl:w-8/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
                                 <div className={"pt-3 sm:pt-7"}>
-                                    <h1 className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
+                                    <h1 className={"md:block py-2 text-center text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                                         Your Order (
-                                        <span className={"text-2xl md:text-xl md:text-white md:font-light"}>
+                                        <span className={"text-xl md:text-white font-light"}>
                                             {totalNumberOfItems}
                                             {
                                                 totalNumberOfItems === 1 ? (
@@ -138,7 +138,7 @@ const CheckoutPage = () => {
                                         </span>)
                                     </h1>
                                 </div>
-                                <div className={"shadow-lg bg-white border px-4 sm:px-7 py-4"}>
+                                <div className={"md:shadow-lg bg-white border px-4 sm:px-7 py-4"}>
                                     {
                                         !userData && guestData && (
                                             <div className={"flex border-b-[1px] border-gray-300 py-3"}>
@@ -253,7 +253,7 @@ const CheckoutPage = () => {
                                         </div>
                                     )
                                 }
-                                    <div className="shadow-lg bg-white border">
+                                    <div className="md:shadow-lg bg-white border">
                                         <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
                                             Order Summary
                                         </h3>
