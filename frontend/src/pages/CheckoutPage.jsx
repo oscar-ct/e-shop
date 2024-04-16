@@ -122,7 +122,7 @@ const CheckoutPage = () => {
                     <div>
                         <CheckoutSteps/>
                         <div className={"pt-0 flex-col flex lg:flex-row w-full 2xl:container mx-auto"}>
-                            <div className={"lg:w-7/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
+                            <div className={"lg:w-7/12 xl:w-8/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
                                 <div className={"pt-3 sm:pt-7"}>
                                     <h1 className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                                         Your Order (
@@ -138,7 +138,7 @@ const CheckoutPage = () => {
                                         </span>)
                                     </h1>
                                 </div>
-                                <div className={"bg-white border px-4 sm:px-7 py-4"}>
+                                <div className={"shadow-lg bg-white border px-4 sm:px-7 py-4"}>
                                     {
                                         !userData && guestData && (
                                             <div className={"flex border-b-[1px] border-gray-300 py-3"}>
@@ -235,7 +235,7 @@ const CheckoutPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={"p-3 lg:pt-7 lg:pl-5 lg:w-5/12"}>
+                            <div className={"p-3 lg:pt-7 lg:pl-5 lg:w-5/12 xl:w-4/12"}>
                                 {
                                     totalPrice > 100 || discount ? (
                                         <div className={"pb-3 px-2 sm:px-0"}>
@@ -253,7 +253,7 @@ const CheckoutPage = () => {
                                         </div>
                                     )
                                 }
-                                    <div className="bg-white border">
+                                    <div className="shadow-lg bg-white border">
                                         <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
                                             Order Summary
                                         </h3>
