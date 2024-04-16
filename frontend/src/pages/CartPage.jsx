@@ -64,10 +64,10 @@ const CartPage = () => {
                                     <div className={"text-4xl font-semibold pt-10 flex justify-center text-center"}>
                                         Your cart total is ${totalPrice}
                                     </div>
-                                    <div className={"pt-10 text-center text-sm"}>
+                                    <div className={"pt-8 md:pt-10 text-center text-sm"}>
                                         Taxes and shipping will be calculated at checkout
                                     </div>
-                                    <div className={"pt-10"}>
+                                    <div className={"pt-8 md:pt-10"}>
                                         <CustomBtn onClick={checkoutHandler}>
                                             Proceed To Checkout
                                         </CustomBtn>
@@ -110,7 +110,7 @@ const CartPage = () => {
                                         )
                                     </h1>
                                 </div>
-                                <div className={"shadow-lg bg-white border pt-10 px-4 sm:px-7 pb-4 sm:pb-7 overflow-y"}>
+                                <div className={"md:shadow-lg bg-white border pt-10 px-4 sm:px-7 pb-4 sm:pb-7 overflow-y"}>
                                     {
                                         cartItems.map(function (item) {
                                             return (
