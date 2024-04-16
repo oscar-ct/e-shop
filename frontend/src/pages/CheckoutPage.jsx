@@ -123,8 +123,8 @@ const CheckoutPage = () => {
                         <CheckoutSteps/>
                         <div className={"pt-0 flex-col flex lg:flex-row w-full 2xl:container mx-auto"}>
                             <div className={"lg:w-7/12 2xl:w-8/12 h-min md:pl-3 md:pr-3 lg:pr-0"}>
-                                <div className={"pt-3 sm:pt-7"}>
-                                    <h1 className={"md:block pb-6 pt-3 md:pb-2 md:pt-2 text-center font-semibold text-3xl md:text-2xl ibmplex bg-white md:bg-zinc-700 md:text-white"}>
+                                <div className={"pt-3 md:pt-7"}>
+                                    <h1 className={"hidden md:block py-2 text-center font-semibold text-2xl ibmplex bg-zinc-700 text-white"}>
                                         Review your Order Information
                                         {/*<span className={"text-xl md:text-white font-light"}>*/}
                                         {/*    {totalNumberOfItems}*/}
@@ -136,6 +136,9 @@ const CheckoutPage = () => {
                                         {/*        )*/}
                                         {/*    }*/}
                                         {/*</span>)*/}
+                                    </h1>
+                                    <h1 className={"md:hidden pb-3 pt-7 text-center font-semibold text-4xl bg-white"}>
+                                        Review your Order Information
                                     </h1>
                                 </div>
                                 <div className={"md:shadow-lg bg-white border px-4 sm:px-7 py-4"}>
