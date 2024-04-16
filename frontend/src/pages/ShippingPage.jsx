@@ -159,7 +159,7 @@ const ShippingPage = () => {
                     <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                         <h1>Shipping Information</h1>
                     </div>
-                    <div className={"shadow-lg bg-white px-10 pb-5 pt-5 w-full border"}>
+                    <div className={"md:shadow-lg bg-white px-10 pb-5 pt-5 w-full border"}>
                     {
                         useNewAddress ? (
                             <form onSubmit={submitShippingData} className="space-y-5">
