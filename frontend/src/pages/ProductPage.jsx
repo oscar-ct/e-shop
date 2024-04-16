@@ -193,7 +193,7 @@ const ProductPage = () => {
                                                         <div className={"pl-4 text-sm font-semibold"}>
                                                             {product.numReviews !== 0 ? `${product.rating.toFixed(1)} rating` : "0 reviews"}
                                                         </div>
-                                                        <div className={"pl-6 flex"}>
+                                                        <div className={"pl-6 flex lg:hidden"}>
                                                             <button
                                                                 onClick={() => {
                                                                     userData ? window.review_modal.showModal() : navigate("/login")
