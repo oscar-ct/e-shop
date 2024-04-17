@@ -141,7 +141,7 @@ const CheckoutPage = () => {
                                         Review your Order
                                     </h1>
                                 </div>
-                                <div className={"md:shadow-lg bg-white border px-4 sm:px-7 py-4"}>
+                                <div className={"md:shadow-lg bg-white md:border px-4 sm:px-7 py-4"}>
                                     {
                                         !userData && guestData && (
                                             <div className={"flex border-b-[1px] border-gray-300 py-3"}>
@@ -257,8 +257,8 @@ const CheckoutPage = () => {
                                     )
                                 }
                                     <div className={"border md:border-none"}>
-                                        <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-3xl md:text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
-                                            Pay & Submit Order
+                                        <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-4xl md:text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
+                                            Place Order
                                         </h3>
                                         <div className={"md:border md:shadow-lg bg-white"}>
                                             <div className="pt-0 px-6">
