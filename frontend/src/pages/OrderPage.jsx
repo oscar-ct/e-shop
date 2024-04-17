@@ -33,25 +33,17 @@ const OrderPage = () => {
     ] = useCancelOrderMutation();
 
     const [height, setHeight] = useState(0);
-    const [scrollYisLessThanHeight, setScrollYisLessThanHeight] = useState(true)
+
     useEffect(() => {
         if (!isLoading) {
             // console.log("check")
             // console.log(ref?.current?.clientHeight)
-            setHeight(ref?.current?.clientHeight + 25)
+            setHeight(ref?.current?.clientHeight)
         }
 
     }, [isLoading]);
 
-    useEffect(() => {
-        if (!isLoading && height !== 0) {
-            if (scrollY <= height) {
-                setScrollYisLessThanHeight(true);
-            } else {
-                setScrollYisLessThanHeight(false);
-            }
-        }
-    }, [isLoading, height, scrollY])
+
 
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
@@ -108,6 +100,7 @@ const OrderPage = () => {
         }
     }, []);
 
+
     return (
         <>
             {
@@ -119,10 +112,10 @@ const OrderPage = () => {
                     <>
                         <Meta title={`Order # ${order._id}`}/>
                         {
-                            (width < 768) && (
+                            width < 768 && (
                                 <div
                                     style={{
-                                        transform: scrollYisLessThanHeight ? `translateY(${height.toString()}px)` : "none",
+                                        transform: scrollY >= height ? "none" : `translateY(${height.toString()}px)`,
                                     }}
                                 >
                                     <BackButton/>
