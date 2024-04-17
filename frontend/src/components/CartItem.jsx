@@ -1,6 +1,6 @@
 import {Link} from "react-router-dom";
 import {FaTrash} from "react-icons/fa";
-import {addToCart, removeFromCart} from "../slices/cartSlice";
+import {removeFromCart} from "../slices/cartSlice";
 import {useDispatch} from "react-redux";
 import FormatPrice from "./FormatPrice";
 import QuantitySelect from "./QuantitySelect";
@@ -8,11 +8,11 @@ import QuantitySelect from "./QuantitySelect";
 const CartItem = ( {item} ) => {
 
     const dispatch = useDispatch();
-    const addToCartHandler = async (item, quantity) => {
-        dispatch(addToCart({
-            ...item, quantity
-        }));
-    };
+    // const addToCartHandler = async (item, quantity) => {
+    //     dispatch(addToCart({
+    //         ...item, quantity
+    //     }));
+    // };
     const removeFromCartHandler = async (id) => {
         dispatch(removeFromCart(id));
     };
