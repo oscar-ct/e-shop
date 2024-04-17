@@ -1,4 +1,4 @@
-import {useEffect, useState} from 'react';
+import {useEffect, useRef, useState} from 'react';
 import {useNavigate, useParams, useSearchParams} from "react-router-dom";
 import {useDispatch} from "react-redux";
 import {
@@ -7,7 +7,6 @@ import {
 } from "../slices/ordersApiSlice";
 import Spinner from "../components/Spinner";
 import Message from "../components/Message";
-import {ReactComponent as PayPal} from "../icons/paypal-logo.svg";
 import {ReactComponent as StripeLogo} from "../icons/stripe-logo.svg";
 import OrderItem from "../components/OrderItem";
 import Meta from "../components/Meta";
@@ -25,13 +24,21 @@ const OrderPage = () => {
     const navigate = useNavigate();
     const dispatch = useDispatch();
     const { id: orderId } = useParams();
+    const ref = useRef(null);
 
     const {data: order, refetch, isLoading, error} = useGetOrderByIdQuery(orderId);
     const [cancelOrder,
         // {error: errorCancelOrder}
     ] = useCancelOrderMutation();
 
-    const { scrollY, scrollDirection } = useScroll();
+    const [height, setHeight] = useState(0)
+    useEffect(() => {
+        if (!isLoading) {
+            setHeight(ref?.current?.clientHeight + 25)
+        }
+    }, [isLoading]);
+
+    const { scrollY } = useScroll();
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -86,8 +93,9 @@ const OrderPage = () => {
             removeEventListener("resize", setWindowWidth)
         }
     }, []);
-    console.log(scrollDirection)
 
+
+    console.log(height)
     return (
         <>
             {
@@ -100,13 +108,16 @@ const OrderPage = () => {
                         <Meta title={`Order # ${order._id}`}/>
                         {
                             (width < 768) && (
-                                <div className={`${scrollY < 120 ? "translate-y-[120px]" : ""} fadeInEffect`}>
+                                <div style={{
+                                    transform: scrollY < height ? `translateY(${height.toString()}px)` : "none",
+                                }}>
                                     <BackButton/>
                                 </div>
                             )
                         }
                         {/*TITLE*/}
                         <div className={"p-5 lg:pt-10 lg:pb-5"}>
+                            <div ref={ref}>
                             {
                                 order.isPaid && !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
                                     <h1 className={"text-4xl font-bold"}>
@@ -138,6 +149,7 @@ const OrderPage = () => {
                                     </h1>
                                 )
                             }
+                            </div>
                         </div>
                         {/*TITLE*/}
                         <div className={"lg:pt-5 flex-col flex lg:flex-row w-full md:px-3 lg:pr-0 2xl:container mx-auto"}>
@@ -196,12 +208,12 @@ const OrderPage = () => {
                                     </div>
                                 </div>
                                 <div className={"flex border-b-[1px] border-gray-300 py-3"}>
-                                    <div className={"w-5/12 lg:w-4/12 flex items-center"}>
-                                        <h3 className={"font-semibold"}>
+                                    <div className={"w-3/12 sm:w-5/12 lg:w-4/12 flex items-center"}>
+                                        <h3 className={"font-semibold pr-5"}>
                                             Payment Service:
                                         </h3>
                                     </div>
-                                    <div className={"w-7/12 lg:w-8/12"}>
+                                    <div className={"w-9/12 sm:w-7/12 lg:w-8/12"}>
                                         <div className={"flex items-center xl:items-start"}>
                                             <div className={"flex flex-col text-sm"}>
                                                 {
@@ -354,33 +366,34 @@ const OrderPage = () => {
                             {/*ORDER DETAILS*/}
 
 
-                            <div className={"pt-5 lg:pt-0 px-3 pb-5 lg:pl-5 lg:w-5/12"}>
+                            <div className={"pt-5 lg:pt-0 px-3 pb-5 lg:pl-5 lg:w-5/12 flex flex-col-reverse md:flex-col"}>
 
+                                <div className={"pt-5 lg:pt-0 pb-5"}>
                             {/*CANCEL OPTIONS*/}
                             {
                                 !order.isShipped && !order.isDelivered && !order.isCanceled && order.canceledItems.length !== order.orderItems.length ? (
-                                    <div className={"w-full pt-5 lg:pt-0 pb-5"}>
+                                    <div className={"px-3 w-full flex justify-end"}>
                                         <button onClick={() => window.confirm_modal.showModal()}
-                                                className={"btn btn-outline bg-white btn-error normal-case btn-sm w-full rounded-full"}
+                                                className={"btn btn-outline bg-white btn-error normal-case btn-sm w-40 md:w-full rounded-full"}
                                         >
                                             Cancel This Order
                                         </button>
                                     </div>
                                 ) : (order.isCanceled || totalNumberOfCanceledItemsThatRequireRefund > 0) && order.isPaid && !order.isReimbursed ? (
-                                        <h5 className={"text-center py-5"}>
+                                        <h5 className={"text-center"}>
                                             Refunds can take up 5-7 business to process.
                                         </h5>
                                 ) : (order.isCanceled || order.canceledItems?.length === order.orderItems.length) || order.isDelivered  ? (
                                         ""
                                 ) : (
-                                    <h5 className={"text-center py-5"}>
+                                    <h5 className={"text-center"}>
                                         This order has shipped and can no longer be canceled.
                                     </h5>
                                 )
                             }
                             {/*CANCEL OPTIONS*/}
 
-
+                                </div>
 
                                 <div className={"flex flex-col"}>
                                     {
@@ -396,7 +409,7 @@ const OrderPage = () => {
                                                         )
                                                     }
                                                 </h3>
-                                                <h1 className={"md:hidden pt-5 text-center font-semibold text-3xl bg-white px-2"}>
+                                                <h1 className={"md:hidden text-center pt-3 font-semibold text-3xl bg-white px-2"}>
                                                     {
                                                         order.isPaid ? (
                                                             "Payment Summary"
@@ -408,7 +421,7 @@ const OrderPage = () => {
                                                 <div className="bg-white md:border">
                                                     <div className="pt-0 px-3 md:px-6">
                                                         <div className={"flex flex-col md:pt-6"}>
-                                                            <div className={"md:hidden  mt-5 mb-3"}/>
+                                                            <div className={"md:hidden mt-5 mb-3"}/>
                                                             <div className={"flex justify-between text-sm my-1"}>
                                                                 <span>Items ({totalNumberOfItems - totalNumberOfCanceledItems}):</span>
                                                                 <span className="pl-2">${(order.itemsPrice).toFixed(2)}</span>
@@ -428,7 +441,7 @@ const OrderPage = () => {
                                                             </div>
                                                         </div>
                                                     </div>
-                                                    <div className={"flex justify-between font-semibold text-lg px-3 md:px-6 pt-5 pb-6"}>
+                                                    <div className={"flex justify-between font-semibold text-lg px-3 md:px-6 pt-6 pb-8"}>
                                                         <span className="text-red-600">Order Total:</span>
                                                         <span className="text-red-600">${(order.taxPrice + order.shippingPrice + order.itemsPrice).toFixed(2)}</span>
                                                     </div>
@@ -480,7 +493,7 @@ const OrderPage = () => {
                                                 <h1 className={"md:hidden pt-5 text-center font-semibold text-3xl bg-white px-2"}>
                                                     Refund Summary
                                                 </h1>
-                                                <div className="bg-white md:border pt-0 px-6">
+                                                <div className="bg-white md:border pt-0 px-3 md:px-6">
                                                     <div className={"flex flex-col md:pt-6"}>
                                                         <div className={"md:hidden mt-5 mb-3"}/>
                                                         <div className={"flex justify-between text-sm my-1"}>
