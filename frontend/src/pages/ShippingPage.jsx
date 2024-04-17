@@ -168,11 +168,11 @@ const ShippingPage = () => {
                     </div>
                     {
                         useNewAddress ? (
-                            <h1 className={"md:hidden pt-7 text-center font-semibold text-4xl bg-white px-5"}>
+                            <h1 className={"md:hidden pt-7 text-center font-semibold text-3xl bg-white px-2"}>
                                Enter your Shipping Address
                             </h1>
                         ) : (
-                            <h1 className={"md:hidden pt-7 text-center font-semibold text-4xl bg-white px-5"}>
+                            <h1 className={"md:hidden pt-7 text-center font-semibold text-3xl bg-white px-2"}>
                                 Select your Shipping Address
                             </h1>
                         )

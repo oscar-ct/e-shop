@@ -137,7 +137,7 @@ const CheckoutPage = () => {
                                         {/*    }*/}
                                         {/*</span>)*/}
                                     </h1>
-                                    <h1 className={"md:hidden pb-3 pt-7 text-center font-semibold text-4xl bg-white px-5"}>
+                                    <h1 className={"md:hidden pb-3 pt-7 text-center font-semibold text-3xl bg-white px-2"}>
                                         Review your Order Information
                                     </h1>
                                 </div>
@@ -256,8 +256,8 @@ const CheckoutPage = () => {
                                         </div>
                                     )
                                 }
-                                    <div className={"md:border"}>
-                                        <h3 className={"md:hidden pt-5 pb-0 md:py-2 text-4xl font-semibold text-center"}>
+                                    <div className={""}>
+                                        <h3 className={"md:hidden pt-5 pb-0 md:py-2 text-3xl font-semibold text-center"}>
                                             Place Order
                                         </h3>
                                         <h3 className={"hidden md:block py-2 ibmplex text-2xl bg-zinc-700 text-white font-semibold text-center"}>
