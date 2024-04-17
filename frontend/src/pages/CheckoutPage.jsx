@@ -138,7 +138,7 @@ const CheckoutPage = () => {
                                         {/*</span>)*/}
                                     </h1>
                                     <h1 className={"md:hidden pb-3 pt-7 text-center font-semibold text-4xl bg-white px-5"}>
-                                        Review your Order
+                                        Review your Order Information
                                     </h1>
                                 </div>
                                 <div className={"md:shadow-lg bg-white md:border px-4 sm:px-7 py-4"}>
@@ -222,7 +222,7 @@ const CheckoutPage = () => {
                                             </div>
                                         </div>
                                     </div>
-                                    <div className={"py-5"}>
+                                    <div className={"pt-5"}>
                                         <h3 className={"font-semibold"}>
                                             Order Item(s):
                                         </h3>
@@ -238,7 +238,7 @@ const CheckoutPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={"p-3 lg:pt-7 lg:pl-5 lg:w-5/12 2xl:w-4/12"}>
+                            <div className={"sm:p-3 lg:pt-7 lg:pl-5 lg:w-5/12 2xl:w-4/12"}>
                                 {
                                     totalPrice > 100 || discount ? (
                                         <div className={"pb-3 px-2 sm:px-0"}>
@@ -256,14 +256,17 @@ const CheckoutPage = () => {
                                         </div>
                                     )
                                 }
-                                    <div className={"border md:border-none"}>
-                                        <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-4xl md:text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
+                                    <div className={"md:border"}>
+                                        <h3 className={"md:hidden pt-5 pb-0 md:py-2 text-4xl font-semibold text-center"}>
+                                            Place Order
+                                        </h3>
+                                        <h3 className={"hidden md:block py-2 ibmplex text-2xl bg-zinc-700 text-white font-semibold text-center"}>
                                             Place Order
                                         </h3>
                                         <div className={"md:border md:shadow-lg bg-white"}>
                                             <div className="pt-0 px-6">
                                                 <div className={"flex flex-col md:pt-6"}>
-                                                    <div className={"md:hidden border-b-[1px] border-gray-300 mt-5 mb-3"}/>
+                                                    <div className={"md:hidden mt-5 mb-3"}/>
                                                     <div className={"flex justify-between text-sm my-1"}>
                                                         <span>Items({totalNumberOfItems}):</span>
                                                         <span className="pl-2">${itemsPrice}</span>
