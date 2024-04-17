@@ -1,7 +1,9 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
-
+iframe {
+  z-index: 0 !important;
+}
 .mooli {
   font-family: 'Mooli', sans-serif;
 }
