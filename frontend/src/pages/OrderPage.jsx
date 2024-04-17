@@ -25,20 +25,34 @@ const OrderPage = () => {
     const dispatch = useDispatch();
     const { id: orderId } = useParams();
     const ref = useRef(null);
+    const { scrollY } = useScroll();
 
     const {data: order, refetch, isLoading, error} = useGetOrderByIdQuery(orderId);
     const [cancelOrder,
         // {error: errorCancelOrder}
     ] = useCancelOrderMutation();
 
-    const [height, setHeight] = useState(0)
+    const [height, setHeight] = useState(0);
+    const [scrollYisLessThanHeight, setScrollYisLessThanHeight] = useState(true)
     useEffect(() => {
         if (!isLoading) {
+            // console.log("check")
+            // console.log(ref?.current?.clientHeight)
             setHeight(ref?.current?.clientHeight + 25)
         }
+
     }, [isLoading]);
 
-    const { scrollY } = useScroll();
+    useEffect(() => {
+        if (!isLoading && height !== 0) {
+            if (scrollY <= height) {
+                setScrollYisLessThanHeight(true);
+            } else {
+                setScrollYisLessThanHeight(false);
+            }
+        }
+    }, [isLoading, height, scrollY])
+
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -106,9 +120,11 @@ const OrderPage = () => {
                         <Meta title={`Order # ${order._id}`}/>
                         {
                             (width < 768) && (
-                                <div style={{
-                                    transform: scrollY <= height ? `translateY(${height.toString()}px)` : "none",
-                                }}>
+                                <div
+                                    style={{
+                                        transform: scrollYisLessThanHeight ? `translateY(${height.toString()}px)` : "none",
+                                    }}
+                                >
                                     <BackButton/>
                                 </div>
                             )
