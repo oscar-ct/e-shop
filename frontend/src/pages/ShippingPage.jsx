@@ -157,8 +157,26 @@ const ShippingPage = () => {
             <div className={"pt-0 w-full flex justify-center"}>
                 <div className={"pt-3 sm:pt-7 w-full sm:w-[35em]"}>
                     <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
-                        <h1>Shipping Information</h1>
+                        {
+                            useNewAddress ? (
+                                <h1>Enter your Shipping Address</h1>
+                            ) : (
+                                <h1>Select your Shipping Address</h1>
+                            )
+                        }
+
                     </div>
+                    {
+                        useNewAddress ? (
+                            <h1 className={"md:hidden pt-7 text-center font-semibold text-4xl bg-white px-5"}>
+                               Enter your Shipping Address
+                            </h1>
+                        ) : (
+                            <h1 className={"md:hidden pt-7 text-center font-semibold text-4xl bg-white px-5"}>
+                                Select your Shipping Address
+                            </h1>
+                        )
+                    }
                     <div className={"md:shadow-lg bg-white px-10 pb-5 pt-5 w-full md:border"}>
                     {
                         useNewAddress ? (
