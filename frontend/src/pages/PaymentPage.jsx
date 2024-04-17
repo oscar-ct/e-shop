@@ -43,7 +43,7 @@ const PaymentPage = () => {
                     <div className={"hidden md:block py-2 text-center text-3xl md:text-2xl font-semibold ibmplex bg-white md:bg-zinc-700 md:text-white"}>
                         <h1>Select your preferred Payment Service</h1>
                     </div>
-                    <h1 className={"md:hidden pt-7 text-center font-semibold text-3xl bg-white px-2"}>
+                    <h1 className={"md:hidden pt-4 text-center font-semibold text-3xl bg-white px-2"}>
                         Select your preferred Payment Service
                     </h1>
                     <div className={"md:shadow-lg bg-white px-10 pb-5 pt-5 md:border text-sm"}>

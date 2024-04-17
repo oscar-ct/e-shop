@@ -60,8 +60,8 @@ const CartPage = () => {
                         <CheckoutSteps/>
                         <div className={"flex-col flex lg:flex-row w-full md:pl-3 md:pr-3 2xl:container mx-auto"}>
                             <div className={"lg:w-full h-min"}>
-                                <div className={"px-3 flex flex-col items-center"}>
-                                    <div className={"text-3xl md:text-4xl font-semibold pt-10 flex justify-center text-center"}>
+                                <div className={"px-3 pt-4 flex flex-col items-center"}>
+                                    <div className={"text-3xl md:text-4xl font-semibold pt-3 md:pt-10 flex justify-center text-center"}>
                                         Your cart total is ${totalPrice}
                                     </div>
                                     <div className={"pt-8 md:pt-10 text-center text-sm"}>

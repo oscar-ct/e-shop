@@ -150,7 +150,7 @@ const OrderPage = () => {
                             {/*}*/}
 
                             {/*ORDER DETAILS*/}
-                            <div className={"lg:w-7/12 bg-white border h-min p-4 sm:p-7"}>
+                            <div className={"lg:w-7/12 bg-white md:border h-min px-4 md:p-7"}>
                                 <div className={"pt-5 md:pt-0 pb-5 lg:pb-0 lg:flex"}>
                                     {
                                         width >= 768 && (
@@ -385,44 +385,60 @@ const OrderPage = () => {
                                 <div className={"flex flex-col"}>
                                     {
                                         totalNumberOfItems - totalNumberOfCanceledItems !== 0 && (
-                                            <div className="bg-white border">
+                                            <>
                                             {/*ORDER SUMMARY*/}
-                                                <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
-                                                    Order Summary
+                                                <h3 className={"hidden md:block py-2 ibmplex text-2xl bg-zinc-700 text-white font-semibold text-center"}>
+                                                    {
+                                                        order.isPaid ? (
+                                                            "Payment Summary"
+                                                        ) : (
+                                                            "Pay Order"
+                                                        )
+                                                    }
                                                 </h3>
-                                                <div className="pt-0 px-6">
-                                                    <div className={"flex flex-col md:pt-6"}>
-                                                        <div className={"md:hidden border-b-[1px] border-gray-300 mt-5 mb-3"}/>
-                                                        <div className={"flex justify-between text-sm my-1"}>
-                                                            <span>Items ({totalNumberOfItems - totalNumberOfCanceledItems}):</span>
-                                                            <span className="pl-2">${(order.itemsPrice).toFixed(2)}</span>
-                                                        </div>
-                                                        <div className={"flex justify-between text-sm my-1"}>
-                                                            <span>Shipping & handling:</span>
-                                                            <span className="pl-2">${(order.shippingPrice).toFixed(2)}</span>
-                                                        </div>
-                                                        <span className={"self-end w-16 my-1 border-b-[1px] border-grey-500"}/>
-                                                        <div className={"flex justify-between text-sm my-1"}>
-                                                            <span>Total before tax:</span>
-                                                            <span className="pl-2">${(order.itemsPrice + order.shippingPrice).toFixed(2)}</span>
-                                                        </div>
-                                                        <div className={"flex justify-between text-sm my-1"}>
-                                                            <span>Estimated tax to be collected:</span>
-                                                            <span className="pl-2">${(order.taxPrice).toFixed(2)}</span>
+                                                <h1 className={"md:hidden pt-5 text-center font-semibold text-3xl bg-white px-2"}>
+                                                    {
+                                                        order.isPaid ? (
+                                                            "Payment Summary"
+                                                        ) : (
+                                                            "Pay Order"
+                                                        )
+                                                    }
+                                                </h1>
+                                                <div className="bg-white md:border">
+                                                    <div className="pt-0 px-3 md:px-6">
+                                                        <div className={"flex flex-col md:pt-6"}>
+                                                            <div className={"md:hidden  mt-5 mb-3"}/>
+                                                            <div className={"flex justify-between text-sm my-1"}>
+                                                                <span>Items ({totalNumberOfItems - totalNumberOfCanceledItems}):</span>
+                                                                <span className="pl-2">${(order.itemsPrice).toFixed(2)}</span>
+                                                            </div>
+                                                            <div className={"flex justify-between text-sm my-1"}>
+                                                                <span>Shipping & handling:</span>
+                                                                <span className="pl-2">${(order.shippingPrice).toFixed(2)}</span>
+                                                            </div>
+                                                            <span className={"self-end w-16 my-1 border-b-[1px] border-grey-500"}/>
+                                                            <div className={"flex justify-between text-sm my-1"}>
+                                                                <span>Total before tax:</span>
+                                                                <span className="pl-2">${(order.itemsPrice + order.shippingPrice).toFixed(2)}</span>
+                                                            </div>
+                                                            <div className={"flex justify-between text-sm my-1"}>
+                                                                <span>Estimated tax to be collected:</span>
+                                                                <span className="pl-2">${(order.taxPrice).toFixed(2)}</span>
+                                                            </div>
                                                         </div>
                                                     </div>
-                                                </div>
-                                                <div className={"flex justify-between font-semibold text-lg px-6 pt-5 pb-6"}>
-                                                    <span className="text-red-600">Order Total:</span>
-                                                    <span className="text-red-600">${(order.taxPrice + order.shippingPrice + order.itemsPrice).toFixed(2)}</span>
-                                                </div>
+                                                    <div className={"flex justify-between font-semibold text-lg px-3 md:px-6 pt-5 pb-6"}>
+                                                        <span className="text-red-600">Order Total:</span>
+                                                        <span className="text-red-600">${(order.taxPrice + order.shippingPrice + order.itemsPrice).toFixed(2)}</span>
+                                                    </div>
 
                                             {/*ORDER SUMMARY*/}
 
                                             {/*PAYMENT OPTIONS*/}
                                             {
                                                 !order.isPaid && (!order.isCanceled || order.orderItems.length !== order.canceledItems.length) && (
-                                                    <div className={"px-6 pb-5"}>
+                                                    <div className={"px-3 md:px-6 pb-5"}>
 
                                                         <div className={"border-t-[1px] pb-10"}/>
 
@@ -449,20 +465,24 @@ const OrderPage = () => {
                                                     </div>
                                                 )
                                             }
+                                                </div>
                                             {/*PAYMENT OPTIONS*/}
-                                            </div>
+                                            </>
                                         )
                                     }
                                     {
                                         order.isPaid && (totalNumberOfCanceledItemsThatRequireRefund > 0) && (order.isCanceled || order.canceledItems.length > 0) && (
 
-                                            <div className={`${totalNumberOfCanceledItemsThatRequireRefund === orderItemsPaidAndNotCanceled.length ? "mt-5" : ""} bg-white border`}>
-                                                <h3 className={"pt-5 pb-0 md:py-2 ibmplex text-2xl md:bg-zinc-700 md:text-white font-semibold text-center"}>
+                                            <div className={`${totalNumberOfCanceledItemsThatRequireRefund === orderItemsPaidAndNotCanceled.length ? "mt-5" : ""}`}>
+                                                <h3 className={"hidden md:block py-2 ibmplex text-2xl bg-zinc-700 text-white font-semibold text-center"}>
                                                     Refund Summary
                                                 </h3>
-                                                <div className="pt-0 px-6">
+                                                <h1 className={"md:hidden pt-5 text-center font-semibold text-3xl bg-white px-2"}>
+                                                    Refund Summary
+                                                </h1>
+                                                <div className="bg-white md:border pt-0 px-6">
                                                     <div className={"flex flex-col md:pt-6"}>
-                                                        <div className={"md:hidden border-b-[1px] border-gray-300 mt-5 mb-3"}/>
+                                                        <div className={"md:hidden mt-5 mb-3"}/>
                                                         <div className={"flex justify-between text-sm my-1"}>
                                                             <span>Items ({totalNumberOfCanceledItemsThatRequireRefund}):</span>
                                                             <span className="pl-2">${totalDollarAmountOfCanceledItemsThatRequireRefund.toFixed(2)}</span>

@@ -137,7 +137,7 @@ const CheckoutPage = () => {
                                         {/*    }*/}
                                         {/*</span>)*/}
                                     </h1>
-                                    <h1 className={"md:hidden pb-3 pt-7 text-center font-semibold text-3xl bg-white px-2"}>
+                                    <h1 className={"md:hidden pt-4 text-center font-semibold text-3xl bg-white px-2"}>
                                         Review your Order Information
                                     </h1>
                                 </div>
@@ -238,7 +238,7 @@ const CheckoutPage = () => {
                                     </div>
                                 </div>
                             </div>
-                            <div className={"sm:p-3 lg:pt-7 lg:pl-5 lg:w-5/12 2xl:w-4/12"}>
+                            <div className={"pb-2 sm:p-3 lg:pt-7 lg:pl-5 lg:w-5/12 2xl:w-4/12"}>
                                 {
                                     totalPrice > 100 || discount ? (
                                         <div className={"pb-3 px-2 sm:px-0"}>
