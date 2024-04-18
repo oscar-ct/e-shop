@@ -86,19 +86,18 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
             {/*DESKTOP*/}
 
                 <div className={"hidden md:block w-full"}>
-                    <div className={"flex h-[58em] w-full ibmplex"}>
+                    <div className={"flex h-[55em] w-full ibmplex"}>
                         <div
                             style={{
-                                // backgroundImage: `url(/images/lxrcbsv-qe_tC7Qk5Do-unsplash.webp)`,
-                                backgroundImage: `url(https://images.unsplash.com/photo-1655512318649-8e32533c1c9f?q=80&w=1430&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D)`,
-                                backgroundPosition: "center",
+                                backgroundImage: `url(/images/maxim-berg-qpL0cRkLJn8-unsplash.webp)`,
+                                backgroundPosition: "bottom",
                                 backgroundSize: "cover",
                                 // transform: "scale(1.1)",
                                 // transition: "all 2s ease-in"
                             }}
                             className={"h-full w-full"}
                         >
-                            <div className={"w-full h-full flex flex-col items-center justify-between"}>
+                            <div className={"backdrop-blur-sm w-full h-full flex flex-col items-center justify-between"}>
                                 <Reveal>
                                     <div className={"flex h-[32em] w-full ibmplex"}>
                                         <div
@@ -130,7 +129,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                     <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em] rounded-br-full`}/>
                                                     <div className={`${animateClassName} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em] rounded-bl-full`}/>
                                                 </div>
-                                                <div className={"pb-10 px-10 w-full flex flex-col justify-center items-center"}>
+                                                <div className={"py-10 px-10 w-full flex flex-col justify-center items-center"}>
                                                     <motion.span
                                                         onDoubleClick={() => navigate("/search/snake")}
                                                         onMouseEnter={() => setLogoColor(rgb[Math.floor(Math.random() * rgb.length)])}
@@ -147,7 +146,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                         when you spend over $100
                                                     </div>
                                                 </div>
-                                                <Link to={"/sort/latest/select/all"}>
+                                                <Link className={"pt-6"} to={"/sort/latest/select/all"}>
                                                     <CustomBtn customClass={""}>
                                                         Shop Now
                                                     </CustomBtn>
@@ -227,8 +226,8 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                         </div>
                                     </div>
                                 </Reveal>
-                                <div className={"w-full flex flex-col items-center justify-center pb-14"}>
-                                    <span className={"text-3xl md:text-2xl text-white ibmplex pb-2"}>Popular Categories</span>
+                                <div className={"w-full flex flex-col items-center justify-center pb-8"}>
+                                    <span className={"text-3xl font-bold py-1"}>Popular Categories</span>
                                     <div className={"w-full flex flex-wrap justify-center"}>
                                     {
                                         productCategories.slice(0, windowInnerWidth >= 768 && windowInnerWidth < 900 ? 4 : windowInnerWidth >= 900 && windowInnerWidth < 1068 ? 5 : windowInnerWidth >= 1068 && windowInnerWidth < 1250 ? 6 : windowInnerWidth >= 1250 && windowInnerWidth < 1420 ? 7 : 8).map(function (product, index) {
