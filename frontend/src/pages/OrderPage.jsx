@@ -46,11 +46,11 @@ const OrderPage = () => {
     const [height, setHeight] = useState(0);
 
     // useEffect(() => {
-    //     if (scrollDirection === "up" || scrollDirection === "down") {
-    //         setHeight(25 + ref?.current?.clientHeight)
-    //         console.log(ref?.current?.clientHeight);
-    //     }
-    // }, [width, scrollDirection]);
+    //     //     if (scrollDirection === "up" || scrollDirection === "down") {
+    //     //         setHeight(25 + ref?.current?.clientHeight)
+    //     //         console.log(ref?.current?.clientHeight);
+    //     //     }
+    //     // }, [width, scrollDirection]);
 
 
     useEffect(() => {
@@ -129,7 +129,7 @@ const OrderPage = () => {
                             width < 768 && (
                                 <div
                                     style={{
-                                        transform: scrollY > height ? "none" : `translateY(145px)`,
+                                        webkitTransform: scrollY > height ? "none" : `translateY(${height}px)`,
                                     }}
                                 >
                                     <BackButton/>
