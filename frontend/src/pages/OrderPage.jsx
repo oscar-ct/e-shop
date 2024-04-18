@@ -52,7 +52,6 @@ const OrderPage = () => {
     //     //     }
     //     // }, [width, scrollDirection]);
 
-
     useEffect(() => {
         if (!isLoading) {
             setHeight(25 + ref?.current?.clientHeight)
@@ -112,9 +111,6 @@ const OrderPage = () => {
         refetch();
     };
 
-
-
-
     return (
         <>
             {
@@ -128,8 +124,11 @@ const OrderPage = () => {
                         {
                             width < 768 && (
                                 <div
+                                    // style={{
+                                    //     WebkitTransform: scrollY > height ? "none" : `translateY(${height}px)`,
+                                    // }}
                                     style={{
-                                        webkitTransform: scrollY > height ? "none" : `translateY(${height}px)`,
+                                        translate: scrollY > height ? "none" : `0 ${height}px`,
                                     }}
                                 >
                                     <BackButton/>
