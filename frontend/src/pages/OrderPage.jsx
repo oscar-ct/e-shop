@@ -25,24 +25,49 @@ const OrderPage = () => {
     const dispatch = useDispatch();
     const { id: orderId } = useParams();
     const ref = useRef(null);
-    const { scrollY } = useScroll();
+    const { scrollY, scrollDirection } = useScroll();
 
     const {data: order, refetch, isLoading, error} = useGetOrderByIdQuery(orderId);
     const [cancelOrder,
         // {error: errorCancelOrder}
     ] = useCancelOrderMutation();
 
+    const [width, setWidth] = useState(window.innerWidth);
+    useEffect(() => {
+        const setWindowWidth = () => {
+            setWidth(window.innerWidth);
+        }
+        window.addEventListener("resize", setWindowWidth);
+        return () => {
+            removeEventListener("resize", setWindowWidth)
+        }
+    }, []);
+
     const [height, setHeight] = useState(0);
 
     useEffect(() => {
-        if (!isLoading && order) {
-            // console.log("check")
-            // console.log(ref?.current?.clientHeight)
+        if (width < 768 && scrollDirection === "down") {
             setHeight(25 + ref?.current?.clientHeight)
         }
 
-    }, [isLoading, order]);
+    }, [width, scrollDirection]);
 
+
+    useEffect(() => {
+        if (!isLoading) {
+            setHeight(25 + ref?.current?.clientHeight)
+        }
+    }, [isLoading]);
+
+    useEffect(() => {
+        const adjustHeight = () => {
+            setTimeout(() => {
+                setHeight(25 + ref?.current?.clientHeight)
+            }, 100)
+        };
+        window.addEventListener("orientationchange", adjustHeight);
+        return () => window.removeEventListener("orientationchange", adjustHeight)
+    });
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
         return (acc + product.quantity);
@@ -87,16 +112,7 @@ const OrderPage = () => {
         refetch();
     };
 
-    const [width, setWidth] = useState(window.innerWidth);
-    useEffect(() => {
-        const setWindowWidth = () => {
-            setWidth(window.innerWidth);
-        }
-        window.addEventListener("resize", setWindowWidth);
-        return () => {
-            removeEventListener("resize", setWindowWidth)
-        }
-    }, []);
+
 
 
     return (
@@ -149,7 +165,7 @@ const OrderPage = () => {
                                         Your order has been canceled.
                                     </h1>
                                 ) : (
-                                    <h1 className={"text-4xl font-bold"}>
+                                    <h1  className={"text-4xl font-bold"}>
                                         Please pay order below to begin shipment process.
                                     </h1>
                                 )
