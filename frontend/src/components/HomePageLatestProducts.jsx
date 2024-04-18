@@ -15,7 +15,7 @@ const HomePageLatestProducts = ({data, windowInnerWidth, scrollTo}) => {
                         </h2>
                     </div>
                 </div>
-                <div className={"md:bg-stone-500 pt-10 md:border-[1px] md:py-8 w-full flex flex-wrap justify-center"}>
+                <div className={"md:bg-white pt-10 md:border-[1px] md:py-8 w-full flex flex-wrap justify-center"}>
                     {
                         data.products.map(function (product) {
                             return <ProductItem key={product._id} product={product} windowInnerWidth={windowInnerWidth}/>
