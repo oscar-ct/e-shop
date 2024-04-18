@@ -25,7 +25,7 @@ const OrderPage = () => {
     const dispatch = useDispatch();
     const { id: orderId } = useParams();
     const ref = useRef(null);
-    const { scrollY, scrollDirection } = useScroll();
+    const { scrollY } = useScroll();
 
     const {data: order, refetch, isLoading, error} = useGetOrderByIdQuery(orderId);
     const [cancelOrder,
@@ -45,11 +45,12 @@ const OrderPage = () => {
 
     const [height, setHeight] = useState(0);
 
-    useEffect(() => {
-        if (width < 768 && scrollDirection === "up") {
-            setHeight(25 + ref?.current?.clientHeight)
-        }
-    }, [width, scrollDirection]);
+    // useEffect(() => {
+    //     if (scrollDirection === "up" || scrollDirection === "down") {
+    //         setHeight(25 + ref?.current?.clientHeight)
+    //         console.log(ref?.current?.clientHeight);
+    //     }
+    // }, [width, scrollDirection]);
 
 
     useEffect(() => {
@@ -128,7 +129,7 @@ const OrderPage = () => {
                             width < 768 && (
                                 <div
                                     style={{
-                                        transform: scrollY > height ? "none" : `translateY(${height}px)`,
+                                        transform: scrollY > height ? "none" : `translateY(145px)`,
                                     }}
                                 >
                                     <BackButton/>
