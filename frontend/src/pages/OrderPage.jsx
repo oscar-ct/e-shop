@@ -35,15 +35,13 @@ const OrderPage = () => {
     const [height, setHeight] = useState(0);
 
     useEffect(() => {
-        if (!isLoading) {
+        if (!isLoading && order) {
             // console.log("check")
             // console.log(ref?.current?.clientHeight)
-            setHeight(ref?.current?.clientHeight)
+            setHeight(25 + ref?.current?.clientHeight)
         }
 
-    }, [isLoading]);
-
-
+    }, [isLoading, order]);
 
 
     const totalNumberOfItems = order?.orderItems.reduce(function (acc, product) {
@@ -115,7 +113,7 @@ const OrderPage = () => {
                             width < 768 && (
                                 <div
                                     style={{
-                                        transform: scrollY > height ? "none" : `translateY(${height.toString()}px)`,
+                                        transform: scrollY > height ? "none" : `translateY(${height}px)`,
                                     }}
                                 >
                                     <BackButton/>
