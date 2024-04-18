@@ -124,12 +124,12 @@ const OrderPage = () => {
                         {
                             width < 768 && (
                                 <div
-                                    style={{
-                                        WebkitTransform: scrollY > height ? "none" : `translateY(${height}px)`,
-                                    }}
                                     // style={{
-                                    //     translate: scrollY > height ? "none" : `0 ${height}px`,
+                                    //     WebkitTransform: scrollY > height ? "none" : `translateY(${height}px)`,
                                     // }}
+                                    style={{
+                                        translate: scrollY > height ? "none" : `0 ${height}px`,
+                                    }}
                                 >
                                     <BackButton/>
                                 </div>
