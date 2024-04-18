@@ -46,10 +46,9 @@ const OrderPage = () => {
     const [height, setHeight] = useState(0);
 
     useEffect(() => {
-        if (width < 768 && scrollDirection === "down") {
+        if (width < 768 && scrollDirection === "up") {
             setHeight(25 + ref?.current?.clientHeight)
         }
-
     }, [width, scrollDirection]);
 
 
