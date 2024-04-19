@@ -182,7 +182,7 @@ const ProductPage = () => {
                                         </div>
                                         <div className={"px-2 lg:px-0 lg:w-6/12 xl:w-7/12 2xl:w-8/12 flex flex-col lg:flex-row py-7 lg:py-0"}>
 
-                                            <div className={"bg-white lg:bg-transparent px-5 lg:px-6 2xl:px-10 pt-5 lg:pt-0 w-full h-min"}>
+                                            <div className={"bg-white lg:bg-transparent px-2 md:px-6 2xl:px-10 pt-5 lg:pt-0 w-full h-min"}>
 
                                                 <div className={"hidden sm:block pb-3"}>
                                                     <span className={"text-2xl lg:text-xl 2xl:text-2xl font-semibold"}>{product.name}</span>
@@ -360,7 +360,7 @@ const ProductPage = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className={"lg:max-h-[28em] lg:overflow-y-auto md:shadow-lg bg-white px-5 lg:px-8 lg:pb-8 py-4 lg:py-6 md:border"}>
+                                                <div className={"lg:max-h-[28em] lg:overflow-y-auto md:shadow-lg bg-white px-2 md:px-5 lg:px-8 lg:pb-8 py-4 lg:py-6 md:border"}>
                                                     {
                                                         product.reviews.length !== 0  && (
                                                             <div className={"md:hidden w-full flex justify-center"}>
