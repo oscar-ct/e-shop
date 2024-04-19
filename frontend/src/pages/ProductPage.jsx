@@ -182,7 +182,7 @@ const ProductPage = () => {
                                         </div>
                                         <div className={"px-2 lg:px-0 lg:w-6/12 xl:w-7/12 2xl:w-8/12 flex flex-col lg:flex-row py-7 lg:py-0"}>
 
-                                            <div className={"bg-white border lg:bg-transparent px-5 lg:px-6 2xl:px-10 pt-5 lg:pt-0 w-full h-min border-b-[1px] border-t-[1px] lg:border-none border-gray-300"}>
+                                            <div className={"bg-white lg:bg-transparent px-5 lg:px-6 2xl:px-10 pt-5 lg:pt-0 w-full h-min"}>
 
                                                 <div className={"hidden sm:block pb-3"}>
                                                     <span className={"text-2xl lg:text-xl 2xl:text-2xl font-semibold"}>{product.name}</span>
@@ -342,7 +342,6 @@ const ProductPage = () => {
                                 {/*//////////////*/}
                                 <div id="reviews" className={"pt-10 lg:pt-6 xl:pt-15 flex flex-col lg:flex-row lg:justify-start pb-10"}>
                                     <div className={"w-full lg:w-6/12 pr-2 lg:pr-3"}>
-                                        <div className={"overflow-x-auto"}>
                                             <div className={"h-full"}>
                                                 <div className={`py-2 lg:pl-3 pl-5 flex justify-center md:justify-between items-center text-3xl md:text-2xl ibmplex md:bg-zinc-700 md:text-white`}>
                                                     <h2>Customer Reviews
@@ -361,7 +360,7 @@ const ProductPage = () => {
                                                     </div>
                                                 </div>
 
-                                                <div className={"bg-white px-5 lg:px-8 lg:pb-8 py-4 lg:py-6 border"}>
+                                                <div className={"lg:max-h-[28em] lg:overflow-y-auto md:shadow-lg bg-white px-5 lg:px-8 lg:pb-8 py-4 lg:py-6 md:border"}>
                                                     {
                                                         product.reviews.length !== 0  && (
                                                             <div className={"md:hidden w-full flex justify-center"}>
@@ -447,9 +446,16 @@ const ProductPage = () => {
                                                                     <div key={index} className={"py-3 border-b"}>
                                                                         <div className={"flex flex-col"}>
                                                                             <div className={"flex justify-between"}>
-                                                                                <span className={"pb-2 text-xs font-bold text-neutral-500"}>{review.name}</span>
-                                                                                <div className={"pb-2 text-xs font-bold text-neutral-500 flex items-center"}>
-                                                                                    {`${review.createdAt.substring(5, 10)}-${review.createdAt.substring(0, 4)}`}
+                                                                                <div className={"flex items-center"}>
+                                                                                    <div className="avatar placeholder">
+                                                                                        <div className="bg-neutral-400 text-neutral-content rounded-full w-6">
+                                                                                            <span className="text-xs">{review.name.substring(0,1).toUpperCase()}</span>
+                                                                                        </div>
+                                                                                    </div>
+                                                                                    <span className={"pl-2 text-xs font-bold text-neutral-500"}>{review.name}</span>
+                                                                                </div>
+
+                                                                                <div className={"pb-2 text-xs text-neutral-500 flex items-center"}>
                                                                                     {
                                                                                         userData?._id === review.user && (
                                                                                             <button onClick={() => openConfirmModal(review._id, review.user)} className={"pl-2"}>
@@ -459,14 +465,18 @@ const ProductPage = () => {
                                                                                     }
                                                                                 </div>
                                                                             </div>
-                                                                            <div className={"flex items-start"}>
+                                                                            <div className={"pt-2 flex items-start"}>
                                                                                 <Rating rating={review.rating}/>
                                                                             </div>
                                                                         </div>
                                                                         <p className={"pt-2 text-sm font-bold"}>
                                                                             {review.title}
                                                                         </p>
-                                                                        <p className={"pt-2 text-sm font-normal"}>
+                                                                        <div className={"pt-1 text-xs text-gray-500"}>
+                                                                            <span className={"pr-1"}>Reviewed on</span>
+                                                                            {`${review.createdAt.substring(5, 10)}-${review.createdAt.substring(0, 4)}`}
+                                                                        </div>
+                                                                        <p className={"pt-1 text-sm font-normal"}>
                                                                             {review.comment}
                                                                         </p>
                                                                     </div>
@@ -476,14 +486,13 @@ const ProductPage = () => {
                                                     }
                                                 </div>
                                             </div>
-                                        </div>
                                     </div>
                                     <div className={"hidden lg:pr-3 lg:block w-full lg:w-6/12 pt-0 sm:pt-10 lg:pt-0 lg:pl-3 "}>
-                                        <div className={"h-full bg-white flex flex-col"}>
-                                            <div className={"sticky py-2 px-5 pl-3 bg-zinc-700"}>
+                                        <div className={"flex flex-col"}>
+                                            <div className={"py-2 px-5 pl-3 bg-zinc-700"}>
                                                 <h2 className={"text-2xl ibmplex text-white"}>You might also like</h2>
                                             </div>
-                                            <div className={"sm:px-3 sm:pb-2 flex overflow-y-auto h-full border"}>
+                                            <div className={"shadow-lg bg-white sm:px-3 sm:pb-2 flex overflow-x-auto h-full border"}>
                                                 {
                                                     !loadingRated && (
                                                         topRatedProducts.map(function (product, index) {
