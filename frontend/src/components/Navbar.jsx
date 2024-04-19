@@ -159,7 +159,7 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 fixed visible transition-all duration-700 ` : !openNav && smallScreen ? "fixed invisible duration-700 transition-all translate-y-[-100%]": "visible fixed" } inset-0 z-30 block h-max w-full rounded-none py-0 ${navGradient} bg-black border-b-[1px] border-black sm:border-none text-white`}
+                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 visible transition-all duration-700` : !openNav && smallScreen ? "invisible duration-700 transition-all translate-y-[-100%]": "visible" } fixed inset-0 z-30 block h-max w-full rounded-none py-0 ${navGradient} bg-black border-b-[1px] border-black sm:border-none text-white`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
@@ -339,8 +339,8 @@ const Navbar = () => {
                     <motion.div
                         className={`z-20 bg-black/80 backdrop-blur-xl fixed left-0 w-full py-6 md:hidden h-screen`}
                         variants={{
-                            hidden: { opacity: .25, y: "calc(-100% - 58px)", visibility: "hidden"},
-                            visible: {opacity: 1, y: "48px", visibility: "visible"},
+                            hidden: { opacity: 0, y: "calc(-100% - 58px)"},
+                            visible: {opacity: 1, y: 0},
                         }}
                         initial={"hidden"}
                         animate={mainControls}
