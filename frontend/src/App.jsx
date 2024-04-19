@@ -28,7 +28,7 @@ function App() {
             }
             <div className={`${loading.loading ? "opacity-30" : ""} bg-white relative`}>
                 <Navbar/>
-                <div className={"pt-[48px] md:pt-[80px] mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-224px)]"}>
+                <div className={"mt-[48px] md:mt-[80px] mx-auto min-h-[calc(100vh-292px)] md:min-h-[calc(100vh-224px)]"}>
                   <Outlet/>
                 </div>
                 <Footer/>
