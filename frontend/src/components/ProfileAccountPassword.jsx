@@ -100,10 +100,10 @@ const ProfileAccountPassword = () => {
             <div className="py-2 sm:bg-zinc-700">
                 <div className="hidden sm:block pl-3 text-xl text-white ibmplex text-center">Update Your Password
                 </div>
-                <div className="sm:hidden text-xl ibmplex text-center">Update Your Password
+                <div className="sm:hidden text-3xl text-center">Update Your Password
                 </div>
             </div>
-            <div className={"bg-white border"}>
+            <div className={"md:shadow-lg bg-white md:border"}>
                 <div className={"p-10"}>
                     <form onSubmit={submitPasswordHandler} className="space-y-5">
                         <div className="space-y-2">

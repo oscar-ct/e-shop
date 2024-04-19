@@ -90,10 +90,10 @@ const ProfileAccountDetails = () => {
             <div className="py-2 sm:bg-zinc-700">
                 <div className="hidden sm:block pl-3 text-xl text-white ibmplex text-center">User Information
                 </div>
-                <div className="sm:hidden text-xl ibmplex text-center">User Information
+                <div className="sm:hidden text-3xl text-center">User Information
                 </div>
             </div>
-            <div className={"border bg-white"}>
+            <div className={"md:shadow-lg md:border bg-white"}>
                 <div className={"p-10"}>
                     <form onSubmit={submitAccountHandler} className="space-y-5">
                         <div className="space-y-2">
