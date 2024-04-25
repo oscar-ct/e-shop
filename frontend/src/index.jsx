@@ -32,6 +32,7 @@ import AdminUserListPage from "./pages/AdminUserListPage";
 import NotFoundPage from "./pages/NotFoundPage";
 import CategoryPage from "./pages/CategoryPage";
 import ForgotPasswordPage from "./pages/ForgotPasswordPage";
+import OrderLocatorPage from "./pages/OrderLocatorPage";
 
 
 const router = createBrowserRouter(
@@ -51,6 +52,7 @@ const router = createBrowserRouter(
             <Route path={"/payment"} element={<PaymentPage/>}/>
             <Route path={"/submitorder"} element={<CheckoutPage/>}/>
             <Route path={"/order/:id/*"} element={<OrderPage/>}/>
+            <Route path={"/locator"} element={<OrderLocatorPage/>}/>
             <Route path={"/login"} element={<LoginPage/>}/>
             <Route path={"/register"} element={<RegisterPage/>}/>
             <Route path={"/reset-password/:id/:token"} element={<ForgotPasswordPage/>}/>
