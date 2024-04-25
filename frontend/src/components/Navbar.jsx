@@ -249,6 +249,10 @@ const Navbar = () => {
                                                                 <Link to={myOrdersLink} className={"block px-10 py-5 hover:bg-neutral/70"}>
                                                                     <span className={"w-full text-xl text-white whitespace-nowrap"}>My Orders</span>
                                                                 </Link>
+                                                                <Link to={"/locator"} className={"flex px-10 py-5 hover:bg-neutral/70"}>
+                                                                    <span className={"w-full text-xl text-white whitespace-nowrap pr-2"}>Order Lookup</span>
+                                                                    <FaSearch/>
+                                                                </Link>
                                                                 <button onClick={logoutHandler} className={"w-full text-start block px-10 py-5 rounded-b-md hover:bg-neutral/70"}>
                                                                     <span className={"w-full text-xl text-white whitespace-nowrap"} >Logout</span>
                                                                 </button>
@@ -260,14 +264,44 @@ const Navbar = () => {
                                             }
                                         </div>
                                     ) : (
-                                        <Link to={"/login"}>
-                                            <div
-                                                className="flex items-center cursor-pointer btn btn-ghost normal-case"
-                                            >
-                                                <FaUser/>
-                                                <span>Login</span>
+
+                                        <div
+                                            className="relative inline-block text-left py-4"
+                                            onMouseEnter={() => setUserDropdownActive(true)}
+                                            onMouseLeave={() => setUserDropdownActive(false)}
+                                        >
+
+                                            <div className={"cursor-pointer btn btn-ghost normal-case flex items-center"}>
+                                                <Link to={"/login"}>
+                                                    <div
+                                                        className="flex items-center"
+                                                    >
+                                                        <FaUser/>
+                                                        <span className={"pl-2"}>Login</span>
+                                                    </div>
+                                                </Link>
+                                                <div className={`${rotateChevron(userDropdownActive)}`}>
+                                                    <FaChevronDown/>
+                                                </div>
                                             </div>
-                                        </Link>
+                                            {
+                                                userDropdownActive && (
+                                                    <div className="absolute right-0 z-10 mt-4 origin-top-right">
+                                                        <div className="menu p-0 bg-neutral/70 rounded-b-md text-white font-bold flex flex-col justify-between w-full">
+                                                            <div className={"flex-col w-full"}>
+                                                                <Link to={"/register"} className={"block px-10 py-5 hover:bg-neutral/70"}>
+                                                                    <span className={"w-full text-xl text-white whitespace-nowrap"}>Sign Up</span>
+                                                                </Link>
+                                                                <Link to={"/locator"} className={"flex items-center px-10 py-5 rounded-b-md hover:bg-neutral/70"}>
+                                                                    <span className={"w-full text-xl text-white whitespace-nowrap pr-2"}>Order Lookup</span>
+                                                                    <FaSearch className={""}/>
+                                                                </Link>
+                                                            </div>
+                                                        </div>
+                                                    </div>
+                                                )
+                                            }
+                                        </div>
                                     )
                                 }
                                 {
@@ -352,39 +386,49 @@ const Navbar = () => {
                     >
                         <div className={"flex flex-col justify-start h-full w-full"}>
                             <ul className="flex flex-col text-white font-bold text-xl">
-                                <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                <li className="py-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                    <Reveal once={false} y={-50}>
                                     <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"cursor-pointer text-3xl font-bold text-white flex items-center normal-case"}>
                                        Home
                                     </Link>
                                    </Reveal>
                                 </li>
-                                <li className="flex items-center py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                <li className="py-4 px-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                     <Reveal once={false} y={-50} delay={0.15}>
                                     <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"cursor-pointer text-3xl font-bold text-white flex items-center normal-case"}>
                                         All Products
                                     </Link>
                                     </Reveal>
                                 </li>
-                                <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                <li className="py-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                     <Reveal once={false} y={-50} delay={0.20}>
                                     <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"cursor-pointer text-3xl font-bold text-white flex items-center normal-case"}>
                                         Top Rated Products
                                     </Link>
                                     </Reveal>
                                 </li>
+                                <li className="py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                    <Reveal once={false} y={-50} delay={0.25}>
+                                        <div className={"flex items-center"}>
+                                            <Link onClick={() => setOpenNav(!openNav)} to={"/locator"} className={"cursor-pointer text-3xl font-bold text-white flex items-center normal-case pr-3"}>
+                                                Order Lookup
+                                            </Link>
+                                            <FaSearch/>
+                                        </div>
+                                    </Reveal>
+                                </li>
                                 {
                                     userData && (
                                         <>
-                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                                <Reveal once={false} y={-50} delay={0.25}>
+                                            <li className="py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                                <Reveal once={false} y={-50} delay={0.30}>
                                                 <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="cursor-pointer text-3xl font-bold text-white flex items-center normal-case">
                                                     My Account
                                                 </Link>
                                                 </Reveal>
                                             </li>
-                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                                <Reveal once={false} y={-50} delay={0.30}>
+                                            <li className="py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                                <Reveal once={false} y={-50} delay={0.35}>
                                                 <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"cursor-pointer text-3xl font-bold text-white flex items-center normal-case"}>
                                                     My Orders
                                                 </Link>
@@ -396,8 +440,8 @@ const Navbar = () => {
                                 {
                                     userData?.isAdmin && (
                                         <>
-                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                                <Reveal once={false} y={-50} delay={0.30}>
+                                            <li className="py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                                <Reveal once={false} y={-50} delay={0.35}>
                                                 <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"cursor-pointer text-3xl font-bold text-secondary flex items-center normal-case"}>
                                                     Admin Dashboard
                                                 </Link>
@@ -408,8 +452,8 @@ const Navbar = () => {
                                 }
                                 {
                                     userData ? (
-                                        <li onClick={() => setOpenNav(!openNav)} className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
-                                            <Reveal once={false} y={-50} delay={0.35}>
+                                        <li onClick={() => setOpenNav(!openNav)} className="py-2 font-normal antialiased hover:subpixel-antialiased cursor-pointer px-8">
+                                            <Reveal once={false} y={-50} delay={0.40}>
                                             <button className={"cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case"} onClick={logoutHandler}>
                                                 Logout
                                             </button>
@@ -417,14 +461,14 @@ const Navbar = () => {
                                         </li>
                                     ) : (
                                         <>
-                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
-                                                <Reveal once={false} y={-50} delay={0.25}>
+                                            <li className="py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                                <Reveal once={false} y={-50} delay={0.30}>
                                                 <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="cursor-pointer text-3xl font-bold text-info flex items-center normal-case">
                                                     Login
                                                 </Link>
                                                 </Reveal>
                                             </li>
-                                            <li className="flex items-center py-2 font-normal antialiased hover:subpixel-antialiased px-8">
+                                            <li className="py-2 font-normal antialiased hover:subpixel-antialiased px-8">
                                                 <Reveal once={false} y={-50} delay={0.30}>
                                                     <Link onClick={() => setOpenNav(!openNav)} to={"/register"} className="cursor-pointer text-3xl font-bold text-primary flex items-center normal-case">
                                                         Sign up
