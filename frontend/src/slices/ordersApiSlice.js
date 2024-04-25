@@ -107,8 +107,17 @@ export const ordersApiSlice = apiSlice.injectEndpoints({
                     invalidatesTags: ["Order"]
                 }
             ),
+            verifyOrder: build.mutation({
+                query: function (data) {
+                    return {
+                        url: ORDERS_URL + "/auth-order",
+                        method: "POST",
+                        body: data,
+                    }
+                },
+            }),
         };
     }
 });
 
-export const { useVerifyAmountMutation, useCreateOrderMutation, useGetMyOrdersQuery, useGetOrderByIdQuery, usePayOrderMutation, useGetPayPalClientIdQuery, useGetOrdersQuery, useUpdateOrderMutation, useCancelOrderMutation, useCancelOrderItemMutation } = ordersApiSlice;
+export const { useVerifyAmountMutation, useCreateOrderMutation, useGetMyOrdersQuery, useGetOrderByIdQuery, usePayOrderMutation, useGetPayPalClientIdQuery, useGetOrdersQuery, useUpdateOrderMutation, useCancelOrderMutation, useCancelOrderItemMutation, useVerifyOrderMutation } = ordersApiSlice;
