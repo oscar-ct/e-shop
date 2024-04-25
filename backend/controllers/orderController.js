@@ -8,6 +8,27 @@ import {confirmStripeIntent} from "./stripeController.js";
 const SHIPPING_PRICE = 10;
 const TAX_PERCENTAGE = 0.0825;
 
+const validateOrder = asyncHandler(async (req, res) => {
+    const {order, email} = req.body;
+    try {
+        const validOrder = await Order.findOne({_id: order});
+        // const validOrder = await Order.findOne({_id: order}).select("_id").lean();
+        if (validOrder && validOrder.user.email === email) {
+            return res.json({
+                isValidOrder: true
+            });
+        } else {
+            return res.json({
+                isValidOrder: false
+            });
+        }
+    } catch ({message}) {
+        return res.json({
+            message,
+            isValidOrder: false
+        });
+    }
+});
 
 const confirmPrices =  asyncHandler(async (req, res) => {
     const {orderItems, validCode} = req.body;
@@ -20,6 +41,7 @@ const confirmPrices =  asyncHandler(async (req, res) => {
         });
         const orderItemsFromDB = orderItems.map((itemFromBody) => {
             delete itemFromBody.images
+
             // delete itemFromBody._id
             delete itemFromBody.price
             const matchingItemFromDB = itemsFromDB.find((item) => {
@@ -364,6 +386,7 @@ const getAllOrders = asyncHandler(async (req, res) => {
 
 
 export {
+    validateOrder,
     confirmPrices,
     createOrder,
     getUserOrders,
