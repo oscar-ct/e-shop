@@ -122,8 +122,17 @@ export const usersApiSlice = apiSlice.injectEndpoints({
                     }
                 }
             }),
+            verifyEmail: build.mutation({
+                query: function (data) {
+                    return {
+                        url: USERS_URL + "/auth-email",
+                        method: "POST",
+                        body: data,
+                    }
+                },
+            }),
         };
     }
 });
 
-export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useVerifyPasswordMutation, useGetUserDataQuery, useUpdateUserAddressMutation, useUpdateUserCredentialsMutation, useGetUsersQuery, useDeleteUserMutation, useUpdateUserMutation, useRecoveryLinkMutation, useGetResetPasswordQuery, useResetPasswordMutation} = usersApiSlice;
+export const { useLoginMutation, useLogoutMutation, useRegisterMutation, useVerifyPasswordMutation, useGetUserDataQuery, useUpdateUserAddressMutation, useUpdateUserCredentialsMutation, useGetUsersQuery, useDeleteUserMutation, useUpdateUserMutation, useRecoveryLinkMutation, useGetResetPasswordQuery, useResetPasswordMutation, useVerifyEmailMutation } = usersApiSlice;
