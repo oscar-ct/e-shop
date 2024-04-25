@@ -11,6 +11,20 @@ const invalidCredentialsError = () => {
     throw new Error("Invalid email/password")
 };
 
+// POST
+const validateEmail = asyncHandler(async (req, res) => {
+    const {email} = req.body;
+    const user = await User.findOne({email: email}).select("email").lean();
+    if (user) {
+        return res.json({
+            isValidEmail: true
+        });
+    } else {
+        return res.json({
+            isValidEmail: false
+        });
+    }
+});
 
 // POST
 const authUser = asyncHandler(async (req, res) => {
@@ -346,6 +360,7 @@ const deleteUsers = asyncHandler(async (req, res) => {
 
 
 export {
+    validateEmail,
     authUser,
     registerUser,
     logoutUser,
