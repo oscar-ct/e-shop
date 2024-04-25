@@ -448,7 +448,7 @@ const Navbar = () => {
                         </Reveal>
                         <div className={"flex flex-col justify-start h-full w-full"}>
                             <ul className="flex flex-col text-white font-bold text-xl">
-                                <li className="pt-10 px-12">
+                                <li className="pt-8 px-8">
                                     <Reveal once={false} y={-50}>
                                         <div style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}} className={"flex items-center gap-4 w-full"}>
                                             <FaSearch className={"cursor-pointer"} onClick={submitSearch}/>
@@ -463,7 +463,7 @@ const Navbar = () => {
                                                 }}
                                                 onChange={(e) => setKeyword(e.target.value)}
                                                 className={"w-full focus:outline-none bg-transparent text-3xl font-bold text-white"}
-                                                placeholder={"Search all products"}
+                                                placeholder={"Search products"}
                                             />
                                         </div>
                                     </Reveal>
@@ -503,28 +503,28 @@ const Navbar = () => {
                         </Reveal>
                         <div className={"flex flex-col justify-start h-full w-full"}>
                             <ul className="flex flex-col text-white font-bold text-xl">
-                                <li className="py-2 px-12">
+                                <li className="pb-2 px-8">
                                    <Reveal once={false} y={-50}>
                                     <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased"}>
                                        Home
                                     </Link>
                                    </Reveal>
                                 </li>
-                                <li className="py-2 px-12">
+                                <li className="py-2 px-8">
                                     <Reveal once={false} y={-50} delay={0.15}>
                                     <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased"}>
                                         All Products
                                     </Link>
                                     </Reveal>
                                 </li>
-                                <li className="py-2 px-12">
+                                <li className="py-2 px-8">
                                     <Reveal once={false} y={-50} delay={0.20}>
                                     <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased"}>
                                         Top Rated Products
                                     </Link>
                                     </Reveal>
                                 </li>
-                                <li className="py-2 px-12">
+                                <li className="py-2 px-8">
                                     <Reveal once={false} y={-50} delay={0.25}>
                                         <div className={"flex items-center"}>
                                             <Link onClick={() => setOpenNav(!openNav)} to={"/locator"} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case pr-3 antialiased hover:subpixel-antialiased"}>
@@ -537,14 +537,14 @@ const Navbar = () => {
                                 {
                                     userData && (
                                         <>
-                                            <li className="py-2 px-12">
+                                            <li className="py-2 px-8">
                                                 <Reveal once={false} y={-50} delay={0.30}>
                                                 <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased">
                                                     My Account
                                                 </Link>
                                                 </Reveal>
                                             </li>
-                                            <li className="py-2 px-12">
+                                            <li className="py-2 px-8">
                                                 <Reveal once={false} y={-50} delay={0.35}>
                                                 <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased"}>
                                                     My Orders
@@ -557,7 +557,7 @@ const Navbar = () => {
                                 {
                                     userData?.isAdmin && (
                                         <>
-                                            <li className="py-2 px-12">
+                                            <li className="py-2 px-8">
                                                 <Reveal once={false} y={-50} delay={0.35}>
                                                 <Link onClick={() => setOpenNav(!openNav)} to={adminOrdersLink} className={"w-fit cursor-pointer text-3xl font-bold text-secondary flex items-center normal-case antialiased hover:subpixel-antialiased"}>
                                                     Admin Dashboard
@@ -569,7 +569,7 @@ const Navbar = () => {
                                 }
                                 {
                                     userData ? (
-                                        <li onClick={() => setOpenNav(!openNav)} className="py-2 px-12">
+                                        <li onClick={() => setOpenNav(!openNav)} className="py-2 px-8">
                                             <Reveal once={false} y={-50} delay={0.40}>
                                             <button className={"w-fit cursor-pointer text-3xl font-bold text-red-500 flex items-center normal-case antialiased hover:subpixel-antialiased"} onClick={logoutHandler}>
                                                 Logout
@@ -578,14 +578,14 @@ const Navbar = () => {
                                         </li>
                                     ) : (
                                         <>
-                                            <li className="py-2 px-12">
+                                            <li className="py-2 px-8">
                                                 <Reveal once={false} y={-50} delay={0.30}>
                                                 <Link onClick={() => setOpenNav(!openNav)} to={"/login"} className="w-fit cursor-pointer text-3xl font-bold text-info flex items-center normal-case antialiased hover:subpixel-antialiased">
                                                     Login
                                                 </Link>
                                                 </Reveal>
                                             </li>
-                                            <li className="py-2 px-12">
+                                            <li className="py-2 px-8">
                                                 <Reveal once={false} y={-50} delay={0.30}>
                                                     <Link onClick={() => setOpenNav(!openNav)} to={"/register"} className="cursor-pointer text-3xl font-bold text-primary flex items-center normal-case antialiased hover:subpixel-antialiased">
                                                         Sign up
