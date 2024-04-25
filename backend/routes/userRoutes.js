@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    validateEmail,
     authUser,
     registerUser,
     logoutUser,
@@ -27,6 +28,7 @@ router.post('/login', authUser);
 router.post('/recovery-link', recoveryLink);
 router.get('/reset-password/:id/:token', getResetPassword);
 router.post('/reset-password', resetPassword);
+router.post('/auth-email', validateEmail);
 
 // Using custom middleware PROTECT
 router.get('/profile', protect, getUserData);
