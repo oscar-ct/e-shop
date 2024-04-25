@@ -70,7 +70,7 @@ const OrderLocatorPage = () => {
                                     onBlur={() => setEmailInputIsFocused(false)}
                                     value={email}
                                     onChange={(e) => setEmail(e.target.value)}
-                                    className="text-base text-gray-600 flex-grow outline-none px-2 "
+                                    className="bg-white text-base text-gray-600 flex-grow outline-none px-2 "
                                     type="email"
                                     placeholder="Enter your email address"
                                     autoComplete={"email"}
@@ -108,7 +108,7 @@ const OrderLocatorPage = () => {
                                     onBlur={() => setOrderInputIsFocused(false)}
                                     value={order}
                                     onChange={(e) => setOrder(e.target.value)}
-                                    className="text-base text-gray-600 flex-grow outline-none px-2 "
+                                    className="bg-white text-base text-gray-600 flex-grow outline-none px-2 "
                                     type="text"
                                     placeholder="Enter your order number"
                                     required
