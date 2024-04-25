@@ -1,5 +1,6 @@
 import express from "express";
 import {
+    validateOrder,
     confirmPrices,
     createOrder,
     getUserOrders,
@@ -16,6 +17,7 @@ import {protect, admin} from "../middleware/authMiddleware.js";
 // *****  Router connects to index.js, cleans up code  *****
 const router = express.Router();
 
+router.post("/auth-order", validateOrder);
 router.post("/verifyamount", confirmPrices);
 
 // Using custom middleware PROTECT
