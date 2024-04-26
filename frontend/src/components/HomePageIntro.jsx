@@ -79,7 +79,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                         </Link>
                     </div>
                 </div>
-                <img className={"fadeInEffect object-cover h-[40em] w-full"} src={"/images/bg.png"} alt="colorful-art"/>
+                <img className={"fadeInEffect rotate-180 object-cover h-[40em] w-full"} src={"/images/bg.png"} alt="colorful-art"/>
             </motion.div>
             {/*MOBILE*/}
 
