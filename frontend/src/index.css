@@ -175,9 +175,9 @@ textarea {
 .step-success:before { background-color: #7c3cfc!important;}
 
 @media screen and (max-width: 768px) {
-  .nav-liner-gradient {
-    background: black;
-  }
+  /*.nav-liner-gradient {*/
+  /*  background: black;*/
+  /*}*/
   .footer {
     background: black;
   }
