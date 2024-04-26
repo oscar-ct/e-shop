@@ -103,7 +103,7 @@ const ProfileAccountPassword = () => {
                 <div className="sm:hidden text-3xl text-center">Update Your Password
                 </div>
             </div>
-            <div className={"md:shadow-lg bg-white md:border"}>
+            <div className={"md:shadow-lg bg-white sm:border"}>
                 <div className={"p-10"}>
                     <form onSubmit={submitPasswordHandler} className="space-y-5">
                         <div className="space-y-2">

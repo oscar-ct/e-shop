@@ -60,17 +60,17 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
     }, [scrollY])
 
     return (
-        <div className={"md:pb-14 bg-white dark:bg-black md:bg-transparent"}>
+        <div className={"lg:pb-14 bg-white dark:bg-black md:bg-transparent"}>
             {/*MOBILE*/}
             <motion.div
-                className={"md:hidden w-full h-full relative"}
+                className={"lg:hidden w-full h-full relative"}
                 initial={{ opacity: 0 }}
                 animate={{ opacity: 1 }}
                 exit={{ opacity: 0 }}
             >
                 <div className={"z-10 absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
-                    <Logo fill={"currentColor"} className={"pt-28 w-[10em] text-neutral dark:text-white"}/>
-                    <span className={"pt-12 text-3xl font-semibold text-neutral dark:text-white"}>Shop, Ship, & Enjoy.</span>
+                    <Logo fill={"currentColor"} className={"pt-20 w-[10em] text-black dark:text-white"}/>
+                    <span className={"pt-20 text-3xl font-semibold text-black dark:text-white"}>Shop, Ship, & Enjoy.</span>
                     <div className={"pt-20 z-10"}>
                         <Link to={"/sort/latest/select/all"}>
                             <CustomBtn customClass={"!px-12 bg-zinc-700 text-lg"}>
@@ -85,12 +85,12 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
 
             {/*DESKTOP*/}
 
-                <div className={"hidden md:block w-full"}>
+                <div className={"hidden lg:block w-full"}>
                     <div className={"flex h-[55em] w-full ibmplex"}>
                         <div
                             style={{
-                                backgroundImage: `url(/images/maxim-berg-qpL0cRkLJn8-unsplash.webp)`,
-                                backgroundPosition: "bottom",
+                                backgroundImage: `url(/images/bg.png)`,
+                                backgroundPosition: "center",
                                 backgroundSize: "cover",
                                 // transform: "scale(1.1)",
                                 // transition: "all 2s ease-in"
@@ -139,10 +139,10 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                     >
                                                         <Logo fill={logoColor} className={"w-[6em] opacity-70"}/>
                                                     </motion.span>
-                                                    <div className={"font-semibold text-white text-[2vw] text-center pt-8"}>
+                                                    <div className={"font-bold text-black text-3xl text-center pt-16"}>
                                                         Enjoy online shopping with <span className={"font-bold text-violet-600"}>FREE</span> shipping!
                                                     </div>
-                                                    <div className={"text-xs text-zinc-200 font-light"}>
+                                                    <div className={"text-xs text-zinc-500 font-light"}>
                                                         when you spend over $100
                                                     </div>
                                                 </div>
@@ -174,7 +174,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
 
                                                             <div className={"p-10 w-full h-full flex flex-col items-between justify-between"}>
                                                                 <div className={"flex flex-col items-start justify-start"}>
-                                                                    <span className={"px-2 pb-3 text-3xl font-bold"}>Pay safely with</span>
+                                                                    <span className={"px-2 pb-3 text-3xl font-bold"}>Pay confidently with</span>
                                                                     <div className={"w-full lg:pl-8 flex items-center justify-start"}>
                                                                         <StripeLogo width={90}/>
                                                                         <div className={"flex flex-col pl-3 pr-4"}>

@@ -93,7 +93,7 @@ const ProfileAccountDetails = () => {
                 <div className="sm:hidden text-3xl text-center">User Information
                 </div>
             </div>
-            <div className={"md:shadow-lg md:border bg-white"}>
+            <div className={"md:shadow-lg sm:border bg-white"}>
                 <div className={"p-10"}>
                     <form onSubmit={submitAccountHandler} className="space-y-5">
                         <div className="space-y-2">

@@ -10,7 +10,7 @@ const HomePageCategorySection = ({productCategories, windowInnerWidth}) => {
 
     return (
         <>
-            <div className={"pb-10 pt-14 md:pt-0 md:bg-transparent bg-white w-full"}>
+            <div className={"pb-10 pt-14 md:pt-0 px-3 md:bg-transparent bg-white w-full"}>
                 <div className={"h-12 md:bg-zinc-700 border-none md:border-b-[1px] md:border-grey-300"}>
                     <div  className={"flex justify-center items-center h-full w-full"}>
                         <h2 className={"lg:pl-3 text-3xl md:text-2xl md:text-white ibmplex"}>
