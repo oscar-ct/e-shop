@@ -176,7 +176,7 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 visible transition-all duration-700` : !openNav && smallScreen ? "invisible duration-700 transition-all translate-y-[-100%]": "visible" } fixed inset-0 z-30 block h-max w-full rounded-none py-0 ${navGradient} bg-black border-b-[1px] border-black sm:border-none text-white`}
+                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 visible transition-all duration-700` : !openNav && smallScreen ? "invisible duration-700 transition-all translate-y-[-100%]": "visible" } fixed inset-0 z-30 block h-max w-full rounded-none py-0 ${navGradient} bg-white/70 backdrop-blur-lg dark:bg-black md:bg-black text-black md:text-white dark:text-white`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
@@ -339,7 +339,7 @@ const Navbar = () => {
                     <div className={"md:hidden flex justify-between items-center w-full"}>
                         <div className={"flex items-center w-full"}>
                             <button className={"btn btn-ghost pl-1"} onClick={() => navigate("/")}>
-                                <Logo className={"w-4"} fill={"white"}/>
+                                <Logo className={"w-4 text-black dark:text-white"} fill={"currentColor"}/>
                             </button>
 
                             {/*MD SCREEN NAV*/}
@@ -408,8 +408,8 @@ const Navbar = () => {
                             <CartIcon onClick={() => setOpenNav(false)} isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice}/>
 
                             {/*HAMBURGER MENU FOR MOBILE NAVBAR*/}
-                            <button aria-label="menu" className="sm:hidden middle pl-2 none relative mr-auto transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none text-white" onClick={() => setOpenNav(true)}>
-                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="" viewBox="0 0 24 24" stroke="currentColor">
+                            <button aria-label="menu" className="sm:hidden middle pl-2 none relative mr-auto transition-all hover:bg-transparent focus:bg-transparent active:bg-transparent disabled:pointer-events-none disabled:opacity-50 disabled:shadow-none" onClick={() => setOpenNav(true)}>
+                                <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" fill="currentColor" viewBox="0 0 24 24" stroke="currentColor">
                                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M4 6h16M4 12h8m-8 6h16"/>
                                 </svg>
                             </button>
@@ -424,7 +424,7 @@ const Navbar = () => {
             <div className={"md:hidden"}>
                 <AnimatePresence>
                     <motion.div
-                        className={`z-30 bg-black/80 backdrop-blur-xl fixed top-0 w-full pt-3 h-screen`}
+                        className={`z-30 bg-white/80 dark:bg-black/80 backdrop-blur-xl fixed top-0 w-full pt-3 h-screen`}
                         variants={{
                             hiddenSearch: { opacity: 0, y: "calc(-100% - 58px)"},
                             visibleSearch: {opacity: 1, y: 0},
@@ -439,19 +439,19 @@ const Navbar = () => {
                     >
                         <Reveal once={false} y={-50}>
                             <div className={"px-2 flex justify-end"}>
-                                <button className={"text-white"} onClick={() => setSearchIsActive(false)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="" className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <button className={"text-black dark:text-white"} onClick={() => setSearchIsActive(false)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
                                 </button>
                             </div>
                         </Reveal>
                         <div className={"flex flex-col justify-start h-full w-full"}>
-                            <ul className="flex flex-col text-white font-bold text-xl">
+                            <ul className="flex flex-col font-bold text-xl">
                                 <li className="pt-8 px-8">
                                     <Reveal once={false} y={-50}>
                                         <div style={shake === true ? {animation: "shake 0.5s", animationIterationCount: ".5"} : {}} className={"flex items-center gap-4 w-full"}>
-                                            <FaSearch className={"cursor-pointer"} onClick={submitSearch}/>
+                                            <FaSearch className={"cursor-pointer text-black dark:text-white"} fill={"currentColor"} onClick={submitSearch}/>
                                             <input
                                                 type={"search"}
                                                 autoComplete={"off"}
@@ -462,7 +462,7 @@ const Navbar = () => {
                                                     }
                                                 }}
                                                 onChange={(e) => setKeyword(e.target.value)}
-                                                className={"w-full focus:outline-none bg-transparent text-3xl font-bold text-white"}
+                                                className={"w-full focus:outline-none bg-transparent text-3xl font-bold text-black dark:text-white"}
                                                 placeholder={"Search products"}
                                             />
                                         </div>
@@ -479,7 +479,7 @@ const Navbar = () => {
             <nav>
                 <AnimatePresence>
                     <motion.div
-                        className={`sm:hidden z-30 bg-black/80 backdrop-blur-xl fixed top-0 w-full pt-3 h-screen`}
+                        className={`sm:hidden z-30 bg-white/80 dark:bg-black/80 backdrop-blur-xl fixed top-0 w-full pt-3 h-screen`}
                         variants={{
                             hiddenNav: { opacity: 0, y: "calc(-100% - 58px)"},
                             visibleNav: {opacity: 1, y: 0},
@@ -494,32 +494,32 @@ const Navbar = () => {
                     >
                         <Reveal once={false} y={-50}>
                             <div className={"px-2 flex justify-end"}>
-                                <button className={"text-white"} onClick={() => setOpenNav(false)}>
-                                    <svg xmlns="http://www.w3.org/2000/svg" fill="" className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
+                                <button onClick={() => setOpenNav(false)}>
+                                    <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
                                 </button>
                             </div>
                         </Reveal>
                         <div className={"flex flex-col justify-start h-full w-full"}>
-                            <ul className="flex flex-col text-white font-bold text-xl">
+                            <ul className="flex flex-col text-neutral dark:text-white font-bold text-xl">
                                 <li className="pb-2 px-8">
                                    <Reveal once={false} y={-50}>
-                                    <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased"}>
+                                    <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
                                        Home
                                     </Link>
                                    </Reveal>
                                 </li>
                                 <li className="py-2 px-8">
                                     <Reveal once={false} y={-50} delay={0.15}>
-                                    <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased"}>
+                                    <Link onClick={() => setOpenNav(!openNav)} to={latestProductsLink} className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
                                         All Products
                                     </Link>
                                     </Reveal>
                                 </li>
                                 <li className="py-2 px-8">
                                     <Reveal once={false} y={-50} delay={0.20}>
-                                    <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased"}>
+                                    <Link onClick={() => setOpenNav(!openNav)} to={topRatedLink} className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
                                         Top Rated Products
                                     </Link>
                                     </Reveal>
@@ -527,7 +527,7 @@ const Navbar = () => {
                                 <li className="py-2 px-8">
                                     <Reveal once={false} y={-50} delay={0.25}>
                                         <div className={"flex items-center"}>
-                                            <Link onClick={() => setOpenNav(!openNav)} to={"/locator"} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case pr-3 antialiased hover:subpixel-antialiased"}>
+                                            <Link onClick={() => setOpenNav(!openNav)} to={"/locator"} className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case pr-3 antialiased hover:subpixel-antialiased"}>
                                                 Order Lookup
                                             </Link>
                                             <FaSearch/>
@@ -539,14 +539,14 @@ const Navbar = () => {
                                         <>
                                             <li className="py-2 px-8">
                                                 <Reveal once={false} y={-50} delay={0.30}>
-                                                <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased">
+                                                <Link onClick={() => setOpenNav(!openNav)} to={myAccountLink} className="w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased">
                                                     My Account
                                                 </Link>
                                                 </Reveal>
                                             </li>
                                             <li className="py-2 px-8">
                                                 <Reveal once={false} y={-50} delay={0.35}>
-                                                <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"w-fit cursor-pointer text-3xl font-bold text-white flex items-center normal-case antialiased hover:subpixel-antialiased"}>
+                                                <Link onClick={() => setOpenNav(!openNav)} to={myOrdersLink} className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
                                                     My Orders
                                                 </Link>
                                                 </Reveal>

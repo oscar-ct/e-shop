@@ -60,7 +60,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
     }, [scrollY])
 
     return (
-        <div className={"md:pb-14 bg-black md:bg-transparent"}>
+        <div className={"md:pb-14 bg-white dark:bg-black md:bg-transparent"}>
             {/*MOBILE*/}
             <motion.div
                 className={"md:hidden w-full h-full relative"}
@@ -69,8 +69,8 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                 exit={{ opacity: 0 }}
             >
                 <div className={"z-10 absolute h-full w-full flex flex-col items-center justify-start ibmplex"}>
-                    <Logo fill={"white"} className={"pt-28 w-[10em]"}/>
-                    <span className={"pt-12 text-3xl font-semibold text-white md:text-neutral"}>Shop, Ship, & Enjoy.</span>
+                    <Logo fill={"currentColor"} className={"pt-28 w-[10em] text-neutral dark:text-white"}/>
+                    <span className={"pt-12 text-3xl font-semibold text-neutral dark:text-white"}>Shop, Ship, & Enjoy.</span>
                     <div className={"pt-20 z-10"}>
                         <Link to={"/sort/latest/select/all"}>
                             <CustomBtn customClass={"!px-12 bg-zinc-700 text-lg"}>
