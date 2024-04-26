@@ -424,7 +424,7 @@ const Navbar = () => {
             <div className={"md:hidden"}>
                 <AnimatePresence>
                     <motion.div
-                        className={`z-30 bg-white/80 dark:bg-black/80 backdrop-blur-xl fixed top-0 w-full pt-3 h-screen`}
+                        className={`z-30 bg-white/80 dark:bg-black/80 backdrop-blur-lg fixed top-0 w-full pt-3 h-screen`}
                         variants={{
                             hiddenSearch: { opacity: 0, y: "calc(-100% - 58px)"},
                             visibleSearch: {opacity: 1, y: 0},
@@ -479,7 +479,7 @@ const Navbar = () => {
             <nav>
                 <AnimatePresence>
                     <motion.div
-                        className={`sm:hidden z-30 bg-white/80 dark:bg-black/80 backdrop-blur-xl fixed top-0 w-full pt-3 h-screen`}
+                        className={`sm:hidden z-30 bg-white/80 dark:bg-black/80 backdrop-blur-lg fixed top-0 w-full pt-3 h-screen`}
                         variants={{
                             hiddenNav: { opacity: 0, y: "calc(-100% - 58px)"},
                             visibleNav: {opacity: 1, y: 0},
@@ -494,7 +494,7 @@ const Navbar = () => {
                     >
                         <Reveal once={false} y={-50}>
                             <div className={"px-2 flex justify-end"}>
-                                <button onClick={() => setOpenNav(false)}>
+                                <button className={"text-black dark:text-white"} onClick={() => setOpenNav(false)}>
                                     <svg xmlns="http://www.w3.org/2000/svg" fill="currentColor" className="h-6 w-6" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
                                         <path strokeLinecap="round" strokeLinejoin="round" d="M6 18L18 6M6 6l12 12"/>
                                     </svg>
