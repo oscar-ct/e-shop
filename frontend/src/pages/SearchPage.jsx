@@ -45,15 +45,17 @@ const SearchPage = () => {
                     {
                         data.products.length === 0 ? (
                             <>
-                                <h2 className={"text-2xl lg:text-3xl px-2 pt-16 py-8 sm:py-8 text-center"}>
+                                <h2 className={"text-2xl lg:text-3xl px-2 pt-20 pb-7 md:pt-10 text-center"}>
                                     No search results for &quot;{data.keyword}&quot;
                                 </h2>
-                                <div  className={"m-auto bg-neutral/70 rounded-xl max-w-[830px] shadow-xl"}>
-                                    {
-                                        !windowResizing && (
-                                            <Snake />
-                                        )
-                                    }
+                                <div className={"px-10"}>
+                                    <div  className={"m-auto bg-neutral/70 rounded-xl max-w-[830px] shadow-xl"}>
+                                        {
+                                            !windowResizing && (
+                                                <Snake />
+                                            )
+                                        }
+                                    </div>
                                 </div>
                                 <div className={"py-10 flex justify-center items-center"}>
                                     <div className={"w-40 flex flex-col"}>
@@ -80,7 +82,7 @@ const SearchPage = () => {
                             </>
                         ) : (
                             <div className={"pb-10"}>
-                                <h2 className={"pt-16 md:pt-10 text-2xl lg:text-3xl text-center px-2 pb-7"}>
+                                <h2 className={"pt-20 md:pt-10 text-2xl lg:text-3xl text-center px-2 pb-7"}>
                                     Search results for &quot;{data.keyword}&quot;
                                 </h2>
                                 <div className={"w-full flex flex-wrap justify-center"}>
