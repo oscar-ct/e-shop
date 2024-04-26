@@ -176,7 +176,7 @@ const Navbar = () => {
     return (
         <>
             <nav
-                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 visible transition-all duration-700` : !openNav && smallScreen ? "invisible duration-700 transition-all translate-y-[-100%]": "visible" } fixed inset-0 z-30 block h-max w-full rounded-none py-0 ${navGradient} bg-white/70 backdrop-blur-lg dark:bg-black md:bg-black text-black md:text-white dark:text-white`}
+                className={`${(scrollY < 50 || scrollDirection === "up") || (scrollDirection === "down" &&  scrollY < 50 && smallScreen) ? `translate-y-0 visible transition-all duration-700` : !openNav && smallScreen ? "invisible duration-700 transition-all translate-y-[-100%]": "visible" } fixed inset-0 z-30 block h-max w-full rounded-none py-0 ${navGradient} bg-white/70 backdrop-blur-lg dark:bg-black lg:bg-black text-black lg:text-white dark:text-white`}
                 // className={`sticky inset-0 z-10 block h-max w-full max-w-full rounded-none py-4 shadow-xl backdrop-blur-lg`}
                  // style={(scrollY < 25 || scrollDirection === "up" || (scrollDirection === "down" && scrollY < 25)) ? styles.active: styles.hidden}
             >
@@ -184,7 +184,7 @@ const Navbar = () => {
 
 
                     {/*e LOGO ON DESKTOP NAVBAR*/}
-                    <div className={"hidden md:flex md:items-center cursor-pointer rounded-xl py-2 px-3"}>
+                    <div className={"hidden lg:flex md:items-center cursor-pointer rounded-xl py-2 px-3"}>
                         <motion.div
                             onClick={() => navigate("/")}
                             className={"text-xl flex items-center"}
@@ -196,7 +196,7 @@ const Navbar = () => {
                     </div>
 
                     {/*DESKTOP NAVBAR*/}
-                    <div className={"hidden md:flex justify-end"}>
+                    <div className={"hidden lg:flex justify-end"}>
                         <div className={"flex justify-end"}>
                             <div className="ml-auto flex items-center gap-1 lg:gap-2">
                                 <SearchBox/>
@@ -336,14 +336,14 @@ const Navbar = () => {
 
 
                     {/*MOBILE NAVBAR*/}
-                    <div className={"md:hidden flex justify-between items-center w-full"}>
+                    <div className={"lg:hidden flex justify-between items-center w-full"}>
                         <div className={"flex items-center w-full"}>
-                            <button className={"btn btn-ghost pl-1"} onClick={() => navigate("/")}>
-                                <Logo className={"w-4 text-black dark:text-white"} fill={"currentColor"}/>
+                            <button className={"pl-1 pr-4 h-[3rem] flex items-center"} onClick={() => navigate("/")}>
+                                <Logo className={"w-4 md:w-5 text-black dark:text-white"} fill={"currentColor"}/>
                             </button>
 
                             {/*MD SCREEN NAV*/}
-                            <div className={"hidden sm:flex justify-between w-full md:hidden text-xs"}>
+                            <div className={"hidden sm:flex justify-between w-full lg:hidden text-xs md:text-sm"}>
                                 <Link to={topRatedLink} className={"antialiased hover:subpixel-antialiased"}>
                                     Top Rated
                                 </Link>
@@ -354,7 +354,7 @@ const Navbar = () => {
                                     <button className={"antialiased hover:subpixel-antialiased pr-1"}>
                                         Order Lookup
                                     </button>
-                                    <FaSearch className={"pl-[2px]"}/>
+                                    <FaSearch className={"pl-[2px] "}/>
                                 </Link>
                                 {
                                     userData ? (
@@ -398,7 +398,7 @@ const Navbar = () => {
                         </div>
                         <div className={"flex items-center"}>
                             <button
-                                className={"btn btn-ghost pr-2"}
+                                className={"h-[3rem] flex items-center pl-4 pr-2"}
                                 onClick={() => {
                                     setSearchIsActive(true);
                                 }}
@@ -421,7 +421,7 @@ const Navbar = () => {
 
             {/*/////// search dropdown ///////*/}
 
-            <div className={"md:hidden"}>
+            <div className={"lg:hidden"}>
                 <AnimatePresence>
                     <motion.div
                         className={`z-30 bg-white/80 dark:bg-black/80 backdrop-blur-lg fixed top-0 w-full pt-3 h-screen`}
@@ -502,7 +502,7 @@ const Navbar = () => {
                             </div>
                         </Reveal>
                         <div className={"flex flex-col justify-start h-full w-full"}>
-                            <ul className="flex flex-col text-neutral dark:text-white font-bold text-xl">
+                            <ul className="flex flex-col text-black dark:text-white font-bold text-xl">
                                 <li className="pb-2 px-8">
                                    <Reveal once={false} y={-50}>
                                     <Link onClick={() => setOpenNav(!openNav)} to={"/"} className={"w-fit cursor-pointer text-3xl font-bold flex items-center normal-case antialiased hover:subpixel-antialiased"}>
