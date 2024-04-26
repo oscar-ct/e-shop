@@ -354,7 +354,7 @@ const Navbar = () => {
                                     <button className={"antialiased hover:subpixel-antialiased pr-1"}>
                                         Order Lookup
                                     </button>
-                                    <FaSearch className={"pl-[2px] "}/>
+                                    <FaSearch className={"pl-[2px]"}/>
                                 </Link>
                                 {
                                     userData ? (
@@ -403,7 +403,7 @@ const Navbar = () => {
                                     setSearchIsActive(true);
                                 }}
                             >
-                                <FaSearch/>
+                                <FaSearch className={"w-3.5 md:w-4"}/>
                             </button>
                             <CartIcon onClick={() => setOpenNav(false)} isValidShippingAddress={Object.keys(shippingAddress).length !== 0} isValidPaymentMethod={paymentMethod !== null} cartItems={cartItems} totalCartItems={totalCartItems} subtotalPrice={subtotalPrice}/>
 

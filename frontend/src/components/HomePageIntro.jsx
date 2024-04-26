@@ -35,7 +35,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
         "#ff0000"
     ];
 
-    const [logoColor, setLogoColor] = useState("white");
+    const [logoColor, setLogoColor] = useState("neutral");
 
     // useEffect(() => {
     //     const interval = setInterval(() => {
@@ -79,7 +79,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                         </Link>
                     </div>
                 </div>
-                <img className={"fadeInEffect rotate-180 object-cover h-[40em] w-full"} src={"/images/bg.png"} alt="colorful-art"/>
+                <img className={"fadeInEffect dark:rotate-180 object-cover h-[40em] w-full"} src={"/images/bg.png"} alt="colorful-art"/>
             </motion.div>
             {/*MOBILE*/}
 
