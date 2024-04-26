@@ -68,7 +68,7 @@ const HomePage = () => {
                         <HomePageIntro productCategories={productCategories} windowInnerWidth={windowInnerWidth} scrollY={scrollY}/>
                         <div className={"flex flex-col md:flex-col-reverse"}>
                             <HomePageLatestProducts data={data} windowInnerWidth={windowInnerWidth}/>
-                            <div className={"md:hidden"}>
+                            <div className={"lg:hidden"}>
                                 <HomePageCategorySection windowInnerWidth={windowInnerWidth} productCategories={productCategories}/>
                             </div>
                         </div>
