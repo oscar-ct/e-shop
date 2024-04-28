@@ -10,6 +10,7 @@ import {useEffect, useState} from "react";
 import BackButton from "../components/BackButton";
 import {customStyles} from "../utils/selectCustomStyles";
 import Message from "../components/Message";
+import BackButtonMessage from "../components/BackButtonMessage";
 
 const CategoryPage = () => {
 
@@ -31,7 +32,12 @@ const CategoryPage = () => {
             <>
                 <Meta title={`Category - ${sortByTerm}`}/>
                 <div className={"pb-10"}>
-                    <BackButton/>
+                    <div className={"flex w-full"}>
+                        <div className={"w-2/12 md:w-1/12"}>
+                            <BackButton/>
+                        </div>
+                        <BackButtonMessage width={"w-10/12 md:w-11/12"}/>
+                    </div>
                     <div className={"pt-14 lg:pt-0"}>
                         <div className={"flex justify-between"}>
                             <div className={"w-full p-1 flex items-center"}>

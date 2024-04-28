@@ -26,6 +26,7 @@ import {FaTrash, FaPen} from "react-icons/fa";
 import ConfirmModal from "../components/ConfirmModal";
 import NotFoundPage from "./NotFoundPage";
 import CustomBtn from "../components/CustomBtn";
+import BackButtonMessage from "../components/BackButtonMessage";
 
 const ProductPage = () => {
 
@@ -130,7 +131,13 @@ const ProductPage = () => {
                     ) : !isLoading && product ? (
                     <>
                         <Meta title={product.name} description={product.description}/>
-                        <BackButton/>
+                        <div className={"flex w-full"}>
+                            <div className={"w-2/12 md:w-1/12"}>
+                                <BackButton/>
+                            </div>
+                            <BackButtonMessage width={"w-10/12 md:w-11/12"}/>
+                        </div>
+
                         <div className={"flex flex-col"}>
                             <div className={"pt-14 sm:pt-20 lg:pt-4 flex flex-col lg:flex-row"}>
                                 <div className={"lg:w-9/12 flex flex-col lg:pl-3"}>
