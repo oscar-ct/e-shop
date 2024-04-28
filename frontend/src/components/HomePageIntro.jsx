@@ -95,7 +95,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                 // transform: "scale(1.1)",
                                 // transition: "all 2s ease-in"
                             }}
-                            className={"h-full w-full"}
+                            className={"h-full w-full bg-zinc-800"}
                         >
                             <div className={"backdrop-blur-sm w-full h-full flex flex-col items-center justify-between"}>
                                 <Reveal>
@@ -139,7 +139,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                     >
                                                         <Logo fill={logoColor} className={"w-[6em] opacity-70"}/>
                                                     </motion.span>
-                                                    <div className={"font-bold text-black text-3xl text-center pt-16"}>
+                                                    <div className={"font-bold text-white/80 text-3xl text-center pt-16"}>
                                                         Enjoy online shopping with <span className={"font-bold text-violet-600"}>FREE</span> shipping!
                                                     </div>
                                                     <div className={"text-xs text-zinc-500 font-light"}>
@@ -197,8 +197,8 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                 </SwiperSlide>
                                                 <SwiperSlide>
                                                     <div
-                                                        style={{backgroundImage: `url(/images/bg.png)`, backgroundPosition: "center", backgroundSize: "cover",}}
-                                                        className={"h-[32em] bg-zinc-800 rounded-bl-full"}
+                                                        // style={{backgroundImage: `url(/images/bg.png)`, backgroundPosition: "center", backgroundSize: "cover",}}
+                                                        className={"h-[32em] bg-zinc-800/20 rounded-bl-full"}
                                                     >
                                                         <div className={"w-full h-full flex flex-col items-center justify-evenly pb-5"}>
                                                             <div className={"pt-3 w-full flex justify-center"}>
@@ -227,7 +227,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                     </div>
                                 </Reveal>
                                 <div className={"w-full flex flex-col items-center justify-center pb-8"}>
-                                    <span className={"text-3xl font-bold py-1"}>Popular Categories</span>
+                                    {/*<span className={"text-3xl font-bold py-1 text-white/80"}>Popular Categories</span>*/}
                                     <div className={"w-full flex flex-wrap justify-center"}>
                                     {
                                         productCategories.slice(0, windowInnerWidth >= 768 && windowInnerWidth < 900 ? 4 : windowInnerWidth >= 900 && windowInnerWidth < 1068 ? 5 : windowInnerWidth >= 1068 && windowInnerWidth < 1250 ? 6 : windowInnerWidth >= 1250 && windowInnerWidth < 1420 ? 7 : 8).map(function (product, index) {
