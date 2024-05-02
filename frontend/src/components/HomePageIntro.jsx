@@ -1,5 +1,5 @@
 import {ReactComponent as Logo} from "../icons/e.svg";
-import {Link, useNavigate} from "react-router-dom";
+import {Link} from "react-router-dom";
 import { Swiper, SwiperSlide} from "swiper/react";
 import {Autoplay, Pagination, EffectFade} from "swiper/modules";
 import 'swiper/css';
@@ -14,28 +14,27 @@ import Reveal from "./Reveal";
 import {useSelector} from "react-redux";
 import {useEffect, useState} from "react";
 import CategoryItem from "./CategoryItem";
+import {ActiveLogo} from "./ActiveLogo";
 
 const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
 
     const {userData} = useSelector(function (state) {
         return state.auth;
     });
-    const navigate = useNavigate();
+    // const navigate = useNavigate();
 
-    const [animateClassName, setAnimateClassName] = useState("");
-    const rgb = [
-        "#ff0000",
-        "#ff7300",
-        '#fffb00',
-        "#48ff00",
-        "#00ffd5",
-        "#002bff",
-        "#7a00ff",
-        '#ff00c8',
-        "#ff0000"
-    ];
-
-    const [logoColor, setLogoColor] = useState("neutral");
+    // const rgb = [
+    //     "#ff0000",
+    //     "#ff7300",
+    //     '#fffb00',
+    //     "#48ff00",
+    //     "#00ffd5",
+    //     "#002bff",
+    //     "#7a00ff",
+    //     '#ff00c8',
+    //     "rgba(252,251,251,0.7)"
+    // ];
+    // const [logoColor, setLogoColor] = useState("white");
 
     // useEffect(() => {
     //     const interval = setInterval(() => {
@@ -50,6 +49,8 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
     //     return () => clearTimeout(timeout);
     // }, []);
 
+    const [active, setActive] = useState(false);
+    const [animateClassName, setAnimateClassName] = useState("");
     useEffect(() => {
         if (scrollY === 0) {
             setAnimateClassName("animate-ping");
@@ -57,7 +58,8 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                 setAnimateClassName("hidden");
             }, 1000);
         }
-    }, [scrollY])
+    }, [scrollY]);
+
 
     return (
         <div className={"lg:pb-14 bg-white dark:bg-black md:bg-transparent"}>
@@ -115,7 +117,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                         <div className={"text-3xl font-bold flex flex-col justify-center items-center"}>
                                                             <span>Welcome to</span>
                                                             <div className={"flex pt-2"}>
-                                                                <Logo width={"20px"} className={"pt-1 mr-1"}/>
+                                                                <Logo width={"20px"} className={"pt-1 mr-1 text-black"}/>
                                                                 -shop
                                                             </div>
                                                         </div>
@@ -129,16 +131,24 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                     <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em] rounded-br-full`}/>
                                                     <div className={`${animateClassName} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em] rounded-bl-full`}/>
                                                 </div>
-                                                <div className={"py-10 px-10 w-full flex flex-col justify-center items-center"}>
-                                                    <motion.span
-                                                        onDoubleClick={() => navigate("/search/snake")}
-                                                        onMouseEnter={() => setLogoColor(rgb[Math.floor(Math.random() * rgb.length)])}
-                                                        whileHover={{ scale: 1.2 }}
-                                                        whileTap={{ scale: 1.0 }}
-                                                        className={`fadeInEffect -rotate-90`}
-                                                    >
-                                                        <Logo fill={logoColor} className={"w-[6em] opacity-70"}/>
-                                                    </motion.span>
+                                                <div className={"relative py-10 px-10 w-full flex flex-col justify-center items-center"}>
+
+                                                    <div onMouseEnter={() => setActive(true)} className={`${!active ? "[&_div]:animate-pulse" : ""} [&_div]:top-[125px] [&_div]:bg-[url('/images/e.svg')] [&_div]:-rotate-90 fadeInEffect [&_div]:rounded-xl [&_div]:w-[6em] [&_div]:h-[6em] [&_div]:fixed [&_div]:left-0 [&_div]:right-0 [&_div]:m-auto`}>
+                                                        <ActiveLogo/>
+                                                    </div>
+
+                                                    {/*<motion.span*/}
+                                                    {/*    onDoubleClick={() => navigate("/search/snake")}*/}
+                                                    {/*    onMouseEnter={() => setLogoColor(rgb[Math.floor(Math.random() * rgb.length)])}*/}
+                                                    {/*    whileHover={{ scale: 1.2 }}*/}
+                                                    {/*    whileTap={{ scale: 1.0 }}*/}
+                                                    {/*    className={`fadeInEffect -rotate-90`}*/}
+                                                    {/*>*/}
+                                                    {/*    <Logo fill={logoColor} className={"w-[6em] opacity-70"}/>*/}
+                                                    {/*</motion.span>*/}
+
+
+
                                                     <div className={"font-bold text-white/80 text-3xl text-center pt-16"}>
                                                         Enjoy online shopping with <span className={"font-bold text-violet-600"}>FREE</span> shipping!
                                                     </div>
