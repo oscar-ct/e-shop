@@ -131,7 +131,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                     <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em] rounded-br-full`}/>
                                                     <div className={`${animateClassName} z-20 absolute bottom-0 right-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 translate-x-[16em] rounded-bl-full`}/>
                                                 </div>
-                                                <div className={"relative py-10 px-10 w-full flex flex-col justify-center items-center"}>
+                                                <div className={"relative py-10 px-3 w-full flex flex-col justify-center items-center"}>
 
                                                     <div onMouseEnter={() => setActive(true)} className={`${!active ? "[&_div]:animate-pulse" : ""} [&_div]:top-[125px] [&_div]:bg-[url('/images/e.svg')] [&_div]:-rotate-90 fadeInEffect [&_div]:rounded-xl [&_div]:w-[6em] [&_div]:h-[6em] [&_div]:fixed [&_div]:left-0 [&_div]:right-0 [&_div]:m-auto`}>
                                                         <ActiveLogo/>
@@ -146,8 +146,6 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                     {/*>*/}
                                                     {/*    <Logo fill={logoColor} className={"w-[6em] opacity-70"}/>*/}
                                                     {/*</motion.span>*/}
-
-
 
                                                     <div className={"font-bold text-white/80 text-3xl text-center pt-16"}>
                                                         Enjoy online shopping with <span className={"font-bold text-violet-600"}>FREE</span> shipping!
