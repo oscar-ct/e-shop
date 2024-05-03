@@ -28,7 +28,7 @@ const Reveal = ({children, customChildClass, delay, once, y, customParentClass, 
                 initial={"hidden"}
                 animate={mainControls}
                 transition={{
-                    duration: .15,
+                    duration: isSmallScreen ? .15 : .35,
                     delay: delay
                 }}
                 className={`${customChildClass}`}
