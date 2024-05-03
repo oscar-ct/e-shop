@@ -59,6 +59,7 @@ const ProductItem = ( {product, smallSize = false, cardWidth = "", windowInnerWi
     return (
         <div ref={cardRef} className={"w-6/12 sm:w-72 p-1 sm:p-3 cursor-pointer relative"}>
             <Reveal
+                y={windowInnerWidth <= 768 ? 0 : 35}
                 customParentClass={"h-full"}
                 customChildClass={"h-full"}
                 isSmallScreen={windowInnerWidth <= 768}
