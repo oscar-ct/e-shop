@@ -104,7 +104,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                     <div className={"flex h-[32em] w-full ibmplex"}>
                                         <div
                                             style={{backgroundImage: `url(/images/kelly-sikkema-mdADGzyXCVE-unsplash.webp)`, backgroundPosition: "center", backgroundSize: "cover",}}
-                                            className={"h-full w-1/3 rounded-br-full"}
+                                            className={"h-full w-1/3 2xl:w-3/12 rounded-br-full"}
                                         >
                                             <div className={"w-full h-full flex items-center justify-center"}>
                                                 {
@@ -125,7 +125,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                 }
                                             </div>
                                         </div>
-                                        <div className={"h-full w-1/3"}>
+                                        <div className={"h-full w-1/3 2xl:w-6/12"}>
                                             <div className={"w-full h-full flex flex-col items-center justify-center"}>
                                                 <div className={"h-48 relative w-full"}>
                                                     <div className={`${animateClassName} absolute bottom-0 left-0 h-56 w-56 bg-white/5 rotate-45 -translate-y-0 -translate-x-[16em] rounded-br-full`}/>
@@ -133,7 +133,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                 </div>
                                                 <div className={"relative py-10 px-3 w-full flex flex-col justify-center items-center"}>
 
-                                                    <div onMouseEnter={() => setActive(true)} className={`${!active ? "[&_div]:animate-pulse" : ""} [&_div]:top-[125px] [&_div]:bg-[url('/images/e.svg')] [&_div]:-rotate-90 fadeInEffect [&_div]:rounded-xl [&_div]:w-[6em] [&_div]:h-[6em] [&_div]:fixed [&_div]:left-0 [&_div]:right-0 [&_div]:m-auto`}>
+                                                    <div onMouseEnter={() => setActive(true)} className={`${!active ? "[&_div]:animate-pulse" : ""} [&_div]:top-[125px] [&_div]:bg-[url('/images/e.svg')] [&_div]:-rotate-90 fadeInEffect [&_div]:rounded-xl [&_div]:w-[5em] [&_div]:h-[5em] [&_div]:fixed [&_div]:left-0 [&_div]:right-0 [&_div]:m-auto`}>
                                                         <ActiveLogo/>
                                                     </div>
 
@@ -161,7 +161,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
                                                 </Link>
                                             </div>
                                         </div>
-                                        <div className={"w-1/3 h-full"}>
+                                        <div className={"w-1/3 2xl:w-3/12 h-full"}>
                                             <Swiper
                                                 pagination
                                                 slidesPerView={1}
@@ -182,7 +182,7 @@ const HomePageIntro = ({scrollY, productCategories, windowInnerWidth}) => {
 
                                                             <div className={"p-10 w-full h-full flex flex-col items-between justify-between"}>
                                                                 <div className={"flex flex-col items-start justify-start"}>
-                                                                    <span className={"px-2 pb-3 text-3xl font-bold"}>Pay confidently with</span>
+                                                                    <span className={"px-2 pb-3 text-3xl font-bold"}>Pay with confidence</span>
                                                                     <div className={"w-full lg:pl-8 flex items-center justify-start"}>
                                                                         <StripeLogo width={90}/>
                                                                         <div className={"flex flex-col pl-3 pr-4"}>
